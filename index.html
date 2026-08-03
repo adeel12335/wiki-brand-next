@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#020c16">
+  <meta name="description" content="The Wikipedia Studio provides professional Wikipedia editorial services for people, businesses, and organisations.">
+  <title>The Wikipedia Studio | Professional Editorial Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/globe-small.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <svg class="icon-library" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-page" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v5h5M9 12h6M9 16h5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-2.8 8.2-7 10-4.2-1.8-7-5.6-7-10V6zM9 12l2 2 4-5"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 20v-2.2A4.8 4.8 0 018.3 13h1.4a4.8 4.8 0 014.8 4.8V20M15 5.5a3 3 0 010 5.7M16 13.3a4.8 4.8 0 014.5 4.8V20"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.5 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.5-4-9s1.4-6.5 4-9z"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V9h7v12M11 21V3h9v18M2 21h20M14 7h3M14 11h3M14 15h3M7 13h1M7 17h1"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20l4.4-1 10.8-10.8-3.4-3.4L5 15.6zM14.8 5.8l3.4 3.4M4 20h16"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M7.5 8h6M7.5 11h4"/></symbol>
+    <symbol id="i-manage" viewBox="0 0 24 24"><path d="M4 18l4-5 4 2 5-7 3 2M4 4v16h16M17 4h3v3"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M10.8 7.2L7.2 15.8M13.2 7.2l3.6 8.6M8.5 18h7"/></symbol>
+    <symbol id="i-research" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="7" r="2"/><circle cx="16" cy="17" r="3"/><path d="M10.5 9.5l3.8 5M10.8 7.5l4.2-.3M8 11v3"/></symbol>
+    <symbol id="i-plan" viewBox="0 0 24 24"><path d="M6 4h12v16H6zM9 2v4M15 2v4M9 11l2 2 4-5M9 17h6"/></symbol>
+    <symbol id="i-write" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5zM16 3v4h4M8 11h8M8 15h6M8 19h4"/></symbol>
+    <symbol id="i-review" viewBox="0 0 24 24"><path d="M12 3l7 4v6c0 4-2.7 7.1-7 8-4.3-.9-7-4-7-8V7zM8.5 12l2.2 2.2 4.8-5"/></symbol>
+    <symbol id="i-publish" viewBox="0 0 24 24"><path d="M5 7h14v13H5zM8 4h8v3M9 12l3-3 3 3M12 9v7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  </svg>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <div class="shell nav-shell">
+      <a class="brand" href="#top" aria-label="The Wikipedia Studio home">
+        <img src="assets/globe-small.png" alt="" width="66" height="55">
+        <span class="brand-copy"><b>The Wikipedia</b><span><i></i>Studio<i></i></span></span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a class="active" href="#top">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#services">Services</a>
+        <a href="#process">Our Process</a>
+        <a href="#work">Portfolio</a>
+        <a href="#resources">Resources</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="button button-gold nav-cta" href="#contact">Get Started <svg><use href="#i-arrow"/></svg></a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <svg class="menu-icon"><use href="#i-menu"/></svg><svg class="close-icon"><use href="#i-close"/></svg>
+      </button>
+    </div>
+
+    <nav class="mobile-menu" aria-label="Mobile navigation" aria-hidden="true">
+      <a href="#top">Home</a><a href="#about">About Us</a><a href="#services">Services</a>
+      <a href="#process">Our Process</a><a href="#work">Portfolio</a><a href="#resources">Resources</a>
+      <a href="#contact">Contact</a><a class="button button-gold" href="#contact">Get Started <svg><use href="#i-arrow"/></svg></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-art" aria-hidden="true"></div>
+      <canvas class="hero-particles" id="heroParticles" aria-hidden="true"></canvas>
+      <div class="hero-beacon" aria-hidden="true"><i></i><i></i></div>
+      <div class="shell hero-grid">
+        <div class="hero-copy reveal in-view">
+          <p class="micro-label">Professional Wikipedia Editorial Services</p>
+          <h1 id="hero-title">We craft Wikipedia pages that build <span>credibility</span> and create lasting <span>impact.</span></h1>
+          <p class="hero-lede">The Wikipedia Studio is a professional editorial agency helping individuals, businesses, and organisations establish a credible and authoritative presence on Wikipedia.</p>
+          <div class="hero-actions">
+            <a class="button button-gold magnetic" href="#contact">Get Started Today <svg><use href="#i-arrow"/></svg></a>
+            <a class="button button-outline magnetic" href="#services">Explore Our Services <svg><use href="#i-arrow"/></svg></a>
+          </div>
+          <div class="hero-proof">
+            <div class="proof-avatars" aria-hidden="true">
+              <img src="assets/portfolio-business-leader.jpg" alt=""><img src="assets/portfolio-author.jpg" alt=""><img src="assets/portfolio-entrepreneur.jpg" alt=""><span>W</span>
+            </div>
+            <p>Trusted by <strong>500+</strong> clients worldwide <span class="stars" aria-label="5 out of 5 stars">★★★★★</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="shell metrics-rail reveal">
+        <article><svg><use href="#i-page"/></svg><div><strong>500+</strong><span>Pages Created</span></div></article>
+        <article><svg><use href="#i-shield"/></svg><div><strong>100%</strong><span>Editorial Standards</span></div></article>
+        <article><svg><use href="#i-users"/></svg><div><strong>Expert</strong><span>Wikipedia Editors</span></div></article>
+        <article><svg><use href="#i-globe"/></svg><div><strong>Global</strong><span>Clientele</span></div></article>
+        <article><svg><use href="#i-building"/></svg><div><strong>10+</strong><span>Industries Served</span></div></article>
+      </div>
+    </section>
+
+    <section class="about section-pad" id="about">
+      <div class="shell about-grid">
+        <div class="section-copy reveal">
+          <p class="micro-label">About The Wikipedia Studio</p>
+          <h2>Where editorial <span>excellence</span> meets global standards.</h2>
+          <p>We are a team of Wikipedia specialists, researchers, and content strategists dedicated to creating, improving, and managing Wikipedia pages that meet the platform’s strict guidelines and deliver real-world results.</p>
+          <ul class="check-list">
+            <li><svg><use href="#i-check"/></svg>100% guideline-compliant content</li>
+            <li><svg><use href="#i-check"/></svg>In-depth research and verified sourcing</li>
+            <li><svg><use href="#i-check"/></svg>Transparent process and clear communication</li>
+            <li><svg><use href="#i-check"/></svg>Long-term page monitoring and maintenance</li>
+          </ul>
+          <a class="button button-gold button-small" href="#resources">Learn More About Us <svg><use href="#i-arrow"/></svg></a>
+        </div>
+
+        <div class="experience-panel reveal" data-delay="100">
+          <article class="experience-stat top-left"><small>Years</small><strong>10+</strong><span>Of Editorial Excellence</span></article>
+          <article class="experience-stat top-right"><small>Success Rate</small><strong>98%</strong><span>Approval Rate</span></article>
+          <div class="experience-core">
+            <img src="assets/globe-small.png" alt="Wikipedia puzzle globe">
+            <button class="w-emblem" type="button" aria-label="Toggle studio highlights">
+              <span class="w-face w-front" aria-hidden="true">W</span>
+              <span class="w-face w-back" aria-hidden="true">W</span>
+            </button>
+          </div>
+          <article class="experience-stat bottom-left"><small>Editors</small><strong>25+</strong><span>Wikipedia Specialists</span></article>
+          <article class="experience-stat bottom-right"><small>Clients</small><strong>500+</strong><span>Worldwide Clients</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="services section-pad" id="services">
+      <div class="shell">
+        <div class="section-heading center reveal">
+          <p class="micro-label">Our Services</p>
+          <h2>Comprehensive Wikipedia Solutions</h2>
+        </div>
+        <div class="service-viewport reveal">
+          <div class="service-track" id="serviceTrack">
+            <article class="service-card">
+              <svg class="card-icon"><use href="#i-page"/></svg><h3>Wikipedia Page Creation</h3>
+              <p>From research to publication, we create fully referenced, notability-compliant Wikipedia pages.</p>
+              <a href="#contact">Learn More <svg><use href="#i-arrow"/></svg></a>
+            </article>
+            <article class="service-card">
+              <svg class="card-icon"><use href="#i-edit"/></svg><h3>Page Editing &amp; Expansion</h3>
+              <p>Improve, expand, and enhance existing pages with accurate content and strong citations.</p>
+              <a href="#contact">Learn More <svg><use href="#i-arrow"/></svg></a>
+            </article>
+            <article class="service-card">
+              <svg class="card-icon"><use href="#i-search"/></svg><h3>Content Writing &amp; Research</h3>
+              <p>In-depth research and expert writing that meets Wikipedia’s strict editorial guidelines.</p>
+              <a href="#contact">Learn More <svg><use href="#i-arrow"/></svg></a>
+            </article>
+            <article class="service-card">
+              <svg class="card-icon"><use href="#i-manage"/></svg><h3>Ongoing Page Management</h3>
+              <p>Updates, monitoring, and maintenance to keep your page accurate and up to date.</p>
+              <a href="#contact">Learn More <svg><use href="#i-arrow"/></svg></a>
+            </article>
+            <article class="service-card">
+              <svg class="card-icon"><use href="#i-network"/></svg><h3>Reputation &amp; Entity Building</h3>
+              <p>Strengthen your brand’s digital footprint across credible knowledge platforms.</p>
+              <a href="#contact">Learn More <svg><use href="#i-arrow"/></svg></a>
+            </article>
+          </div>
+          <button class="rail-arrow rail-prev" id="servicePrev" type="button" aria-label="Previous service"><svg><use href="#i-arrow"/></svg></button>
+          <button class="rail-arrow rail-next" id="serviceNext" type="button" aria-label="Next service"><svg><use href="#i-arrow"/></svg></button>
+        </div>
+        <div class="rail-dots" id="serviceDots" aria-label="Service slides"></div>
+      </div>
+    </section>
+
+    <section class="process section-pad" id="process">
+      <div class="shell">
+        <div class="section-heading center reveal">
+          <p class="micro-label">Our Process</p>
+          <h2>A Proven 5-Step Process</h2>
+        </div>
+        <div class="process-line reveal">
+          <div class="process-connector" aria-hidden="true"></div>
+          <article role="button" tabindex="0" aria-label="View step 1: Research"><div class="step-icon"><svg><use href="#i-research"/></svg></div><b>01</b><h3>Research</h3><p>We conduct in-depth research and assess notability.</p></article>
+          <article role="button" tabindex="0" aria-label="View step 2: Planning"><div class="step-icon"><svg><use href="#i-plan"/></svg></div><b>02</b><h3>Planning</h3><p>We plan the content strategy and gather reliable sources.</p></article>
+          <article role="button" tabindex="0" aria-label="View step 3: Writing"><div class="step-icon"><svg><use href="#i-write"/></svg></div><b>03</b><h3>Writing</h3><p>Our editors write and structure content as per guidelines.</p></article>
+          <article role="button" tabindex="0" aria-label="View step 4: Review"><div class="step-icon"><svg><use href="#i-review"/></svg></div><b>04</b><h3>Review</h3><p>Rigorous editorial review ensures accuracy and quality.</p></article>
+          <article role="button" tabindex="0" aria-label="View step 5: Publishing"><div class="step-icon"><svg><use href="#i-publish"/></svg></div><b>05</b><h3>Publishing</h3><p>We publish and monitor for long-term success.</p></article>
+        </div>
+        <div class="process-mobile-nav">
+          <button id="processPrev" type="button" aria-label="Previous process step"><svg><use href="#i-arrow"/></svg></button>
+          <span id="processCount">Step 1 of 5</span>
+          <button id="processNext" type="button" aria-label="Next process step"><svg><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="work section-pad" id="work">
+      <div class="shell">
+        <div class="work-head reveal">
+          <div><p class="micro-label">Our Portfolio</p><h2>Recent Wikipedia Publications</h2></div>
+          <a class="text-link" href="#contact">View All Work <svg><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="portfolio-viewport reveal">
+          <div class="portfolio-track" id="portfolioTrack">
+            <article class="portfolio-card"><img src="assets/portfolio-business-leader.jpg" alt="Business leader editorial portrait"><div><h3>Business Leader</h3><a href="#contact">View Page <svg><use href="#i-arrow"/></svg></a></div></article>
+            <article class="portfolio-card"><img src="assets/portfolio-author.jpg" alt="Author editorial portrait"><div><h3>Author</h3><a href="#contact">View Page <svg><use href="#i-arrow"/></svg></a></div></article>
+            <article class="portfolio-card"><img src="assets/portfolio-organisation.jpg" alt="Organisation headquarters"><div><h3>Organisation</h3><a href="#contact">View Page <svg><use href="#i-arrow"/></svg></a></div></article>
+            <article class="portfolio-card"><img src="assets/portfolio-entrepreneur.jpg" alt="Entrepreneur editorial portrait"><div><h3>Entrepreneur</h3><a href="#contact">View Page <svg><use href="#i-arrow"/></svg></a></div></article>
+            <article class="portfolio-card"><img src="assets/portfolio-public-figure.jpg" alt="Public figure speaking at an event"><div><h3>Public Figure</h3><a href="#contact">View Page <svg><use href="#i-arrow"/></svg></a></div></article>
+          </div>
+        </div>
+        <div class="rail-dots" id="portfolioDots" aria-label="Portfolio slides"></div>
+      </div>
+    </section>
+
+    <section class="testimonials section-pad" aria-labelledby="testimonial-title">
+      <div class="shell">
+        <div class="section-heading center reveal"><p class="micro-label">Client Testimonials</p><h2 id="testimonial-title">What Our Clients Say</h2></div>
+        <div class="testimonial-stage reveal">
+          <img class="testimonial-orb" src="assets/globe-small.png" alt="" aria-hidden="true">
+          <button class="round-arrow previous" id="testimonialPrev" type="button" aria-label="Previous testimonial"><svg><use href="#i-arrow"/></svg></button>
+          <div class="testimonial-window" id="testimonialWindow" aria-live="polite">
+            <blockquote>“The Wikipedia Studio delivered beyond my expectations. Their professionalism, attention to detail, and knowledge of Wikipedia guidelines are truly commendable.”</blockquote>
+            <div><strong>Dr. Sarah Mitchell</strong><span>Author &amp; Speaker</span></div>
+          </div>
+          <button class="round-arrow next" id="testimonialNext" type="button" aria-label="Next testimonial"><svg><use href="#i-arrow"/></svg></button>
+        </div>
+        <div class="rail-dots testimonial-dots" id="testimonialDots" aria-label="Testimonials"></div>
+      </div>
+    </section>
+
+    <section class="resources section-pad" id="resources">
+      <div class="shell resource-panel reveal">
+        <div class="principles">
+          <p class="micro-label">Why Clients Trust Us</p>
+          <h2>Built on Trust. Driven by Excellence.</h2>
+          <p>We follow strict editorial standards and maintain complete transparency in everything we do.</p>
+          <div class="principle-grid">
+            <article><svg><use href="#i-users"/></svg><div><strong>100% Confidential</strong><span>Your information is always secure with us.</span></div></article>
+            <article><svg><use href="#i-shield"/></svg><div><strong>Ethical &amp; Compliant</strong><span>We follow Wikipedia’s policies and guidelines.</span></div></article>
+            <article><svg><use href="#i-check"/></svg><div><strong>Transparent Process</strong><span>Clear communication at every step.</span></div></article>
+          </div>
+        </div>
+
+        <div class="faq">
+          <p class="micro-label">Frequently Asked Questions</p>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false">How long does it take to get a Wikipedia page published?<span>+</span></button><p class="faq-answer" hidden>Timelines depend on research depth, source quality, and the subject’s readiness. A clear assessment gives the most reliable estimate.</p></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false">Do you guarantee page approval?<span>+</span></button><p class="faq-answer" hidden>No ethical editor can guarantee approval. We focus on notability, reliable sourcing, neutral writing, and full compliance with editorial standards.</p></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false">What information do you need to get started?<span>+</span></button><p class="faq-answer" hidden>A biography or company profile, key milestones, independent media coverage, and any existing Wikipedia link are useful starting points.</p></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false">Can you help improve an existing Wikipedia page?<span>+</span></button><p class="faq-answer" hidden>Yes. We can review structure, sourcing, tone, coverage gaps, and maintenance needs for an existing page.</p></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false">Do you offer ongoing page maintenance?<span>+</span></button><p class="faq-answer" hidden>Yes. Ongoing support can include monitoring, source updates, content improvements, and issue assessment.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="shell contact-panel reveal">
+        <img src="assets/globe-small.png" alt="" aria-hidden="true">
+        <div><h2>Ready to Build Your <span>Wikipedia Presence?</span></h2><p>Let our experts help you establish credibility and create a lasting impact on Wikipedia.</p></div>
+        <a class="button button-gold magnetic" href="mailto:hello@thewikipediastudio.com">Get Started Today <svg><use href="#i-arrow"/></svg></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top"><img src="assets/globe-small.png" alt="" width="66" height="55"><span class="brand-copy"><b>The Wikipedia</b><span><i></i>Studio<i></i></span></span></a>
+        <p>We craft credible, authoritative, and impactful Wikipedia pages that elevate your presence or brand reputation worldwide.</p>
+        <div class="socials"><a href="#contact" aria-label="Facebook">f</a><a href="#contact" aria-label="LinkedIn">in</a><a href="#contact" aria-label="Instagram">◎</a><a href="#contact" aria-label="X">x</a></div>
+      </div>
+      <div><h3>Quick Links</h3><a href="#top">Home</a><a href="#about">About Us</a><a href="#services">Services</a><a href="#process">Our Process</a><a href="#work">Portfolio</a><a href="#resources">Resources</a><a href="#contact">Contact</a></div>
+      <div><h3>Services</h3><a href="#services">Wikipedia Page Creation</a><a href="#services">Page Editing &amp; Expansion</a><a href="#services">Content Writing &amp; Research</a><a href="#services">Ongoing Management</a><a href="#services">Reputation Building</a></div>
+      <div><h3>Contact Us</h3><a href="mailto:hello@thewikipediastudio.com">hello@thewikipediastudio.com</a><span>+1 (800) 453-7801</span><span>Worldwide Services</span><span>Mon–Fri, 9:00 AM–6:00 PM</span></div>
+    </div>
+    <div class="shell footer-bottom"><p>© <span id="year"></span> The Wikipedia Studio. All Rights Reserved.</p><div><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a></div></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
