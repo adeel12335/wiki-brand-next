@@ -1,0 +1,76 @@
+<?php
+/**
+ * Portfolio page — /portfolio/
+ */
+
+declare(strict_types=1);
+
+require __DIR__ . '/../includes/bootstrap.php';
+
+$items = portfolio_items();
+
+$page = [
+    'slug'         => 'portfolio',
+    'title'        => 'Portfolio | Wikipedia Pages For Leaders, Authors & Organisations',
+    'short_title'  => 'Portfolio',
+    'description'  => 'Categories of Wikipedia work we deliver: business leaders, authors, entrepreneurs, public figures, and organisations. Clients stay confidential.',
+    'keywords'     => 'wikipedia portfolio, wikipedia page examples, wikipedia case studies, wikipedia pages for executives, wikipedia pages for authors, wikipedia pages for companies',
+    'og_image'     => 'assets/og/portfolio-public-figure.jpg',
+    'og_image_alt' => 'Wikipedia editorial work by The Wikipedia Studio',
+    'schema'       => [
+        seo_item_list_node('portfolio', 'Wikipedia editorial work categories', array_map(
+            static fn (array $item): array => [
+                'name'        => $item['title'],
+                'description' => $item['copy'],
+            ],
+            $items
+        )),
+    ],
+];
+
+require APP_ROOT . '/includes/header.php';
+
+page_hero([
+    'eyebrow'     => 'Our Portfolio',
+    'h1'          => 'Recent Wikipedia <span>publications</span> and expansions.',
+    'lede'        => 'Client work on Wikipedia is confidential, so these are categories rather than named articles. Each one reflects the kind of engagement we take on and the sourcing it required.',
+    'breadcrumbs' => [],
+    'current'     => 'Portfolio',
+    'actions'     => [
+        ['label' => 'Discuss Your Project', 'href' => url('contact')],
+        ['label' => 'Our Services', 'href' => url('services'), 'style' => 'button-outline'],
+    ],
+]);
+?>
+
+    <section class="section-pad">
+      <div class="shell">
+        <div class="portfolio-grid reveal">
+          <?php foreach ($items as $item): ?>
+            <article class="portfolio-card static">
+              <img src="<?= e(asset($item['image'])) ?>" alt="<?= e($item['alt']) ?>" width="960" height="640" loading="lazy">
+              <div>
+                <h3><?= e($item['title']) ?></h3>
+                <p><?= e($item['copy']) ?></p>
+              </div>
+            </article>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="shell">
+        <?php section_heading('Confidentiality', 'Why we do not name clients'); ?>
+        <div class="prose reveal">
+          <p>Wikipedia articles belong to the encyclopedia, not to the subject or to the editor who drafted them. Publicly attaching an agency's name to a specific article invites scrutiny of that article rather than of the agency, and it can create problems for the client long after the work is done.</p>
+          <p>We are happy to talk through comparable engagements in a private conversation, including the ones that did not proceed and why. What we will not do is publish a client list that turns their page into a target.</p>
+        </div>
+      </div>
+    </section>
+
+    <?php testimonial_section(); ?>
+
+    <?php cta_band(); ?>
+
+<?php require APP_ROOT . '/includes/footer.php'; ?>

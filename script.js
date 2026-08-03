@@ -665,12 +665,14 @@
     })();
   }
 
-  // Active section navigation
-  const navigationLinks = $$('.desktop-nav a');
+  // Active section navigation.
+  // The primary nav points at real page URLs, so only in-page hash links can be
+  // observed — anything else would be an invalid querySelector argument.
+  const navigationLinks = $$('.desktop-nav a').filter(link => (link.getAttribute('href') || '').startsWith('#'));
   const observedSections = navigationLinks
     .map(link => $(link.getAttribute('href')))
     .filter(Boolean);
-  if ('IntersectionObserver' in window) {
+  if (observedSections.length && 'IntersectionObserver' in window) {
     const navigationObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
@@ -680,5 +682,8 @@
     observedSections.forEach(section => navigationObserver.observe(section));
   }
 
-  $('#year').textContent = new Date().getFullYear();
+  // The footer year is rendered server-side; this only keeps a long-lived tab
+  // accurate across a year boundary.
+  const yearSlot = $('#year');
+  if (yearSlot) yearSlot.textContent = new Date().getFullYear();
 })();
