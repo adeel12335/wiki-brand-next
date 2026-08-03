@@ -59,7 +59,7 @@ function breadcrumb_trail(array $crumbs, string $current): void
  */
 function page_hero(array $args): void
 {
-    $heroImage = (string) ($args['image'] ?? 'assets/hero-wikipedia-globe.png');
+    $heroImage = (string) ($args['image'] ?? 'assets/hero-inner-globe.png');
     $heroWidth = (int) ($args['image_width'] ?? 1024);
     $heroHeight = (int) ($args['image_height'] ?? 682);
     $visualClass = trim('page-hero-visual ' . (string) ($args['visual_class'] ?? 'page-hero-visual--globe'));
