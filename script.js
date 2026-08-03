@@ -235,6 +235,7 @@
   const testimonialWindow = $('#testimonialWindow');
   const testimonialDots = $('#testimonialDots');
   const testimonialStage = $('.testimonial-stage');
+  const testimonialCurrent = $('#testimonialCurrent');
   let testimonialIndex = 0;
   let testimonialTimer = null;
   let testimonialTransitionTimer = null;
@@ -245,6 +246,7 @@
     const item = testimonials[testimonialIndex];
     testimonialWindow.innerHTML = `<blockquote>${item.quote}</blockquote><div><strong>${item.name}</strong><span>${item.role}</span></div>`;
     testimonialWindow.dataset.testimonialIndex = String(testimonialIndex);
+    if (testimonialCurrent) testimonialCurrent.textContent = String(testimonialIndex + 1).padStart(2, '0');
     testimonialWindow.classList.remove('is-leaving', 'is-entering');
     if (animate && !reducedMotion) {
       void testimonialWindow.offsetWidth;
