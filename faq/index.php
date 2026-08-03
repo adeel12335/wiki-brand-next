@@ -11,7 +11,7 @@ $items = faqs();
 
 $page = [
     'slug'         => 'faq',
-    'title'        => 'Wikipedia FAQ & Resources | Notability, Timelines & Paid Editing',
+    'title'        => 'Wikipedia FAQ | Notability, Timelines & Paid Editing',
     'short_title'  => 'Resources',
     'breadcrumb_name' => 'Resources & FAQ',
     'description'  => 'Straight answers on Wikipedia notability, publication timelines, paid-editing disclosure, page approval, and ongoing maintenance.',
@@ -25,8 +25,8 @@ require APP_ROOT . '/includes/header.php';
 
 page_hero([
     'eyebrow'     => 'Resources & FAQ',
-    'h1'          => 'Built on trust. Answers without the <span>sales pitch.</span>',
-    'lede'        => 'The questions clients ask most, answered the way we would answer them on a call — including the parts that make a commission less likely.',
+    'h1'          => 'Wikipedia questions, answered without the <span>sales pitch.</span>',
+    'lede'        => 'The Wikipedia questions clients ask most, answered the way we would answer them on a call — including the parts that make a commission less likely.',
     'breadcrumbs' => [],
     'current'     => 'Resources & FAQ',
     'actions'     => [

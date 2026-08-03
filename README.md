@@ -96,6 +96,50 @@ Deliberately absent: `aggregateRating`. Review markup without verifiable reviews
 behind it is a manual-action risk, so add it only alongside real, published
 reviews.
 
+### Content gates
+
+The copy in `includes/data.php` and the page files is written to the content
+gates in the [claude-seo](https://github.com/AgriciDaniel/claude-seo) skill, and
+`bin/check-seo-gates.php` verifies them:
+
+| Gate | Target |
+| --- | --- |
+| Word count | Homepage 500+, service page 800+, FAQ 800+, about/category 400+ |
+| Title tag | 30–60 characters, unique per page |
+| Meta description | 120–160 characters, unique per page |
+| H1 | Exactly one, containing the page's primary keyword |
+| Primary keyword | Present in the H1 and the first 100 words |
+| Keyword density | Under 3% (measured excluding the sitewide footer) |
+| Internal links | 3+ per page with descriptive anchor text |
+| Image alt text | 10–125 characters, descriptive |
+
+Each service page follows the skill's service-page template: a plain-language
+definition, who the service is for, how the engagement runs, how pricing works,
+outcomes, why work with us, and five service-specific FAQs written answer-first
+at roughly 40–60 words so they stand alone if quoted.
+
+Run the checker against a local server:
+
+```bash
+php -S localhost:8000 &
+php bin/check-seo-gates.php http://localhost:8000
+```
+
+### Known E-E-A-T gap
+
+Google's helpful-content guidance asks *who* created a page. The service pages
+carry a visible "Reviewed \<month\> · Written by the editorial team" line and
+`/about-us/` documents the two-editor review standard, but there are no named
+editors with credentials anywhere on the site, because inventing them would be
+fabricating professional qualifications. Adding real bios — names, backgrounds,
+and Wikipedia editing experience — is the single biggest remaining content
+improvement, and it needs input from the business.
+
+The same applies to the testimonials and the headline metrics (500+ pages, 98%
+approval rate, 25+ editors) carried over from the original design: they should
+be confirmed as accurate before launch. `aggregateRating` schema is deliberately
+absent for the same reason.
+
 ### Canonical domain
 
 `SITE_URL` is detected from the request (scheme, `X-Forwarded-Proto`, and `Host`),

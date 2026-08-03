@@ -9,6 +9,17 @@
 
 declare(strict_types=1);
 
+/**
+ * Month and year the site copy was last edited, taken from the content file's
+ * modification time so the visible freshness signal cannot drift from reality.
+ */
+function last_reviewed(): string
+{
+    $file = __DIR__ . '/data.php';
+
+    return date('F Y', is_file($file) ? (int) filemtime($file) : time());
+}
+
 /** Render one icon from the inline symbol library. */
 function icon(string $id, string $class = ''): string
 {

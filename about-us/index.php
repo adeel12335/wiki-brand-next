@@ -30,8 +30,8 @@ require APP_ROOT . '/includes/header.php';
 
 page_hero([
     'eyebrow'     => 'About The Wikipedia Studio',
-    'h1'          => 'Where editorial <span>excellence</span> meets global standards.',
-    'lede'        => 'We are a team of Wikipedia specialists, researchers, and content strategists dedicated to creating, improving, and managing pages that meet the platform\'s strict guidelines and deliver real-world credibility.',
+    'h1'          => 'A Wikipedia editorial agency where <span>excellence</span> meets global standards.',
+    'lede'        => 'We are a team of Wikipedia specialists, researchers, and content strategists dedicated to creating, improving, and managing articles that meet the platform\'s strict guidelines and deliver real-world credibility.',
     'breadcrumbs' => [],
     'current'     => 'About Us',
     'actions'     => [
@@ -121,6 +121,17 @@ page_hero([
             <h3>Organisations</h3>
             <p>Non-profits, institutions, and associations that need an accurate, neutral public record of what they do.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="shell">
+        <?php section_heading('Editorial Standards', 'How our work is checked'); ?>
+        <div class="answer-block reveal">
+          <p>Every draft passes through two editors. The first researches and writes; the second checks each claim against the source cited for it, with no involvement in the drafting. That separation exists because the most common failure in Wikipedia writing is not fabrication but drift — a sentence that started out supported by its citation and gradually stopped being so through successive edits.</p>
+          <p>Sources are graded before anything is written, on independence, reliability, and depth of coverage. A national newspaper profile and a paid listing in the same publication are treated very differently. We record which source supports which statement, so any claim in a draft can be traced back, and so can the ones we removed.</p>
+          <p>Paid contributions are disclosed on Wikipedia as its terms of use require. We do not operate undeclared accounts, and we decline instructions to remove properly sourced material simply because a client dislikes it. You can see how those standards apply stage by stage in <a href="<?= e(url('our-process')) ?>">our editorial process</a>.</p>
         </div>
       </div>
     </section>

@@ -71,7 +71,7 @@ require __DIR__ . '/includes/header.php';
         <div class="section-copy reveal">
           <p class="micro-label">About The Wikipedia Studio</p>
           <h2>Where editorial <span>excellence</span> meets global standards.</h2>
-          <p>We are a team of Wikipedia specialists, researchers, and content strategists dedicated to creating, improving, and managing Wikipedia pages that meet the platform’s strict guidelines and deliver real-world results.</p>
+          <p>We are a team of Wikipedia specialists, researchers, and content strategists dedicated to creating, improving, and managing articles that meet the platform’s strict guidelines and deliver real-world results.</p>
           <ul class="check-list">
             <li><?= icon('i-check') ?>100% guideline-compliant content</li>
             <li><?= icon('i-check') ?>In-depth research and verified sourcing</li>
@@ -174,7 +174,7 @@ require __DIR__ . '/includes/header.php';
           <p>We follow strict editorial standards and maintain complete transparency in everything we do.</p>
           <div class="principle-grid">
             <article><?= icon('i-users') ?><div><strong>100% Confidential</strong><span>Your information is always secure with us.</span></div></article>
-            <article><?= icon('i-shield') ?><div><strong>Ethical &amp; Compliant</strong><span>We follow Wikipedia’s policies and guidelines.</span></div></article>
+            <article><?= icon('i-shield') ?><div><strong>Ethical &amp; Compliant</strong><span>We follow the encyclopedia’s policies and guidelines.</span></div></article>
             <article><?= icon('i-check') ?><div><strong>Transparent Process</strong><span>Clear communication at every step.</span></div></article>
           </div>
           <a class="button button-gold button-small" href="<?= e(url('faq')) ?>">Read The Full FAQ <?= icon('i-arrow') ?></a>

@@ -242,4 +242,33 @@ page_hero([
       </div>
     </section>
 
+    <section class="section-pad">
+      <div class="shell">
+        <?php section_heading('After You Send It', 'What happens next'); ?>
+        <div class="answer-block reveal">
+          <p>Every enquiry is read by an editor rather than a sales team, and we reply within one business day. That first reply is usually a short set of questions: which outlets have covered the subject, whether an article or Wikidata record already exists, and whether anything has been submitted and rejected before. Those three answers decide almost everything about what comes next.</p>
+          <p>If the coverage looks promising, we propose a <a href="<?= e(url('services/wikipedia-page-creation')) ?>">notability assessment</a> as the first paid step, and quote it in writing. The assessment gives you a written verdict on whether the subject currently meets Wikipedia's bar, and no obligation to go further. If it turns out the coverage is not there yet, you will hear that plainly, along with what kind of independent reporting would change the answer.</p>
+          <p>Sending an enquiry commits you to nothing and costs nothing. We also do not chase: if you go quiet, we assume the timing is wrong and leave you alone.</p>
+        </div>
+
+        <div class="card-grid reveal">
+          <article class="service-card">
+            <?= icon('i-page', 'card-icon') ?>
+            <h3>New article</h3>
+            <p>Start with the assessment. Bring press coverage links and we will tell you whether <a href="<?= e(url('services/wikipedia-page-creation')) ?>">page creation</a> is realistic.</p>
+          </article>
+          <article class="service-card">
+            <?= icon('i-edit', 'card-icon') ?>
+            <h3>Existing article</h3>
+            <p>Send the URL. An <a href="<?= e(url('services/wikipedia-page-editing')) ?>">editing audit</a> tells you what is wrong, what is fixable, and what should be left alone.</p>
+          </article>
+          <article class="service-card">
+            <?= icon('i-manage', 'card-icon') ?>
+            <h3>Something changed</h3>
+            <p>If an edit has appeared that concerns you, <a href="<?= e(url('services/wikipedia-page-management')) ?>">page monitoring</a> covers assessment and response.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
 <?php require APP_ROOT . '/includes/footer.php'; ?>

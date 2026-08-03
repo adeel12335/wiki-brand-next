@@ -11,25 +11,28 @@ $steps = process_steps();
 
 $page = [
     'slug'         => 'our-process',
-    'title'        => 'Our Wikipedia Process | Research, Writing, Review & Publishing',
+    'title'        => 'Our Wikipedia Process | Research, Writing & Publishing',
     'short_title'  => 'Our Process',
     'description'  => 'How a Wikipedia article gets built: notability research, source planning, neutral drafting, editorial review, and transparent submission.',
     'keywords'     => 'wikipedia process, how to create a wikipedia page, wikipedia notability research, wikipedia editorial review, wikipedia submission process, wikipedia article workflow',
     'og_image'     => 'assets/og/reference-dark.jpg',
     'og_image_alt' => 'The Wikipedia Studio five-step editorial process',
+    // An ItemList rather than HowTo: Google deprecated HowTo rich results, so
+    // the markup here describes the stages without claiming a retired feature.
     'schema'       => [
         [
-            '@type' => 'HowTo',
-            '@id'   => abs_url('our-process') . '#howto',
-            'name'  => 'How The Wikipedia Studio builds a Wikipedia article',
+            '@type' => 'ItemList',
+            '@id'   => abs_url('our-process') . '#process',
+            'name'  => 'The Wikipedia Studio editorial process',
             'description' => 'The five-stage editorial process used for every Wikipedia page creation and expansion engagement.',
-            'totalTime' => 'P6W',
-            'step' => array_map(
+            'itemListOrder' => 'https://schema.org/ItemListOrderAscending',
+            'numberOfItems' => count($steps),
+            'itemListElement' => array_map(
                 static fn (int $index, array $step): array => [
-                    '@type'    => 'HowToStep',
+                    '@type'    => 'ListItem',
                     'position' => $index + 1,
                     'name'     => $step['title'],
-                    'text'     => $step['copy'],
+                    'description' => $step['copy'],
                     'url'      => abs_url('our-process') . '#step-' . ($index + 1),
                 ],
                 array_keys($steps),
@@ -43,8 +46,8 @@ require APP_ROOT . '/includes/header.php';
 
 page_hero([
     'eyebrow'     => 'Our Process',
-    'h1'          => 'A proven <span>5-step process</span> from research to publication.',
-    'lede'        => 'The same sequence runs on every engagement. It is deliberately front-loaded: the research stage decides whether an article is viable at all, long before anyone starts writing.',
+    'h1'          => 'A proven <span>five-step Wikipedia process</span>, from research to publication.',
+    'lede'        => 'Our Wikipedia process runs the same five stages on every engagement, and it is deliberately front-loaded. The research stage decides whether an article is viable at all, long before anyone starts writing a word of it.',
     'breadcrumbs' => [],
     'current'     => 'Our Process',
     'actions'     => [
@@ -87,9 +90,20 @@ page_hero([
             <div>
               <h3><?= e($step['title']) ?></h3>
               <p><?= e($step['copy']) ?></p>
+              <p><?= e($step['detail']) ?></p>
             </div>
           </article>
         <?php endforeach; ?>
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="shell">
+        <?php section_heading('Before We Start', 'What we need from you'); ?>
+        <div class="shell-inner answer-block reveal">
+          <p>The research stage moves considerably faster when you arrive with the right material, and slower when we have to reconstruct a career from scratch. Four things help most: links to independent press coverage, a list of key milestones with dates, the exact legal or published spelling of names, and any existing <a href="<?= e(url('services/wikipedia-reputation-management')) ?>">Wikipedia or Wikidata entry</a> connected to the subject.</p>
+          <p>What we cannot use as citations is anything you control. Company blogs, press releases, sponsored features, and your own website are all useful for orientation, and none of them can establish notability. If the only coverage available is material the subject published or paid for, the honest answer is that an article is not yet viable, and you will hear that from us during the assessment rather than after an invoice.</p>
+        </div>
       </div>
     </section>
 

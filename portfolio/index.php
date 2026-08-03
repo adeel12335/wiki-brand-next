@@ -11,7 +11,7 @@ $items = portfolio_items();
 
 $page = [
     'slug'         => 'portfolio',
-    'title'        => 'Portfolio | Wikipedia Pages For Leaders, Authors & Organisations',
+    'title'        => 'Portfolio | Wikipedia Pages For Leaders & Organisations',
     'short_title'  => 'Portfolio',
     'description'  => 'Categories of Wikipedia work we deliver: business leaders, authors, entrepreneurs, public figures, and organisations. Clients stay confidential.',
     'keywords'     => 'wikipedia portfolio, wikipedia page examples, wikipedia case studies, wikipedia pages for executives, wikipedia pages for authors, wikipedia pages for companies',
@@ -61,10 +61,27 @@ page_hero([
 
     <section class="section-pad">
       <div class="shell">
+        <?php section_heading('Engagement Notes', 'What each of these actually involved'); ?>
+        <div class="detail-list reveal">
+          <?php foreach ($items as $item): ?>
+            <article class="detail-item">
+              <h3><?= e($item['title']) ?></h3>
+              <div>
+                <p><?= e($item['detail']) ?></p>
+              </div>
+            </article>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="shell">
         <?php section_heading('Confidentiality', 'Why we do not name clients'); ?>
         <div class="prose reveal">
           <p>Wikipedia articles belong to the encyclopedia, not to the subject or to the editor who drafted them. Publicly attaching an agency's name to a specific article invites scrutiny of that article rather than of the agency, and it can create problems for the client long after the work is done.</p>
           <p>We are happy to talk through comparable engagements in a private conversation, including the ones that did not proceed and why. What we will not do is publish a client list that turns their page into a target.</p>
+          <p>The pattern across all five is the same: the sourcing decided the article, not the brief. Where you can see it most clearly is in what got left out. If you want to know whether your own coverage would support a page, that is what the <a href="<?= e(url('services/wikipedia-page-creation')) ?>">notability assessment</a> is for.</p>
         </div>
       </div>
     </section>
