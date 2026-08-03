@@ -133,8 +133,8 @@ function cta_band(
     ?>
     <section class="contact" id="contact">
       <div class="shell contact-panel reveal">
-        <img src="<?= e(asset('assets/globe-small.png')) ?>" alt="" aria-hidden="true" width="66" height="55">
-        <div>
+        <img class="contact-art" src="<?= e(asset('assets/globe.png')) ?>" alt="" aria-hidden="true" width="720" height="596">
+        <div class="contact-copy">
           <h2><?= $heading /* trusted markup */ ?></h2>
           <p><?= e($copy) ?></p>
         </div>
