@@ -1500,39 +1500,40 @@ body { font-size: 16px; }
 }
 
 .page-hero-visual--globe {
-  overflow: hidden;
-}
-
-.page-hero-visual--globe .page-hero-art {
-  position: absolute;
-  inset: -16% -22% -10% -6%;
-  z-index: 1;
-  background-image: url("assets/hero-orbital-globe.jpg");
-  background-position: 70% 36%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  transform: scale(1.04);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.4) 16%, #000 34%);
-  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.4) 16%, #000 34%);
+  overflow: visible;
 }
 
 .page-hero-visual--globe::before {
   content: "";
   position: absolute;
-  inset: 0;
-  z-index: 2;
+  right: 10%;
+  top: 50%;
+  z-index: 0;
+  width: min(32vw, 360px);
+  height: min(32vw, 360px);
+  border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(circle at 74% 44%, transparent 0 20%, rgba(2,12,22,.14) 42%, transparent 70%);
+  background: radial-gradient(circle, rgba(216,165,58,.14) 0%, rgba(216,165,58,.04) 42%, transparent 72%);
+  transform: translateY(-48%);
 }
 
-.page-hero-visual--globe::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background: linear-gradient(90deg, var(--ink) 0%, rgba(2,12,22,.82) 12%, transparent 32%);
+.page-hero-visual--globe img {
+  right: -8px;
+  bottom: auto;
+  top: 50%;
+  z-index: 2;
+  width: min(36vw, 460px);
+  opacity: .9;
+  filter: saturate(.82) brightness(.86) contrast(1.08) drop-shadow(0 28px 54px rgba(0,0,0,.55));
+  transform: translateY(-46%) rotate(-5deg);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 14%, #000 100%);
 }
+
+.page-hero-visual--globe .page-hero-orbit { opacity: .32; }
+.page-hero-visual--globe .page-hero-rule { opacity: .48; }
+.page-hero-visual--globe .orbit-one { inset: 14% 4% 10% 8%; }
+.page-hero-visual--globe .orbit-two { inset: 26% 14% 20% 16%; opacity: .42; }
 
 .page-hero-visual--archive .page-hero-orbit { opacity: .34; }
 .page-hero-visual--archive .page-hero-rule { opacity: .55; }
@@ -1765,8 +1766,8 @@ body { font-size: 16px; }
   .page-hero-layout { grid-template-columns: minmax(0, 62%) minmax(300px, 38%); }
   .page-hero h1 { font-size: 54px; }
   .page-hero-visual img { right: -125px; width: 600px; }
-  .page-hero-visual--globe { opacity: .72; }
-  .page-hero-visual--globe .page-hero-art { inset: -8% -30% -6% 0; background-position: 66% 30%; }
+  .page-hero-visual--globe { opacity: 1; }
+  .page-hero-visual--globe img { right: -4px; width: 400px; transform: translateY(-46%) rotate(-5deg); }
   .page-hero-visual--archive img { right: -105px; width: 900px; }
   .about-grid { grid-template-columns: minmax(0, .9fr) minmax(510px, 1.1fr); gap: 48px; }
   .experience-panel { grid-template-columns: minmax(0, 1fr) 165px; }
@@ -1783,8 +1784,8 @@ body { font-size: 16px; }
   .page-hero h1 { max-width: 650px; font-size: clamp(42px, 7.5vw, 58px); }
   .page-hero-visual { position: absolute; inset: 0 -80px 0 36%; min-height: 0; opacity: .28; }
   .page-hero-visual img { right: -40px; bottom: -120px; width: 620px; }
-  .page-hero-visual--globe { opacity: .58; }
-  .page-hero-visual--globe .page-hero-art { inset: -4% -36% -2% 8%; background-position: 64% 28%; background-size: auto 115%; }
+  .page-hero-visual--globe { opacity: .82; }
+  .page-hero-visual--globe img { right: 0; width: 340px; transform: translateY(-44%) rotate(-4deg); }
   .page-hero-visual--archive img { right: -60px; bottom: -38px; width: 800px; }
   .page-hero-rule { right: 48px; }
 
@@ -1827,8 +1828,8 @@ body { font-size: 16px; }
   .page-hero .hero-actions .button { min-height: 52px; padding-inline: 18px; font-size: 12px; }
   .page-hero-visual { inset: 0 -160px 0 17%; opacity: .2; }
   .page-hero-visual img { right: -10px; bottom: -50px; width: 510px; }
-  .page-hero-visual--globe { opacity: .48; }
-  .page-hero-visual--globe .page-hero-art { inset: 0 -48% 0 12%; background-position: 62% 24%; background-size: auto 108%; }
+  .page-hero-visual--globe { opacity: .72; }
+  .page-hero-visual--globe img { right: 8px; width: 280px; transform: translateY(-42%) rotate(-3deg); }
   .page-hero-visual--archive img { right: -34px; bottom: -16px; width: 680px; }
   .page-hero-orbit { display: none; }
 
