@@ -154,7 +154,7 @@ p { color: var(--muted); }
 .mobile-menu { display: none; }
 
 /* Hero */
-.hero { position: relative; min-height: 800px; padding-top: 86px; overflow: hidden; }
+.hero { position: relative; min-height: 900px; padding-top: 86px; overflow: hidden; }
 .hero::after {
   content: "";
   position: absolute;
@@ -169,13 +169,13 @@ p { color: var(--muted); }
   position: absolute;
   inset: 0;
   background-image: url("assets/hero-orbital-globe.jpg");
-  background-position: center top;
+  background-position: 72% 14%;
   background-repeat: no-repeat;
   background-size: cover;
-  transform: scale(1.06);
+  transform: scale(1.04);
   will-change: transform;
 }
-.hero-art::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 78% 52%, transparent 0 25%, rgba(2,12,22,.08) 45%, #020c16 95%); }
+.hero-art::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 76% 48%, transparent 0 22%, rgba(2,12,22,.1) 42%, #020c16 94%); }
 .hero-particles {
   position: absolute;
   inset: 0;
@@ -188,8 +188,8 @@ p { color: var(--muted); }
 }
 .hero-beacon {
   position: absolute;
-  left: 65.1%;
-  top: 78.6%;
+  left: 67%;
+  top: 72%;
   z-index: 1;
   width: 8px;
   height: 8px;
@@ -213,7 +213,7 @@ p { color: var(--muted); }
   animation: heroRipple 3.2s cubic-bezier(.2,.65,.35,1) infinite;
 }
 .hero-beacon i + i { animation-delay: 1.6s; }
-.hero-grid { position: relative; z-index: 2; min-height: 580px; display: grid; grid-template-columns: minmax(0, 48%) 1fr; align-items: center; padding-top: 20px; }
+.hero-grid { position: relative; z-index: 2; min-height: 660px; display: grid; grid-template-columns: minmax(0, 48%) 1fr; align-items: center; padding-top: 20px; }
 .hero-copy { max-width: 640px; padding-bottom: 32px; }
 .hero-copy > * { animation: heroContentIn .82s cubic-bezier(.2,.7,.2,1) both; }
 .hero-copy > :nth-child(1) { animation-delay: .08s; }
@@ -250,6 +250,7 @@ p { color: var(--muted); }
   z-index: 4;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  margin-top: 12px;
   padding: 22px 18px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
