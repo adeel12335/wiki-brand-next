@@ -59,10 +59,11 @@ function breadcrumb_trail(array $crumbs, string $current): void
  */
 function page_hero(array $args): void
 {
-    $heroImage = (string) ($args['image'] ?? 'assets/hero-inner-globe.png');
-    $heroWidth = (int) ($args['image_width'] ?? 1024);
-    $heroHeight = (int) ($args['image_height'] ?? 682);
-    $visualClass = trim('page-hero-visual ' . (string) ($args['visual_class'] ?? 'page-hero-visual--globe'));
+    $hasCustomImage = isset($args['image']) && (string) $args['image'] !== '';
+    $heroImage      = $hasCustomImage ? (string) $args['image'] : '';
+    $heroWidth      = (int) ($args['image_width'] ?? 1536);
+    $heroHeight     = (int) ($args['image_height'] ?? 1024);
+    $visualClass    = trim('page-hero-visual ' . (string) ($args['visual_class'] ?? ($hasCustomImage ? '' : 'page-hero-visual--globe')));
     ?>
     <section class="page-hero" aria-labelledby="page-title">
       <div class="page-hero-glow" aria-hidden="true"></div>
@@ -88,10 +89,14 @@ function page_hero(array $args): void
             <?php endif; ?>
           </div>
           <div class="<?= e($visualClass) ?>" aria-hidden="true">
+            <?php if ($hasCustomImage): ?>
             <span class="page-hero-orbit orbit-one"></span>
             <span class="page-hero-orbit orbit-two"></span>
             <img src="<?= e(asset($heroImage)) ?>" alt="" width="<?= $heroWidth ?>" height="<?= $heroHeight ?>">
             <i class="page-hero-rule"></i>
+            <?php else: ?>
+            <div class="page-hero-art"></div>
+            <?php endif; ?>
           </div>
         </div>
       </div>

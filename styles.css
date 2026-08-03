@@ -1501,40 +1501,41 @@ body { font-size: 16px; }
 
 .page-hero-visual--globe {
   overflow: hidden;
-  isolation: auto;
+}
+
+.page-hero-visual--globe .page-hero-art {
+  position: absolute;
+  inset: -16% -22% -10% -6%;
+  z-index: 1;
+  background-image: url("assets/hero-orbital-globe.jpg");
+  background-position: 70% 36%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: scale(1.04);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.4) 16%, #000 34%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.4) 16%, #000 34%);
+}
+
+.page-hero-visual--globe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(circle at 74% 44%, transparent 0 20%, rgba(2,12,22,.14) 42%, transparent 70%);
 }
 
 .page-hero-visual--globe::after {
   content: "";
   position: absolute;
-  inset: -4% 0;
+  inset: 0;
   z-index: 3;
   pointer-events: none;
-  background:
-    linear-gradient(90deg, var(--ink) 0%, rgba(2,12,22,.95) 11%, rgba(2,12,22,.42) 28%, transparent 48%),
-    linear-gradient(to bottom, rgba(2,12,22,.88) 0%, transparent 14%, transparent 86%, rgba(2,12,22,.82) 100%);
-}
-
-.page-hero-visual--globe img {
-  right: -36px;
-  bottom: auto;
-  top: 50%;
-  width: min(52vw, 640px);
-  height: auto;
-  object-fit: contain;
-  object-position: 58% center;
-  mix-blend-mode: screen;
-  opacity: .97;
-  filter: saturate(1.04) contrast(1.03);
-  transform: translateY(-50%);
-  -webkit-mask-image: radial-gradient(ellipse 82% 76% at 56% 50%, #000 36%, rgba(0,0,0,.82) 60%, transparent 100%);
-  mask-image: radial-gradient(ellipse 82% 76% at 56% 50%, #000 36%, rgba(0,0,0,.82) 60%, transparent 100%);
+  background: linear-gradient(90deg, var(--ink) 0%, rgba(2,12,22,.82) 12%, transparent 32%);
 }
 
 .page-hero-visual--archive .page-hero-orbit { opacity: .34; }
 .page-hero-visual--archive .page-hero-rule { opacity: .55; }
-.page-hero-visual--globe .page-hero-orbit,
-.page-hero-visual--globe .page-hero-rule { display: none; }
 
 .page-hero-orbit {
   position: absolute;
@@ -1764,8 +1765,8 @@ body { font-size: 16px; }
   .page-hero-layout { grid-template-columns: minmax(0, 62%) minmax(300px, 38%); }
   .page-hero h1 { font-size: 54px; }
   .page-hero-visual img { right: -125px; width: 600px; }
-  .page-hero-visual--globe { opacity: .62; }
-  .page-hero-visual--globe img { right: -20px; width: 520px; transform: translateY(-50%); }
+  .page-hero-visual--globe { opacity: .72; }
+  .page-hero-visual--globe .page-hero-art { inset: -8% -30% -6% 0; background-position: 66% 30%; }
   .page-hero-visual--archive img { right: -105px; width: 900px; }
   .about-grid { grid-template-columns: minmax(0, .9fr) minmax(510px, 1.1fr); gap: 48px; }
   .experience-panel { grid-template-columns: minmax(0, 1fr) 165px; }
@@ -1782,8 +1783,8 @@ body { font-size: 16px; }
   .page-hero h1 { max-width: 650px; font-size: clamp(42px, 7.5vw, 58px); }
   .page-hero-visual { position: absolute; inset: 0 -80px 0 36%; min-height: 0; opacity: .28; }
   .page-hero-visual img { right: -40px; bottom: -120px; width: 620px; }
-  .page-hero-visual--globe { opacity: .5; }
-  .page-hero-visual--globe img { right: 0; bottom: auto; top: 52%; width: 460px; transform: translateY(-50%); }
+  .page-hero-visual--globe { opacity: .58; }
+  .page-hero-visual--globe .page-hero-art { inset: -4% -36% -2% 8%; background-position: 64% 28%; background-size: auto 115%; }
   .page-hero-visual--archive img { right: -60px; bottom: -38px; width: 800px; }
   .page-hero-rule { right: 48px; }
 
@@ -1826,8 +1827,8 @@ body { font-size: 16px; }
   .page-hero .hero-actions .button { min-height: 52px; padding-inline: 18px; font-size: 12px; }
   .page-hero-visual { inset: 0 -160px 0 17%; opacity: .2; }
   .page-hero-visual img { right: -10px; bottom: -50px; width: 510px; }
-  .page-hero-visual--globe { opacity: .42; }
-  .page-hero-visual--globe img { right: 4px; bottom: auto; top: 50%; width: min(88vw, 360px); transform: translateY(-50%); }
+  .page-hero-visual--globe { opacity: .48; }
+  .page-hero-visual--globe .page-hero-art { inset: 0 -48% 0 12%; background-position: 62% 24%; background-size: auto 108%; }
   .page-hero-visual--archive img { right: -34px; bottom: -16px; width: 680px; }
   .page-hero-orbit { display: none; }
 
