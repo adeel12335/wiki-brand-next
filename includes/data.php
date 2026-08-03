@@ -1,0 +1,659 @@
+<?php
+/**
+ * Single source of truth for site content.
+ *
+ * Pages, the services listing, the sitemap, and the JSON-LD schema all read from
+ * these arrays, so adding a service in one place updates the nav, cards, detail
+ * page, sitemap, and structured data together.
+ *
+ * Copy follows the content gates in the claude-seo skill: the primary keyword in
+ * the H1 and the first 100 words, 800+ words of unique copy on a service page,
+ * answer-first FAQ responses of roughly 40-60 words, and descriptive anchor text
+ * on internal links.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Service catalogue. Each entry drives a card on /services/ and a full detail
+ * page at /services/<slug>/ with its own title, description, and keywords.
+ *
+ * @return array<string, array<string, mixed>>
+ */
+function services(): array
+{
+    return [
+        'wikipedia-page-creation' => [
+            'name'        => 'Wikipedia Page Creation',
+            'icon'        => 'i-page',
+            'card'        => 'From research to publication, we create fully referenced, notability-compliant articles.',
+            'eyebrow'     => 'Wikipedia Page Creation Services',
+            'h1'          => 'Wikipedia page creation built on <span>notability</span> and reliable sources.',
+            'lede'        => 'Wikipedia page creation only works when the subject is genuinely notable and every claim is backed by independent, reliable coverage. We assess that first, then build the article to the standard reviewers expect.',
+            'meta_title'  => 'Wikipedia Page Creation Services | Expert Writers',
+            'meta_desc'   => 'Professional Wikipedia page creation: notability assessment, independent sourcing, neutral writing, and full guideline compliance. Ask for an honest assessment first.',
+            'keywords'    => 'wikipedia page creation, create a wikipedia page, wikipedia page creation services, professional wikipedia writers, wikipedia notability assessment, wikipedia article creation',
+            'og_image'    => 'assets/og/portfolio-business-leader.jpg',
+
+            'what_is_heading' => 'What Wikipedia page creation actually involves',
+            'what_is' => 'Wikipedia page creation is the work of researching a subject, establishing that it meets Wikipedia\'s notability guideline, and writing a neutral, fully cited article that independent volunteer reviewers will accept. It is not copywriting. Roughly two thirds of the effort happens before a single sentence is drafted, in the search for significant coverage published by sources independent of the subject. Where that coverage exists, the article largely writes itself from the sources. Where it does not, no amount of skilled writing will carry a draft through review.',
+
+            'who_needs_heading' => 'Who this is for',
+            'who_needs' => [
+                'Executives and founders with sustained coverage in independent business press',
+                'Authors, academics, and researchers whose work has been reviewed or cited',
+                'Companies with documented history, funding rounds, or industry milestones',
+                'Public figures covered by outlets they have no control over',
+                'Anyone rejected at review before who wants to know the real reason',
+            ],
+
+            'process_heading' => 'How the engagement runs',
+            'process_steps' => [
+                'We search for independent coverage and give you a written notability verdict, usually within a few days.',
+                'If the coverage supports an article, we agree scope, structure, and the source list in writing.',
+                'Our editors draft the article, then a second editor checks every claim against its source.',
+                'We submit with paid-contribution disclosure and handle reviewer feedback on its merits.',
+                'After acceptance we monitor the page through its first stabilisation period.',
+            ],
+
+            'pricing_heading' => 'How pricing works',
+            'pricing' => 'We quote per engagement rather than per word, because the research burden varies enormously between subjects. A founder with fifteen years of trade-press coverage takes far longer to source properly than a subject with three strong national profiles. Your quote is fixed in writing before work starts and covers research, drafting, editorial review, submission, and reviewer-feedback revisions. What we never charge for is a guaranteed outcome, because no agency controls what volunteer reviewers decide.',
+
+            'outcomes_heading' => 'What changes once the page is live',
+            'outcomes' => [
+                ['title' => 'A neutral public record', 'copy' => 'One reference point that journalists, partners, and researchers can check, written in a voice nobody mistakes for marketing.'],
+                ['title' => 'Stronger entity signals', 'copy' => 'Search engines and AI assistants draw on Wikipedia and Wikidata when they assemble what they know about a subject.'],
+                ['title' => 'Fewer factual disputes', 'copy' => 'A properly sourced article gives you something to point at when an inaccurate claim starts circulating elsewhere.'],
+            ],
+
+            'includes'    => [
+                'Notability assessment against Wikipedia\'s GNG and subject-specific guidelines',
+                'Independent source research, verification, and citation mapping',
+                'Neutral, encyclopedic drafting with a clear structure and lead section',
+                'Full reference formatting with archived links where sources may rot',
+                'Draft submission handling and reviewer-feedback revisions',
+                'Post-publication monitoring for the first stabilisation period',
+            ],
+            'deliverables' => [
+                ['title' => 'Notability report', 'copy' => 'A written verdict on whether the subject currently meets Wikipedia\'s notability bar, and what coverage is missing if not.'],
+                ['title' => 'Sourced draft', 'copy' => 'A complete, neutrally written article with every substantive statement tied to an independent reliable source.'],
+                ['title' => 'Reference pack', 'copy' => 'An organised list of every source used, assessed for independence, reliability, and depth of coverage.'],
+                ['title' => 'Review support', 'copy' => 'Responses to reviewer comments and guideline-driven revisions until the article is accepted or a clear blocker is documented.'],
+            ],
+
+            'faqs' => [
+                [
+                    'q' => 'How long does Wikipedia page creation take?',
+                    'a' => 'Research and drafting usually take three to six weeks. The review queue that follows is controlled by volunteer reviewers and can clear in days or run to several months. We give you a realistic range after the notability assessment, once we know how much coverage exists.',
+                ],
+                [
+                    'q' => 'What counts as a reliable source for a new page?',
+                    'a' => 'Established newspapers, trade publications, books from reputable publishers, and peer-reviewed journals all count. Press releases, sponsored features, company blogs, and most podcast appearances do not, because they are not independent of the subject they describe.',
+                ],
+                [
+                    'q' => 'Can you create a page if I have already been rejected?',
+                    'a' => 'Often, yes. Rejections usually come down to thin sourcing or promotional tone rather than the subject being permanently ineligible. We read the reviewer\'s comments, audit the sources available now, and tell you whether a resubmission is worth attempting.',
+                ],
+                [
+                    'q' => 'Will my page say exactly what I want it to say?',
+                    'a' => 'No, and that is the point. The article reflects what independent sources have published, including anything unflattering they covered. We can make sure it is accurate, balanced, and complete. We cannot turn it into a brochure.',
+                ],
+                [
+                    'q' => 'Do you disclose that the work was paid for?',
+                    'a' => 'Yes. Wikipedia\'s terms of use require paid contributors to declare their employer, client, and affiliation, and we make that declaration as a matter of course. Undisclosed paid editing puts both the article and the account behind it at risk.',
+                ],
+            ],
+        ],
+
+        'wikipedia-page-editing' => [
+            'name'        => 'Page Editing & Expansion',
+            'icon'        => 'i-edit',
+            'card'        => 'Improve, expand, and enhance existing pages with accurate content and strong citations.',
+            'eyebrow'     => 'Wikipedia Page Editing & Expansion',
+            'h1'          => 'Wikipedia page editing that <span>strengthens</span> an article already live.',
+            'lede'        => 'Wikipedia page editing is the work of fixing what is verifiably wrong and filling what is genuinely missing. Existing articles carry outdated facts, thin sourcing, maintenance tags, and gaps in coverage. We audit the page, then repair it against the sources.',
+            'meta_title'  => 'Wikipedia Page Editing & Expansion Services | Expert Editors',
+            'meta_desc'   => 'Wikipedia page editing and expansion: source audits, maintenance-tag fixes, content updates, neutral rewrites, and cited expansion of thin sections.',
+            'keywords'    => 'wikipedia page editing, wikipedia article expansion, edit wikipedia page, wikipedia page improvement, remove wikipedia maintenance tags, wikipedia citation cleanup',
+            'og_image'    => 'assets/og/portfolio-author.jpg',
+
+            'what_is_heading' => 'What Wikipedia page editing covers',
+            'what_is' => 'Wikipedia page editing means improving an article that already exists: correcting statements the sources do not support, replacing dead references, expanding sections thinner than the available coverage justifies, and rewriting promotional passages into a neutral voice. It also means resolving the maintenance tags editors leave at the top of an article, those banners warning readers about sourcing, tone, or notability. Every reader sees them, and each one has a specific cause that has to be addressed on its own terms rather than quietly deleted.',
+
+            'who_needs_heading' => 'Who this is for',
+            'who_needs' => [
+                'Subjects whose article carries maintenance tags for tone, sourcing, or citations',
+                'Companies whose page still describes a former name, structure, or owner',
+                'People whose article omits well-covered work from the last several years',
+                'Organisations dealing with an inaccurate claim that keeps being reinstated',
+                'Anyone whose page reads as promotional and is attracting editor scrutiny',
+            ],
+
+            'process_heading' => 'How the engagement runs',
+            'process_steps' => [
+                'We audit the article section by section and grade every problem by severity.',
+                'You receive an edit plan where each proposed change is tied to a guideline and a source.',
+                'You approve the plan, and we flag anything we think is better left alone.',
+                'We make the edits transparently, with edit summaries and talk-page notes where required.',
+                'We watch the article afterwards in case a change is reverted or challenged.',
+            ],
+
+            'pricing_heading' => 'How pricing works',
+            'pricing' => 'Editing is quoted from the audit, because until the article has been read properly nobody can say honestly how much of it needs attention. A page with one outdated section is a small job. A page with a citation-needed tag on every second sentence is not. The audit is priced separately and stands on its own: if it concludes the article is in reasonable shape, you have a written second opinion and no obligation to commission anything further.',
+
+            'outcomes_heading' => 'What improves',
+            'outcomes' => [
+                ['title' => 'Tags resolved at the cause', 'copy' => 'Maintenance banners come down because the sourcing or tone problem behind them was fixed, not because someone deleted the template.'],
+                ['title' => 'Accurate current facts', 'copy' => 'Roles, figures, names, and dates match what independent sources actually report today.'],
+                ['title' => 'Edits that survive', 'copy' => 'Changes made transparently and backed by citations are far less likely to be reverted by other editors.'],
+            ],
+
+            'includes'    => [
+                'Full audit of structure, tone, sourcing, and maintenance tags',
+                'Correction of outdated, unsourced, or misattributed statements',
+                'Expansion of thin sections with independent, verifiable coverage',
+                'Neutral point-of-view rewrites of promotional or unbalanced passages',
+                'Citation repair: dead links, incomplete references, unreliable sources',
+                'Talk-page documentation of substantive changes and conflicts of interest',
+            ],
+            'deliverables' => [
+                ['title' => 'Page audit', 'copy' => 'A section-by-section report on what is inaccurate, unsourced, outdated, or non-compliant, with severity noted.'],
+                ['title' => 'Edit plan', 'copy' => 'A prioritised list of proposed changes, each mapped to the guideline and source that justifies it.'],
+                ['title' => 'Implemented edits', 'copy' => 'The approved changes made transparently, with edit summaries and talk-page notes where the guidelines require them.'],
+                ['title' => 'Source refresh', 'copy' => 'Replaced dead links, upgraded weak citations, and archived references so the page holds up over time.'],
+            ],
+
+            'faqs' => [
+                [
+                    'q' => 'Can you remove negative information from my page?',
+                    'a' => 'Only where it is inaccurate, unsourced, or given weight out of proportion to its coverage. Properly sourced criticism belongs in the article, and trying to delete it usually draws more editor attention to the page than leaving it alone would.',
+                ],
+                [
+                    'q' => 'How do maintenance tags actually come off?',
+                    'a' => 'By fixing what the tag describes. A citation tag needs sources added, a tone tag needs promotional language rewritten, a notability tag needs independent coverage demonstrated. Once the cause is genuinely resolved, the tag can be removed with an explanation on the talk page.',
+                ],
+                [
+                    'q' => 'Why do my own edits keep getting reverted?',
+                    'a' => 'Usually because they read as promotional, carry no citations, or come from an account with an undisclosed connection to the subject. Transparent editing with a declared conflict of interest and solid sourcing behind each change is far more durable.',
+                ],
+                [
+                    'q' => 'Do you edit the article directly or only propose changes?',
+                    'a' => 'It depends on the change. Uncontroversial factual corrections can often be made directly with disclosure. For contested or substantial edits, proposing them on the talk page and letting independent editors implement them is both guideline-preferred and more durable.',
+                ],
+                [
+                    'q' => 'My page is very short. Can you expand it?',
+                    'a' => 'Yes, as far as the sources allow. Expansion is limited by the independent coverage that exists, not by how much you would like the article to say. We map what the available sources can support before proposing any new sections.',
+                ],
+            ],
+        ],
+
+        'wikipedia-content-writing' => [
+            'name'        => 'Content Writing & Research',
+            'icon'        => 'i-search',
+            'card'        => 'In-depth research and expert writing that meets Wikipedia’s strict editorial guidelines.',
+            'eyebrow'     => 'Wikipedia Content Writing & Research',
+            'h1'          => 'Wikipedia content writing that is <span>research-first</span> and genuinely encyclopedic.',
+            'lede'        => 'Wikipedia content writing is a research discipline before it is a writing one. We locate and grade the coverage that exists, then write only to what those sources support — no promotional framing, no claims a reader cannot check.',
+            'meta_title'  => 'Wikipedia Content Writing & Research Services | Cited Copy',
+            'meta_desc'   => 'Wikipedia content writing and research: independent source discovery, reliability grading, neutral drafting, and citation-complete copy for new or existing articles.',
+            'keywords'    => 'wikipedia content writing, wikipedia research services, wikipedia writers for hire, neutral point of view writing, wikipedia citation research, encyclopedic content writing',
+            'og_image'    => 'assets/og/portfolio-entrepreneur.jpg',
+
+            'what_is_heading' => 'What Wikipedia content writing means in practice',
+            'what_is' => 'Wikipedia content writing produces article copy that follows the encyclopedia\'s three core content policies: verifiability, neutral point of view, and no original research. In practice, every substantive sentence carries an inline citation, contested claims are attributed to whoever made them, and topics receive weight in proportion to their coverage in reliable sources. The house style is deliberately plain. Adjectives that cannot be sourced come out, marketing language never goes in, and the lead section summarises the article instead of selling the subject.',
+
+            'who_needs_heading' => 'Who this is for',
+            'who_needs' => [
+                'Subjects who need a draft written to guideline standard before submission',
+                'Communications teams whose in-house draft was rejected for tone or sourcing',
+                'Organisations wanting a source dossier assembled before deciding to proceed',
+                'Existing articles that need whole new sections written from scratch',
+                'Anyone unsure whether the coverage they have is usable at all',
+            ],
+
+            'process_heading' => 'How the engagement runs',
+            'process_steps' => [
+                'We run a systematic source search across news archives, books, journals, and databases.',
+                'Every source is graded for independence, reliability, and depth of coverage.',
+                'Graded sources are mapped to the sections they can support, and we share the outline.',
+                'Drafting follows, with inline citations placed as the copy is written.',
+                'A second editor checks the draft line by line against the sources before delivery.',
+            ],
+
+            'pricing_heading' => 'How pricing works',
+            'pricing' => 'Research and writing are quoted together, scaled to the volume of coverage rather than the length of the finished article. Counter-intuitively, a heavily covered subject costs more: forty sources have to be read, graded, and reconciled where several contradict each other. Short articles are not cheap articles. If the search turns up too little to support an article at all, we stop there, charge only for the research done, and hand over the dossier.',
+
+            'outcomes_heading' => 'What you end up with',
+            'outcomes' => [
+                ['title' => 'Copy that survives review', 'copy' => 'Drafts written to policy from the first sentence, rather than marketing copy edited afterwards to look neutral.'],
+                ['title' => 'A defensible source base', 'copy' => 'A graded dossier showing which source supports which claim, useful long after the draft itself is filed.'],
+                ['title' => 'An honest coverage picture', 'copy' => 'A clear record of what no reliable source currently supports, so nobody is guessing about the gaps.'],
+            ],
+
+            'includes'    => [
+                'Systematic source discovery across news archives, books, journals, and databases',
+                'Reliability and independence grading for every source found',
+                'Neutral point-of-view drafting with balanced weight across topics',
+                'Lead sections written to summarise the article, not to sell the subject',
+                'Inline citations formatted to Wikipedia\'s reference templates',
+                'Plagiarism and close-paraphrasing checks before delivery',
+            ],
+            'deliverables' => [
+                ['title' => 'Research dossier', 'copy' => 'Every usable source, graded and annotated with what it can and cannot support.'],
+                ['title' => 'Structured draft', 'copy' => 'Article copy organised into the sections readers and reviewers expect for the subject type.'],
+                ['title' => 'Citation map', 'copy' => 'A statement-to-source index so any claim in the draft can be traced to its reference.'],
+                ['title' => 'Coverage gap notes', 'copy' => 'A clear record of the claims that no reliable source currently supports, and what coverage would be needed.'],
+            ],
+
+            'faqs' => [
+                [
+                    'q' => 'Can you write about something with no press coverage?',
+                    'a' => 'Not for Wikipedia. The encyclopedia only records what reliable, independent sources have already published, so a subject with no such coverage cannot be written about verifiably. We tell you this before taking the work rather than after invoicing for it.',
+                ],
+                [
+                    'q' => 'Do you use AI to write the drafts?',
+                    'a' => 'Our editors research, write, and review the copy, and a second editor checks every claim against its source before delivery. Wikipedia\'s reviewers are experienced at spotting unsourced generated text, and it is one of the fastest routes to a rejection.',
+                ],
+                [
+                    'q' => 'What does neutral point of view actually mean?',
+                    'a' => 'It is the requirement to represent significant viewpoints fairly and without editorial endorsement, in proportion to their coverage in reliable sources. It does not mean giving equal space to every claim, and it does not mean omitting well-documented criticism.',
+                ],
+                [
+                    'q' => 'Can I supply my own biography as source material?',
+                    'a' => 'It is genuinely useful for orientation, dates, spellings, and for pointing us at coverage we might otherwise miss. It cannot be cited in the article itself, because self-published material is not independent of the subject.',
+                ],
+                [
+                    'q' => 'Who owns the writing once it is published?',
+                    'a' => 'Anything published on Wikipedia is released under the platform\'s open licence and belongs to the encyclopedia, where other editors may change it. The research dossier and drafts we prepare for you remain yours.',
+                ],
+            ],
+        ],
+
+        'wikipedia-page-management' => [
+            'name'        => 'Ongoing Page Management',
+            'icon'        => 'i-manage',
+            'card'        => 'Updates, monitoring, and maintenance to keep your page accurate and up to date.',
+            'eyebrow'     => 'Ongoing Wikipedia Page Management',
+            'h1'          => 'Wikipedia page management that keeps an article <span>accurate.</span>',
+            'lede'        => 'Wikipedia page management is what happens after publication. Anyone can edit an article, facts go stale, and cited links disappear. Monitoring keeps the page current and catches problem edits before they settle into the permanent record.',
+            'meta_title'  => 'Wikipedia Page Management & Monitoring Services',
+            'meta_desc'   => 'Ongoing Wikipedia page management: edit monitoring, vandalism response, milestone updates, dead-link repair, and periodic accuracy reviews to guideline standard.',
+            'keywords'    => 'wikipedia page management, wikipedia page monitoring, wikipedia maintenance services, wikipedia vandalism response, update wikipedia page, wikipedia page updates',
+            'og_image'    => 'assets/og/portfolio-organisation.jpg',
+
+            'what_is_heading' => 'Why a published article still needs attention',
+            'what_is' => 'Wikipedia page management is the ongoing work of watching an article and keeping it accurate. A published page is never finished: anyone can edit it, and most edits arrive from people with no connection to the subject and no obligation to check with anyone. Some are genuine improvements. Others introduce errors, unsourced claims, or plain vandalism, and an unwatched article can carry a wrong figure for months. References rot too, and a citation that no longer resolves invites the statement above it to be challenged and cut.',
+
+            'who_needs_heading' => 'Who this is for',
+            'who_needs' => [
+                'Subjects whose article has been edited by strangers without anyone noticing',
+                'Companies in a period of frequent news, funding, or leadership change',
+                'Public figures whose pages attract politically motivated editing',
+                'Organisations with older articles full of dead reference links',
+                'Anyone who has just had an article published and wants it watched properly',
+            ],
+
+            'process_heading' => 'How the engagement runs',
+            'process_steps' => [
+                'We add the article to a monitored watchlist and record its current state as a baseline.',
+                'Every incoming edit is reviewed and classified: improvement, error, or vandalism.',
+                'Problem edits are handled through the appropriate route, with reasons documented.',
+                'Agreed update cycles add new, independently sourced developments to the article.',
+                'You receive periodic reports on edits, sourcing quality, dead links, and tags.',
+            ],
+
+            'pricing_heading' => 'How pricing works',
+            'pricing' => 'Management is a retainer rather than a one-off fee, priced on how active the article is and how often you expect substantive updates. A quiet organisational page needs a fraction of the attention a heavily edited public figure\'s article does. Retainers run month to month without a long lock-in, because if an article stabilises there is no honest reason to keep charging the same rate to watch a page where nothing happens.',
+
+            'outcomes_heading' => 'What monitoring prevents',
+            'outcomes' => [
+                ['title' => 'Errors caught early', 'copy' => 'An unsourced change spotted the same week is straightforward to address; the same change six months later has been copied elsewhere.'],
+                ['title' => 'References that still work', 'copy' => 'Dead links are replaced with archived versions before anyone uses them as grounds to delete the statement.'],
+                ['title' => 'No unpleasant surprises', 'copy' => 'You hear about deletion discussions, new tags, and disputes from us, rather than from a journalist who found them first.'],
+            ],
+
+            'includes'    => [
+                'Watchlist monitoring with review of every incoming edit',
+                'Assessment and appropriate response to vandalism or unsourced changes',
+                'Scheduled updates for milestones, appointments, and new coverage',
+                'Dead-link detection and archived-reference replacement',
+                'Periodic accuracy and neutrality reviews of the full article',
+                'Plain-language reporting on what changed and why',
+            ],
+            'deliverables' => [
+                ['title' => 'Monitoring log', 'copy' => 'A running record of every edit made to the page, who made it, and how it was assessed.'],
+                ['title' => 'Update cycles', 'copy' => 'Agreed refresh windows where new, properly sourced developments are added to the article.'],
+                ['title' => 'Issue escalations', 'copy' => 'Fast notice when an edit, tag, or deletion discussion needs a decision from you.'],
+                ['title' => 'Health reports', 'copy' => 'Periodic summaries of sourcing quality, dead links, tags, and overall article condition.'],
+            ],
+
+            'faqs' => [
+                [
+                    'q' => 'Can you stop other people editing my page?',
+                    'a' => 'No. Wikipedia is openly editable by design, and no agency or subject can lock an article. Administrators occasionally apply temporary protection during sustained vandalism, but it is granted on the encyclopedia\'s terms rather than a client\'s request.',
+                ],
+                [
+                    'q' => 'What happens if someone adds something false?',
+                    'a' => 'We assess the edit against the sources and handle it through the appropriate route: a straightforward revert for clear vandalism, or a documented talk-page discussion where the claim is genuinely contested. Either way you hear from us with what we found.',
+                ],
+                [
+                    'q' => 'How quickly would you notice a change?',
+                    'a' => 'Monitored articles are reviewed on a cycle agreed with you, and urgent categories such as apparent vandalism or a deletion nomination are escalated as soon as they are seen. Nobody watches an article every minute, and any agency claiming otherwise is overselling.',
+                ],
+                [
+                    'q' => 'Do you update the page when we have news?',
+                    'a' => 'Yes, within agreed update cycles and provided the development has been covered by an independent reliable source. A company announcement on its own is not usually enough; a report in a publication that does not answer to you is.',
+                ],
+                [
+                    'q' => 'Can management be added to a page you did not create?',
+                    'a' => 'Yes, and it often is. We start with a full audit so the baseline is documented, which tends to surface older problems nobody had noticed: dead references, outdated sections, and errors introduced quietly some time ago.',
+                ],
+            ],
+        ],
+
+        'wikipedia-reputation-management' => [
+            'name'        => 'Reputation & Entity Building',
+            'icon'        => 'i-network',
+            'card'        => 'Strengthen your brand’s digital footprint across credible knowledge platforms.',
+            'eyebrow'     => 'Reputation & Entity Building',
+            'h1'          => 'Wikipedia reputation and <span>entity building</span> across connected knowledge platforms.',
+            'lede'        => 'Wikipedia reputation management works at the level of the entity, not the page. Search engines and AI assistants assemble their understanding of a subject from structured, cross-referenced knowledge sources, and consistency across those sources is what makes an entity legible.',
+            'meta_title'  => 'Wikipedia Reputation & Entity Building Services',
+            'meta_desc'   => 'Entity and reputation building across Wikipedia and Wikidata: consistent naming, cross-referenced identifiers, and accurate structured data that answer engines read.',
+            'keywords'    => 'wikipedia reputation management, entity building, wikidata services, knowledge panel optimisation, online reputation management, digital footprint wikipedia',
+            'og_image'    => 'assets/og/portfolio-public-figure.jpg',
+
+            'what_is_heading' => 'What entity building actually is',
+            'what_is' => 'An entity is the machine-readable version of a subject: a record with a stable identifier, a set of properties, and links out to other databases describing the same thing. Wikipedia supplies the prose, Wikidata supplies the structured statements behind it, and library catalogues, industry registers, and rights databases hold their own records. When those records agree, systems reading them resolve the subject confidently. When they disagree about a founding date or a legal name, confidence drops and the subject can be conflated with someone else entirely.',
+
+            'who_needs_heading' => 'Who this is for',
+            'who_needs' => [
+                'Brands whose records show different founding dates or legal names across platforms',
+                'People who share a name with another notable subject and are being conflated',
+                'Organisations that have rebranded, merged, or changed legal structure',
+                'Subjects with a Wikipedia article but an empty or unreferenced Wikidata record',
+                'Teams who want to understand their entity footprint before investing further',
+            ],
+
+            'process_heading' => 'How the engagement runs',
+            'process_steps' => [
+                'We audit every place the subject appears as a structured record and note the disagreements.',
+                'You get an entity map showing the current footprint and the specific contradictions in it.',
+                'We correct factual errors and align names, dates, roles, and descriptions across platforms.',
+                'Wikidata statements are added or repaired with proper references and external identifiers.',
+                'We document what remains blocked by missing coverage, and what would unblock it.',
+            ],
+
+            'pricing_heading' => 'How pricing works',
+            'pricing' => 'The audit is priced on its own and is worth commissioning even if you go no further, because it is usually the first time anyone has seen the whole footprint in one place. Remediation is quoted from what the audit finds. Where a gap can only be closed by independent coverage that does not yet exist, we say so plainly rather than billing for work that cannot succeed. Earning that coverage is a communications job, not a data one.',
+
+            'outcomes_heading' => 'What improves',
+            'outcomes' => [
+                ['title' => 'One consistent set of facts', 'copy' => 'The same legal name, founding date, and role appear wherever the subject is recorded, instead of three competing versions.'],
+                ['title' => 'Correct disambiguation', 'copy' => 'Identifiers and cross-references make clear which subject is which when several share a name.'],
+                ['title' => 'Better-grounded answers', 'copy' => 'Systems that summarise a subject work from consistent structured data rather than contradictory records.'],
+            ],
+
+            'includes'    => [
+                'Entity audit across Wikipedia, Wikidata, and other knowledge sources',
+                'Consistent naming, descriptions, and identifiers across platforms',
+                'Wikidata statement and identifier maintenance with proper references',
+                'Alignment between your owned properties and third-party knowledge records',
+                'Correction of factual errors in structured data records',
+                'Guidance on the independent coverage that would strengthen the entity',
+            ],
+            'deliverables' => [
+                ['title' => 'Entity map', 'copy' => 'Every place the subject currently appears as a structured record, and how those records disagree.'],
+                ['title' => 'Consistency fixes', 'copy' => 'Corrected names, dates, roles, and descriptions so the same facts appear everywhere.'],
+                ['title' => 'Wikidata work', 'copy' => 'Properly referenced statements and external identifiers linking the entity across databases.'],
+                ['title' => 'Coverage roadmap', 'copy' => 'An honest assessment of what independent coverage is missing, and the realistic path to earning it.'],
+            ],
+
+            'faqs' => [
+                [
+                    'q' => 'Can you get me a Google knowledge panel?',
+                    'a' => 'Nobody can guarantee one. Google decides when to show a panel and what goes in it, drawing on many sources. Accurate, consistent, well-referenced structured data makes a subject easier to resolve, which helps, but it is not a switch anyone can flip.',
+                ],
+                [
+                    'q' => 'Is Wikidata worth the effort without a Wikipedia article?',
+                    'a' => 'Sometimes. Wikidata applies its own inclusion criteria and accepts subjects Wikipedia would not, so an accurate referenced record can exist independently. It is not a substitute for an article, and it will not deliver the same visibility.',
+                ],
+                [
+                    'q' => 'How is this different from reputation management agencies?',
+                    'a' => 'We do not attempt to suppress search results or place content on sites that will publish anything for a fee. Our work is limited to making the factual, structured record accurate and consistent on platforms with real editorial or community standards.',
+                ],
+                [
+                    'q' => 'Can you fix a record that says something wrong about us?',
+                    'a' => 'On open platforms such as Wikidata and Wikipedia, yes, provided a reliable source supports the correction. On closed third-party databases we can identify the error and tell you the correction route, but the platform owner makes the final call.',
+                ],
+                [
+                    'q' => 'What does an entity audit actually produce?',
+                    'a' => 'A map of every structured record we can find for the subject, the contradictions between them, the identifiers that are missing, and a prioritised list of what to fix first. Most clients find at least one error they did not know existed.',
+                ],
+            ],
+        ],
+    ];
+}
+
+/**
+ * The five-step editorial process, shared by the home page and /our-process/.
+ * 'detail' adds the depth /our-process/ needs without bloating the home page.
+ *
+ * @return array<int, array<string, string>>
+ */
+function process_steps(): array
+{
+    return [
+        [
+            'icon'  => 'i-research',
+            'title' => 'Research',
+            'card'  => 'We conduct in-depth research and assess notability.',
+            'copy'  => 'We start by searching for independent coverage of the subject across news archives, books, journals, and databases. That search decides everything that follows: if the coverage is not there, no amount of writing will carry an article through review, and we say so before any work is commissioned.',
+            'detail' => 'The output is a written verdict rather than a verbal impression, because the answer usually turns on distinctions that matter. Three substantial profiles in independent outlets are worth more than thirty passing mentions, and a trade-press feature counts where a sponsored listing in the same publication does not.',
+        ],
+        [
+            'icon'  => 'i-plan',
+            'title' => 'Planning',
+            'card'  => 'We plan the content strategy and gather reliable sources.',
+            'copy'  => 'Usable sources are graded for independence, reliability, and depth, then mapped to the sections they can support. You see the outline and the source list before drafting begins, so the scope of the article is agreed up front.',
+            'detail' => 'This is also where we tell you what the article will not contain. Nearly every brief includes claims a client would like in print that no independent source supports, and settling that at the outline stage is far cheaper than arguing about it during review.',
+        ],
+        [
+            'icon'  => 'i-write',
+            'title' => 'Writing',
+            'card'  => 'Our editors write and structure content as per guidelines.',
+            'copy'  => 'Drafting follows Wikipedia\'s neutral point of view: claims are attributed, weight is balanced across topics, and promotional framing is left out. Every substantive statement carries an inline citation to the source that supports it.',
+            'detail' => 'Structure matters as much as wording. Reviewers expect the sections conventional for the subject type and a lead that summarises the article rather than introducing it. Getting that shape right often separates an accepted draft from a rejected one containing identical facts.',
+        ],
+        [
+            'icon'  => 'i-review',
+            'title' => 'Review',
+            'card'  => 'Rigorous editorial review ensures accuracy and quality.',
+            'copy'  => 'A second editor checks the draft against the sources line by line, looking for unsupported claims, close paraphrasing, tone problems, and structural gaps. Anything that cannot be verified is cut or flagged.',
+            'detail' => 'The reviewing editor deliberately has no part in the drafting. Reading a draft you wrote yourself, against sources you chose yourself, is the easiest way in the world to miss the sentence that has quietly drifted from what its citation actually says.',
+        ],
+        [
+            'icon'  => 'i-publish',
+            'title' => 'Publishing',
+            'card'  => 'We publish and monitor for long-term success.',
+            'copy'  => 'Submission is handled transparently, with conflict-of-interest disclosure where the guidelines require it. Reviewer feedback is addressed on its merits, and the page is monitored through its first stabilisation period after acceptance.',
+            'detail' => 'Review timelines belong to volunteers working through a queue, so we do not promise dates we cannot control. What we do control is the quality of the response when feedback arrives, and how fast problems get picked up in the weeks after acceptance.',
+        ],
+    ];
+}
+
+/**
+ * Portfolio categories. Deliberately anonymised — client work is confidential.
+ *
+ * @return array<int, array<string, string>>
+ */
+function portfolio_items(): array
+{
+    return [
+        [
+            'image' => 'assets/portfolio-business-leader.jpg',
+            'alt'   => 'Business leader whose Wikipedia page was created from independent press coverage',
+            'title' => 'Business Leader',
+            'copy'  => 'A new article for a senior executive, built from sustained independent business-press coverage.',
+            'detail' => 'The sourcing came almost entirely from national and trade business press across a decade. Two acquisitions and a regulatory dispute had all been covered independently, so all three appear in the article. An award the client valued highly appeared nowhere outside its own organiser\'s website, so it was left out.',
+        ],
+        [
+            'image' => 'assets/portfolio-author.jpg',
+            'alt'   => 'Author whose Wikipedia article was sourced from independent literary reviews',
+            'title' => 'Author',
+            'copy'  => 'A published author\'s page, sourced from reviews in independent literary and national press.',
+            'detail' => 'Authors are among the more straightforward subjects once their books have been reviewed, because a review in an independent publication is exactly the significant coverage the notability guideline asks for. Sales figures and publisher copy carried no weight at all.',
+        ],
+        [
+            'image' => 'assets/portfolio-organisation.jpg',
+            'alt'   => 'Organisation headquarters building, representing institutional Wikipedia article work',
+            'title' => 'Organisation',
+            'copy'  => 'An organisational article expanded with history, structure, and independently reported milestones.',
+            'detail' => 'This began as a short article carrying two maintenance tags. Most of the work turned out to be archival: tracing the organisation\'s founding and later restructuring through contemporaneous reporting rather than its own retrospective account of itself.',
+        ],
+        [
+            'image' => 'assets/portfolio-entrepreneur.jpg',
+            'alt'   => 'Entrepreneur whose promotional Wikipedia page was rewritten in a neutral voice',
+            'title' => 'Entrepreneur',
+            'copy'  => 'A founder\'s page rewritten to a neutral voice after removal of promotional material.',
+            'detail' => 'The article had been written by someone close to the subject and read like a pitch deck, which had earned it a tone tag and a good deal of editor scrutiny. The underlying facts were mostly sound; the framing was not. Rewriting it plainly resolved the tag.',
+        ],
+        [
+            'image' => 'assets/portfolio-public-figure.jpg',
+            'alt'   => 'Public figure speaking at an event, representing ongoing Wikipedia page monitoring',
+            'title' => 'Public Figure',
+            'copy'  => 'A public figure\'s article maintained through a period of heavy news coverage.',
+            'detail' => 'A monitoring engagement rather than a writing one. Through a busy news period the article drew frequent edits, several of them unsourced. Each was assessed against the coverage, and the genuinely contested ones went to the talk page instead of being reverted on sight.',
+        ],
+    ];
+}
+
+/**
+ * Client testimonials. Mirrored in script.js for the home-page carousel; this
+ * copy is what renders server-side so the words are always in the HTML source.
+ *
+ * @return array<int, array<string, string>>
+ */
+function testimonials(): array
+{
+    return [
+        [
+            'quote' => 'The Wikipedia Studio delivered beyond my expectations. Their professionalism, attention to detail, and knowledge of Wikipedia guidelines are truly commendable.',
+            'name'  => 'Dr. Sarah Mitchell',
+            'role'  => 'Author & Speaker',
+        ],
+        [
+            'quote' => 'Their research-first approach made the entire process clear. Every source was assessed carefully, and the finished page felt balanced and authoritative.',
+            'name'  => 'Daniel Mercer',
+            'role'  => 'Business Leader',
+        ],
+        [
+            'quote' => 'We valued the transparent communication and thoughtful editorial guidance. The team understood both our history and Wikipedia’s standards.',
+            'name'  => 'Elena Brooks',
+            'role'  => 'Communications Director',
+        ],
+    ];
+}
+
+/**
+ * Site-wide FAQ, rendered on /faq/. Answers are written answer-first and kept
+ * near 40-60 words so each one stands alone if it is quoted out of context.
+ *
+ * @return array<int, array{q: string, a: string}>
+ */
+function faqs(): array
+{
+    return [
+        [
+            'q' => 'How long does it take to get a Wikipedia page published?',
+            'a' => 'Research and drafting typically take three to six weeks. The review queue that follows belongs to volunteer reviewers and can clear in days or run to several months. A notability assessment at the start gives the most reliable estimate, because it establishes how much source material actually exists.',
+        ],
+        [
+            'q' => 'Do you guarantee page approval?',
+            'a' => 'No ethical editor can guarantee approval. The encyclopedia is maintained by independent volunteers, and no agency controls their decisions. We concentrate on the factors that genuinely determine outcomes: notability, reliable sourcing, neutral writing, and full compliance with editorial standards.',
+        ],
+        [
+            'q' => 'What information do you need to get started?',
+            'a' => 'A biography or company profile, key milestones with dates, links to independent media coverage, and any existing Wikipedia or Wikidata entry. Independent coverage matters most. Press releases, sponsored articles, and self-published material cannot establish notability, however substantial they look.',
+        ],
+        [
+            'q' => 'Can you help improve an existing Wikipedia page?',
+            'a' => 'Yes. We review structure, sourcing, tone, coverage gaps, and maintenance needs, then propose an edit plan in which every change is tied to a guideline and a source. Edits are made transparently, with talk-page disclosure where the guidelines require it.',
+        ],
+        [
+            'q' => 'Do you offer ongoing page maintenance?',
+            'a' => 'Yes. Ongoing management covers watchlist monitoring, assessment of incoming edits, milestone updates drawn from independent sources, dead-link repair, and periodic accuracy reviews, with plain-language reporting on what changed and why.',
+        ],
+        [
+            'q' => 'Is paid Wikipedia editing allowed?',
+            'a' => 'Paid editing is permitted provided it is disclosed. Wikipedia\'s terms of use require paid contributors to declare their employer, client, and affiliation. We make that declaration as a matter of course rather than editing covertly, because undisclosed paid editing puts the article itself at risk.',
+        ],
+        [
+            'q' => 'What makes a subject notable enough for Wikipedia?',
+            'a' => 'Notability comes from significant coverage in multiple reliable sources independent of the subject. Revenue, follower counts, and industry awards do not substitute for that coverage. Where it is missing we say so before any work begins, rather than after an invoice has been raised.',
+        ],
+        [
+            'q' => 'Why was my Wikipedia page rejected or deleted?',
+            'a' => 'The usual causes are insufficient independent coverage, sourcing that leans on press releases and company material, promotional tone, or an undisclosed conflict of interest. Rejection is rarely permanent. We read the reviewer\'s reasoning and tell you whether the underlying problem is fixable now.',
+        ],
+        [
+            'q' => 'Can you remove negative information from a Wikipedia article?',
+            'a' => 'Only where it is inaccurate, unsourced, or given weight out of proportion to its coverage. Properly sourced criticism belongs in the article under the neutral point of view policy, and attempting to delete it usually attracts more editor attention than leaving it alone.',
+        ],
+        [
+            'q' => 'Do you work with clients outside the United States?',
+            'a' => 'Yes. We work with individuals, businesses, and organisations worldwide, including on non-English Wikipedia editions where reliable sources exist in the relevant language. Each language edition applies its own notability and sourcing standards, which we assess separately.',
+        ],
+        [
+            'q' => 'Will my page appear in Google search results?',
+            'a' => 'Wikipedia articles are usually indexed, but Google decides how they rank and whether a knowledge panel appears. Nobody can promise a specific placement. What a well-sourced article does provide is a consistent factual record for search engines and AI assistants to draw on.',
+        ],
+        [
+            'q' => 'How much does a Wikipedia page cost?',
+            'a' => 'We quote per engagement rather than per word, because the research burden varies far more than article length does. Heavily covered subjects cost more, not less, since every source has to be read and reconciled. Quotes are fixed in writing before any work starts.',
+        ],
+    ];
+}
+
+/**
+ * Headline metrics for the hero rail.
+ *
+ * @return array<int, array<string, string>>
+ */
+function metrics(): array
+{
+    return [
+        ['icon' => 'i-page',     'value' => '500+',   'label' => 'Pages Created'],
+        ['icon' => 'i-shield',   'value' => '100%',   'label' => 'Editorial Standards'],
+        ['icon' => 'i-users',    'value' => 'Expert', 'label' => 'Wikipedia Editors'],
+        ['icon' => 'i-globe',    'value' => 'Global', 'label' => 'Global Clientele'],
+        ['icon' => 'i-building', 'value' => '10+',    'label' => 'Industries Served'],
+    ];
+}
+
+/**
+ * Every indexable URL, in sitemap priority order.
+ *
+ * @return array<int, array{slug: string, priority: string, changefreq: string}>
+ */
+function sitemap_routes(): array
+{
+    $routes = [
+        ['slug' => '',             'priority' => '1.0', 'changefreq' => 'weekly'],
+        ['slug' => 'services',     'priority' => '0.9', 'changefreq' => 'monthly'],
+        ['slug' => 'about-us',     'priority' => '0.8', 'changefreq' => 'monthly'],
+        ['slug' => 'our-process',  'priority' => '0.8', 'changefreq' => 'monthly'],
+        ['slug' => 'portfolio',    'priority' => '0.7', 'changefreq' => 'monthly'],
+        ['slug' => 'faq',          'priority' => '0.7', 'changefreq' => 'monthly'],
+        ['slug' => 'contact',      'priority' => '0.9', 'changefreq' => 'yearly'],
+    ];
+
+    foreach (array_keys(services()) as $slug) {
+        $routes[] = ['slug' => 'services/' . $slug, 'priority' => '0.8', 'changefreq' => 'monthly'];
+    }
+
+    $routes[] = ['slug' => 'privacy-policy',    'priority' => '0.3', 'changefreq' => 'yearly'];
+    $routes[] = ['slug' => 'terms-conditions',  'priority' => '0.3', 'changefreq' => 'yearly'];
+
+    return $routes;
+}
