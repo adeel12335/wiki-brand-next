@@ -55,10 +55,14 @@ function breadcrumb_trail(array $crumbs, string $current): void
 /**
  * Compact hero for inner pages.
  *
- * @param array{eyebrow?: string, h1: string, lede?: string, breadcrumbs?: array, current?: string, actions?: array<int, array{label: string, href: string, style?: string}>} $args
+ * @param array{eyebrow?: string, h1: string, lede?: string, breadcrumbs?: array, current?: string, actions?: array<int, array{label: string, href: string, style?: string}>, image?: string, image_width?: int, image_height?: int, visual_class?: string} $args
  */
 function page_hero(array $args): void
 {
+    $heroImage = (string) ($args['image'] ?? 'assets/globe.png');
+    $heroWidth = (int) ($args['image_width'] ?? 720);
+    $heroHeight = (int) ($args['image_height'] ?? 596);
+    $visualClass = trim('page-hero-visual ' . (string) ($args['visual_class'] ?? ''));
     ?>
     <section class="page-hero" aria-labelledby="page-title">
       <div class="page-hero-glow" aria-hidden="true"></div>
@@ -83,10 +87,10 @@ function page_hero(array $args): void
               </div>
             <?php endif; ?>
           </div>
-          <div class="page-hero-visual" aria-hidden="true">
+          <div class="<?= e($visualClass) ?>" aria-hidden="true">
             <span class="page-hero-orbit orbit-one"></span>
             <span class="page-hero-orbit orbit-two"></span>
-            <img src="<?= e(asset('assets/globe.png')) ?>" alt="" width="720" height="596">
+            <img src="<?= e(asset($heroImage)) ?>" alt="" width="<?= $heroWidth ?>" height="<?= $heroHeight ?>">
             <i class="page-hero-rule"></i>
           </div>
         </div>
@@ -133,7 +137,7 @@ function cta_band(
     ?>
     <section class="contact" id="contact">
       <div class="shell contact-panel reveal">
-        <img class="contact-art" src="<?= e(asset('assets/globe.png')) ?>" alt="" aria-hidden="true" width="720" height="596">
+        <img class="contact-art" src="<?= e(asset('assets/cta-wikipedia-globe.png')) ?>" alt="" aria-hidden="true" width="1024" height="341">
         <div class="contact-copy">
           <h2><?= $heading /* trusted markup */ ?></h2>
           <p><?= e($copy) ?></p>

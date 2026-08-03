@@ -39,6 +39,10 @@ page_hero([
     'lede'        => 'Five services covering the full lifecycle of an article — from the first notability assessment through to long-term monitoring. Each one is scoped in writing and delivered by editors who work to Wikipedia\'s own standards, not around them.',
     'breadcrumbs' => [],
     'current'     => 'Services',
+    'image'       => 'assets/services-hero-knowledge-archive.webp',
+    'image_width' => 1727,
+    'image_height'=> 911,
+    'visual_class'=> 'page-hero-visual--archive',
     'actions'     => [
         ['label' => 'Request an Assessment', 'href' => url('contact')],
         ['label' => 'How We Work', 'href' => url('our-process'), 'style' => 'button-outline'],
