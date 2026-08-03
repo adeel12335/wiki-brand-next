@@ -1344,6 +1344,93 @@ p { color: var(--muted); }
 
 .answer-block p { margin: 0; font-size: 12px; line-height: 1.85; }
 
+/* Editorial standards band — three balanced checks instead of one dense copy block. */
+.standards-band {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 82% 18%, rgba(216,165,58,.07), transparent 34%),
+    radial-gradient(ellipse at 12% 88%, rgba(18,65,91,.16), transparent 40%);
+}
+
+.standards-band .section-heading-copy {
+  max-width: 640px;
+  margin: 14px auto 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.standards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.standards-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-height: 100%;
+  padding: 28px 24px 26px;
+  border: 1px solid rgba(216,165,58,.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(165deg, rgba(216,165,58,.06), transparent 42%),
+    linear-gradient(180deg, rgba(8,28,42,.92), rgba(4,16,27,.78));
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+}
+
+.standards-card:hover {
+  border-color: rgba(240,198,104,.5);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.22);
+}
+
+.standards-index {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  color: rgba(216,165,58,.42);
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+
+.standards-icon {
+  width: 34px;
+  height: 34px;
+  color: var(--gold);
+  stroke-width: 1.4;
+}
+
+.standards-card h3 {
+  margin: 0;
+  max-width: 12ch;
+  font-size: 24px;
+  line-height: 1.15;
+}
+
+.standards-card p {
+  margin: 0;
+  color: #b7c1c9;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .standards-grid { grid-template-columns: 1fr; gap: 14px; }
+  .standards-card h3 { max-width: none; font-size: 22px; }
+}
+
+@media (max-width: 620px) {
+  .standards-band .section-heading-copy { font-size: 12px; }
+  .standards-card { padding: 24px 20px 22px; }
+  .standards-card p { font-size: 12px; }
+}
+
 .detail-list { display: grid; gap: 0; }
 
 .detail-item {
