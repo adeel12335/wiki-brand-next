@@ -39,4 +39,18 @@ foreach (sitemap_routes() as $route) {
     echo "  </url>\n";
 }
 
+// Published portfolio entries, each with its own detail page.
+foreach (portfolio_published() as $item) {
+    $lastmod = !empty($item['updated_at'])
+        ? date('Y-m-d', (int) strtotime((string) $item['updated_at']))
+        : date('Y-m-d');
+
+    echo "  <url>\n";
+    echo '    <loc>' . e(abs_url('portfolio/' . $item['slug'])) . "</loc>\n";
+    echo '    <lastmod>' . e($lastmod) . "</lastmod>\n";
+    echo "    <changefreq>monthly</changefreq>\n";
+    echo "    <priority>0.6</priority>\n";
+    echo "  </url>\n";
+}
+
 echo '</urlset>' . "\n";

@@ -59,6 +59,13 @@ function gate_words(string $html): array
     return preg_split('/\s+/', trim((string) preg_replace('/\s+/', ' ', $text)), -1, PREG_SPLIT_NO_EMPTY) ?: [];
 }
 
+// Published portfolio entries are content too, so check them alongside the
+// hand-written pages. Their word floor is lower: an engagement note is short by
+// design, and padding it would defeat the point.
+foreach (portfolio_published() as $work) {
+    $expectations['portfolio/' . $work['slug']] = [120, 'wikipedia'];
+}
+
 $failures = [];
 $context = stream_context_create(['http' => ['ignore_errors' => true, 'timeout' => 15]]);
 

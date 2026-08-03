@@ -1371,3 +1371,39 @@ p { color: var(--muted); }
   .numbered-steps li { padding-left: 38px; font-size: 11px; }
   .numbered-steps li::before { width: 26px; height: 26px; font-size: 11px; }
 }
+
+/* --- Portfolio detail page ------------------------------------------------ */
+
+.portfolio-card.static > a { display: block; color: inherit; }
+
+.portfolio-card.static .text-link { margin-top: 10px; }
+
+.work-detail {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: 52px;
+}
+
+.work-figure { margin: 0; }
+
+.work-figure img {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  filter: saturate(.86) contrast(1.03);
+}
+
+.work-body p { margin-bottom: 16px; font-size: 13px; line-height: 1.9; }
+
+.work-body p:last-child { margin-bottom: 0; }
+
+.work-body a { color: var(--gold-2); }
+
+@media (max-width: 900px) {
+  .work-detail { grid-template-columns: 1fr; gap: 32px; }
+}
+
+@media (max-width: 620px) {
+  .work-body p { font-size: 11px; }
+}

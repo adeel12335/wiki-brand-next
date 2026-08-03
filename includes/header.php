@@ -40,9 +40,11 @@ $bodyClass   = 'page-' . ($currentSlug === '' ? 'home' : str_replace('/', '-', $
       </a>
 
       <nav class="desktop-nav" aria-label="Primary navigation">
-        <?php foreach (nav_items() as $item):
-            $active = nav_is_active($item['slug'], $currentSlug); ?>
-          <a<?= $active ? ' class="active" aria-current="page"' : '' ?> href="<?= e(url($item['slug'])) ?>"><?= e($item['label']) ?></a>
+        <?php /* $navItem, not $item: this partial runs in the including page's
+                 scope, so generic names would clobber the page's own variables. */ ?>
+        <?php foreach (nav_items() as $navItem):
+            $navActive = nav_is_active($navItem['slug'], $currentSlug); ?>
+          <a<?= $navActive ? ' class="active" aria-current="page"' : '' ?> href="<?= e(url($navItem['slug'])) ?>"><?= e($navItem['label']) ?></a>
         <?php endforeach; ?>
       </nav>
 
@@ -53,9 +55,9 @@ $bodyClass   = 'page-' . ($currentSlug === '' ? 'home' : str_replace('/', '-', $
     </div>
 
     <nav class="mobile-menu" aria-label="Mobile navigation" aria-hidden="true">
-      <?php foreach (nav_items() as $item):
-          $active = nav_is_active($item['slug'], $currentSlug); ?>
-        <a<?= $active ? ' class="active" aria-current="page"' : '' ?> href="<?= e(url($item['slug'])) ?>"><?= e($item['label']) ?></a>
+      <?php foreach (nav_items() as $navItem):
+          $navActive = nav_is_active($navItem['slug'], $currentSlug); ?>
+        <a<?= $navActive ? ' class="active" aria-current="page"' : '' ?> href="<?= e(url($navItem['slug'])) ?>"><?= e($navItem['label']) ?></a>
       <?php endforeach; ?>
       <a class="button button-gold" href="<?= e(url('contact')) ?>">Get Started <?= icon('i-arrow') ?></a>
     </nav>

@@ -263,15 +263,20 @@ function seo_head(array $page): void
         $graph[] = $node;
     }
 
+    // Some graph values are admin-supplied (portfolio titles, summaries), so the
+    // HEX flags matter: they encode < > & ' " as \uXXXX escapes. That keeps any
+    // markup in the data inert inside the script element instead of relying on a
+    // single string replacement to prevent a breakout. Google reads \u escapes
+    // in JSON-LD without trouble.
     $jsonLd = json_encode(
         ['@context' => 'https://schema.org', '@graph' => $graph],
         JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
+        | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
     );
 
     echo "\n";
     echo '  <script type="application/ld+json">' . "\n";
-    // JSON-LD lives in a script element, so "</" is the only sequence that can
-    // break out of it.
+    // Belt and braces: with JSON_HEX_TAG set, "</" cannot appear at all.
     echo str_replace('</', '<\/', (string) $jsonLd) . "\n";
     echo '  </script>' . "\n";
 }

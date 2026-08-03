@@ -49,6 +49,19 @@ foreach (sitemap_routes() as $route) {
     $xml[] = '  </url>';
 }
 
+foreach (portfolio_published() as $item) {
+    $lastmod = !empty($item['updated_at'])
+        ? date('Y-m-d', (int) strtotime((string) $item['updated_at']))
+        : date('Y-m-d');
+
+    $xml[] = '  <url>';
+    $xml[] = '    <loc>' . e(abs_url('portfolio/' . $item['slug'])) . '</loc>';
+    $xml[] = '    <lastmod>' . $lastmod . '</lastmod>';
+    $xml[] = '    <changefreq>monthly</changefreq>';
+    $xml[] = '    <priority>0.6</priority>';
+    $xml[] = '  </url>';
+}
+
 $xml[] = '</urlset>';
 file_put_contents($root . '/sitemap.xml', implode("\n", $xml) . "\n");
 

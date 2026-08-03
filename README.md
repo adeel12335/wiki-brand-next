@@ -11,11 +11,72 @@ PHP 8.1 or newer. No build step, no Composer dependencies, no database.
 ## Local preview
 
 ```bash
-php -S localhost:8000
+php -S localhost:8000 router-dev.php
 ```
 
-Then open <http://localhost:8000>. The built-in server resolves directory URLs to
-`index.php`, so every route works exactly as it does on Apache.
+Then open <http://localhost:8000>. Directory URLs resolve to `index.php` on their
+own; `router-dev.php` adds the three rewritten routes (`/portfolio/<slug>/`,
+`/sitemap.xml`, `/robots.txt`) that Apache handles through `.htaccess`. The
+router refuses to run anywhere except the built-in server.
+
+## Database and admin panel
+
+The portfolio section is database-driven and edited through an admin panel at
+`/admin/`. Everything else on the site is file-based.
+
+### First-time setup
+
+```bash
+php bin/db-migrate.php                  # create the schema
+php bin/create-admin.php your-username  # create a sign-in (prompts for a password)
+php bin/seed-portfolio.php              # load the five entries that ship in data.php
+```
+
+Then sign in at `/admin/`.
+
+### Configuration
+
+With no environment variables set, the site uses SQLite at
+`storage/database.sqlite` — no database server needed. For production, set these
+in your host's environment-variable panel (never commit them):
+
+| Variable | Purpose |
+| --- | --- |
+| `DB_DRIVER` | `mysql` or `sqlite` (default `sqlite`) |
+| `DB_HOST`, `DB_PORT` | MySQL host and port |
+| `DB_NAME`, `DB_USER`, `DB_PASS` | MySQL credentials |
+| `DB_SQLITE` | Alternative SQLite path |
+
+**If you stay on SQLite in production, keep the database file unreachable from
+the web.** `storage/.htaccess` denies access on Apache; on nginx add the deny
+block below, or point `DB_SQLITE` at a directory outside the web root. MySQL
+avoids the question entirely.
+
+### What the admin panel does
+
+- Sign in with a hashed password, sessions expiring after an hour idle
+- Create, edit, reorder, publish/unpublish, and delete portfolio entries
+- Upload an image per entry, with alt text
+- Set per-entry SEO fields: slug, meta title, meta description, keywords
+- Drafts are visible only in the admin; published entries appear on
+  `/portfolio/`, get their own page at `/portfolio/<slug>/`, and enter the sitemap
+
+Security measures: CSRF tokens on every state-changing request, failed sign-ins
+throttled per IP (8 per 15 minutes), `noindex` headers throughout, and uploads
+validated by `getimagesize()` then re-encoded through GD under a random filename
+rather than being moved into place — so a PHP payload renamed `.jpg` is rejected,
+and a real image is stripped of anything hidden after the image data.
+
+### Graceful degradation
+
+If the database is unavailable or has no published entries, `/portfolio/` falls
+back to the entries in `includes/data.php` rather than rendering empty. That also
+means the site works before setup has been run.
+
+### Password reset
+
+There is no email-based reset by design. Re-run
+`php bin/create-admin.php <username>` on the server to set a new password.
 
 ## URL structure
 
@@ -35,6 +96,9 @@ Then open <http://localhost:8000>. The built-in server resolves directory URLs t
 | `/contact/` | `contact/index.php` |
 | `/privacy-policy/` | `privacy-policy/index.php` |
 | `/terms-conditions/` | `terms-conditions/index.php` |
+| `/portfolio/<slug>/` | `portfolio/item.php` (via rewrite, one per database entry) |
+| `/admin/` | `admin/index.php` — sign-in |
+| `/admin/portfolio/` | `admin/portfolio/index.php` — list, publish, reorder, delete |
 | `/sitemap.xml` | `sitemap.php` (via rewrite) |
 | `/robots.txt` | `robots.php` (via rewrite) |
 | 404 | `404.php` |
@@ -57,13 +121,28 @@ includes/
   footer.php         Site footer and script tag
   icons.php          Inline SVG symbol library
   service-page.php   Shared template behind all five service detail pages
+  db.php             PDO connection (MySQL or SQLite) and schema migration
+  portfolio-repo.php Portfolio queries, slugs, and the file-based fallback
+  admin/
+    auth.php         Sign-in, sessions, CSRF, login throttling
+    uploads.php      Image validation and re-encoding
+    layout.php       Admin shell (noindex, no public CSS or JS)
+admin/               Sign-in and the portfolio manager
 bin/
+  db-migrate.php       Create or update the database schema
+  create-admin.php     Create an admin user or reset a password
+  seed-portfolio.php   Load the portfolio entries from data.php
+  check-seo-gates.php  Verify every page against the content gates
   build-seo-files.php  Writes static sitemap.xml + robots.txt for hosts
                        without .htaccess support
-assets/              Brand imagery
-styles.css           All styling, including the multi-page templates
+  build-og-images.php  Regenerate the 1200x630 social cards
+assets/              Brand imagery; uploads/ holds admin-uploaded media
+storage/             SQLite database (gitignored, denied to the web)
+styles.css           Public site styling
+admin.css            Admin panel styling, entirely separate
 script.js            Motion, navigation, carousels, FAQ, star field
-.htaccess            Canonical redirects, sitemap rewrites, caching, headers
+router-dev.php       Rewrite rules for the built-in development server only
+.htaccess            Canonical redirects, rewrites, caching, headers
 ```
 
 Adding a page means creating `<slug>/index.php`, setting its `$page` array, and
@@ -168,8 +247,19 @@ error_page 404 /404.php;
 location = /sitemap.xml { try_files $uri /sitemap.php; }
 location = /robots.txt  { try_files $uri /robots.php; }
 
+# Database-driven portfolio detail pages
+location ~ ^/portfolio/([A-Za-z0-9-]+)/?$ {
+    try_files $uri $uri/ /portfolio/item.php?slug=$1&$args;
+}
+
 location ^~ /includes/ { deny all; }
 location ^~ /bin/      { deny all; }
+location ^~ /storage/  { deny all; }   # the SQLite database lives here
+
+# Uploaded files are data, never code
+location ^~ /assets/uploads/ {
+    location ~ \.php$ { deny all; }
+}
 ```
 
 Or skip the rewrites entirely and generate static files at deploy time:

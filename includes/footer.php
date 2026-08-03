@@ -32,15 +32,16 @@ $footerServices = services();
 
       <div>
         <h3>Quick Links</h3>
-        <?php foreach (nav_items() as $item): ?>
-          <a href="<?= e(url($item['slug'])) ?>"><?= e($item['label']) ?></a>
+        <?php /* Prefixed names: partials share the including page's scope. */ ?>
+        <?php foreach (nav_items() as $footerNavItem): ?>
+          <a href="<?= e(url($footerNavItem['slug'])) ?>"><?= e($footerNavItem['label']) ?></a>
         <?php endforeach; ?>
       </div>
 
       <div>
         <h3>Services</h3>
-        <?php foreach ($footerServices as $slug => $service): ?>
-          <a href="<?= e(url('services/' . $slug)) ?>"><?= e($service['name']) ?></a>
+        <?php foreach ($footerServices as $footerSlug => $footerService): ?>
+          <a href="<?= e(url('services/' . $footerSlug)) ?>"><?= e($footerService['name']) ?></a>
         <?php endforeach; ?>
       </div>
 
