@@ -1,0 +1,37 @@
+[
+    {
+        "icon": "i-research",
+        "title": "Research",
+        "card": "We conduct in-depth research and assess notability.",
+        "copy": "We start by searching for independent coverage of the subject across news archives, books, journals, and databases. That search decides everything that follows: if the coverage is not there, no amount of writing will carry an article through review, and we say so before any work is commissioned.",
+        "detail": "The output is a written verdict rather than a verbal impression, because the answer usually turns on distinctions that matter. Three substantial profiles in independent outlets are worth more than thirty passing mentions, and a trade-press feature counts where a sponsored listing in the same publication does not."
+    },
+    {
+        "icon": "i-plan",
+        "title": "Planning",
+        "card": "We plan the content strategy and gather reliable sources.",
+        "copy": "Usable sources are graded for independence, reliability, and depth, then mapped to the sections they can support. You see the outline and the source list before drafting begins, so the scope of the article is agreed up front.",
+        "detail": "This is also where we tell you what the article will not contain. Nearly every brief includes claims a client would like in print that no independent source supports, and settling that at the outline stage is far cheaper than arguing about it during review."
+    },
+    {
+        "icon": "i-write",
+        "title": "Writing",
+        "card": "Our editors write and structure content as per guidelines.",
+        "copy": "Drafting follows Wikipedia's neutral point of view: claims are attributed, weight is balanced across topics, and promotional framing is left out. Every substantive statement carries an inline citation to the source that supports it.",
+        "detail": "Structure matters as much as wording. Reviewers expect the sections conventional for the subject type and a lead that summarises the article rather than introducing it. Getting that shape right often separates an accepted draft from a rejected one containing identical facts."
+    },
+    {
+        "icon": "i-review",
+        "title": "Review",
+        "card": "Rigorous editorial review ensures accuracy and quality.",
+        "copy": "A second editor checks the draft against the sources line by line, looking for unsupported claims, close paraphrasing, tone problems, and structural gaps. Anything that cannot be verified is cut or flagged.",
+        "detail": "The reviewing editor deliberately has no part in the drafting. Reading a draft you wrote yourself, against sources you chose yourself, is the easiest way in the world to miss the sentence that has quietly drifted from what its citation actually says."
+    },
+    {
+        "icon": "i-publish",
+        "title": "Publishing",
+        "card": "We publish and monitor for long-term success.",
+        "copy": "Submission is handled transparently, with conflict-of-interest disclosure where the guidelines require it. Reviewer feedback is addressed on its merits, and the page is monitored through its first stabilisation period after acceptance.",
+        "detail": "Review timelines belong to volunteers working through a queue, so we do not promise dates we cannot control. What we do control is the quality of the response when feedback arrives, and how fast problems get picked up in the weeks after acceptance."
+    }
+]

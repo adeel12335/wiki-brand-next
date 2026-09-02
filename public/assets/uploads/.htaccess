@@ -1,0 +1,11 @@
+# Uploaded files are data, never code. Even if something manages to write a
+# .php file here, this stops the server from running it.
+php_flag engine off
+
+<FilesMatch "\.(?i:php|phtml|php3|php4|php5|php7|php8|phps|pl|py|cgi|asp|aspx|jsp|sh|htaccess)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>

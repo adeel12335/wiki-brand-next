@@ -1,0 +1,6 @@
+@import "./site.css";
+
+:root {
+  --sans: var(--font-manrope), "Manrope", Arial, sans-serif;
+  --serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+}

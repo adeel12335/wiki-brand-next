@@ -1,0 +1,27 @@
+[
+    {
+        "icon": "i-page",
+        "value": "500+",
+        "label": "Pages Created"
+    },
+    {
+        "icon": "i-shield",
+        "value": "100%",
+        "label": "Editorial Standards"
+    },
+    {
+        "icon": "i-users",
+        "value": "Expert",
+        "label": "Wikipedia Editors"
+    },
+    {
+        "icon": "i-globe",
+        "value": "Global",
+        "label": "Global Clientele"
+    },
+    {
+        "icon": "i-building",
+        "value": "10+",
+        "label": "Industries Served"
+    }
+]

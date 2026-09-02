@@ -1,0 +1,50 @@
+[
+    {
+        "q": "How long does it take to get a Wikipedia page published?",
+        "a": "Research and drafting typically take three to six weeks. The review queue that follows belongs to volunteer reviewers and can clear in days or run to several months. A notability assessment at the start gives the most reliable estimate, because it establishes how much source material actually exists."
+    },
+    {
+        "q": "Do you guarantee page approval?",
+        "a": "No ethical editor can guarantee approval. The encyclopedia is maintained by independent volunteers, and no agency controls their decisions. We concentrate on the factors that genuinely determine outcomes: notability, reliable sourcing, neutral writing, and full compliance with editorial standards."
+    },
+    {
+        "q": "What information do you need to get started?",
+        "a": "A biography or company profile, key milestones with dates, links to independent media coverage, and any existing Wikipedia or Wikidata entry. Independent coverage matters most. Press releases, sponsored articles, and self-published material cannot establish notability, however substantial they look."
+    },
+    {
+        "q": "Can you help improve an existing Wikipedia page?",
+        "a": "Yes. We review structure, sourcing, tone, coverage gaps, and maintenance needs, then propose an edit plan in which every change is tied to a guideline and a source. Edits are made transparently, with talk-page disclosure where the guidelines require it."
+    },
+    {
+        "q": "Do you offer ongoing page maintenance?",
+        "a": "Yes. Ongoing management covers watchlist monitoring, assessment of incoming edits, milestone updates drawn from independent sources, dead-link repair, and periodic accuracy reviews, with plain-language reporting on what changed and why."
+    },
+    {
+        "q": "Is paid Wikipedia editing allowed?",
+        "a": "Paid editing is permitted provided it is disclosed. Wikipedia's terms of use require paid contributors to declare their employer, client, and affiliation. We make that declaration as a matter of course rather than editing covertly, because undisclosed paid editing puts the article itself at risk."
+    },
+    {
+        "q": "What makes a subject notable enough for Wikipedia?",
+        "a": "Notability comes from significant coverage in multiple reliable sources independent of the subject. Revenue, follower counts, and industry awards do not substitute for that coverage. Where it is missing we say so before any work begins, rather than after an invoice has been raised."
+    },
+    {
+        "q": "Why was my Wikipedia page rejected or deleted?",
+        "a": "The usual causes are insufficient independent coverage, sourcing that leans on press releases and company material, promotional tone, or an undisclosed conflict of interest. Rejection is rarely permanent. We read the reviewer's reasoning and tell you whether the underlying problem is fixable now."
+    },
+    {
+        "q": "Can you remove negative information from a Wikipedia article?",
+        "a": "Only where it is inaccurate, unsourced, or given weight out of proportion to its coverage. Properly sourced criticism belongs in the article under the neutral point of view policy, and attempting to delete it usually attracts more editor attention than leaving it alone."
+    },
+    {
+        "q": "Do you work with clients outside the United States?",
+        "a": "Yes. We work with individuals, businesses, and organisations worldwide, including on non-English Wikipedia editions where reliable sources exist in the relevant language. Each language edition applies its own notability and sourcing standards, which we assess separately."
+    },
+    {
+        "q": "Will my page appear in Google search results?",
+        "a": "Wikipedia articles are usually indexed, but Google decides how they rank and whether a knowledge panel appears. Nobody can promise a specific placement. What a well-sourced article does provide is a consistent factual record for search engines and AI assistants to draw on."
+    },
+    {
+        "q": "How much does a Wikipedia page cost?",
+        "a": "We quote per engagement rather than per word, because the research burden varies far more than article length does. Heavily covered subjects cost more, not less, since every source has to be read and reconciled. Quotes are fixed in writing before any work starts."
+    }
+]

@@ -1,0 +1,62 @@
+export const SITE_NAME = "The Wikipedia Studio";
+export const SITE_TAGLINE = "Professional Wikipedia Editorial Services";
+export const SITE_EMAIL = "hello@thewikipediastudio.com";
+export const SITE_PHONE = "+1 (800) 453-7801";
+export const SITE_PHONE_RAW = "+18004537801";
+export const SITE_LOCALE = "en_US";
+export const SITE_LANG = "en";
+export const SITE_TWITTER = "@wikipediastudio";
+
+export const SEO_DEFAULT_OG_IMAGE = "/assets/og/hero-orbital-globe.jpg";
+export const SEO_DEFAULT_ROBOTS =
+  "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+
+export const NAV_ITEMS = [
+  { slug: "", label: "Home" },
+  { slug: "about-us", label: "About Us" },
+  { slug: "services", label: "Services" },
+  { slug: "our-process", label: "Our Process" },
+  { slug: "portfolio", label: "Portfolio" },
+  { slug: "faq", label: "Resources" },
+  { slug: "contact", label: "Contact" },
+] as const;
+
+export function getSiteUrl(): string {
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+    "http://localhost:3000"
+  );
+}
+
+/** Root-relative URL with trailing slash (matches PHP canonical URLs). */
+export function url(slug = ""): string {
+  const clean = slug.replace(/^\/+|\/+$/g, "");
+  return clean ? `/${clean}/` : "/";
+}
+
+export function absUrl(slug = ""): string {
+  return `${getSiteUrl()}${url(slug).slice(1)}`;
+}
+
+export function asset(path: string): string {
+  return `/${path.replace(/^\/+/, "")}`;
+}
+
+export function assetUrl(path: string): string {
+  return `${getSiteUrl()}${asset(path)}`;
+}
+
+export function metaTrim(text: string, limit = 160): string {
+  const normalized = text.trim().replace(/\s+/g, " ");
+  if (normalized.length <= limit) return normalized;
+  const cut = normalized.slice(0, limit - 1);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${(lastSpace > 0 ? cut.slice(0, lastSpace) : cut).replace(/[ ,.;:]+$/, "")}…`;
+}
+
+export function navIsActive(slug: string, currentSlug: string): boolean {
+  const s = slug.replace(/^\/+|\/+$/g, "");
+  const c = currentSlug.replace(/^\/+|\/+$/g, "");
+  if (!s) return !c;
+  return s === c || c.startsWith(`${s}/`);
+}
