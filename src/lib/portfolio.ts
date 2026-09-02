@@ -1,7 +1,9 @@
+import { revalidateTag, unstable_cache } from "next/cache";
 import { CACHE_KEYS, cacheDel, cacheGet, cacheSet } from "@/lib/cache/redis";
 import { connectDB, isDbConfigured } from "@/lib/db/mongodb";
 import { PortfolioItem } from "@/lib/db/models";
 import { portfolioFallback } from "@/lib/data";
+import { notifyIndexNow } from "@/lib/indexnow";
 import { slugify } from "@/lib/utils";
 
 export interface PublicPortfolioItem {
@@ -20,6 +22,48 @@ export interface PublicPortfolioItem {
   keywords: string | null;
   updatedAt: Date | null;
   isFallback?: boolean;
+}
+
+const LOCAL_PORTFOLIO_TTL_MS = 5 * 60 * 1000;
+const PORTFOLIO_CACHE_TAG = "published-portfolio";
+let localPortfolioCache:
+  | { items: PublicPortfolioItem[]; expiresAt: number }
+  | null = null;
+
+function getLocalPortfolio(): PublicPortfolioItem[] | null {
+  if (!localPortfolioCache || localPortfolioCache.expiresAt <= Date.now()) {
+    localPortfolioCache = null;
+    return null;
+  }
+
+  return localPortfolioCache.items;
+}
+
+function setLocalPortfolio(items: PublicPortfolioItem[]): PublicPortfolioItem[] {
+  localPortfolioCache = {
+    items,
+    expiresAt: Date.now() + LOCAL_PORTFOLIO_TTL_MS,
+  };
+  return items;
+}
+
+function normalizeCachedPortfolio(
+  items: PublicPortfolioItem[],
+): PublicPortfolioItem[] {
+  return items.map((item) => {
+    const updatedAt = item.updatedAt as Date | string | null;
+    const isFallback = item.isFallback ?? item.id === null;
+    if (!updatedAt || updatedAt instanceof Date) {
+      return { ...item, isFallback };
+    }
+
+    const parsed = new Date(updatedAt);
+    return {
+      ...item,
+      updatedAt: Number.isNaN(parsed.getTime()) ? null : parsed,
+      isFallback,
+    };
+  });
 }
 
 function mapFallback(): PublicPortfolioItem[] {
@@ -82,9 +126,9 @@ function mapDoc(
   };
 }
 
-export async function getPublishedPortfolio(): Promise<PublicPortfolioItem[]> {
+async function loadPublishedPortfolio(): Promise<PublicPortfolioItem[]> {
   const cached = await cacheGet<PublicPortfolioItem[]>(CACHE_KEYS.portfolioList);
-  if (cached) return cached;
+  if (cached) return normalizeCachedPortfolio(cached);
 
   if (!isDbConfigured()) {
     return mapFallback();
@@ -106,45 +150,51 @@ export async function getPublishedPortfolio(): Promise<PublicPortfolioItem[]> {
   }
 }
 
+const getCachedPublishedPortfolio = unstable_cache(
+  loadPublishedPortfolio,
+  ["published-portfolio-v2"],
+  {
+    tags: [PORTFOLIO_CACHE_TAG],
+    revalidate: 300,
+  },
+);
+
+export async function getPublishedPortfolio(): Promise<PublicPortfolioItem[]> {
+  const local = getLocalPortfolio();
+  if (local) return local;
+
+  const items = normalizeCachedPortfolio(await getCachedPublishedPortfolio());
+  return setLocalPortfolio(items);
+}
+
 export async function getFeaturedPortfolio(): Promise<PublicPortfolioItem[]> {
   const all = await getPublishedPortfolio();
   const featured = all.filter((item) => item.featuredOnHome);
   return featured.length > 0 ? featured : all.slice(0, 6);
 }
 
+export function isIndexablePortfolioItem(item: PublicPortfolioItem): boolean {
+  const bodyWordCount = item.body.trim().split(/\s+/).filter(Boolean).length;
+  return item.id !== null && item.isFallback !== true && bodyWordCount >= 80;
+}
+
 export async function getPortfolioBySlug(
   slug: string,
 ): Promise<PublicPortfolioItem | null> {
   const normalized = slugify(slug);
-  const cacheKey = CACHE_KEYS.portfolioItem(normalized);
-  const cached = await cacheGet<PublicPortfolioItem>(cacheKey);
-  if (cached) return cached;
+  const local = getLocalPortfolio();
+  const localItem = local?.find((item) => item.slug === normalized);
+  if (localItem) return localItem;
 
-  if (isDbConfigured()) {
-    try {
-      await connectDB();
-      const doc = await PortfolioItem.findOne({
-        slug: normalized,
-        status: "published",
-      }).lean();
-
-      if (doc) {
-        const item = mapDoc(doc as never);
-        await cacheSet(cacheKey, item);
-        return item;
-      }
-    } catch {
-      // fall through to fallback
-    }
-  }
-
-  const fallback = mapFallback().find((item) => item.slug === normalized) ?? null;
-  if (fallback) await cacheSet(cacheKey, fallback);
-  return fallback;
+  const items = await getPublishedPortfolio();
+  return items.find((item) => item.slug === normalized) ?? null;
 }
 
 export async function invalidatePortfolioCache(slug?: string): Promise<void> {
+  localPortfolioCache = null;
+  revalidateTag(PORTFOLIO_CACHE_TAG, { expire: 0 });
   const keys: string[] = [CACHE_KEYS.portfolioList];
   if (slug) keys.push(CACHE_KEYS.portfolioItem(slugify(slug)));
   await cacheDel(...keys);
+  await notifyIndexNow(["", "portfolio", ...(slug ? [`portfolio/${slug}`] : [])]);
 }

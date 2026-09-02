@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BodyClass } from "@/components/layout/BodyClass";
@@ -12,8 +13,13 @@ import { buildPageMetadata, seoId } from "@/lib/seo";
 import {
   getPortfolioBySlug,
   getPublishedPortfolio,
+  isIndexablePortfolioItem,
 } from "@/lib/portfolio";
-import { portfolioHeading, portfolioMetaDescription } from "@/lib/utils";
+import {
+  portfolioHeading,
+  portfolioMetaDescription,
+  portfolioMetaTitle,
+} from "@/lib/utils";
 
 export const revalidate = 3600;
 
@@ -30,10 +36,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const work = await getPortfolioBySlug(slug);
   if (!work) return {};
+  const isIndexable = isIndexablePortfolioItem(work);
 
   return buildPageMetadata({
     slug: `portfolio/${work.slug}`,
-    title: work.metaTitle || `${work.title} Wikipedia Page | Portfolio`,
+    title: portfolioMetaTitle(work.title, work.metaTitle),
     shortTitle: work.title,
     breadcrumbName: work.title,
     description: portfolioMetaDescription(work.summary, work.metaDescription),
@@ -42,6 +49,7 @@ export async function generateMetadata({
     ogImageAlt: work.imageAlt,
     breadcrumbs: [{ label: "Portfolio", slug: "portfolio" }],
     modified: work.updatedAt?.toISOString(),
+    robots: isIndexable ? undefined : "noindex, follow",
   });
 }
 
@@ -53,14 +61,15 @@ export default async function PortfolioDetailPage({
   const { slug } = await params;
   const work = await getPortfolioBySlug(slug);
   if (!work) notFound();
+  const isIndexable = isIndexablePortfolioItem(work);
 
   const others = (await getPublishedPortfolio()).filter(
-    (item) => item.slug !== work.slug,
+    (item) => item.slug !== work.slug && isIndexablePortfolioItem(item),
   );
 
   const pageMeta = {
     slug: `portfolio/${work.slug}`,
-    title: work.metaTitle || `${work.title} Wikipedia Page | Portfolio`,
+    title: portfolioMetaTitle(work.title, work.metaTitle),
     shortTitle: work.title,
     breadcrumbName: work.title,
     description: portfolioMetaDescription(work.summary, work.metaDescription),
@@ -68,18 +77,21 @@ export default async function PortfolioDetailPage({
     ogImage: work.imageUrl ?? "/assets/og/portfolio-public-figure.jpg",
     breadcrumbs: [{ label: "Portfolio", slug: "portfolio" }],
     modified: work.updatedAt?.toISOString(),
-    schema: [
-      {
-        "@type": "CreativeWork",
-        "@id": `${absUrl(`portfolio/${work.slug}`)}#work`,
-        name: work.title,
-        url: absUrl(`portfolio/${work.slug}`),
-        description: work.summary,
-        creator: { "@id": seoId("organization") },
-        about: work.category || work.title,
-        isPartOf: { "@id": `${absUrl("portfolio")}#itemlist` },
-      },
-    ],
+    robots: isIndexable ? undefined : "noindex, follow",
+    schema: isIndexable
+      ? [
+          {
+            "@type": "CreativeWork",
+            "@id": `${absUrl(`portfolio/${work.slug}`)}#work`,
+            name: work.title,
+            url: absUrl(`portfolio/${work.slug}`),
+            description: work.summary,
+            creator: { "@id": seoId("organization") },
+            about: work.category || work.title,
+            isPartOf: { "@id": `${absUrl("portfolio")}#itemlist` },
+          },
+        ]
+      : [],
   };
 
   return (
@@ -102,11 +114,12 @@ export default async function PortfolioDetailPage({
         <div className="shell work-detail">
           {work.imageUrl ? (
             <figure className="work-figure reveal">
-              <img
+              <Image
                 src={work.imageUrl}
                 alt={work.imageAlt}
                 width={960}
                 height={640}
+                sizes="(max-width: 900px) 100vw, 54vw"
               />
             </figure>
           ) : null}
@@ -187,12 +200,12 @@ export default async function PortfolioDetailPage({
                 <article key={other.slug} className="portfolio-card static">
                   <Link href={url(`portfolio/${other.slug}`)}>
                     {other.imageUrl ? (
-                      <img
+                      <Image
                         src={other.imageUrl}
                         alt={other.imageAlt}
                         width={960}
                         height={640}
-                        loading="lazy"
+                        sizes="(max-width: 760px) 100vw, 33vw"
                       />
                     ) : null}
                     <div>

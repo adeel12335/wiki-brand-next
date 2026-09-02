@@ -13,7 +13,7 @@ import { buildPageMetadata } from "@/lib/seo";
 
 const pageMeta = {
   slug: "our-process",
-  title: "Our Wikipedia Process | Research, Writing & Publishing",
+  title: "Our Wikipedia Editorial Process",
   shortTitle: "Our Process",
   description:
     "How a Wikipedia article gets built: notability research, source planning, neutral drafting, editorial review, and transparent submission.",
@@ -106,7 +106,24 @@ export default function OurProcessPage() {
             </p>
             <p>
               What we cannot use as citations is anything you control: company blogs,
-              press releases, sponsored features, and your own website.
+              press releases, sponsored features, and your own website. That follows
+              Wikipedia&apos;s published guidance on{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Wikipedia:Identifying_reliable_sources"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                identifying reliable sources
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Wikipedia:Independent_sources"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                source independence
+              </a>
+              .
             </p>
           </div>
         </div>

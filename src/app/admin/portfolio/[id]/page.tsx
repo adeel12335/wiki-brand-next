@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
@@ -277,10 +278,13 @@ export default function AdminPortfolioEditPage() {
           <section className="admin-card">
             <h2>Photo</h2>
             {image?.url ? (
-              <img
+              <Image
                 className="admin-preview"
                 src={image.url}
                 alt={values.imageAlt || values.title}
+                width={960}
+                height={640}
+                sizes="(max-width: 900px) 100vw, 420px"
               />
             ) : (
               <div className="admin-image-placeholder">No image yet</div>

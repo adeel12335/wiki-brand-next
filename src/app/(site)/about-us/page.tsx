@@ -13,7 +13,7 @@ import { buildPageMetadata, seoId } from "@/lib/seo";
 
 const pageMeta = {
   slug: "about-us",
-  title: "About Us | Wikipedia Editorial Agency & Specialist Editors",
+  title: "About Our Wikipedia Editorial Agency",
   shortTitle: "About Us",
   description:
     "An editorial agency of Wikipedia specialists, researchers, and strategists working to the platform's own sourcing and neutrality standards.",
@@ -64,8 +64,31 @@ export default function AboutPage() {
             <p>
               Wikipedia is not a marketing channel, and treating it like one is the
               most common reason articles get rejected, tagged, or deleted. Our work
-              starts from the platform&apos;s own rules — notability, verifiability,
-              neutral point of view — and everything else follows from them.
+              starts from the platform&apos;s own rules —{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Wikipedia:Notability"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                notability
+              </a>
+              ,{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Wikipedia:Verifiability"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                verifiability
+              </a>
+              , and{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Wikipedia:Neutral_point_of_view"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                neutral point of view
+              </a>{" "}
+              — and everything else follows from them.
             </p>
             <p>
               That means we sometimes deliver news a client does not want to hear. We

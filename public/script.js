@@ -3,6 +3,8 @@
   const $ = (selector, context = document) => context.querySelector(selector);
   const $$ = (selector, context = document) => [...context.querySelectorAll(selector)];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const richMotion = !reducedMotion
+    && window.matchMedia('(min-width: 901px) and (pointer: fine)').matches;
 
   // Navigation, header scroll, and .reveal visibility are handled by React
   // (Header.tsx + RevealOnView.tsx) so client-side page changes stay visible.
@@ -422,7 +424,7 @@
     });
   }
 
-  function drawStars() {
+  function drawStars(animate = richMotion) {
     if (!context) return;
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     stars.forEach(star => {
@@ -457,12 +459,12 @@
       context.fillStyle = star.gold ? `rgba(216,165,58,${star.alpha})` : `rgba(211,226,238,${star.alpha})`;
       context.fill();
     });
-    window.requestAnimationFrame(drawStars);
+    if (animate) window.requestAnimationFrame(drawStars);
   }
 
-  if (canvas && context) {
+  if (canvas && context && richMotion) {
     resizeStars();
-    if (!reducedMotion) drawStars();
+    drawStars();
     window.addEventListener('resize', resizeStars);
   }
 
@@ -628,15 +630,15 @@
     });
 
     if (heroPointer.active) drawHeroGlow(heroPointer.x, heroPointer.y, 46, .055);
-    heroAnimationFrame = reducedMotion ? null : window.requestAnimationFrame(drawHeroParticles);
+    heroAnimationFrame = richMotion ? window.requestAnimationFrame(drawHeroParticles) : null;
   }
 
   function startHeroParticles() {
-    if (heroAnimationFrame || reducedMotion || !heroVisible || document.hidden) return;
+    if (heroAnimationFrame || !richMotion || !heroVisible || document.hidden) return;
     heroAnimationFrame = window.requestAnimationFrame(drawHeroParticles);
   }
 
-  if (hero && heroCanvas && heroContext) {
+  if (hero && heroCanvas && heroContext && richMotion) {
     resizeHeroParticles();
     hero.addEventListener('pointermove', event => {
       const bounds = hero.getBoundingClientRect();
@@ -656,12 +658,11 @@
       heroObserver.observe(hero);
     }
 
-    if (reducedMotion) drawHeroParticles();
-    else startHeroParticles();
+    startHeroParticles();
   }
 
   const heroArt = $('.hero-art');
-  if (heroArt && !reducedMotion && window.matchMedia('(pointer: fine)').matches) {
+  if (heroArt && richMotion) {
     const strength = 16;
     let targetX = 0;
     let targetY = 0;

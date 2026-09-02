@@ -29,7 +29,6 @@ export function buildPageMetadata(page: PageMeta): Metadata {
   return {
     title,
     description,
-    keywords: page.keywords?.split(",").map((k) => k.trim()),
     authors: [{ name: SITE_NAME }],
     publisher: SITE_NAME,
     robots: page.robots ?? SEO_DEFAULT_ROBOTS,
@@ -62,19 +61,18 @@ export function buildPageMetadata(page: PageMeta): Metadata {
       description,
       images: [imageUrl],
     },
-    other: page.keywords ? { keywords: page.keywords } : undefined,
   };
 }
 
 export function organizationNode() {
   return {
-    "@type": ["Organization", "ProfessionalService"],
+    "@type": "Organization",
     "@id": seoId("organization"),
     name: SITE_NAME,
     alternateName: "Wikipedia Studio",
     url: absUrl(),
     description:
-      "Professional Wikipedia editorial agency providing page creation, editing, research, and ongoing management for individuals, businesses, and organisations.",
+      "Independent professional editorial agency providing Wikipedia page creation, editing, research, and ongoing management for individuals, businesses, and organisations.",
     email: "hello@thewikipediastudio.com",
     telephone: "+18004537801",
     logo: {
@@ -104,14 +102,6 @@ export function organizationNode() {
         telephone: "+18004537801",
         availableLanguage: ["English"],
         areaServed: "Worldwide",
-      },
-    ],
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "09:00",
-        closes: "18:00",
       },
     ],
   };
@@ -259,11 +249,11 @@ export function buildJsonLd(page: PageMeta): Record<string, unknown> {
     ? imagePath
     : assetUrl(imagePath.replace(/^\//, ""));
 
-  const graph: Record<string, unknown>[] = [
-    organizationNode(),
-    websiteNode(),
-    webpageNode(page, imageUrl),
-  ];
+  const graph: Record<string, unknown>[] = [webpageNode(page, imageUrl)];
+
+  if (!page.slug) {
+    graph.unshift(organizationNode(), websiteNode());
+  }
 
   if (page.breadcrumbs?.length) {
     graph.push(

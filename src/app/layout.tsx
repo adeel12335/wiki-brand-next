@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
-import { SITE_NAME, SITE_TAGLINE } from "@/lib/config";
+import { SITE_NAME, SITE_TAGLINE, getSiteUrl } from "@/lib/config";
 import "./(site)/globals.css";
 
 const manrope = Manrope({
@@ -22,9 +22,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_TAGLINE,
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  ),
+  metadataBase: new URL(getSiteUrl()),
 };
 
 export default function RootLayout({
@@ -36,6 +34,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${manrope.variable} ${cormorant.variable}`}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body suppressHydrationWarning>{children}</body>

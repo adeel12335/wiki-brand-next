@@ -55,7 +55,15 @@ export function Header() {
     >
       <div className="shell nav-shell">
         <Link className="brand" href={url()} aria-label={`${SITE_NAME} home`}>
-          <Image src="/assets/globe-small.png" alt="" width={66} height={55} priority />
+          <Image
+            src="/assets/globe-small.png"
+            alt=""
+            width={66}
+            height={55}
+            sizes="66px"
+            quality={60}
+            loading="eager"
+          />
           <span className="brand-copy">
             <b>The Wikipedia</b>
             <span>

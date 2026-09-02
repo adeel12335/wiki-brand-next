@@ -21,7 +21,7 @@ import { buildPageMetadata, itemListNode } from "@/lib/seo";
 
 const pageMeta = {
   slug: "",
-  title: `Wikipedia Page Creation Services | ${SITE_NAME}`,
+  title: "Wikipedia Page Creation & Editing",
   shortTitle: "Home",
   description:
     "Professional Wikipedia editorial agency. Guideline-compliant page creation, editing, research, and ongoing management for people and organisations.",
@@ -51,7 +51,16 @@ export default async function HomePage() {
       <JsonLd page={pageMeta} />
 
       <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-art" aria-hidden="true" />
+        <div className="hero-art" aria-hidden="true">
+          <Image
+            className="hero-art-image"
+            src="/assets/hero-orbital-globe.jpg"
+            alt=""
+            fill
+            preload
+            sizes="100vw"
+          />
+        </div>
         <canvas className="hero-particles" id="heroParticles" aria-hidden="true" />
         <div className="hero-beacon" aria-hidden="true">
           <i />
@@ -79,9 +88,9 @@ export default async function HomePage() {
             </div>
             <div className="hero-proof">
               <div className="proof-avatars" aria-hidden="true">
-                <Image src="/assets/portfolio-business-leader.jpg" alt="" width={960} height={640} />
-                <Image src="/assets/portfolio-author.jpg" alt="" width={960} height={640} />
-                <Image src="/assets/portfolio-entrepreneur.jpg" alt="" width={960} height={640} />
+                <Image src="/assets/portfolio-business-leader.jpg" alt="" width={68} height={68} />
+                <Image src="/assets/portfolio-author.jpg" alt="" width={68} height={68} />
+                <Image src="/assets/portfolio-entrepreneur.jpg" alt="" width={68} height={68} />
                 <span>W</span>
               </div>
               <p>

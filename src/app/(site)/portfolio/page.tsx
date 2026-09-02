@@ -5,20 +5,23 @@ import { PortfolioClientsGrid } from "@/components/sections/PortfolioClientsGrid
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
-import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { url, absUrl } from "@/lib/config";
 import { buildPageMetadata, itemListNode } from "@/lib/seo";
-import { getPublishedPortfolio } from "@/lib/portfolio";
+import {
+  getPublishedPortfolio,
+  isIndexablePortfolioItem,
+} from "@/lib/portfolio";
 
 export const revalidate = 3600;
 
 const staticMeta = {
   slug: "portfolio",
-  title: "Portfolios | Wikipedia Pages For Leaders & Organisations",
+  title: "Wikipedia Work & Case Studies",
   shortTitle: "Portfolios",
   description:
-    "Our clients — Wikipedia pages we have helped publish for leaders, academics, athletes, and public figures.",
+    "Explore selected Wikipedia editorial engagements for leaders, academics, athletes, and public figures, with links to published articles.",
   keywords:
     "wikipedia portfolio, wikipedia clients, wikipedia page examples, wikipedia case studies",
   ogImage: "/assets/og/portfolio-public-figure.jpg",
@@ -40,7 +43,9 @@ export default async function PortfolioPage() {
         items.map((item) => ({
           name: item.title,
           description: item.summary,
-          url: item.externalUrl ?? absUrl(`portfolio/${item.slug}`),
+          url: isIndexablePortfolioItem(item)
+            ? absUrl(`portfolio/${item.slug}`)
+            : item.externalUrl ?? undefined,
         })),
       ),
     ],
@@ -52,17 +57,27 @@ export default async function PortfolioPage() {
       <JsonLd page={pageMeta} />
       <PageHero
         eyebrow="Our Clients"
-        h1="Proven Results. <span>Real Transformations.</span>"
-        lede="Wikipedia pages we have helped publish for leaders, academics, athletes, and public figures worldwide."
+        h1="Selected work. <span>Published Wikipedia pages.</span>"
+        lede="A selection of live Wikipedia articles across leadership, academia, sport, and public life."
         current="Portfolios"
         actions={[
           { label: "Discuss Your Project", href: url("contact") },
           { label: "Our Services", href: url("services"), style: "button-outline" },
         ]}
+        image="/assets/portfolio-hero.png"
+        imageWidth={1536}
+        imageHeight={1024}
+        visualClass="page-hero-visual--portfolio"
       />
 
       <section className="section-pad clients-section">
         <div className="shell">
+          <SectionHeading
+            eyebrow="Published Work"
+            heading="Profiles and articles in the encyclopedia"
+            copy="Each card links to a live Wikipedia article."
+            center={false}
+          />
           <PortfolioClientsGrid items={items} />
         </div>
       </section>

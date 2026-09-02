@@ -14,7 +14,7 @@ import { buildPageMetadata, itemListNode } from "@/lib/seo";
 
 const pageMeta = {
   slug: "services",
-  title: "Wikipedia Services | Page Creation, Editing & Management",
+  title: "Wikipedia Editorial Services",
   shortTitle: "Services",
   description:
     "Wikipedia services for people and organisations: page creation, editing, content research, ongoing management, and entity building.",

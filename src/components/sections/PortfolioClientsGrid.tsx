@@ -1,11 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
-import type { PublicPortfolioItem } from "@/lib/portfolio";
+import {
+  isIndexablePortfolioItem,
+  type PublicPortfolioItem,
+} from "@/lib/portfolio";
 
 interface PortfolioClientsGridProps {
   items: PublicPortfolioItem[];
   variant?: "grid" | "carousel";
+}
+
+const COVER_POOL = [
+  "/assets/portfolio-public-figure.jpg",
+  "/assets/portfolio-author.jpg",
+  "/assets/portfolio-business-leader.jpg",
+  "/assets/portfolio-entrepreneur.jpg",
+];
+
+function isDummyLocalPng(url: string | null): boolean {
+  return Boolean(
+    url?.startsWith("/assets/portfolio/") && url.toLowerCase().endsWith(".png"),
+  );
+}
+
+function coverFor(title: string): string {
+  const sum = [...title].reduce((total, char) => total + char.charCodeAt(0), 0);
+  return COVER_POOL[sum % COVER_POOL.length];
 }
 
 export function PortfolioClientsGrid({
@@ -21,7 +42,9 @@ export function PortfolioClientsGrid({
       </div>
       <div className="client-card-body">
         <h3>
-          {item.externalUrl ? (
+          {isIndexablePortfolioItem(item) ? (
+            <Link href={`/portfolio/${item.slug}/`}>{item.title}</Link>
+          ) : item.externalUrl ? (
             <a href={item.externalUrl} target="_blank" rel="noopener noreferrer">
               {item.title}
             </a>
@@ -94,25 +117,17 @@ function PortfolioImage({
   item: PublicPortfolioItem;
   eager?: boolean;
 }) {
-  const currentFallbackPlaceholder = Boolean(
-    item.imageUrl?.startsWith("/assets/portfolio/") &&
-      item.imageUrl.toLowerCase().endsWith(".png"),
-  );
-
-  if (!item.imageUrl || currentFallbackPlaceholder) {
-    return (
-      <div className="portfolio-image-placeholder" aria-hidden="true">
-        <span>W</span>
-      </div>
-    );
-  }
+  const src =
+    item.imageUrl && !isDummyLocalPng(item.imageUrl)
+      ? item.imageUrl
+      : coverFor(item.title);
 
   return (
     <Image
-      src={item.imageUrl}
-      alt={item.imageAlt}
-      width={960}
-      height={720}
+      className="portfolio-photo"
+      src={src}
+      alt={item.imageAlt || item.title}
+      fill
       sizes="(max-width: 620px) 100vw, (max-width: 900px) 50vw, 34vw"
       loading={eager ? "eager" : "lazy"}
       fetchPriority={eager ? "high" : "auto"}
@@ -127,7 +142,7 @@ function PortfolioLink({
   item: PublicPortfolioItem;
   label: string;
 }) {
-  if (item.externalUrl) {
+  if (!isIndexablePortfolioItem(item) && item.externalUrl) {
     return (
       <a
         className="text-link"

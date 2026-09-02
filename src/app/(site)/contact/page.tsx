@@ -18,10 +18,10 @@ import { buildPageMetadata, seoId } from "@/lib/seo";
 
 const pageMeta = {
   slug: "contact",
-  title: "Contact Us | Request A Wikipedia Notability Assessment",
+  title: "Contact Our Wikipedia Editors",
   shortTitle: "Contact",
   description:
-    "Contact The Wikipedia Studio for a Wikipedia notability assessment, page creation, editing, or ongoing management. Worldwide service, Monday to Friday.",
+    "Contact The Wikipedia Studio for a notability assessment or help with Wikipedia page creation, editing, research, and ongoing management.",
   keywords:
     "contact wikipedia studio, wikipedia consultation, wikipedia notability assessment, hire wikipedia editor, wikipedia page quote",
   ogImage: "/assets/og/globe.jpg",
@@ -80,13 +80,6 @@ export default function ContactPage() {
                 <div>
                   <strong>Coverage</strong>
                   <span>Worldwide services</span>
-                </div>
-              </li>
-              <li>
-                <Icon name="i-clock" />
-                <div>
-                  <strong>Hours</strong>
-                  <span>Mon–Fri, 9:00 AM–6:00 PM</span>
                 </div>
               </li>
             </ul>

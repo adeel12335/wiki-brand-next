@@ -11,8 +11,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { url } from "@/lib/config";
 import { getService, serviceSlugs, services } from "@/lib/data";
-import { buildPageMetadata, serviceNode } from "@/lib/seo";
-import { lastReviewed } from "@/lib/utils";
+import { buildPageMetadata, faqNode, serviceNode } from "@/lib/seo";
 
 export function generateStaticParams() {
   return serviceSlugs.map((slug) => ({ slug }));
@@ -37,7 +36,7 @@ export async function generateMetadata({
     ogImage: `/${service.og_image.replace(/^\//, "")}`,
     ogImageAlt: `${service.name} — The Wikipedia Studio`,
     breadcrumbs: [{ label: "Services", slug: "services" }],
-    schema: [serviceNode(slug, service)],
+    schema: [serviceNode(slug, service), faqNode(service.faqs, `services/${slug}`)],
   });
 }
 
@@ -60,7 +59,7 @@ export default async function ServiceDetailPage({
     keywords: service.keywords,
     ogImage: `/${service.og_image.replace(/^\//, "")}`,
     breadcrumbs: [{ label: "Services", slug: "services" }],
-    schema: [serviceNode(slug, service)],
+    schema: [serviceNode(slug, service), faqNode(service.faqs, `services/${slug}`)],
   };
 
   return (
@@ -86,8 +85,42 @@ export default async function ServiceDetailPage({
             <h2>{service.what_is_heading}</h2>
             <p className="definition-copy">{service.what_is}</p>
             <p className="reviewed-note">
-              Reviewed {lastReviewed()} · Written by the editorial team at The
-              Wikipedia Studio
+              Editorial guidance from The Wikipedia Studio team.
+            </p>
+            <p className="reviewed-note">
+              Primary references:{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Wikipedia:Notability"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                notability
+              </a>
+              ,{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Wikipedia:Verifiability"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                verifiability
+              </a>
+              ,{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Wikipedia:Neutral_point_of_view"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                neutral point of view
+              </a>
+              , and{" "}
+              <a
+                href="https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use#4._Refraining_from_Certain_Activities"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                paid-contribution disclosure
+              </a>
+              .
             </p>
           </div>
           <aside className="who-panel reveal" data-delay="100">
@@ -191,8 +224,8 @@ export default async function ServiceDetailPage({
               Guidelines first, <span>always.</span>
             </h2>
             <p>
-              Every engagement is run by editors who work to Wikipedia&apos;s own
-              standards. You can read more about{" "}
+              Every engagement is run by editors who work to Wikipedia&apos;s
+              published standards. You can read more about{" "}
               <Link href={url("about-us")}>the team and how we work</Link>.
             </p>
             <div className="principle-grid">

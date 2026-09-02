@@ -8,22 +8,18 @@ import { buildPageMetadata } from "@/lib/seo";
 
 const pageMeta = {
   slug: "terms-conditions",
-  title: `Terms & Conditions | ${SITE_NAME}`,
+  title: "Terms & Conditions",
   shortTitle: "Terms & Conditions",
   description:
-    "The terms that apply to using this website and commissioning Wikipedia editorial services from The Wikipedia Studio.",
+    "Read the terms for using this website and commissioning Wikipedia editorial research, writing, editing, and management services.",
   keywords: "terms and conditions, service terms, wikipedia studio terms",
   ogImage: "/assets/og/globe.jpg",
+  modified: "2026-09-02",
 };
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 export default function TermsPage() {
-  const updated = new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    year: "numeric",
-  }).format(new Date());
-
   return (
     <>
       <BodyClass className="page-terms-conditions" />
@@ -36,7 +32,7 @@ export default function TermsPage() {
       />
       <section className="section-pad">
         <div className="shell legal-body reveal">
-          <p className="legal-updated">Last updated: {updated}</p>
+          <p className="legal-updated">Last updated: September 2, 2026</p>
           <h2>1. About these terms</h2>
           <p>
             By using this website or commissioning services from {SITE_NAME}, you
@@ -51,8 +47,15 @@ export default function TermsPage() {
           </ul>
           <h2>3. Compliance and disclosure</h2>
           <p>
-            We work within Wikipedia&apos;s policies, including disclosure of paid
-            contributions as required.
+            We work within Wikipedia&apos;s policies, including{" "}
+            <a
+              href="https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use#4._Refraining_from_Certain_Activities"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              disclosure of paid contributions
+            </a>{" "}
+            as required by the Wikimedia Foundation Terms of Use.
           </p>
           <h2>4. Fees and payment</h2>
           <p>

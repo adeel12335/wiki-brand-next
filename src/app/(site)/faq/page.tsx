@@ -13,7 +13,7 @@ import { buildPageMetadata, faqNode } from "@/lib/seo";
 
 const pageMeta = {
   slug: "faq",
-  title: "Wikipedia FAQ | Notability, Timelines & Paid Editing",
+  title: "Wikipedia Service FAQ",
   shortTitle: "Resources",
   breadcrumbName: "Resources & FAQ",
   description:
@@ -141,8 +141,39 @@ export default function FaqPage() {
             <p className="micro-label">Useful Reading</p>
             <div className="prose">
               <p>
-                Wikipedia publishes the policies we work to: notability, verifiability,
-                neutral point of view, and paid-contribution disclosure.
+                Wikipedia publishes the policies we work to:{" "}
+                <a
+                  href="https://en.wikipedia.org/wiki/Wikipedia:Notability"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  notability
+                </a>
+                ,{" "}
+                <a
+                  href="https://en.wikipedia.org/wiki/Wikipedia:Verifiability"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  verifiability
+                </a>
+                ,{" "}
+                <a
+                  href="https://en.wikipedia.org/wiki/Wikipedia:Neutral_point_of_view"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  neutral point of view
+                </a>
+                , and{" "}
+                <a
+                  href="https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use#4._Refraining_from_Certain_Activities"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  paid-contribution disclosure
+                </a>
+                .
               </p>
               <p>If an agency&apos;s promises conflict with those documents, the documents win.</p>
             </div>

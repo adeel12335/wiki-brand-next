@@ -18,7 +18,14 @@ export function Footer() {
       <div className="shell footer-grid">
         <div className="footer-brand">
           <Link className="brand" href={url()} aria-label={`${SITE_NAME} home`}>
-            <Image src="/assets/globe-small.png" alt="" width={66} height={55} />
+            <Image
+              src="/assets/globe-small.png"
+              alt=""
+              width={66}
+              height={55}
+              sizes="66px"
+              quality={60}
+            />
             <span className="brand-copy">
               <b>The Wikipedia</b>
               <span>
@@ -62,8 +69,26 @@ export function Footer() {
           <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>
           <a href={`tel:${SITE_PHONE_RAW}`}>{SITE_PHONE}</a>
           <span>Worldwide Services</span>
-          <span>Mon–Fri, 9:00 AM–6:00 PM</span>
         </div>
+      </div>
+
+      <div className="shell footer-disclaimer">
+        <p>
+          {SITE_NAME} is an independent editorial service and is not affiliated
+          with{" "}
+          <a href="https://www.wikipedia.org/" target="_blank" rel="noopener noreferrer">
+            Wikipedia
+          </a>{" "}
+          or the{" "}
+          <a
+            href="https://wikimediafoundation.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wikimedia Foundation
+          </a>
+          .
+        </p>
       </div>
 
       <div className="shell footer-bottom">

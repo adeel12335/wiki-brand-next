@@ -10,18 +10,20 @@ export function slugify(value: string): string {
   return normalized || "item";
 }
 
-export function lastReviewed(): string {
-  return new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    year: "numeric",
-  }).format(new Date());
-}
-
 export function portfolioHeading(title: string): string {
   if (title.toLowerCase().includes("wikipedia")) {
     return title;
   }
   return `${title} <span>Wikipedia</span> page`;
+}
+
+export function portfolioMetaTitle(
+  title: string,
+  metaTitle?: string | null,
+): string {
+  return (metaTitle?.trim() || `${title} Portfolio`)
+    .replace(/\s*(?:\||—|-)\s*The Wikipedia Studio$/i, "")
+    .trim();
 }
 
 export function portfolioMetaDescription(

@@ -28,7 +28,8 @@ export function TestimonialSection() {
             alt=""
             aria-hidden="true"
             width={520}
-            height={520}
+            height={430}
+            sizes="(max-width: 900px) 70vw, 520px"
           />
           <button
             className="round-arrow previous"

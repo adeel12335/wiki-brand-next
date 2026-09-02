@@ -8,7 +8,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import mongoose from "mongoose";
-import { scrapeWpPortfolio, slugify } from "./lib/scrape-wp-portfolio.mjs";
+import { scrapeWpPortfolio } from "./lib/scrape-wp-portfolio.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const MONGODB_URI = process.env.MONGODB_URI;

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AdminStat } from "@/components/admin/AdminStat";
@@ -19,6 +20,13 @@ interface PortfolioRow {
 
 type StatusFilter = "all" | "published" | "draft";
 type FeaturedFilter = "all" | "featured" | "not-featured";
+
+async function fetchPortfolioRows(signal?: AbortSignal): Promise<PortfolioRow[]> {
+  const response = await fetch("/api/portfolio/", { signal });
+  if (!response.ok) throw new Error("Could not load portfolio");
+  const data = await response.json();
+  return data.items ?? [];
+}
 
 function formatDate(value: string) {
   try {
@@ -42,15 +50,31 @@ export function AdminPortfolioList() {
   const [featuredFilter, setFeaturedFilter] = useState<FeaturedFilter>("all");
 
   const load = useCallback(async () => {
-    const res = await fetch("/api/portfolio/");
-    const data = await res.json();
-    setItems(data.items ?? []);
-    setLoading(false);
+    try {
+      setItems(await fetchPortfolioRows());
+    } catch {
+      setToast("Could not refresh portfolio");
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
-    load();
-  }, [load]);
+    const controller = new AbortController();
+
+    void fetchPortfolioRows(controller.signal)
+      .then((rows) => {
+        setItems(rows);
+        setLoading(false);
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setLoading(false);
+        setToast("Could not load portfolio");
+      });
+
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     if (!toast) return;
@@ -244,7 +268,7 @@ export function AdminPortfolioList() {
                     <td>
                       <div className="admin-client-cell">
                         {item.image?.url ? (
-                          <img
+                          <Image
                             className="admin-thumb"
                             src={item.image.url}
                             alt=""

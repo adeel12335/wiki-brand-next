@@ -8,22 +8,18 @@ import { buildPageMetadata } from "@/lib/seo";
 
 const pageMeta = {
   slug: "privacy-policy",
-  title: `Privacy Policy | ${SITE_NAME}`,
+  title: "Privacy Policy",
   shortTitle: "Privacy Policy",
   description:
-    "How The Wikipedia Studio collects, uses, and protects the information you send through this website.",
+    "Learn how The Wikipedia Studio collects, uses, stores, and protects contact-form data and other information submitted through this website.",
   keywords: "privacy policy, data protection, wikipedia studio privacy",
   ogImage: "/assets/og/globe.jpg",
+  modified: "2026-09-02",
 };
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 export default function PrivacyPolicyPage() {
-  const updated = new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    year: "numeric",
-  }).format(new Date());
-
   return (
     <>
       <BodyClass className="page-privacy-policy" />
@@ -36,7 +32,7 @@ export default function PrivacyPolicyPage() {
       />
       <section className="section-pad">
         <div className="shell legal-body reveal">
-          <p className="legal-updated">Last updated: {updated}</p>
+          <p className="legal-updated">Last updated: September 2, 2026</p>
           <h2>Who we are</h2>
           <p>
             {SITE_NAME} is an editorial agency providing Wikipedia page creation,

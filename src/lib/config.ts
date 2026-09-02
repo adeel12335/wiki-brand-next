@@ -6,6 +6,7 @@ export const SITE_PHONE_RAW = "+18004537801";
 export const SITE_LOCALE = "en_US";
 export const SITE_LANG = "en";
 export const SITE_TWITTER = "@wikipediastudio";
+export const PRODUCTION_SITE_URL = "https://thewikipediastudio.com";
 
 export const SEO_DEFAULT_OG_IMAGE = "/assets/og/hero-orbital-globe.jpg";
 export const SEO_DEFAULT_ROBOTS =
@@ -22,10 +23,12 @@ export const NAV_ITEMS = [
 ] as const;
 
 export function getSiteUrl(): string {
-  return (
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "http://localhost:3000"
-  );
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+  if (configured) return configured;
+
+  return process.env.NODE_ENV === "production"
+    ? PRODUCTION_SITE_URL
+    : "http://localhost:3000";
 }
 
 /** Root-relative URL with trailing slash (matches PHP canonical URLs). */
@@ -35,7 +38,7 @@ export function url(slug = ""): string {
 }
 
 export function absUrl(slug = ""): string {
-  return `${getSiteUrl()}${url(slug).slice(1)}`;
+  return `${getSiteUrl()}${url(slug)}`;
 }
 
 export function asset(path: string): string {
