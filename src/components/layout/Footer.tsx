@@ -53,7 +53,6 @@ export function Footer() {
               {item.label}
             </Link>
           ))}
-          <Link href={url("faq")}>FAQ</Link>
         </div>
 
         <div className="footer-column footer-services">
@@ -99,6 +98,7 @@ export function Footer() {
         <div>
           <Link href={url("privacy-policy")}>Privacy Policy</Link>
           <Link href={url("terms-conditions")}>Terms &amp; Conditions</Link>
+          <Link href={url("sitemap")}>Sitemap</Link>
         </div>
       </div>
     </footer>

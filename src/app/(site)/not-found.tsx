@@ -42,6 +42,12 @@ export default function NotFound() {
               <Link className="button button-outline magnetic" href={url("services")}>
                 Browse Services <Icon name="i-arrow" />
               </Link>
+              <Link className="button button-outline magnetic" href={url("wikipedia-page-cost")}>
+                Pricing <Icon name="i-arrow" />
+              </Link>
+              <Link className="button button-outline magnetic" href={url("faq")}>
+                FAQ <Icon name="i-arrow" />
+              </Link>
             </div>
           </div>
         </div>

@@ -245,6 +245,18 @@ export default function AboutPage() {
       </section>
 
       <TestimonialSection />
+      <section className="section-pad">
+        <div className="shell answer-block reveal">
+          <p className="micro-label">Independence</p>
+          <h2>Not affiliated with Wikipedia</h2>
+          <p>
+            The Wikipedia Studio is an independent editorial service and is not
+            affiliated with Wikipedia or the Wikimedia Foundation. Figures shown on
+            this site (as of September 2026) describe our editorial capacity and
+            working standards — not guaranteed publication outcomes.
+          </p>
+        </div>
+      </section>
       <CtaBand />
     </>
   );

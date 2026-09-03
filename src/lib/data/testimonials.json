@@ -1,17 +1,17 @@
 [
-    {
-        "quote": "The Wikipedia Studio delivered beyond my expectations. Their professionalism, attention to detail, and knowledge of Wikipedia guidelines are truly commendable.",
-        "name": "Dr. Sarah Mitchell",
-        "role": "Author & Speaker"
-    },
-    {
-        "quote": "Their research-first approach made the entire process clear. Every source was assessed carefully, and the finished page felt balanced and authoritative.",
-        "name": "Daniel Mercer",
-        "role": "Business Leader"
-    },
-    {
-        "quote": "We valued the transparent communication and thoughtful editorial guidance. The team understood both our history and Wikipedia’s standards.",
-        "name": "Elena Brooks",
-        "role": "Communications Director"
-    }
+  {
+    "quote": "The Wikipedia Studio delivered beyond my expectations. Their professionalism, attention to detail, and knowledge of Wikipedia guidelines are truly commendable.",
+    "name": "Sarah M.",
+    "role": "Author & speaker · United States"
+  },
+  {
+    "quote": "Their research-first approach made the entire process clear. Every source was assessed carefully, and the finished page felt balanced and authoritative.",
+    "name": "Daniel M.",
+    "role": "Business leader · United Kingdom"
+  },
+  {
+    "quote": "We valued the transparent communication and thoughtful editorial guidance. The team understood both our history and Wikipedia’s standards.",
+    "name": "Elena B.",
+    "role": "Communications director · Europe"
+  }
 ]

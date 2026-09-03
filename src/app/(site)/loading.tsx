@@ -1,14 +1,13 @@
+/** Client-only route transition indicator — no crawlable "Loading…" copy in HTML. */
 export default function SiteLoading() {
   return (
-    <div className="route-loading" role="status" aria-live="polite">
-      <div className="route-loading-mark" aria-hidden="true">
+    <div className="route-loading" aria-hidden="true">
+      <div className="route-loading-mark">
         <span>W</span>
       </div>
-      <p>Loading page</p>
-      <div className="route-loading-bar" aria-hidden="true">
+      <div className="route-loading-bar">
         <i />
       </div>
-      <span className="sr-only">Loading the requested page…</span>
     </div>
   );
 }

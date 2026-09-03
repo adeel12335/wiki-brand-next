@@ -11,11 +11,13 @@ const STATIC_ROUTES = [
   "",
   "about-us",
   "services",
+  "wikipedia-page-cost",
   "our-process",
   "portfolio",
   "blog",
   "faq",
   "contact",
+  "sitemap",
   "privacy-policy",
   "terms-conditions",
 ];
@@ -31,7 +33,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: CONTENT_LAST_MODIFIED,
     changeFrequency:
       slug === "" || slug === "blog" ? ("weekly" as const) : ("monthly" as const),
-    priority: slug === "" ? 1 : slug === "contact" || slug === "blog" ? 0.9 : 0.8,
+    priority:
+      slug === ""
+        ? 1
+        : slug === "contact" ||
+            slug === "blog" ||
+            slug === "wikipedia-page-cost"
+          ? 0.9
+          : 0.8,
   }));
 
   const serviceEntries = serviceSlugs.map((slug) => ({

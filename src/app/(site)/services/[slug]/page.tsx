@@ -193,8 +193,8 @@ export default async function ServiceDetailPage({
             <p className="micro-label">Fees</p>
             <h2>{service.pricing_heading}</h2>
             <p className="definition-copy">{service.pricing}</p>
-            <Link className="text-link" href={url("faq")}>
-              See what else clients ask about cost and timelines{" "}
+            <Link className="text-link" href={url("wikipedia-page-cost")}>
+              See published packages and starting prices{" "}
               <Icon name="i-arrow" />
             </Link>
           </div>

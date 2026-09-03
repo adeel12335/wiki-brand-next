@@ -85,13 +85,6 @@ export function buildPageMetadata(page: PageMeta): Metadata {
     },
   };
 
-  if (page.keywords?.trim()) {
-    metadata.keywords = page.keywords
-      .split(",")
-      .map((part) => part.trim())
-      .filter(Boolean);
-  }
-
   return metadata;
 }
 
@@ -106,6 +99,8 @@ export function organizationNode() {
     url: absUrl(),
     description:
       "Independent professional editorial agency providing Wikipedia page creation, editing, research, and ongoing management for individuals, businesses, and organisations.",
+    disambiguatingDescription:
+      "The Wikipedia Studio is an independent editorial service and is not affiliated with Wikipedia or the Wikimedia Foundation.",
     email: SITE_EMAIL,
     telephone: SITE_PHONE_RAW,
     logo: {

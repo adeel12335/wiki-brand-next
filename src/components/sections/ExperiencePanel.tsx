@@ -1,57 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { SITE_FACTS } from "@/lib/data/facts";
 
 export function ExperiencePanel() {
-  const [playing, setPlaying] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const timerRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (!playing) {
-      if (timerRef.current) {
-        window.clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-      return;
-    }
-
-    setActiveIndex(0);
-    timerRef.current = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % 4);
-    }, 1200);
-
-    return () => {
-      if (timerRef.current) {
-        window.clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-    };
-  }, [playing]);
-
   return (
-    <div className={`experience-panel reveal${playing ? " playing" : ""}`} data-delay="100">
-      <article className={`experience-stat top-left${playing && activeIndex === 0 ? " active" : ""}`}>
-        <small>Years</small>
-        <strong>10+</strong>
-        <span>Of Editorial Excellence</span>
+    <div className="experience-panel reveal" data-delay="100">
+      <article className="experience-stat top-left">
+        <small>As of {SITE_FACTS.asOf}</small>
+        <strong>{SITE_FACTS.yearsEditorial}</strong>
+        <span>Years of editorial work</span>
       </article>
-      <article className={`experience-stat top-right${playing && activeIndex === 1 ? " active" : ""}`}>
-        <small>Success Rate</small>
-        <strong>98%</strong>
-        <span>Approval Rate</span>
+      <article className="experience-stat top-right">
+        <small>Approach</small>
+        <strong>Source</strong>
+        <span>Research before drafting</span>
       </article>
       <div className="experience-core">
         <span className="experience-axis" aria-hidden="true" />
         <span className="experience-signal" aria-hidden="true" />
-        <button
-          className="experience-trigger"
-          type="button"
-          aria-label="Play studio proof highlights"
-          aria-pressed={playing}
-          onClick={() => setPlaying((current) => !current)}
-        >
+        <div className="experience-trigger" aria-hidden="true">
           <Image
             src="/assets/about-knowledge-sphere.png"
             alt="Ivory knowledge sphere formed from multilingual encyclopedia puzzle pieces"
@@ -59,17 +27,17 @@ export function ExperiencePanel() {
             height={1207}
             sizes="(max-width: 620px) 92vw, (max-width: 900px) 540px, 470px"
           />
-        </button>
+        </div>
       </div>
-      <article className={`experience-stat bottom-left${playing && activeIndex === 2 ? " active" : ""}`}>
-        <small>Editors</small>
-        <strong>25+</strong>
-        <span>Wikipedia Specialists</span>
+      <article className="experience-stat bottom-left">
+        <small>Team</small>
+        <strong>{SITE_FACTS.specialists}</strong>
+        <span>Wikipedia specialists</span>
       </article>
-      <article className={`experience-stat bottom-right${playing && activeIndex === 3 ? " active" : ""}`}>
-        <small>Clients</small>
-        <strong>500+</strong>
-        <span>Worldwide Clients</span>
+      <article className="experience-stat bottom-right">
+        <small>Reach</small>
+        <strong>Global</strong>
+        <span>{SITE_FACTS.areaServed} clientele</span>
       </article>
     </div>
   );

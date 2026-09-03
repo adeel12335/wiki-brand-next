@@ -17,6 +17,7 @@ interface PageHeroProps {
   current?: string;
   actions?: HeroAction[];
   image?: string;
+  imageAlt?: string;
   imageWidth?: number;
   imageHeight?: number;
   visualClass?: string;
@@ -50,6 +51,7 @@ export function PageHero({
   current = "",
   actions,
   image,
+  imageAlt = "",
   imageWidth = 720,
   imageHeight = 596,
   visualClass,
@@ -94,12 +96,12 @@ export function PageHero({
               </div>
             ) : null}
           </div>
-          <div className={visualClasses} aria-hidden="true">
+          <div className={visualClasses} aria-hidden={!imageAlt}>
             <span className="page-hero-orbit orbit-one" />
             <span className="page-hero-orbit orbit-two" />
             <Image
               src={heroImage.startsWith("/") ? heroImage : `/${heroImage}`}
-              alt=""
+              alt={imageAlt}
               width={imageWidth}
               height={imageHeight}
               loading="eager"

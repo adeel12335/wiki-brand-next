@@ -3,8 +3,8 @@ export const SITE_TAGLINE = "Professional Wikipedia Editorial Services";
 export const SITE_EMAIL = "info@thewikipediastudio.com";
 export const SITE_PHONE = "+1 (218) 305-9586";
 export const SITE_PHONE_RAW = "+12183059586";
-export const SITE_LOCALE = "en_US";
-export const SITE_LANG = "en";
+export const SITE_LOCALE = "en_GB";
+export const SITE_LANG = "en-GB";
 export const SITE_TWITTER = "@wikipediastudio";
 export const PRODUCTION_SITE_URL = "https://thewikipediastudio.com";
 
@@ -16,6 +16,7 @@ export const NAV_ITEMS = [
   { slug: "", label: "Home" },
   { slug: "about-us", label: "About Us" },
   { slug: "services", label: "Services" },
+  { slug: "wikipedia-page-cost", label: "Pricing" },
   { slug: "our-process", label: "Our Process" },
   { slug: "portfolio", label: "Portfolio" },
   { slug: "blog", label: "Blog" },

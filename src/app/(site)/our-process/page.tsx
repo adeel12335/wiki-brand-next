@@ -38,6 +38,20 @@ const pageMeta = {
         url: `${absUrl("our-process")}#step-${index + 1}`,
       })),
     },
+    {
+      "@type": "HowTo",
+      "@id": `${absUrl("our-process")}#howto`,
+      name: "How The Wikipedia Studio creates a Wikipedia page",
+      description:
+        "Five editorial stages from notability research through disclosed submission and monitoring.",
+      step: processSteps.map((step, index) => ({
+        "@type": "HowToStep",
+        position: index + 1,
+        name: step.title,
+        text: `${step.copy} ${step.detail}`,
+        url: `${absUrl("our-process")}#step-${index + 1}`,
+      })),
+    },
   ],
 };
 
@@ -162,12 +176,17 @@ export default function OurProcessPage() {
               </article>
             ))}
           </div>
+          <p className="pricing-crosslink reveal">
+            <Link className="text-link" href={url("wikipedia-page-cost")}>
+              View Wikipedia page cost &amp; packages <Icon name="i-arrow" />
+            </Link>
+          </p>
         </div>
       </section>
 
       <CtaBand
         heading="Start with the <span>research stage.</span>"
-        copy="The assessment tells you whether an article is viable before you commit to anything else."
+        copy="The assessment tells you whether an article is viable before you commit to anything else. Published packages start from $700 — see the full pricing page for what each tier includes."
         label="Request An Assessment"
       />
     </>

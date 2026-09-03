@@ -17,8 +17,13 @@ export function Header() {
   const currentSlug = pathname === "/" ? "" : pathname.replace(/^\/|\/$/g, "");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileReady, setMobileReady] = useState(false);
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  useEffect(() => {
+    setMobileReady(true);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 22);
@@ -97,7 +102,7 @@ export function Header() {
         <button
           className="menu-toggle"
           type="button"
-          aria-label="Open menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((o) => !o)}
         >
@@ -110,29 +115,37 @@ export function Header() {
         </button>
       </div>
 
-      <nav
-        className={`mobile-menu${menuOpen ? " open" : ""}`}
-        aria-label="Mobile navigation"
-        aria-hidden={!menuOpen}
-      >
-        {NAV_ITEMS.map((item) => {
-          const active = navIsActive(item.slug, currentSlug);
-          return (
-            <Link
-              key={item.slug || "home-mobile"}
-              href={url(item.slug)}
-              className={active ? "active" : undefined}
-              aria-current={active ? "page" : undefined}
-              onClick={closeMenu}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
-        <Link className="button button-gold" href={url("contact")} onClick={closeMenu}>
-          Get Started <Icon name="i-arrow" />
-        </Link>
-      </nav>
+      {mobileReady ? (
+        <nav
+          className={`mobile-menu${menuOpen ? " open" : ""}`}
+          aria-label="Mobile navigation"
+          hidden={!menuOpen}
+        >
+          {NAV_ITEMS.map((item) => {
+            const active = navIsActive(item.slug, currentSlug);
+            return (
+              <Link
+                key={item.slug || "home-mobile"}
+                href={url(item.slug)}
+                className={active ? "active" : undefined}
+                aria-current={active ? "page" : undefined}
+                onClick={closeMenu}
+                tabIndex={menuOpen ? 0 : -1}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+          <Link
+            className="button button-gold"
+            href={url("contact")}
+            onClick={closeMenu}
+            tabIndex={menuOpen ? 0 : -1}
+          >
+            Get Started <Icon name="i-arrow" />
+          </Link>
+        </nav>
+      ) : null}
     </header>
   );
 }

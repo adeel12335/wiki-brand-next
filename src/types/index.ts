@@ -141,4 +141,6 @@ export interface BlogPost {
   ogImage: string;
   relatedService?: string;
   body: string;
+  /** Computed at read time from body HTML when served. */
+  wordCount?: number;
 }

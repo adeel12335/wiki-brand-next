@@ -9,14 +9,18 @@ const AI_USER_AGENTS = [
   "GPTBot",
   "ChatGPT-User",
   "ClaudeBot",
+  "Claude-User",
   "Claude-Web",
   "Google-Extended",
   "GoogleOther",
   "PerplexityBot",
+  "Perplexity-User",
   "Applebot-Extended",
   "Bytespider",
   "CCBot",
   "meta-externalagent",
+  "Amazonbot",
+  "Bingbot",
 ] as const;
 
 export default function robots(): MetadataRoute.Robots {

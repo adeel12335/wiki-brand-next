@@ -26,12 +26,10 @@ const homeFaqs = faqs.slice(0, 5);
 
 const pageMeta = {
   slug: "",
-  title: "Wikipedia Page Creation & Editing",
+  title: "Wikipedia Page Creation Services",
   shortTitle: "Home",
   description:
-    "Professional Wikipedia editorial agency. Guideline-compliant page creation, editing, research, and ongoing management for people and organisations.",
-  keywords:
-    "wikipedia page creation, wikipedia editing services, professional wikipedia writers, wikipedia agency, create a wikipedia page, wikipedia page management, wikipedia consultants",
+    "Professional Wikipedia page creation and editing services. Free notability assessment first — guideline-compliant research, drafting, and disclosed submission.",
   ogImage: "/assets/og/hero-orbital-globe.jpg",
   ogImageAlt: `${SITE_NAME} — professional Wikipedia editorial services`,
   schema: [
@@ -74,36 +72,60 @@ export default async function HomePage() {
         </div>
         <div className="shell hero-grid">
           <div className="hero-copy reveal in-view">
-            <p className="micro-label">Professional Wikipedia Editorial Services</p>
+            <p className="micro-label">The Wikipedia Studio</p>
             <h1 id="hero-title">
-              We craft Wikipedia pages that build <span>credibility</span> and create
-              lasting <span>impact.</span>
+              Professional Wikipedia Page Creation &amp;{" "}
+              <span>Editing Services</span>
             </h1>
+            <p className="hero-lede hero-answer">
+              Wikipedia page creation is the process of confirming notability from
+              independent sources, drafting a neutral cited article, and submitting
+              it with paid-contribution disclosure. Roughly two thirds of the work
+              happens before drafting begins — in the search for significant coverage.
+            </p>
             <p className="hero-lede">
-              The Wikipedia Studio is a professional editorial agency helping
-              individuals, businesses, and organisations establish a credible and
-              authoritative presence on Wikipedia.
+              We help individuals, businesses, and organisations build a credible
+              Wikipedia presence without fake guarantees or undisclosed editing.
             </p>
             <div className="hero-actions">
               <Link className="button button-gold magnetic" href={url("contact")}>
-                Get Started Today <Icon name="i-arrow" />
+                Request a free assessment <Icon name="i-arrow" />
               </Link>
               <Link className="button button-outline magnetic" href={url("services")}>
                 Explore Our Services <Icon name="i-arrow" />
               </Link>
             </div>
+            <p className="hero-pricing-link">
+              <Link className="text-link" href={url("wikipedia-page-cost")}>
+                Wikipedia page cost &amp; packages from $700{" "}
+                <Icon name="i-arrow" />
+              </Link>
+            </p>
             <div className="hero-proof">
               <div className="proof-avatars" aria-hidden="true">
-                <Image src="/assets/portfolio-business-leader.jpg" alt="" width={68} height={68} />
-                <Image src="/assets/portfolio-author.jpg" alt="" width={68} height={68} />
-                <Image src="/assets/portfolio-entrepreneur.jpg" alt="" width={68} height={68} />
+                <Image
+                  src="/assets/portfolio-business-leader.jpg"
+                  alt=""
+                  width={68}
+                  height={68}
+                />
+                <Image
+                  src="/assets/portfolio-author.jpg"
+                  alt=""
+                  width={68}
+                  height={68}
+                />
+                <Image
+                  src="/assets/portfolio-entrepreneur.jpg"
+                  alt=""
+                  width={68}
+                  height={68}
+                />
                 <span>W</span>
               </div>
               <p>
-                Trusted by <strong>500+</strong> clients worldwide{" "}
-                <span className="stars" aria-label="5 out of 5 stars">
-                  ★★★★★
-                </span>
+                Guideline-compliant editorial work for clients{" "}
+                <strong>worldwide</strong>
               </p>
             </div>
           </div>

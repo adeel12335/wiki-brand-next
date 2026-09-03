@@ -16,6 +16,20 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  async redirects() {
+    return [
+      {
+        source: "/pricing",
+        destination: "/wikipedia-page-cost/",
+        permanent: true,
+      },
+      {
+        source: "/pricing/",
+        destination: "/wikipedia-page-cost/",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

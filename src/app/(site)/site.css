@@ -2458,7 +2458,7 @@ body { font-size: 16px; }
   border: 0;
   outline: 0;
   background: transparent;
-  cursor: pointer;
+  cursor: default;
   filter: drop-shadow(0 30px 28px rgba(0,0,0,.3));
   transform: translateZ(0);
 }
@@ -6426,5 +6426,483 @@ main,
 
   a.contact-channel .contact-channel-copy > span {
     white-space: normal;
+  }
+}
+
+/* ??? Pricing / Wikipedia page cost ??? */
+.hero-pricing-link {
+  margin: 16px 0 0;
+}
+
+.pricing-crosslink {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.pricing-intro {
+  max-width: 720px;
+  margin: -12px auto 36px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.75;
+  color: #c7cfd5;
+}
+
+.pricing-tier-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 40px;
+}
+
+.pricing-tier-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 100%;
+  padding: 24px 20px 22px;
+  border: 1px solid rgba(216, 165, 58, 0.22);
+  border-radius: 10px;
+  background: linear-gradient(160deg, rgba(9, 27, 41, 0.88), rgba(4, 15, 25, 0.72));
+}
+
+.pricing-tier-card.is-featured {
+  border-color: rgba(240, 198, 104, 0.72);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.pricing-tier-badge,
+.pricing-th-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(240, 198, 104, 0.16);
+  color: #ffe09a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pricing-tier-card .micro-label {
+  margin-bottom: 0;
+}
+
+.pricing-tier-card h3 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+  color: #fff8e8;
+}
+
+.pricing-tier-blurb {
+  margin: 0;
+  min-height: 3.2em;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #c7cfd5;
+}
+
+.pricing-tier-card .check-list {
+  margin-bottom: 8px;
+  flex: 1;
+}
+
+.pricing-tier-card .button {
+  margin-top: auto;
+  justify-content: center;
+  width: 100%;
+}
+
+.pricing-table-wrap {
+  overflow-x: auto;
+  border: 1px solid rgba(216, 165, 58, 0.2);
+  border-radius: 10px;
+  background: rgba(4, 15, 25, 0.55);
+}
+
+.pricing-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.pricing-table th,
+.pricing-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(216, 165, 58, 0.12);
+  text-align: left;
+  vertical-align: top;
+  color: #c7cfd5;
+}
+
+.pricing-table thead th {
+  background: rgba(216, 165, 58, 0.08);
+  color: #fff8e8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.pricing-table tbody th {
+  color: #e8eef2;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pricing-table tbody tr:last-child th,
+.pricing-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.pricing-th-price {
+  display: block;
+  margin-top: 6px;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.pricing-th-badge {
+  margin-top: 8px;
+}
+
+.pricing-table--compare thead th:nth-child(3),
+.pricing-table--compare tbody td:nth-child(3) {
+  background: rgba(240, 198, 104, 0.06);
+}
+
+.page-pricing .faq-library-intro .text-link {
+  display: inline-flex;
+  margin-top: 12px;
+}
+
+.page-faq .faq-library-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+@media (max-width: 1100px) {
+  .pricing-tier-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .pricing-tier-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-tier-blurb {
+    min-height: 0;
+  }
+
+  .pricing-table {
+    min-width: 640px;
+    font-size: 11px;
+  }
+}
+
+.hero-answer {
+  max-width: 38rem;
+}
+
+.sitemap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 36px;
+}
+
+.sitemap-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sitemap-list a {
+  color: #d4dbe1;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sitemap-list a:hover {
+  color: #ffe09a;
+}
+
+@media (max-width: 900px) {
+  .sitemap-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* Home metrics: compact, swipeable proof strip on touch layouts. */
+.metrics-rail .metric-icon {
+  display: grid;
+  place-items: center;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .metrics-rail.shell {
+    width: min(calc(100% - 32px), var(--shell)) !important;
+    margin: 14px auto 0 !important;
+    padding: 12px !important;
+    overflow: hidden;
+    border: 1px solid rgba(226, 174, 66, 0.3);
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 12% 15%, rgba(228, 177, 72, 0.12), transparent 32%),
+      linear-gradient(135deg, rgba(10, 30, 43, 0.97), rgba(4, 18, 29, 0.98));
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  }
+
+  .metrics-rail::before,
+  .metrics-rail::after {
+    display: none !important;
+  }
+
+  .metrics-carousel {
+    overflow: visible;
+  }
+
+  .metrics-carousel-viewport {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.055);
+    border-radius: 13px;
+    background: rgba(2, 15, 25, 0.48);
+    touch-action: pan-y;
+    overscroll-behavior-x: contain;
+  }
+
+  .metrics-carousel-track {
+    align-items: stretch;
+    transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .metrics-carousel-slide {
+    min-height: 116px;
+    align-items: stretch;
+  }
+
+  .metrics-carousel-slide:has(> article:only-child) {
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+  }
+
+  .metrics-carousel-slide article,
+  .metrics-carousel-slide:has(> article:only-child) article {
+    width: 100%;
+    min-height: 116px !important;
+    grid-template-columns: 52px minmax(0, 1fr);
+    align-items: center;
+    justify-items: stretch;
+    gap: 14px;
+    padding: 20px !important;
+    border-right: 1px solid rgba(226, 174, 66, 0.16) !important;
+    border-bottom: 0 !important;
+    background: transparent;
+  }
+
+  .metrics-carousel-slide article:last-child,
+  .metrics-carousel-slide:has(> article:only-child) article {
+    border-right: 0 !important;
+  }
+
+  .metrics-rail .metric-icon {
+    width: 52px;
+    height: 52px;
+    border: 1px solid rgba(232, 184, 82, 0.32);
+    border-radius: 14px;
+    color: #efbf56;
+    background: linear-gradient(145deg, rgba(230, 180, 76, 0.14), rgba(230, 180, 76, 0.035));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .metrics-rail .metric-icon svg {
+    width: 27px;
+    height: 27px;
+    margin: 0;
+    color: inherit;
+    opacity: 1;
+    stroke-width: 1.65;
+  }
+
+  .metrics-carousel-slide .metric-index {
+    top: 13px !important;
+    right: 14px;
+    left: auto !important;
+    margin: 0;
+    color: rgba(235, 240, 243, 0.28);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+
+  .metrics-carousel-slide .metric-copy {
+    min-width: 0;
+    align-self: center;
+  }
+
+  .metrics-carousel-slide .metric-copy strong {
+    font-size: clamp(27px, 4.4vw, 34px);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+  }
+
+  .metrics-carousel-slide .metric-copy span {
+    max-width: 18rem;
+    margin-top: 7px;
+    color: rgba(219, 226, 231, 0.78);
+    font-size: 10px;
+    line-height: 1.35;
+    letter-spacing: 0.13em;
+  }
+
+  .metrics-carousel-controls {
+    display: grid !important;
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+    align-items: center;
+    gap: 10px;
+    margin: 0 !important;
+    padding-top: 11px;
+  }
+
+  .metrics-carousel-arrow {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(224, 174, 67, 0.26);
+    border-radius: 11px;
+    color: #f1c362;
+    background: rgba(5, 20, 31, 0.76);
+    font-size: 0;
+    transition:
+      border-color 180ms ease,
+      color 180ms ease,
+      background-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .metrics-carousel-arrow:hover,
+  .metrics-carousel-arrow:focus-visible {
+    border-color: rgba(240, 194, 94, 0.62);
+    color: #06111a;
+    background: #e9b94f;
+    transform: translateY(-1px);
+  }
+
+  .metrics-carousel-arrow svg {
+    width: 17px;
+    height: 17px;
+    stroke-width: 1.8;
+  }
+
+  .metrics-carousel-arrow--previous svg {
+    transform: rotate(180deg);
+  }
+
+  .metrics-carousel-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    min-width: 0;
+  }
+
+  .metrics-carousel-dots button,
+  .metrics-carousel-dots button.active {
+    position: relative;
+    width: 28px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .metrics-carousel-dots button::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(218, 225, 230, 0.35);
+    content: "";
+    transform: translate(-50%, -50%);
+    transition:
+      width 240ms ease,
+      background-color 240ms ease,
+      box-shadow 240ms ease;
+  }
+
+  .metrics-carousel-dots button.active::before {
+    width: 18px;
+    background: #e6b64f;
+    box-shadow: 0 0 16px rgba(230, 182, 79, 0.36);
+  }
+}
+
+@media (max-width: 480px) {
+  .metrics-rail.shell {
+    margin-top: 12px !important;
+    padding: 10px !important;
+    border-radius: 16px;
+  }
+
+  .metrics-carousel-slide {
+    grid-template-columns: 1fr !important;
+    min-height: 118px !important;
+    gap: 0 !important;
+  }
+
+  .metrics-carousel-slide article,
+  .metrics-carousel-slide:has(> article:only-child) article {
+    min-height: 118px !important;
+    grid-template-columns: 50px minmax(0, 1fr);
+    gap: 14px;
+    padding: 20px 18px !important;
+    border: 0 !important;
+  }
+
+  .metrics-rail .metric-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 13px;
+  }
+
+  .metrics-carousel-slide .metric-copy strong {
+    font-size: 31px;
+  }
+
+  .metrics-carousel-slide .metric-copy span {
+    font-size: 10px;
+  }
+
+  .metrics-carousel-controls {
+    padding-top: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metrics-carousel-track {
+    transition: none;
   }
 }

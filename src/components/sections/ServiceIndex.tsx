@@ -37,7 +37,7 @@ export function ServiceIndex({
           <Image
             className="service-feature-art"
             src="/assets/services-hero-knowledge-archive.webp"
-            alt=""
+            alt="Editorial knowledge archive illustrating Wikipedia page creation research"
             fill
             loading="eager"
             sizes="(max-width: 900px) 100vw, 48vw"

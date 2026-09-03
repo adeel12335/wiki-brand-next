@@ -79,8 +79,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         image: post.ogImage,
         category: post.category,
         keywords: post.keywords,
-        wordCount: post.body.replace(/<[^>]+>/g, " ").trim().split(/\s+/).filter(Boolean)
-          .length,
+        wordCount: post.wordCount,
       }),
     ],
   };
@@ -135,6 +134,9 @@ export default async function BlogPostPage({ params }: PageProps) {
                   Contact us <Icon name="i-arrow" />
                 </Link>
               )}
+              <Link className="text-link" href={url("wikipedia-page-cost")}>
+                Wikipedia page cost &amp; packages
+              </Link>
               <Link className="text-link" href={url("blog")}>
                 All insights
               </Link>

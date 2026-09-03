@@ -1,10 +1,12 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Icon } from "@/components/ui/Icon";
 import { RecaptchaField } from "@/components/contact/RecaptchaField";
-import { SITE_EMAIL } from "@/lib/config";
+import { SITE_EMAIL, url } from "@/lib/config";
 import { services } from "@/lib/data";
+import { trackEvent } from "@/lib/analytics";
 
 const subjectOptions = [
   ...Object.values(services).map((s) => s.name),
@@ -77,6 +79,7 @@ export function ContactForm({
 }: {
   recaptchaSiteKey?: string;
 }) {
+  const router = useRouter();
   const captchaRequired = Boolean(recaptchaSiteKey);
   const [values, setValues] = useState<FormState>(emptyForm);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -134,6 +137,8 @@ export function ContactForm({
         setSent(true);
         setValues(emptyForm);
         clearCaptcha();
+        trackEvent("form_submit", { form_name: "contact" });
+        router.push(url("thank-you"));
         return;
       }
 
@@ -326,7 +331,8 @@ export function ContactForm({
 
             <div className="field">
               <label htmlFor="message">
-                About the subject <span aria-hidden="true">*</span>
+                Subject name &amp; strongest coverage{" "}
+                <span aria-hidden="true">*</span>
               </label>
               <textarea
                 id="message"
@@ -334,7 +340,7 @@ export function ContactForm({
                 rows={7}
                 required
                 maxLength={4000}
-                placeholder="Who or what is the article about, and where has it been covered independently?"
+                placeholder="Subject name, and links to the strongest independent press coverage (with dates if you have them)."
                 value={values.message}
                 onChange={(e) =>
                   setValues({ ...values, message: e.target.value })
@@ -389,11 +395,13 @@ export function ContactForm({
                 type="submit"
                 disabled={submitting}
               >
-                {submitting ? "Sending…" : "Send Enquiry"}{" "}
+                {submitting ? "Sending…" : "Request free assessment"}{" "}
                 <Icon name="i-arrow" />
               </button>
               <p className="form-legal">
-                Prefer email? <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>
+                By sending this form you agree to our{" "}
+                <a href={url("privacy-policy")}>privacy policy</a>. Prefer email?{" "}
+                <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>
               </p>
             </div>
           </form>

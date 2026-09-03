@@ -1,16 +1,28 @@
 import { blogPosts } from "@/lib/data/blog-posts";
+import { countWordsFromHtml, estimateReadingMinutes } from "@/lib/reading-time";
 import type { BlogPost } from "@/types";
 
 export const BLOG_PAGE_SIZE = 4;
 
+function withComputedReading(post: BlogPost): BlogPost {
+  return {
+    ...post,
+    readingMinutes: estimateReadingMinutes(post.body),
+    wordCount: countWordsFromHtml(post.body),
+  };
+}
+
 export function getAllBlogPosts(): BlogPost[] {
-  return [...blogPosts].sort((a, b) =>
-    a.publishedAt < b.publishedAt ? 1 : a.publishedAt > b.publishedAt ? -1 : 0,
-  );
+  return [...blogPosts]
+    .map(withComputedReading)
+    .sort((a, b) =>
+      a.publishedAt < b.publishedAt ? 1 : a.publishedAt > b.publishedAt ? -1 : 0,
+    );
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | null {
-  return blogPosts.find((post) => post.slug === slug) ?? null;
+  const post = blogPosts.find((item) => item.slug === slug);
+  return post ? withComputedReading(post) : null;
 }
 
 export function getBlogPageCount(pageSize = BLOG_PAGE_SIZE): number {
@@ -48,7 +60,7 @@ export function getRelatedBlogPosts(slug: string, limit = 3): BlogPost[] {
 
 export function formatBlogDate(isoDate: string): string {
   const date = new Date(`${isoDate}T12:00:00Z`);
-  return date.toLocaleDateString("en-US", {
+  return date.toLocaleDateString("en-GB", {
     year: "numeric",
     month: "long",
     day: "numeric",

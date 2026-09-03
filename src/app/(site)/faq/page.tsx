@@ -63,6 +63,9 @@ export default function FaqPage() {
             <Link className="text-link" href={url("contact")}>
               Ask an editor directly <Icon name="i-arrow" />
             </Link>
+            <Link className="text-link" href={url("wikipedia-page-cost")}>
+              See Wikipedia page cost &amp; packages <Icon name="i-arrow" />
+            </Link>
           </div>
           <div className="faq-wide">
             <FaqList items={faqs} wide />
