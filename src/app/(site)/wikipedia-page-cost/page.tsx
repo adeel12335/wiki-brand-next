@@ -187,8 +187,8 @@ export default function WikipediaPageCostPage() {
                 {costDrivers.map((row) => (
                   <tr key={row.factor}>
                     <th scope="row">{row.factor}</th>
-                    <td>{row.down}</td>
-                    <td>{row.up}</td>
+                    <td data-label="Pushes cost down">{row.down}</td>
+                    <td data-label="Pushes cost up">{row.up}</td>
                   </tr>
                 ))}
               </tbody>
@@ -276,7 +276,12 @@ export default function WikipediaPageCostPage() {
                   <tr key={row.label}>
                     <th scope="row">{row.label}</th>
                     {row.values.map((value, index) => (
-                      <td key={`${row.label}-${pricingTiers[index].id}`}>{value}</td>
+                      <td
+                        key={`${row.label}-${pricingTiers[index].id}`}
+                        data-label={`${pricingTiers[index].name} · ${pricingTiers[index].priceLabel}`}
+                      >
+                        {value}
+                      </td>
                     ))}
                   </tr>
                 ))}
@@ -305,8 +310,8 @@ export default function WikipediaPageCostPage() {
                 {pricingAddOns.map((item) => (
                   <tr key={item.name}>
                     <th scope="row">{item.name}</th>
-                    <td>{item.price}</td>
-                    <td>{item.note}</td>
+                    <td data-label="Price">{item.price}</td>
+                    <td data-label="Note">{item.note}</td>
                   </tr>
                 ))}
               </tbody>
