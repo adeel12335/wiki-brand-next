@@ -2,7 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { TurnstileField } from "@/components/contact/TurnstileField";
+import { RecaptchaField } from "@/components/contact/RecaptchaField";
 import { SITE_EMAIL } from "@/lib/config";
 import { services } from "@/lib/data";
 
@@ -73,11 +73,11 @@ function validateClient(values: FormState, captchaRequired: boolean) {
 }
 
 export function ContactForm({
-  turnstileSiteKey = "",
+  recaptchaSiteKey = "",
 }: {
-  turnstileSiteKey?: string;
+  recaptchaSiteKey?: string;
 }) {
-  const captchaRequired = Boolean(turnstileSiteKey);
+  const captchaRequired = Boolean(recaptchaSiteKey);
   const [values, setValues] = useState<FormState>(emptyForm);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
@@ -349,12 +349,12 @@ export function ContactForm({
             </div>
 
             {captchaRequired ? (
-              <div className="field turnstile-field">
+              <div className="field recaptcha-field">
                 <label>
                   Security check <span aria-hidden="true">*</span>
                 </label>
-                <TurnstileField
-                  siteKey={turnstileSiteKey}
+                <RecaptchaField
+                  siteKey={recaptchaSiteKey}
                   resetSignal={captchaReset}
                   onToken={(token) => {
                     setValues((prev) => ({ ...prev, captchaToken: token }));
@@ -372,7 +372,8 @@ export function ContactForm({
                     setValues((prev) => ({ ...prev, captchaToken: "" }));
                     setErrors((prev) => ({
                       ...prev,
-                      captcha: "Captcha failed to load. Please refresh and try again.",
+                      captcha:
+                        "Captcha failed to load. Please refresh and try again.",
                     }));
                   }}
                 />

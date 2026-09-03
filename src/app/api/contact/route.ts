@@ -3,9 +3,9 @@ import { Resend } from "resend";
 import { z } from "zod";
 import { cacheGet, cacheSet } from "@/lib/cache/redis";
 import {
-  isTurnstileConfigured,
-  verifyTurnstileToken,
-} from "@/lib/captcha/turnstile";
+  isRecaptchaConfigured,
+  verifyRecaptchaToken,
+} from "@/lib/captcha/recaptcha";
 import { SITE_EMAIL, SITE_NAME } from "@/lib/config";
 import { services } from "@/lib/data";
 import { connectDB, isDbConfigured } from "@/lib/db/mongodb";
@@ -99,8 +99,8 @@ export async function POST(request: Request) {
     );
   }
 
-  if (isTurnstileConfigured()) {
-    const captcha = await verifyTurnstileToken(data.captchaToken ?? "", ip);
+  if (isRecaptchaConfigured()) {
+    const captcha = await verifyRecaptchaToken(data.captchaToken ?? "", ip);
     if (!captcha.success) {
       return NextResponse.json(
         {
@@ -113,7 +113,7 @@ export async function POST(request: Request) {
     }
   } else if (process.env.NODE_ENV === "production") {
     console.warn(
-      "Turnstile is not configured. Contact form is running without captcha.",
+      "reCAPTCHA is not configured. Contact form is running without captcha.",
     );
   }
 

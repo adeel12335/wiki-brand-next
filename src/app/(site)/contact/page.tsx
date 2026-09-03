@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
-import { getTurnstileSiteKey } from "@/lib/captcha/turnstile";
+import { getRecaptchaSiteKey } from "@/lib/captcha/recaptcha";
 import {
   SITE_EMAIL,
   SITE_NAME,
@@ -79,7 +79,7 @@ const nextSteps = [
 ];
 
 export default function ContactPage() {
-  const turnstileSiteKey = getTurnstileSiteKey();
+  const recaptchaSiteKey = getRecaptchaSiteKey();
   return (
     <>
       <BodyClass className="page-contact" />
@@ -104,7 +104,7 @@ export default function ContactPage() {
           </div>
 
           <div className="contact-desk-layout">
-            <ContactForm turnstileSiteKey={turnstileSiteKey} />
+            <ContactForm recaptchaSiteKey={recaptchaSiteKey} />
 
             <aside className="contact-spine reveal" data-delay="80">
               <div className="contact-spine-head">

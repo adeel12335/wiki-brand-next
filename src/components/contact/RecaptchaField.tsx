@@ -5,24 +5,26 @@ import Script from "next/script";
 
 declare global {
   interface Window {
-    turnstile?: {
+    grecaptcha?: {
       render: (
-        element: HTMLElement,
-        options: {
+        container: HTMLElement,
+        parameters: {
           sitekey: string;
-          theme?: "light" | "dark" | "auto";
+          theme?: "light" | "dark";
+          size?: "normal" | "compact";
           callback?: (token: string) => void;
           "expired-callback"?: () => void;
           "error-callback"?: () => void;
         },
-      ) => string;
-      reset: (widgetId?: string) => void;
-      remove: (widgetId?: string) => void;
+      ) => number;
+      reset: (widgetId?: number) => void;
+      getResponse: (widgetId?: number) => string;
     };
+    __onRecaptchaLoad?: () => void;
   }
 }
 
-interface TurnstileFieldProps {
+interface RecaptchaFieldProps {
   siteKey: string;
   onToken: (token: string) => void;
   onExpire?: () => void;
@@ -30,64 +32,64 @@ interface TurnstileFieldProps {
   resetSignal?: number;
 }
 
-export function TurnstileField({
+export function RecaptchaField({
   siteKey,
   onToken,
   onExpire,
   onError,
   resetSignal = 0,
-}: TurnstileFieldProps) {
+}: RecaptchaFieldProps) {
   const hostRef = useRef<HTMLDivElement | null>(null);
-  const widgetIdRef = useRef<string | null>(null);
+  const widgetIdRef = useRef<number | null>(null);
   const [scriptReady, setScriptReady] = useState(false);
   const callbacksRef = useRef({ onToken, onExpire, onError });
   callbacksRef.current = { onToken, onExpire, onError };
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.turnstile) {
+    if (typeof window !== "undefined" && window.grecaptcha?.render) {
       setScriptReady(true);
     }
   }, []);
 
   useEffect(() => {
-    if (!scriptReady || !siteKey || !hostRef.current || !window.turnstile) {
+    if (!scriptReady || !siteKey || !hostRef.current || !window.grecaptcha) {
       return;
     }
 
-    if (widgetIdRef.current) {
-      window.turnstile.remove(widgetIdRef.current);
+    if (widgetIdRef.current !== null) {
+      try {
+        window.grecaptcha.reset(widgetIdRef.current);
+      } catch {
+        // Widget may already be gone; re-render below.
+      }
+      hostRef.current.innerHTML = "";
       widgetIdRef.current = null;
     }
 
-    widgetIdRef.current = window.turnstile.render(hostRef.current, {
+    widgetIdRef.current = window.grecaptcha.render(hostRef.current, {
       sitekey: siteKey,
       theme: "dark",
       callback: (token) => callbacksRef.current.onToken(token),
       "expired-callback": () => callbacksRef.current.onExpire?.(),
       "error-callback": () => callbacksRef.current.onError?.(),
     });
-
-    return () => {
-      if (widgetIdRef.current && window.turnstile) {
-        window.turnstile.remove(widgetIdRef.current);
-        widgetIdRef.current = null;
-      }
-    };
   }, [scriptReady, siteKey]);
 
   useEffect(() => {
-    if (!widgetIdRef.current || !window.turnstile || resetSignal === 0) return;
-    window.turnstile.reset(widgetIdRef.current);
+    if (widgetIdRef.current === null || !window.grecaptcha || resetSignal === 0) {
+      return;
+    }
+    window.grecaptcha.reset(widgetIdRef.current);
   }, [resetSignal]);
 
   return (
     <>
       <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+        src="https://www.google.com/recaptcha/api.js?render=explicit"
         strategy="afterInteractive"
         onLoad={() => setScriptReady(true)}
       />
-      <div ref={hostRef} className="turnstile-host" />
+      <div ref={hostRef} className="recaptcha-host" />
     </>
   );
 }
