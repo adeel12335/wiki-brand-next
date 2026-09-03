@@ -119,8 +119,18 @@ export async function POST(request: Request) {
     enquiryId = enquiry._id.toString();
   } catch (error) {
     console.error("Contact enquiry save failed:", error);
+    const detail =
+      error instanceof Error ? error.message : "Unknown database error";
     return NextResponse.json(
-      { ok: false, errors: { form: mailFallbackMessage() } },
+      {
+        ok: false,
+        errors: {
+          form:
+            process.env.NODE_ENV === "development"
+              ? `Could not save enquiry (${detail}). Please email ${SITE_EMAIL} directly.`
+              : mailFallbackMessage(),
+        },
+      },
       { status: 502 },
     );
   }
