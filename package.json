@@ -10,7 +10,9 @@
     "sync-data": "C:\\xampp\\php\\php.exe scripts/export-data.php",
     "create-admin": "node --env-file=.env.local scripts/create-admin.mjs",
     "seed-portfolio": "node --env-file=.env.local scripts/seed-portfolio.mjs",
-    "import-portfolio": "node --env-file=.env.local scripts/import-wp-portfolio.mjs"
+    "import-portfolio": "node --env-file=.env.local scripts/import-wp-portfolio.mjs",
+    "enrich-portfolio": "node --env-file=.env.local scripts/enrich-portfolio-bodies.mjs",
+    "ping-indexnow": "node --env-file=.env.local scripts/ping-indexnow.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.38.3",

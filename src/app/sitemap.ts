@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllBlogPosts, getBlogPageCount } from "@/lib/blog";
+import { getAllBlogPosts } from "@/lib/blog";
 import { absUrl } from "@/lib/config";
 import { serviceSlugs } from "@/lib/data";
 import {
@@ -25,7 +25,6 @@ const CONTENT_LAST_MODIFIED = "2026-09-03";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const portfolioItems = await getPublishedPortfolio();
   const blogPosts = getAllBlogPosts();
-  const blogPages = getBlogPageCount();
 
   const staticEntries = STATIC_ROUTES.map((slug) => ({
     url: absUrl(slug),
@@ -46,33 +45,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter(isIndexablePortfolioItem)
     .map((item) => ({
       url: absUrl(`portfolio/${item.slug}`),
-      ...(item.updatedAt ? { lastModified: item.updatedAt } : {}),
+      lastModified: item.updatedAt ?? CONTENT_LAST_MODIFIED,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }));
 
+  // Index article URLs only — skip /blog/page/N pagination (thin duplicates).
   const blogPostEntries = blogPosts.map((post) => ({
     url: absUrl(`blog/${post.slug}`),
     lastModified: post.modifiedAt,
     changeFrequency: "monthly" as const,
-    priority: 0.75,
+    priority: 0.85,
   }));
-
-  const blogPageEntries = Array.from(
-    { length: Math.max(0, blogPages - 1) },
-    (_, index) => ({
-      url: absUrl(`blog/page/${index + 2}`),
-      lastModified: CONTENT_LAST_MODIFIED,
-      changeFrequency: "weekly" as const,
-      priority: 0.55,
-    }),
-  );
 
   return [
     ...staticEntries,
     ...serviceEntries,
     ...portfolioEntries,
     ...blogPostEntries,
-    ...blogPageEntries,
   ];
 }

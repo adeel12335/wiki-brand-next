@@ -16,6 +16,7 @@ const redis = new Redis({ url, token });
 const keys = [
   "portfolio:list:published",
   "portfolio:list:published:v3",
+  "portfolio:list:published:v4",
 ];
 
 for (const key of keys) {

@@ -66,6 +66,14 @@ export function buildPageMetadata(page: PageMeta): Metadata {
           alt: page.ogImageAlt ?? title,
         },
       ],
+      ...(ogType === "article"
+        ? {
+            publishedTime: page.publishedAt,
+            modifiedTime: page.modified ?? page.publishedAt,
+            authors: [SITE_NAME],
+            ...(page.articleSection ? { section: page.articleSection } : {}),
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",
@@ -243,6 +251,9 @@ export function articleNode(post: {
   publishedAt: string;
   modifiedAt?: string;
   image?: string;
+  category?: string;
+  keywords?: string;
+  wordCount?: number;
 }) {
   const pageUrl = absUrl(`blog/${post.slug}`);
   const imageUrl = post.image
@@ -258,6 +269,16 @@ export function articleNode(post: {
     description: metaTrim(post.description, 160),
     datePublished: post.publishedAt,
     dateModified: post.modifiedAt ?? post.publishedAt,
+    ...(post.category ? { articleSection: post.category } : {}),
+    ...(post.keywords
+      ? {
+          keywords: post.keywords
+            .split(",")
+            .map((part) => part.trim())
+            .filter(Boolean),
+        }
+      : {}),
+    ...(typeof post.wordCount === "number" ? { wordCount: post.wordCount } : {}),
     author: {
       "@type": "Organization",
       name: SITE_NAME,

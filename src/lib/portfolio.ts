@@ -26,7 +26,7 @@ export interface PublicPortfolioItem {
 
 const LOCAL_PORTFOLIO_TTL_MS = 5 * 60 * 1000;
 const PORTFOLIO_CACHE_TAG = "published-portfolio";
-const PORTFOLIO_CACHE_VERSION = "v3";
+const PORTFOLIO_CACHE_VERSION = "v4";
 let localPortfolioCache:
   | { items: PublicPortfolioItem[]; expiresAt: number }
   | null = null;

@@ -50,7 +50,7 @@ export async function cacheDel(...keys: string[]): Promise<void> {
 }
 
 export const CACHE_KEYS = {
-  portfolioList: "portfolio:list:published:v3",
-  portfolioItem: (slug: string) => `portfolio:item:v3:${slug}`,
+  portfolioList: "portfolio:list:published:v4",
+  portfolioItem: (slug: string) => `portfolio:item:v4:${slug}`,
   loginAttempts: (ip: string) => `admin:login:attempts:${ip}`,
 } as const;

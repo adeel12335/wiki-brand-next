@@ -39,7 +39,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ogImage: post.ogImage,
     ogImageAlt: post.title,
     ogType: "article",
+    publishedAt: post.publishedAt,
     modified: post.modifiedAt,
+    articleSection: post.category,
     breadcrumbs: [{ label: "Blog", slug: "blog" }],
   });
 }
@@ -62,7 +64,9 @@ export default async function BlogPostPage({ params }: PageProps) {
     ogImage: post.ogImage,
     ogImageAlt: post.title,
     ogType: "article" as const,
+    publishedAt: post.publishedAt,
     modified: post.modifiedAt,
+    articleSection: post.category,
     breadcrumbs: [{ label: "Blog", slug: "blog" }],
     breadcrumbName: post.title,
     schema: [
@@ -73,6 +77,10 @@ export default async function BlogPostPage({ params }: PageProps) {
         publishedAt: post.publishedAt,
         modifiedAt: post.modifiedAt,
         image: post.ogImage,
+        category: post.category,
+        keywords: post.keywords,
+        wordCount: post.body.replace(/<[^>]+>/g, " ").trim().split(/\s+/).filter(Boolean)
+          .length,
       }),
     ],
   };

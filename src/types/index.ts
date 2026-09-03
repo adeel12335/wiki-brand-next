@@ -118,6 +118,8 @@ export interface PageMeta {
   ogImage?: string;
   ogImageAlt?: string;
   ogType?: "website" | "article";
+  publishedAt?: string;
+  articleSection?: string;
   robots?: string;
   breadcrumbs?: Array<{ label: string; slug: string }>;
   breadcrumbName?: string;

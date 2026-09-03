@@ -51,3 +51,8 @@ next-env.d.ts
 /public/assets/uploads/**
 !/public/assets/uploads/.htaccess
 !/public/assets/uploads/**/.gitkeep
+
+.vercel
+.env
+.env*.local
+!.env.example

@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     keywords:
       "wikipedia blog, wikipedia notability guide, paid wikipedia editing, wikipedia page creation tips",
     ogImage: "/assets/og/hero-orbital-globe.jpg",
+    robots: "noindex, follow",
   });
 }
 
@@ -54,6 +55,7 @@ export default async function BlogPagedPage({ params }: PageProps) {
     slug: `blog/page/${page}`,
     title: `Wikipedia Insights — Page ${page}`,
     description: `Page ${page} of editorial guides on Wikipedia notability, sourcing, disclosure, and page creation timelines.`,
+    robots: "noindex, follow",
   };
 
   return (
