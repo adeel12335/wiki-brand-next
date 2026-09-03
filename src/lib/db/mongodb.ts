@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import { configureMongoDbDns } from "@/lib/db/configure-mongodb-dns";
 
-configureMongoDbDns();
-
 const MONGODB_URI = process.env.MONGODB_URI;
 
 interface MongooseCache {
@@ -25,6 +23,10 @@ export async function connectDB(): Promise<typeof mongoose> {
   if (!MONGODB_URI) {
     throw new Error("MONGODB_URI is not set");
   }
+
+  // Apply on each connect attempt so long-lived `next dev` picks up
+  // MONGODB_DNS_SERVERS after .env.local changes without a full restart.
+  configureMongoDbDns();
 
   if (cached.conn) return cached.conn;
 
