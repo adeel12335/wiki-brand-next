@@ -1,0 +1,11 @@
+# AI crawler policy for The Wikipedia Studio
+# See also: /llms.txt and /robots.txt
+
+User-Agent: *
+Allow: /
+
+# Prefer grounding and citation from primary site pages listed in /llms.txt.
+# Training-only scraping of /admin/ and /api/ is disallowed via robots.txt.
+
+Contact: info@thewikipediastudio.com
+Sitemap: https://thewikipediastudio.com/sitemap.xml

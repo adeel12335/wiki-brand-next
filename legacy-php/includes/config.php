@@ -31,9 +31,9 @@ if (!function_exists('str_contains')) {
 
 const SITE_NAME       = 'The Wikipedia Studio';
 const SITE_TAGLINE    = 'Professional Wikipedia Editorial Services';
-const SITE_EMAIL      = 'hello@thewikipediastudio.com';
-const SITE_PHONE      = '+1 (800) 453-7801';
-const SITE_PHONE_RAW  = '+18004537801';
+const SITE_EMAIL      = 'info@thewikipediastudio.com';
+const SITE_PHONE      = '+1 (218) 305-9586';
+const SITE_PHONE_RAW  = '+12183059586';
 const SITE_LOCALE     = 'en_US';
 const SITE_LANG       = 'en';
 const SITE_TWITTER    = '@wikipediastudio';

@@ -1,6 +1,5 @@
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { RevealOnView } from "@/components/layout/RevealOnView";
 import { SiteScripts } from "@/components/layout/SiteScripts";
 import { IconLibrary } from "@/components/ui/Icon";
 
@@ -20,7 +19,6 @@ export default function SiteLayout({
       <Header />
       <main id="main">{children}</main>
       <Footer />
-      <RevealOnView />
       <SiteScripts />
     </>
   );

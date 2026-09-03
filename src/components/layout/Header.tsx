@@ -61,7 +61,7 @@ export function Header() {
             width={66}
             height={55}
             sizes="66px"
-            quality={60}
+            quality={75}
             loading="eager"
           />
           <span className="brand-copy">

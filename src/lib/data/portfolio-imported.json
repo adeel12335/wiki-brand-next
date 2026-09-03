@@ -90,13 +90,14 @@
   {
     "title": "Sarah Maza",
     "slug": "sarah-maza",
-    "summary": "A historian of early and modern France who taught at Northwestern University for 45 years and retired as professor emerita in 2024.",
-    "body": "A historian of early and modern France who taught at Northwestern University for 45 years and retired as professor emerita in 2024.",
-    "externalUrl": "https://en.wikipedia.org/wiki/Stephen_C._Stearns",
-    "imageUrl": "https://thewikistudio.com/wp-content/uploads/2025/12/default-avatar.png",
+    "summary": "American historian",
+    "body": "American historian",
+    "externalUrl": "https://en.wikipedia.org/wiki/Sarah_Maza",
+    "imageUrl": "/assets/portfolio/sarah-maza.png",
     "imageAlt": "Sarah Maza",
     "featuredOnHome": false,
-    "sortOrder": 8
+    "sortOrder": 8,
+    "category": "Historian"
   },
   {
     "title": "Timothy Snyder",
@@ -134,13 +135,14 @@
   {
     "title": "Bernard Amadei",
     "slug": "bernard-amadei",
-    "summary": "He is a professor of civil engineering at the University of Colorado Boulder, founding president of Engineers Without Borders (USA), co-founder of the Engineers Without Borders-International Network,",
-    "body": "He is a professor of civil engineering at the University of Colorado Boulder, founding president of Engineers Without Borders (USA), co-founder of the Engineers Without Borders-International Network,",
+    "summary": "American civil engineering professor (born 1954)",
+    "body": "American civil engineering professor (born 1954)",
     "externalUrl": "https://en.wikipedia.org/wiki/Bernard_Amadei",
-    "imageUrl": "https://thewikistudio.com/wp-content/uploads/2025/12/default-avatar.png",
+    "imageUrl": "/assets/portfolio/bernard-amadei.png",
     "imageAlt": "Bernard Amadei",
     "featuredOnHome": false,
-    "sortOrder": 12
+    "sortOrder": 12,
+    "category": "Academic"
   },
   {
     "title": "Kenneth T. Jackson",
@@ -211,24 +213,26 @@
   {
     "title": "Marianne L. Novy",
     "slug": "marianne-l-novy",
-    "summary": "Marianne L. Novy is an American literary scholar known for her work on Shakespeare,[1] feminist literary criticism, and adoption studies.[1][2] She taught for many years at the University of Pittsburgh,",
-    "body": "Marianne L. Novy is an American literary scholar known for her work on Shakespeare,[1] feminist literary criticism, and adoption studies.[1][2] She taught for many years at the University of Pittsburgh,",
+    "summary": "American literary scholar",
+    "body": "American literary scholar",
     "externalUrl": "https://en.wikipedia.org/wiki/Marianne_L._Novy",
-    "imageUrl": "https://thewikistudio.com/wp-content/uploads/2025/12/default-avatar.png",
+    "imageUrl": "/assets/portfolio/marianne-l-novy.png",
     "imageAlt": "Marianne L. Novy",
     "featuredOnHome": false,
-    "sortOrder": 19
+    "sortOrder": 19,
+    "category": "Academic"
   },
   {
     "title": "C. Stephen Layman",
     "slug": "c-stephen-layman",
-    "summary": "C. Stephen Layman is an American philosopher and Professor Emeritus of Philosophy at Seattle Pacific University.[1][2] His academic work focuses on philosophy of religion, ethics, and logic.",
-    "body": "C. Stephen Layman is an American philosopher and Professor Emeritus of Philosophy at Seattle Pacific University.[1][2] His academic work focuses on philosophy of religion, ethics, and logic.",
+    "summary": "C.",
+    "body": "C.",
     "externalUrl": "https://en.wikipedia.org/wiki/C._Stephen_Layman",
-    "imageUrl": "https://thewikistudio.com/wp-content/uploads/2025/12/default-avatar.png",
+    "imageUrl": "/assets/portfolio/c-stephen-layman.png",
     "imageAlt": "C. Stephen Layman",
     "featuredOnHome": false,
-    "sortOrder": 20
+    "sortOrder": 20,
+    "category": "Philosopher"
   },
   {
     "title": "Alfred J. Andrea",
@@ -251,5 +255,113 @@
     "imageAlt": "Paul Richards (anthropologist)",
     "featuredOnHome": false,
     "sortOrder": 22
+  },
+  {
+    "title": "Pirouz Pirouz",
+    "slug": "pirouz-pirouz",
+    "summary": "Pirouz Pirouz is an Iranian-American materials scientist.",
+    "body": "Pirouz Pirouz is an Iranian-American materials scientist.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Pirouz_Pirouz",
+    "imageUrl": "/assets/portfolio/default-avatar.png",
+    "imageAlt": "Pirouz Pirouz",
+    "featuredOnHome": false,
+    "sortOrder": 23,
+    "category": "Academic"
+  },
+  {
+    "title": "Richard T. W. Arthur",
+    "slug": "richard-t-w-arthur",
+    "summary": "Philosopher",
+    "body": "Philosopher",
+    "externalUrl": "https://en.wikipedia.org/wiki/Richard_T._W._Arthur",
+    "imageUrl": "/assets/portfolio/default-avatar.png",
+    "imageAlt": "Richard T. W. Arthur",
+    "featuredOnHome": false,
+    "sortOrder": 24,
+    "category": "Historian"
+  },
+  {
+    "title": "Richard Benjamin Darlington",
+    "slug": "richard-benjamin-darlington",
+    "summary": "American psychologist and statistician (born 1937))",
+    "body": "American psychologist and statistician (born 1937))",
+    "externalUrl": "https://en.wikipedia.org/wiki/Richard_Benjamin_Darlington",
+    "imageUrl": "/assets/portfolio/default-avatar.png",
+    "imageAlt": "Richard Benjamin Darlington",
+    "featuredOnHome": false,
+    "sortOrder": 25,
+    "category": "Academic"
+  },
+  {
+    "title": "Michael Zukerman",
+    "slug": "michael-zukerman",
+    "summary": "Michael Zuckerman is an American historian specializing in early American history and Professor Emeritus of History at the University of Pennsylvania.",
+    "body": "Michael Zuckerman is an American historian specializing in early American history and Professor Emeritus of History at the University of Pennsylvania.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Michael_Zukerman",
+    "imageUrl": "/assets/portfolio/default-avatar.png",
+    "imageAlt": "Michael Zukerman",
+    "featuredOnHome": false,
+    "sortOrder": 26,
+    "category": "Historian"
+  },
+  {
+    "title": "Jane Jaquette",
+    "slug": "jane-jaquette",
+    "summary": "Political scientist",
+    "body": "Political scientist",
+    "externalUrl": "https://en.wikipedia.org/wiki/Jane_S._Jaquette",
+    "imageUrl": "/assets/portfolio/default-avatar.png",
+    "imageAlt": "Jane Jaquette",
+    "featuredOnHome": false,
+    "sortOrder": 27,
+    "category": "Academic"
+  },
+  {
+    "title": "Maradel Krummel Gale",
+    "slug": "maradel-krummel-gale",
+    "summary": "American Academic and Lawyer",
+    "body": "American Academic and Lawyer",
+    "externalUrl": "https://en.wikipedia.org/wiki/Maradel_Krummel_Gale",
+    "imageUrl": "/assets/portfolio/default-avatar.png",
+    "imageAlt": "Maradel Krummel Gale",
+    "featuredOnHome": false,
+    "sortOrder": 28,
+    "category": "Academic"
+  },
+  {
+    "title": "Thomas Wickizer",
+    "slug": "thomas-wickizer",
+    "summary": "Thomas Wickizer is an American public health researcher and academic known for his contributions to health services research, occupational health systems, and health policy.",
+    "body": "Thomas Wickizer is an American public health researcher and academic known for his contributions to health services research, occupational health systems, and health policy.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Thomas_Wickizer",
+    "imageUrl": "/assets/portfolio/default-avatar.png",
+    "imageAlt": "Thomas Wickizer",
+    "featuredOnHome": false,
+    "sortOrder": 29,
+    "category": "Economist"
+  },
+  {
+    "title": "Clifton Hood (American historian)",
+    "slug": "clifton-hood-american-historian",
+    "summary": "American historian",
+    "body": "American historian",
+    "externalUrl": "https://en.wikipedia.org/wiki/Clifton_Hood_(American_historian)",
+    "imageUrl": "/assets/portfolio/default-avatar.png",
+    "imageAlt": "Clifton Hood (American historian)",
+    "featuredOnHome": false,
+    "sortOrder": 30,
+    "category": "Historian"
+  },
+  {
+    "title": "Joshua Dressler",
+    "slug": "joshua-dressler",
+    "summary": "American law professor",
+    "body": "American law professor",
+    "externalUrl": "https://en.wikipedia.org/wiki/Joshua_Dressler",
+    "imageUrl": "/assets/portfolio/default-avatar.png",
+    "imageAlt": "Joshua Dressler",
+    "featuredOnHome": false,
+    "sortOrder": 31,
+    "category": "Academic"
   }
 ]

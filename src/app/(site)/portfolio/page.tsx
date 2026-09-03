@@ -14,7 +14,7 @@ import {
   isIndexablePortfolioItem,
 } from "@/lib/portfolio";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 const staticMeta = {
   slug: "portfolio",
@@ -64,9 +64,9 @@ export default async function PortfolioPage() {
           { label: "Discuss Your Project", href: url("contact") },
           { label: "Our Services", href: url("services"), style: "button-outline" },
         ]}
-        image="/assets/portfolio-hero.png"
-        imageWidth={1536}
-        imageHeight={1024}
+        image="/assets/portfolio-hero-archive-v3.png"
+        imageWidth={1531}
+        imageHeight={1027}
         visualClass="page-hero-visual--portfolio"
       />
 

@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { BlogCard } from "@/components/blog/BlogCard";
 import { ExperiencePanel } from "@/components/sections/ExperiencePanel";
 import { PortfolioClientsGrid } from "@/components/sections/PortfolioClientsGrid";
+import { MetricsRail } from "@/components/sections/MetricsRail";
 import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
 import { ServiceIndex } from "@/components/sections/ServiceIndex";
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
 import { Icon } from "@/components/ui/Icon";
+import { getAllBlogPosts } from "@/lib/blog";
 import { SITE_NAME, absUrl, url } from "@/lib/config";
 import {
   faqs,
@@ -17,7 +20,9 @@ import {
   services,
 } from "@/lib/data";
 import { getFeaturedPortfolio } from "@/lib/portfolio";
-import { buildPageMetadata, itemListNode } from "@/lib/seo";
+import { buildPageMetadata, faqNode, itemListNode } from "@/lib/seo";
+
+const homeFaqs = faqs.slice(0, 5);
 
 const pageMeta = {
   slug: "",
@@ -39,6 +44,7 @@ const pageMeta = {
         description: service.card,
       })),
     ),
+    faqNode(homeFaqs, ""),
   ],
 };
 
@@ -103,20 +109,7 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="shell metrics-rail reveal">
-          {metrics.map((metric, index) => (
-            <article key={metric.label}>
-              <span className="metric-index" aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <Icon name={metric.icon} />
-              <div className="metric-copy">
-                <strong>{metric.value}</strong>
-                <span>{metric.label}</span>
-              </div>
-            </article>
-          ))}
-        </div>
+        <MetricsRail items={metrics} />
       </section>
 
       <section className="about section-pad" id="about">
@@ -193,6 +186,27 @@ export default async function HomePage() {
 
       <TestimonialSection />
 
+      <section className="section-pad blog-home-section">
+        <div className="shell">
+          <div className="portfolio-heading reveal">
+            <div>
+              <p className="micro-label">Insights</p>
+              <h2>Guides worth reading before you draft</h2>
+            </div>
+            <Link className="text-link" href={url("blog")}>
+              View All Articles <Icon name="i-arrow" />
+            </Link>
+          </div>
+          <div className="blog-grid blog-grid--home reveal">
+            {getAllBlogPosts()
+              .slice(0, 3)
+              .map((post) => (
+                <BlogCard key={post.slug} post={post} />
+              ))}
+          </div>
+        </div>
+      </section>
+
       <section className="resources section-pad" id="resources">
         <div className="shell trust-faq reveal">
           <div className="trust-column">
@@ -233,7 +247,7 @@ export default async function HomePage() {
           <div className="faq-column">
             <p className="micro-label">Frequently Asked Questions</p>
             <h3>Straight answers, before you commit.</h3>
-            <FaqList items={faqs.slice(0, 5)} />
+            <FaqList items={homeFaqs} />
           </div>
         </div>
       </section>

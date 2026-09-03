@@ -313,6 +313,28 @@ form { margin: 0; }
 
 .admin-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
+.admin-linkish {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--a-text);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-linkish:hover { color: var(--a-gold); }
+
+.admin-enquiry-message {
+  margin-top: 8px !important;
+  max-width: 42ch;
+  white-space: pre-wrap;
+  color: var(--a-text) !important;
+  line-height: 1.55;
+}
+
 /* --- Stats & toolbar ---------------------------------------------------- */
 
 .admin-stats {

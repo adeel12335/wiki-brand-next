@@ -4,6 +4,13 @@ import { z } from "zod";
 import { cacheGet, cacheSet } from "@/lib/cache/redis";
 import { SITE_EMAIL, SITE_NAME } from "@/lib/config";
 import { services } from "@/lib/data";
+import { connectDB, isDbConfigured } from "@/lib/db/mongodb";
+import { ContactEnquiry } from "@/lib/db/models";
+import {
+  buildContactEnquiryHtml,
+  buildContactEnquiryText,
+  isResendConfigured,
+} from "@/lib/email/contact-enquiry";
 
 const subjectOptions = [
   ...Object.values(services).map((s) => s.name),
@@ -32,11 +39,15 @@ function getClientIp(request: Request): string {
   );
 }
 
+function mailFallbackMessage(): string {
+  return `We could not save that enquiry. Please email ${SITE_EMAIL} directly.`;
+}
+
 export async function POST(request: Request) {
   const ip = getClientIp(request);
   const rateKey = `contact:rate:${ip}`;
   const attempts = (await cacheGet<number>(rateKey)) ?? 0;
-  if (attempts >= 3) {
+  if (attempts >= 5) {
     return NextResponse.json(
       { errors: { form: "Too many submissions. Please try again later." } },
       { status: 429 },
@@ -83,38 +94,70 @@ export async function POST(request: Request) {
     );
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json({ ok: false }, { status: 503 });
+  if (!isDbConfigured()) {
+    return NextResponse.json(
+      { ok: false, errors: { form: mailFallbackMessage() } },
+      { status: 503 },
+    );
   }
 
-  const resend = new Resend(apiKey);
-  const to = process.env.CONTACT_TO || SITE_EMAIL;
+  let enquiryId: string | null = null;
+  let emailSent = false;
 
-  const text = `New enquiry from ${SITE_NAME}
+  try {
+    await connectDB();
+    const enquiry = await ContactEnquiry.create({
+      name: data.name,
+      email: data.email,
+      phone: data.phone || "",
+      subject: data.subject || "",
+      message: data.message,
+      ip: ip.slice(0, 64),
+      status: "new",
+      emailSent: false,
+    });
+    enquiryId = enquiry._id.toString();
+  } catch (error) {
+    console.error("Contact enquiry save failed:", error);
+    return NextResponse.json(
+      { ok: false, errors: { form: mailFallbackMessage() } },
+      { status: 502 },
+    );
+  }
 
-Name:    ${data.name}
-Email:   ${data.email}
-Phone:   ${data.phone || "—"}
-Subject: ${data.subject || "—"}
+  if (isResendConfigured()) {
+    const resend = new Resend(process.env.RESEND_API_KEY!.trim());
+    const to = (process.env.CONTACT_TO || SITE_EMAIL).trim();
+    const fromEmail = (process.env.CONTACT_FROM || SITE_EMAIL).trim();
+    const subjectLine = `Website enquiry: ${data.subject || "General"}`;
 
-Message:
-${data.message}
-`;
+    try {
+      const { error } = await resend.emails.send({
+        from: `${SITE_NAME} <${fromEmail}>`,
+        to,
+        replyTo: data.email,
+        subject: subjectLine,
+        text: buildContactEnquiryText(data),
+        html: buildContactEnquiryHtml(data),
+      });
 
-  const { error } = await resend.emails.send({
-    from: `${SITE_NAME} <${SITE_EMAIL}>`,
-    to,
-    replyTo: data.email,
-    subject: `Website enquiry: ${data.subject || "General"}`,
-    text,
-  });
-
-  if (error) {
-    return NextResponse.json({ ok: false }, { status: 500 });
+      if (error) {
+        console.error("Resend error:", error);
+      } else {
+        emailSent = true;
+        if (enquiryId) {
+          await ContactEnquiry.updateOne(
+            { _id: enquiryId },
+            { $set: { emailSent: true } },
+          ).catch(() => undefined);
+        }
+      }
+    } catch (error) {
+      console.error("Contact email send failed:", error);
+    }
   }
 
   await cacheSet(rateKey, attempts + 1, 3600);
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, emailSent, id: enquiryId });
 }

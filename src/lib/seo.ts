@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import {
   SEO_DEFAULT_OG_IMAGE,
   SEO_DEFAULT_ROBOTS,
+  SITE_EMAIL,
   SITE_LANG,
   SITE_LOCALE,
   SITE_NAME,
+  SITE_PHONE_RAW,
   SITE_TAGLINE,
   SITE_TWITTER,
   absUrl,
@@ -13,6 +15,10 @@ import {
   metaTrim,
 } from "@/lib/config";
 import type { PageMeta } from "@/types";
+
+/** Default OG asset dimensions (assets/og/*). */
+const OG_IMAGE_WIDTH = 1200;
+const OG_IMAGE_HEIGHT = 630;
 
 export function seoId(fragment: string): string {
   return `${getSiteUrl()}/#${fragment}`;
@@ -24,9 +30,12 @@ export function buildPageMetadata(page: PageMeta): Metadata {
   const description = metaTrim(page.description, 160);
   const canonical = absUrl(slug);
   const imagePath = page.ogImage ?? SEO_DEFAULT_OG_IMAGE;
-  const imageUrl = imagePath.startsWith("http") ? imagePath : assetUrl(imagePath.replace(/^\//, ""));
+  const imageUrl = imagePath.startsWith("http")
+    ? imagePath
+    : assetUrl(imagePath.replace(/^\//, ""));
+  const ogType = page.ogType ?? "website";
 
-  return {
+  const metadata: Metadata = {
     title,
     description,
     authors: [{ name: SITE_NAME }],
@@ -38,9 +47,12 @@ export function buildPageMetadata(page: PageMeta): Metadata {
         en: canonical,
         "x-default": canonical,
       },
+      types: {
+        "application/rss+xml": `${getSiteUrl()}/feed.xml`,
+      },
     },
     openGraph: {
-      type: "website",
+      type: ogType,
       locale: SITE_LOCALE,
       siteName: SITE_NAME,
       url: canonical,
@@ -49,6 +61,8 @@ export function buildPageMetadata(page: PageMeta): Metadata {
       images: [
         {
           url: imageUrl,
+          width: OG_IMAGE_WIDTH,
+          height: OG_IMAGE_HEIGHT,
           alt: page.ogImageAlt ?? title,
         },
       ],
@@ -62,19 +76,30 @@ export function buildPageMetadata(page: PageMeta): Metadata {
       images: [imageUrl],
     },
   };
+
+  if (page.keywords?.trim()) {
+    metadata.keywords = page.keywords
+      .split(",")
+      .map((part) => part.trim())
+      .filter(Boolean);
+  }
+
+  return metadata;
 }
 
 export function organizationNode() {
+  const twitterHandle = SITE_TWITTER.replace(/^@/, "");
+
   return {
-    "@type": "Organization",
+    "@type": ["Organization", "ProfessionalService"],
     "@id": seoId("organization"),
     name: SITE_NAME,
     alternateName: "Wikipedia Studio",
     url: absUrl(),
     description:
       "Independent professional editorial agency providing Wikipedia page creation, editing, research, and ongoing management for individuals, businesses, and organisations.",
-    email: "hello@thewikipediastudio.com",
-    telephone: "+18004537801",
+    email: SITE_EMAIL,
+    telephone: SITE_PHONE_RAW,
     logo: {
       "@type": "ImageObject",
       "@id": seoId("logo"),
@@ -84,6 +109,7 @@ export function organizationNode() {
       caption: SITE_NAME,
     },
     image: { "@id": seoId("logo") },
+    sameAs: [`https://x.com/${twitterHandle}`, `https://twitter.com/${twitterHandle}`],
     areaServed: { "@type": "Place", name: "Worldwide" },
     knowsAbout: [
       "Wikipedia page creation",
@@ -98,8 +124,8 @@ export function organizationNode() {
       {
         "@type": "ContactPoint",
         contactType: "customer service",
-        email: "hello@thewikipediastudio.com",
-        telephone: "+18004537801",
+        email: SITE_EMAIL,
+        telephone: SITE_PHONE_RAW,
         availableLanguage: ["English"],
         areaServed: "Worldwide",
       },
@@ -133,7 +159,7 @@ export function webpageNode(page: PageMeta, imageUrl: string) {
     primaryImageOfPage: { "@type": "ImageObject", url: imageUrl },
   };
 
-  if (page.breadcrumbs?.length) {
+  if (page.slug) {
     node.breadcrumb = { "@id": `${url}#breadcrumb` };
   }
 
@@ -193,14 +219,64 @@ export function itemListNode(
 }
 
 export function faqNode(items: Array<{ q: string; a: string }>, slug: string) {
+  const pageUrl = absUrl(slug);
+
   return {
     "@type": "FAQPage",
-    "@id": `${absUrl(slug)}#faq`,
+    "@id": `${pageUrl}#faq`,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [".faq-question", ".faq-answer", ".micro-label"],
+    },
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.q,
       acceptedAnswer: { "@type": "Answer", text: item.a },
     })),
+  };
+}
+
+export function articleNode(post: {
+  slug: string;
+  title: string;
+  description: string;
+  publishedAt: string;
+  modifiedAt?: string;
+  image?: string;
+}) {
+  const pageUrl = absUrl(`blog/${post.slug}`);
+  const imageUrl = post.image
+    ? post.image.startsWith("http")
+      ? post.image
+      : assetUrl(post.image.replace(/^\//, ""))
+    : assetUrl(SEO_DEFAULT_OG_IMAGE.replace(/^\//, ""));
+
+  return {
+    "@type": "BlogPosting",
+    "@id": `${pageUrl}#article`,
+    headline: post.title,
+    description: metaTrim(post.description, 160),
+    datePublished: post.publishedAt,
+    dateModified: post.modifiedAt ?? post.publishedAt,
+    author: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: absUrl(),
+    },
+    publisher: { "@id": seoId("organization") },
+    mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
+    image: {
+      "@type": "ImageObject",
+      url: imageUrl,
+      width: OG_IMAGE_WIDTH,
+      height: OG_IMAGE_HEIGHT,
+    },
+    inLanguage: SITE_LANG,
+    isPartOf: { "@id": seoId("website") },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [".blog-article-main h1", ".blog-article-main p", ".page-hero-lede"],
+    },
   };
 }
 
@@ -249,16 +325,16 @@ export function buildJsonLd(page: PageMeta): Record<string, unknown> {
     ? imagePath
     : assetUrl(imagePath.replace(/^\//, ""));
 
-  const graph: Record<string, unknown>[] = [webpageNode(page, imageUrl)];
+  const graph: Record<string, unknown>[] = [
+    organizationNode(),
+    websiteNode(),
+    webpageNode(page, imageUrl),
+  ];
 
-  if (!page.slug) {
-    graph.unshift(organizationNode(), websiteNode());
-  }
-
-  if (page.breadcrumbs?.length) {
+  if (page.slug) {
     graph.push(
       breadcrumbNode(
-        page.breadcrumbs,
+        page.breadcrumbs ?? [],
         page.breadcrumbName ?? page.shortTitle ?? page.title,
         page.slug,
       ),

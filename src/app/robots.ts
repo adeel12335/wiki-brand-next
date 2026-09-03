@@ -1,9 +1,26 @@
 import type { MetadataRoute } from "next";
 import { getSiteUrl } from "@/lib/config";
 
+const privatePaths = ["/admin/", "/api/"];
+
+/** AI / answer-engine crawlers — allow grounding & citation; block training-only agents separately if needed later. */
+const AI_USER_AGENTS = [
+  "OAI-SearchBot",
+  "GPTBot",
+  "ChatGPT-User",
+  "ClaudeBot",
+  "Claude-Web",
+  "Google-Extended",
+  "GoogleOther",
+  "PerplexityBot",
+  "Applebot-Extended",
+  "Bytespider",
+  "CCBot",
+  "meta-externalagent",
+] as const;
+
 export default function robots(): MetadataRoute.Robots {
   const base = getSiteUrl();
-  const privatePaths = ["/admin/", "/api/"];
 
   return {
     rules: [
@@ -12,12 +29,13 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: privatePaths,
       },
-      {
-        userAgent: "OAI-SearchBot",
+      ...AI_USER_AGENTS.map((userAgent) => ({
+        userAgent,
         allow: "/",
         disallow: privatePaths,
-      },
+      })),
     ],
     sitemap: `${base}/sitemap.xml`,
+    host: base,
   };
 }

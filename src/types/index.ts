@@ -117,9 +117,26 @@ export interface PageMeta {
   keywords?: string;
   ogImage?: string;
   ogImageAlt?: string;
+  ogType?: "website" | "article";
   robots?: string;
   breadcrumbs?: Array<{ label: string; slug: string }>;
   breadcrumbName?: string;
   modified?: string;
   schema?: Record<string, unknown>[];
+}
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string;
+  excerpt: string;
+  category: string;
+  publishedAt: string;
+  modifiedAt: string;
+  readingMinutes: number;
+  ogImage: string;
+  relatedService?: string;
+  body: string;
 }

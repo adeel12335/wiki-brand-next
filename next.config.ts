@@ -8,6 +8,10 @@ const securityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=()",
   },
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains; preload",
+  },
 ];
 
 const nextConfig: NextConfig = {
@@ -20,6 +24,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "thewikipediastudio.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.thewikipediastudio.com",
+      },
+      {
+        protocol: "https",
         hostname: "thewikistudio.com",
       },
     ],
@@ -27,14 +39,12 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/admin/:path*",
+        source: "/:path*",
         headers: securityHeaders,
       },
       {
         source: "/api/:path*",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-        ],
+        headers: [{ key: "X-Content-Type-Options", value: "nosniff" }],
       },
     ];
   },

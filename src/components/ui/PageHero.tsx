@@ -74,15 +74,23 @@ export function PageHero({
             {lede ? <p className="page-hero-lede">{lede}</p> : null}
             {actions?.length ? (
               <div className="hero-actions">
-                {actions.map((action) => (
-                  <Link
-                    key={action.label}
-                    className={`button ${action.style ?? "button-gold"} magnetic`}
-                    href={action.href}
-                  >
-                    {action.label} <Icon name="i-arrow" />
-                  </Link>
-                ))}
+                {actions.map((action) => {
+                  const className = `button ${action.style ?? "button-gold"} magnetic`;
+                  const isExternal =
+                    /^(mailto:|tel:|https?:)/i.test(action.href);
+                  if (isExternal) {
+                    return (
+                      <a key={action.label} className={className} href={action.href}>
+                        {action.label} <Icon name="i-arrow" />
+                      </a>
+                    );
+                  }
+                  return (
+                    <Link key={action.label} className={className} href={action.href}>
+                      {action.label} <Icon name="i-arrow" />
+                    </Link>
+                  );
+                })}
               </div>
             ) : null}
           </div>
@@ -96,7 +104,7 @@ export function PageHero({
               height={imageHeight}
               loading="eager"
               fetchPriority="high"
-              sizes="(max-width: 900px) 92vw, 46vw"
+              sizes="(max-width: 900px) 92vw, 60vw"
             />
             <i className="page-hero-rule" />
           </div>

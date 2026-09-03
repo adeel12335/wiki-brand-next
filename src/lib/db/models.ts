@@ -75,3 +75,35 @@ const loginAttemptSchema = new Schema({
 export const LoginAttempt: Model<InferSchemaType<typeof loginAttemptSchema>> =
   mongoose.models.LoginAttempt ??
   mongoose.model("LoginAttempt", loginAttemptSchema);
+
+const contactEnquirySchema = new Schema(
+  {
+    name: { type: String, required: true, maxlength: 120 },
+    email: { type: String, required: true, maxlength: 180, index: true },
+    phone: { type: String, default: "", maxlength: 40 },
+    subject: { type: String, default: "", maxlength: 120, index: true },
+    message: { type: String, required: true, maxlength: 4000 },
+    ip: { type: String, default: "", maxlength: 64 },
+    status: {
+      type: String,
+      enum: ["new", "read", "archived"],
+      default: "new",
+      index: true,
+    },
+    emailSent: { type: Boolean, default: false },
+  },
+  { timestamps: true },
+);
+
+export type ContactEnquiryDocument = InferSchemaType<
+  typeof contactEnquirySchema
+> & {
+  _id: mongoose.Types.ObjectId;
+};
+
+export const ContactEnquiry: Model<ContactEnquiryDocument> =
+  mongoose.models.ContactEnquiry ??
+  mongoose.model<ContactEnquiryDocument>(
+    "ContactEnquiry",
+    contactEnquirySchema,
+  );

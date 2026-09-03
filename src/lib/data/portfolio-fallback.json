@@ -1,209 +1,290 @@
 [
-    {
-        "image": "assets/portfolio/david-bianchi.jpg",
-        "alt": "David Bianchi",
-        "title": "David Bianchi",
-        "copy": "American-Brazilian actor",
-        "detail": "American-Brazilian actor",
-        "externalUrl": "https://en.wikipedia.org/wiki/David_Bianchi",
-        "featuredOnHome": true
-    },
-    {
-        "image": "assets/portfolio/markell-johnson.jpg",
-        "alt": "Markell Johnson",
-        "title": "Markell Johnson",
-        "copy": "American professional basketball player",
-        "detail": "American professional basketball player",
-        "externalUrl": "https://en.wikipedia.org/wiki/Markell_Johnson",
-        "featuredOnHome": true
-    },
-    {
-        "image": "assets/portfolio/markes-e-johnson.jpg",
-        "alt": "Markes E.Johnson",
-        "title": "Markes E.Johnson",
-        "copy": "American Geologist",
-        "detail": "American Geologist",
-        "externalUrl": "https://en.wikipedia.org/wiki/Markes_E._Johnson",
-        "featuredOnHome": true
-    },
-    {
-        "image": "assets/portfolio/peter-abell.jpg",
-        "alt": "Peter Abell",
-        "title": "Peter Abell",
-        "copy": "British Social Scientist",
-        "detail": "British Social Scientist",
-        "externalUrl": "https://en.wikipedia.org/wiki/Peter_Abell",
-        "featuredOnHome": true
-    },
-    {
-        "image": "assets/portfolio/patrick-d-barnes.png",
-        "alt": "Patrick D. Barnes",
-        "title": "Patrick D. Barnes",
-        "copy": "American pediatric radiologist and pediatric neuroradiologist",
-        "detail": "American pediatric radiologist and pediatric neuroradiologist",
-        "externalUrl": "https://en.wikipedia.org/wiki/Patrick_Carnes",
-        "featuredOnHome": true
-    },
-    {
-        "image": "assets/portfolio/patrick-carnes.png",
-        "alt": "Patrick Carnes",
-        "title": "Patrick Carnes",
-        "copy": "American author and counselor.",
-        "detail": "American author and counselor.",
-        "externalUrl": "https://en.wikipedia.org/wiki/Patrick_D._Barnes",
-        "featuredOnHome": true
-    },
-    {
-        "image": "assets/portfolio/stephen-c-stearns.jpg",
-        "alt": "Stephen C. Stearns",
-        "title": "Stephen C. Stearns",
-        "copy": "American biologist, and the Edward P. Bass Professor of Ecology and Evolutionary Biology Emeritus",
-        "detail": "American biologist, and the Edward P. Bass Professor of Ecology and Evolutionary Biology Emeritus",
-        "externalUrl": "https://en.wikipedia.org/wiki/John_Carbon",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/john-carbon.png",
-        "alt": "John Carbon",
-        "title": "John Carbon",
-        "copy": "American professor emeritus of molecular and cellular biology at the University of California, Santa Barbara.",
-        "detail": "American professor emeritus of molecular and cellular biology at the University of California, Santa Barbara.",
-        "externalUrl": "https://en.wikipedia.org/wiki/Sarah_Maza",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/sarah-maza.png",
-        "alt": "Sarah Maza",
-        "title": "Sarah Maza",
-        "copy": "A historian of early and modern France who taught at Northwestern University for 45 years and retired as professor emerita in 2024.",
-        "detail": "A historian of early and modern France who taught at Northwestern University for 45 years and retired as professor emerita in 2024.",
-        "externalUrl": "https://en.wikipedia.org/wiki/Stephen_C._Stearns",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/timothy-snyder.jpg",
-        "alt": "Timothy Snyder",
-        "title": "Timothy Snyder",
-        "copy": "Timothy David Snyder born August 18, is an American historian specializing in the history of Central and Eastern Europe, the Soviet Unionand the Holocaust",
-        "detail": "Timothy David Snyder born August 18, is an American historian specializing in the history of Central and Eastern Europe, the Soviet Unionand the Holocaust",
-        "externalUrl": "https://en.wikipedia.org/wiki/Timothy_Snyder",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/kathleen-hall-jamieson.jpg",
-        "alt": "Kathleen Hall Jamieson",
-        "title": "Kathleen Hall Jamieson",
-        "copy": "Kathleen Hall Jamieson (born November 24, 1946) is an American professor of communication and the director of the Annenberg Public Policy Center at the University of Pennsylvania.",
-        "detail": "Kathleen Hall Jamieson (born November 24, 1946) is an American professor of communication and the director of the Annenberg Public Policy Center at the University of Pennsylvania.",
-        "externalUrl": "https://en.wikipedia.org/wiki/Kathleen_Hall_Jamieson",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/ro-khanna.jpg",
-        "alt": "Ro Khanna",
-        "title": "Ro Khanna",
-        "copy": "Rohit \"Ro\" Khanna[a] (born September 13, 1976) is an American politician and attorney serving as the U.S. representative from California's 17th congressional district since 2017",
-        "detail": "Rohit \"Ro\" Khanna[a] (born September 13, 1976) is an American politician and attorney serving as the U.S. representative from California's 17th congressional district since 2017",
-        "externalUrl": "https://en.wikipedia.org/wiki/Ro_Khanna",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/bernard-amadei.png",
-        "alt": "Bernard Amadei",
-        "title": "Bernard Amadei",
-        "copy": "He is a professor of civil engineering at the University of Colorado Boulder, founding president of Engineers Without Borders (USA), co-founder of the Engineers Without Borders-International Network,",
-        "detail": "He is a professor of civil engineering at the University of Colorado Boulder, founding president of Engineers Without Borders (USA), co-founder of the Engineers Without Borders-International Network,",
-        "externalUrl": "https://en.wikipedia.org/wiki/Bernard_Amadei",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/kenneth-t-jackson.png",
-        "alt": "Kenneth T. Jackson",
-        "title": "Kenneth T. Jackson",
-        "copy": "Kenneth T. Jackson (born July 27, 1939) is a professor of urban history, social history, and cultural history who has written various books and articles including on American cities.",
-        "detail": "Kenneth T. Jackson (born July 27, 1939) is a professor of urban history, social history, and cultural history who has written various books and articles including on American cities.",
-        "externalUrl": "https://en.wikipedia.org/wiki/Kenneth_T._Jackson",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/david-karoly.jpg",
-        "alt": "David Karoly",
-        "title": "David Karoly",
-        "copy": "David Karoly enrolled in applied mathematics at Monash University, Melbourne, but later became interested in meteorology.[1] In 1980 he was awarded a doctorate in meteorology from the University of Reading in Reading, England.",
-        "detail": "David Karoly enrolled in applied mathematics at Monash University, Melbourne, but later became interested in meteorology.[1] In 1980 he was awarded a doctorate in meteorology from the University of Reading in Reading, England.",
-        "externalUrl": "https://en.wikipedia.org/wiki/David_Karoly",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/shi-kuo-chang.png",
-        "alt": "Shi-Kuo Chang",
-        "title": "Shi-Kuo Chang",
-        "copy": "Shi-Kuo Chang[1][2] (Chinese: 張系國; pinyin: Zhāng Xìgūo; Wade–Giles: Chang1 Hsi4-kuo1) is a Taiwanese-American computer scientist and writer best known for his science fiction novels and short stories.",
-        "detail": "Shi-Kuo Chang[1][2] (Chinese: 張系國; pinyin: Zhāng Xìgūo; Wade–Giles: Chang1 Hsi4-kuo1) is a Taiwanese-American computer scientist and writer best known for his science fiction novels and short stories.",
-        "externalUrl": "https://en.wikipedia.org/wiki/Shi-Kuo_Chang",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/paul-otto-historian.jpg",
-        "alt": "Paul Otto (historian)",
-        "title": "Paul Otto (historian)",
-        "copy": "Paul Otto is an American historian and professor emeritus of History at George Fox University. His main research is early America with specialty in Dutch-Native American relations, Native American history, and the history of wampum.",
-        "detail": "Paul Otto is an American historian and professor emeritus of History at George Fox University. His main research is early America with specialty in Dutch-Native American relations, Native American history, and the history of wampum.",
-        "externalUrl": "https://en.wikipedia.org/wiki/Paul_Otto_(historian)",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/david-baker-biochemist.jpg",
-        "alt": "David Baker (biochemist)",
-        "title": "David Baker (biochemist)",
-        "copy": "David Baker (born October 6, 1962) is an American biochemist and computational biologist who has pioneered methods to design proteins and predict their three-dimensional structures.",
-        "detail": "David Baker (born October 6, 1962) is an American biochemist and computational biologist who has pioneered methods to design proteins and predict their three-dimensional structures.",
-        "externalUrl": "https://en.wikipedia.org/wiki/David_Baker_(biochemist)",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/marion-nestle.jpg",
-        "alt": "Marion Nestle",
-        "title": "Marion Nestle",
-        "copy": "Marion Nestle (born 1936) is an American molecular biologist, nutritionist, and public health advocate. She is the Paulette Goddard Professor of Nutrition, Food Studies, and Public Health Emerita at New York University.",
-        "detail": "Marion Nestle (born 1936) is an American molecular biologist, nutritionist, and public health advocate. She is the Paulette Goddard Professor of Nutrition, Food Studies, and Public Health Emerita at New York University.",
-        "externalUrl": "https://en.wikipedia.org/wiki/Marion_Nestle",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/marianne-l-novy.png",
-        "alt": "Marianne L. Novy",
-        "title": "Marianne L. Novy",
-        "copy": "Marianne L. Novy is an American literary scholar known for her work on Shakespeare,[1] feminist literary criticism, and adoption studies.[1][2] She taught for many years at the University of Pittsburgh,",
-        "detail": "Marianne L. Novy is an American literary scholar known for her work on Shakespeare,[1] feminist literary criticism, and adoption studies.[1][2] She taught for many years at the University of Pittsburgh,",
-        "externalUrl": "https://en.wikipedia.org/wiki/Marianne_L._Novy",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/c-stephen-layman.png",
-        "alt": "C. Stephen Layman",
-        "title": "C. Stephen Layman",
-        "copy": "C. Stephen Layman is an American philosopher and Professor Emeritus of Philosophy at Seattle Pacific University.[1][2] His academic work focuses on philosophy of religion, ethics, and logic.",
-        "detail": "C. Stephen Layman is an American philosopher and Professor Emeritus of Philosophy at Seattle Pacific University.[1][2] His academic work focuses on philosophy of religion, ethics, and logic.",
-        "externalUrl": "https://en.wikipedia.org/wiki/C._Stephen_Layman",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/alfred-j-andrea.jpg",
-        "alt": "Alfred J. Andrea",
-        "title": "Alfred J. Andrea",
-        "copy": "He is professor emeritus of History at the University of Vermont, former president of the World History Association, and Distinguished Professor at the University of the Peloponnese in Greece",
-        "detail": "He is professor emeritus of History at the University of Vermont, former president of the World History Association, and Distinguished Professor at the University of the Peloponnese in Greece",
-        "externalUrl": "https://en.wikipedia.org/wiki/Alfred_J._Andrea",
-        "featuredOnHome": false
-    },
-    {
-        "image": "assets/portfolio/paul-richards-anthropologist.jpg",
-        "alt": "Paul Richards (anthropologist)",
-        "title": "Paul Richards (anthropologist)",
-        "copy": "Paul Richards (born 14 May 1945) is an emeritus professor of technology and agrarian development at Wageningen University, The Netherlands, and an adjunct professor at Njala University in central Sierra Leone.",
-        "detail": "Paul Richards (born 14 May 1945) is an emeritus professor of technology and agrarian development at Wageningen University, The Netherlands, and an adjunct professor at Njala University in central Sierra Leone.",
-        "externalUrl": "https://en.wikipedia.org/wiki/Paul_Richards_(anthropologist)",
-        "featuredOnHome": false
-    }
+  {
+    "image": "assets/portfolio/david-bianchi.jpg",
+    "alt": "David Bianchi",
+    "title": "David Bianchi",
+    "copy": "American-Brazilian actor",
+    "detail": "American-Brazilian actor",
+    "externalUrl": "https://en.wikipedia.org/wiki/David_Bianchi",
+    "featuredOnHome": true
+  },
+  {
+    "image": "assets/portfolio/markell-johnson.jpg",
+    "alt": "Markell Johnson",
+    "title": "Markell Johnson",
+    "copy": "American professional basketball player",
+    "detail": "American professional basketball player",
+    "externalUrl": "https://en.wikipedia.org/wiki/Markell_Johnson",
+    "featuredOnHome": true
+  },
+  {
+    "image": "assets/portfolio/markes-e-johnson.jpg",
+    "alt": "Markes E.Johnson",
+    "title": "Markes E.Johnson",
+    "copy": "American Geologist",
+    "detail": "American Geologist",
+    "externalUrl": "https://en.wikipedia.org/wiki/Markes_E._Johnson",
+    "featuredOnHome": true
+  },
+  {
+    "image": "assets/portfolio/peter-abell.jpg",
+    "alt": "Peter Abell",
+    "title": "Peter Abell",
+    "copy": "British Social Scientist",
+    "detail": "British Social Scientist",
+    "externalUrl": "https://en.wikipedia.org/wiki/Peter_Abell",
+    "featuredOnHome": true
+  },
+  {
+    "image": "assets/portfolio/patrick-d-barnes.png",
+    "alt": "Patrick D. Barnes",
+    "title": "Patrick D. Barnes",
+    "copy": "American pediatric radiologist and pediatric neuroradiologist",
+    "detail": "American pediatric radiologist and pediatric neuroradiologist",
+    "externalUrl": "https://en.wikipedia.org/wiki/Patrick_Carnes",
+    "featuredOnHome": true
+  },
+  {
+    "image": "assets/portfolio/patrick-carnes.png",
+    "alt": "Patrick Carnes",
+    "title": "Patrick Carnes",
+    "copy": "American author and counselor.",
+    "detail": "American author and counselor.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Patrick_D._Barnes",
+    "featuredOnHome": true
+  },
+  {
+    "image": "assets/portfolio/stephen-c-stearns.jpg",
+    "alt": "Stephen C. Stearns",
+    "title": "Stephen C. Stearns",
+    "copy": "American biologist, and the Edward P. Bass Professor of Ecology and Evolutionary Biology Emeritus",
+    "detail": "American biologist, and the Edward P. Bass Professor of Ecology and Evolutionary Biology Emeritus",
+    "externalUrl": "https://en.wikipedia.org/wiki/John_Carbon",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/sarah-maza.png",
+    "alt": "Sarah Maza",
+    "title": "Sarah Maza",
+    "copy": "American historian",
+    "detail": "American historian",
+    "externalUrl": "https://en.wikipedia.org/wiki/Sarah_Maza",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/sarah-maza.png",
+    "alt": "Sarah Maza",
+    "title": "Sarah Maza",
+    "copy": "A historian of early and modern France who taught at Northwestern University for 45 years and retired as professor emerita in 2024.",
+    "detail": "A historian of early and modern France who taught at Northwestern University for 45 years and retired as professor emerita in 2024.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Stephen_C._Stearns",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/timothy-snyder.jpg",
+    "alt": "Timothy Snyder",
+    "title": "Timothy Snyder",
+    "copy": "Timothy David Snyder born August 18, is an American historian specializing in the history of Central and Eastern Europe, the Soviet Unionand the Holocaust",
+    "detail": "Timothy David Snyder born August 18, is an American historian specializing in the history of Central and Eastern Europe, the Soviet Unionand the Holocaust",
+    "externalUrl": "https://en.wikipedia.org/wiki/Timothy_Snyder",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/kathleen-hall-jamieson.jpg",
+    "alt": "Kathleen Hall Jamieson",
+    "title": "Kathleen Hall Jamieson",
+    "copy": "Kathleen Hall Jamieson (born November 24, 1946) is an American professor of communication and the director of the Annenberg Public Policy Center at the University of Pennsylvania.",
+    "detail": "Kathleen Hall Jamieson (born November 24, 1946) is an American professor of communication and the director of the Annenberg Public Policy Center at the University of Pennsylvania.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Kathleen_Hall_Jamieson",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/ro-khanna.jpg",
+    "alt": "Ro Khanna",
+    "title": "Ro Khanna",
+    "copy": "Rohit \"Ro\" Khanna[a] (born September 13, 1976) is an American politician and attorney serving as the U.S. representative from California's 17th congressional district since 2017",
+    "detail": "Rohit \"Ro\" Khanna[a] (born September 13, 1976) is an American politician and attorney serving as the U.S. representative from California's 17th congressional district since 2017",
+    "externalUrl": "https://en.wikipedia.org/wiki/Ro_Khanna",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/bernard-amadei.png",
+    "alt": "Bernard Amadei",
+    "title": "Bernard Amadei",
+    "copy": "American civil engineering professor (born 1954)",
+    "detail": "American civil engineering professor (born 1954)",
+    "externalUrl": "https://en.wikipedia.org/wiki/Bernard_Amadei",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/kenneth-t-jackson.png",
+    "alt": "Kenneth T. Jackson",
+    "title": "Kenneth T. Jackson",
+    "copy": "Kenneth T. Jackson (born July 27, 1939) is a professor of urban history, social history, and cultural history who has written various books and articles including on American cities.",
+    "detail": "Kenneth T. Jackson (born July 27, 1939) is a professor of urban history, social history, and cultural history who has written various books and articles including on American cities.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Kenneth_T._Jackson",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/david-karoly.jpg",
+    "alt": "David Karoly",
+    "title": "David Karoly",
+    "copy": "David Karoly enrolled in applied mathematics at Monash University, Melbourne, but later became interested in meteorology.[1] In 1980 he was awarded a doctorate in meteorology from the University of Reading in Reading, England.",
+    "detail": "David Karoly enrolled in applied mathematics at Monash University, Melbourne, but later became interested in meteorology.[1] In 1980 he was awarded a doctorate in meteorology from the University of Reading in Reading, England.",
+    "externalUrl": "https://en.wikipedia.org/wiki/David_Karoly",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/shi-kuo-chang.png",
+    "alt": "Shi-Kuo Chang",
+    "title": "Shi-Kuo Chang",
+    "copy": "Shi-Kuo Chang[1][2] (Chinese: 張系國; pinyin: Zhāng Xìgūo; Wade–Giles: Chang1 Hsi4-kuo1) is a Taiwanese-American computer scientist and writer best known for his science fiction novels and short stories.",
+    "detail": "Shi-Kuo Chang[1][2] (Chinese: 張系國; pinyin: Zhāng Xìgūo; Wade–Giles: Chang1 Hsi4-kuo1) is a Taiwanese-American computer scientist and writer best known for his science fiction novels and short stories.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Shi-Kuo_Chang",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/paul-otto-historian.jpg",
+    "alt": "Paul Otto (historian)",
+    "title": "Paul Otto (historian)",
+    "copy": "Paul Otto is an American historian and professor emeritus of History at George Fox University. His main research is early America with specialty in Dutch-Native American relations, Native American history, and the history of wampum.",
+    "detail": "Paul Otto is an American historian and professor emeritus of History at George Fox University. His main research is early America with specialty in Dutch-Native American relations, Native American history, and the history of wampum.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Paul_Otto_(historian)",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/david-baker-biochemist.jpg",
+    "alt": "David Baker (biochemist)",
+    "title": "David Baker (biochemist)",
+    "copy": "David Baker (born October 6, 1962) is an American biochemist and computational biologist who has pioneered methods to design proteins and predict their three-dimensional structures.",
+    "detail": "David Baker (born October 6, 1962) is an American biochemist and computational biologist who has pioneered methods to design proteins and predict their three-dimensional structures.",
+    "externalUrl": "https://en.wikipedia.org/wiki/David_Baker_(biochemist)",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/marion-nestle.jpg",
+    "alt": "Marion Nestle",
+    "title": "Marion Nestle",
+    "copy": "Marion Nestle (born 1936) is an American molecular biologist, nutritionist, and public health advocate. She is the Paulette Goddard Professor of Nutrition, Food Studies, and Public Health Emerita at New York University.",
+    "detail": "Marion Nestle (born 1936) is an American molecular biologist, nutritionist, and public health advocate. She is the Paulette Goddard Professor of Nutrition, Food Studies, and Public Health Emerita at New York University.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Marion_Nestle",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/marianne-l-novy.png",
+    "alt": "Marianne L. Novy",
+    "title": "Marianne L. Novy",
+    "copy": "American literary scholar",
+    "detail": "American literary scholar",
+    "externalUrl": "https://en.wikipedia.org/wiki/Marianne_L._Novy",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/c-stephen-layman.png",
+    "alt": "C. Stephen Layman",
+    "title": "C. Stephen Layman",
+    "copy": "C.",
+    "detail": "C.",
+    "externalUrl": "https://en.wikipedia.org/wiki/C._Stephen_Layman",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/alfred-j-andrea.jpg",
+    "alt": "Alfred J. Andrea",
+    "title": "Alfred J. Andrea",
+    "copy": "He is professor emeritus of History at the University of Vermont, former president of the World History Association, and Distinguished Professor at the University of the Peloponnese in Greece",
+    "detail": "He is professor emeritus of History at the University of Vermont, former president of the World History Association, and Distinguished Professor at the University of the Peloponnese in Greece",
+    "externalUrl": "https://en.wikipedia.org/wiki/Alfred_J._Andrea",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/paul-richards-anthropologist.jpg",
+    "alt": "Paul Richards (anthropologist)",
+    "title": "Paul Richards (anthropologist)",
+    "copy": "Paul Richards (born 14 May 1945) is an emeritus professor of technology and agrarian development at Wageningen University, The Netherlands, and an adjunct professor at Njala University in central Sierra Leone.",
+    "detail": "Paul Richards (born 14 May 1945) is an emeritus professor of technology and agrarian development at Wageningen University, The Netherlands, and an adjunct professor at Njala University in central Sierra Leone.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Paul_Richards_(anthropologist)",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/default-avatar.png",
+    "alt": "Pirouz Pirouz",
+    "title": "Pirouz Pirouz",
+    "copy": "Pirouz Pirouz is an Iranian-American materials scientist.",
+    "detail": "Pirouz Pirouz is an Iranian-American materials scientist.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Pirouz_Pirouz",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/default-avatar.png",
+    "alt": "Richard T. W. Arthur",
+    "title": "Richard T. W. Arthur",
+    "copy": "Philosopher",
+    "detail": "Philosopher",
+    "externalUrl": "https://en.wikipedia.org/wiki/Richard_T._W._Arthur",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/default-avatar.png",
+    "alt": "Richard Benjamin Darlington",
+    "title": "Richard Benjamin Darlington",
+    "copy": "American psychologist and statistician (born 1937))",
+    "detail": "American psychologist and statistician (born 1937))",
+    "externalUrl": "https://en.wikipedia.org/wiki/Richard_Benjamin_Darlington",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/default-avatar.png",
+    "alt": "Michael Zukerman",
+    "title": "Michael Zukerman",
+    "copy": "Michael Zuckerman is an American historian specializing in early American history and Professor Emeritus of History at the University of Pennsylvania.",
+    "detail": "Michael Zuckerman is an American historian specializing in early American history and Professor Emeritus of History at the University of Pennsylvania.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Michael_Zukerman",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/default-avatar.png",
+    "alt": "Jane Jaquette",
+    "title": "Jane Jaquette",
+    "copy": "Political scientist",
+    "detail": "Political scientist",
+    "externalUrl": "https://en.wikipedia.org/wiki/Jane_S._Jaquette",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/default-avatar.png",
+    "alt": "Maradel Krummel Gale",
+    "title": "Maradel Krummel Gale",
+    "copy": "American Academic and Lawyer",
+    "detail": "American Academic and Lawyer",
+    "externalUrl": "https://en.wikipedia.org/wiki/Maradel_Krummel_Gale",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/default-avatar.png",
+    "alt": "Thomas Wickizer",
+    "title": "Thomas Wickizer",
+    "copy": "Thomas Wickizer is an American public health researcher and academic known for his contributions to health services research, occupational health systems, and health policy.",
+    "detail": "Thomas Wickizer is an American public health researcher and academic known for his contributions to health services research, occupational health systems, and health policy.",
+    "externalUrl": "https://en.wikipedia.org/wiki/Thomas_Wickizer",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/default-avatar.png",
+    "alt": "Clifton Hood (American historian)",
+    "title": "Clifton Hood (American historian)",
+    "copy": "American historian",
+    "detail": "American historian",
+    "externalUrl": "https://en.wikipedia.org/wiki/Clifton_Hood_(American_historian)",
+    "featuredOnHome": false
+  },
+  {
+    "image": "assets/portfolio/default-avatar.png",
+    "alt": "Joshua Dressler",
+    "title": "Joshua Dressler",
+    "copy": "American law professor",
+    "detail": "American law professor",
+    "externalUrl": "https://en.wikipedia.org/wiki/Joshua_Dressler",
+    "featuredOnHome": false
+  }
 ]

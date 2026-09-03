@@ -24,7 +24,7 @@ export function Footer() {
               width={66}
               height={55}
               sizes="66px"
-              quality={60}
+              quality={75}
             />
             <span className="brand-copy">
               <b>The Wikipedia</b>
@@ -53,6 +53,7 @@ export function Footer() {
               {item.label}
             </Link>
           ))}
+          <Link href={url("faq")}>FAQ</Link>
         </div>
 
         <div className="footer-column footer-services">

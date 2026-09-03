@@ -22,6 +22,8 @@ export const testimonials = testimonialsJson as Testimonial[];
 export const processSteps = processStepsJson as ProcessStep[];
 export const portfolioFallback = portfolioFallbackJson as PortfolioFallbackItem[];
 
+export { blogPosts } from "./blog-posts";
+
 export function getService(slug: string) {
   return services[slug as keyof ServicesMap] ?? null;
 }

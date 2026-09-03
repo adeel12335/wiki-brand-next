@@ -29,6 +29,7 @@ export default async function AdminLayout({
           </Link>
           <nav className="admin-nav">
             <Link href="/admin/portfolio/">Portfolio</Link>
+            <Link href="/admin/enquiries/">Enquiries</Link>
             <a href="/portfolio/" target="_blank" rel="noopener noreferrer">
               View site ↗
             </a>

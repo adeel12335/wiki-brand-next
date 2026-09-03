@@ -31,7 +31,7 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
             </span>
             <h3>{active.title}</h3>
             <p>{active.copy}</p>
-            <Link className="text-link" href={url(`our-process#step-${activeIndex + 1}`)}>
+            <Link className="text-link" href={`${url("our-process")}#step-${activeIndex + 1}`}>
               Read this stage <Icon name="i-arrow" />
             </Link>
           </div>

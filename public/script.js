@@ -6,8 +6,8 @@
   const richMotion = !reducedMotion
     && window.matchMedia('(min-width: 901px) and (pointer: fine)').matches;
 
-  // Navigation, header scroll, and .reveal visibility are handled by React
-  // (Header.tsx + RevealOnView.tsx) so client-side page changes stay visible.
+  // Navigation and header scroll are handled by React. Reveal motion is CSS-only
+  // so streamed server components are never mutated before hydration completes.
 
   // Numeric proof points count up once when they enter the viewport.
   const counters = $$('.metrics-rail strong, .experience-stat strong');
@@ -356,32 +356,7 @@
     });
   });
 
-  // The central control plays a short visual tour through the four proof points.
-  const experiencePanel = $('.experience-panel');
-  const experienceButton = $('.experience-core button');
-  const experienceStats = $$('.experience-stat');
-  let highlightTimer = null;
-  let highlightIndex = 0;
-  function stopHighlights() {
-    window.clearInterval(highlightTimer);
-    highlightTimer = null;
-    experiencePanel?.classList.remove('playing');
-    experienceButton?.setAttribute('aria-pressed', 'false');
-    experienceStats.forEach(stat => stat.classList.remove('active'));
-  }
-  experienceButton?.setAttribute('aria-pressed', 'false');
-  experienceButton?.addEventListener('click', () => {
-    if (highlightTimer) { stopHighlights(); return; }
-    experiencePanel?.classList.add('playing');
-    experienceButton.setAttribute('aria-pressed', 'true');
-    highlightIndex = 0;
-    experienceStats[0]?.classList.add('active');
-    highlightTimer = window.setInterval(() => {
-      experienceStats.forEach(stat => stat.classList.remove('active'));
-      highlightIndex = (highlightIndex + 1) % experienceStats.length;
-      experienceStats[highlightIndex]?.classList.add('active');
-    }, 1200);
-  });
+  // Experience panel play is handled in React (ExperiencePanel.tsx).
 
   // Gold star field — drifts upward and reacts to the pointer across the whole site
   const canvas = $('#starfield');

@@ -19,6 +19,14 @@ const ICONS: Record<string, string> = {
   "i-review": "M12 3l7 4v6c0 4-2.7 7.1-7 8-4.3-.9-7-4-7-8V7zM8.5 12l2.2 2.2 4.8-5",
   "i-publish": "M5 7h14v13H5zM8 4h8v3M9 12l3-3 3 3M12 9v7",
   "i-check": "M8 12l2.5 2.5L16 9",
+  "i-mail": "M3.5 6.5h17v11h-17zM4.2 7.2l7.8 5.6 7.8-5.6",
+  "i-contact-mail":
+    "M5.5 6.5h13A1.5 1.5 0 0120 8v8a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 014 16V8a1.5 1.5 0 011.5-1.5zM4.8 7.5L12 13l7.2-5.5",
+  "i-phone":
+    "M9 3.5h6c1 0 1.8.8 1.8 1.8v13.4c0 1-.8 1.8-1.8 1.8H9c-1 0-1.8-.8-1.8-1.8V5.3c0-1 .8-1.8 1.8-1.8zM10.5 18.2h3M11.2 5.4h1.6",
+  "i-contact-phone":
+    "M8.2 3.5H5.7a2 2 0 00-2 2.2c.8 7.7 6.9 13.8 14.6 14.6a2 2 0 002.2-2v-2.5l-4.1-1.2-1.2 2.3a15.2 15.2 0 01-8.1-8.1l2.3-1.2z",
+  "i-clock": "M12 7v5l3.2 2",
   "i-menu": "M4 7h16M4 12h16M4 17h16",
   "i-close": "M6 6l12 12M18 6L6 18",
 };
@@ -38,6 +46,7 @@ const ICON_CIRCLES: Record<string, Array<{ cx: number; cy: number; r: number }>>
     { cx: 16, cy: 17, r: 3 },
   ],
   "i-check": [{ cx: 12, cy: 12, r: 9 }],
+  "i-clock": [{ cx: 12, cy: 12, r: 9 }],
 };
 
 export function IconLibrary() {

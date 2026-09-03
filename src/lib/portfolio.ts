@@ -26,6 +26,7 @@ export interface PublicPortfolioItem {
 
 const LOCAL_PORTFOLIO_TTL_MS = 5 * 60 * 1000;
 const PORTFOLIO_CACHE_TAG = "published-portfolio";
+const PORTFOLIO_CACHE_VERSION = "v3";
 let localPortfolioCache:
   | { items: PublicPortfolioItem[]; expiresAt: number }
   | null = null;
@@ -127,8 +128,12 @@ function mapDoc(
 }
 
 async function loadPublishedPortfolio(): Promise<PublicPortfolioItem[]> {
-  const cached = await cacheGet<PublicPortfolioItem[]>(CACHE_KEYS.portfolioList);
-  if (cached) return normalizeCachedPortfolio(cached);
+  const bypassCache = process.env.NODE_ENV === "development";
+
+  if (!bypassCache) {
+    const cached = await cacheGet<PublicPortfolioItem[]>(CACHE_KEYS.portfolioList);
+    if (cached) return normalizeCachedPortfolio(cached);
+  }
 
   if (!isDbConfigured()) {
     return mapFallback();
@@ -143,7 +148,9 @@ async function loadPublishedPortfolio(): Promise<PublicPortfolioItem[]> {
     const items =
       docs.length > 0 ? docs.map((doc) => mapDoc(doc as never)) : mapFallback();
 
-    await cacheSet(CACHE_KEYS.portfolioList, items);
+    if (!bypassCache) {
+      await cacheSet(CACHE_KEYS.portfolioList, items);
+    }
     return items;
   } catch {
     return mapFallback();
@@ -152,14 +159,20 @@ async function loadPublishedPortfolio(): Promise<PublicPortfolioItem[]> {
 
 const getCachedPublishedPortfolio = unstable_cache(
   loadPublishedPortfolio,
-  ["published-portfolio-v2"],
+  [`published-portfolio-${PORTFOLIO_CACHE_VERSION}`],
   {
     tags: [PORTFOLIO_CACHE_TAG],
-    revalidate: 300,
+    revalidate: 60,
   },
 );
 
 export async function getPublishedPortfolio(): Promise<PublicPortfolioItem[]> {
+  // Dev: always hit Mongo/fallback so imports show immediately.
+  if (process.env.NODE_ENV === "development") {
+    localPortfolioCache = null;
+    return normalizeCachedPortfolio(await loadPublishedPortfolio());
+  }
+
   const local = getLocalPortfolio();
   if (local) return local;
 

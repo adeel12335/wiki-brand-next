@@ -19,9 +19,17 @@ const COVER_POOL = [
 ];
 
 function isDummyLocalPng(url: string | null): boolean {
-  return Boolean(
-    url?.startsWith("/assets/portfolio/") && url.toLowerCase().endsWith(".png"),
+  if (!url) return true;
+  const normalized = url.toLowerCase();
+  return (
+    normalized.includes("default-avatar") ||
+    normalized.endsWith("/dummy.png") ||
+    normalized.endsWith("/placeholder.png")
   );
+}
+
+function hasRealPhoto(item: PublicPortfolioItem): boolean {
+  return Boolean(item.imageUrl && !isDummyLocalPng(item.imageUrl));
 }
 
 function coverFor(title: string): string {
@@ -35,10 +43,17 @@ export function PortfolioClientsGrid({
 }: PortfolioClientsGridProps) {
   if (items.length === 0) return null;
 
-  const cards = items.map((item) => (
-    <article key={item.slug} className="client-card">
-      <div className="client-card-image">
+  const cards = items.map((item, index) => (
+    <article key={item.id ?? `${item.slug}-${index}`} className="client-card">
+      <div
+        className={`client-card-image${hasRealPhoto(item) ? " has-photo" : ""}`}
+      >
         <PortfolioImage item={item} />
+        {hasRealPhoto(item) ? (
+          <span className="portfolio-watermark" aria-hidden="true">
+            The Wikipedia Studio
+          </span>
+        ) : null}
       </div>
       <div className="client-card-body">
         <h3>
@@ -76,8 +91,13 @@ export function PortfolioClientsGrid({
 
     return (
       <div className="portfolio-showcase reveal">
-        <article className="portfolio-feature">
+        <article className={`portfolio-feature${hasRealPhoto(featured) ? " has-photo" : ""}`}>
           <PortfolioImage item={featured} eager />
+          {hasRealPhoto(featured) ? (
+            <span className="portfolio-watermark portfolio-watermark--feature" aria-hidden="true">
+              The Wikipedia Studio
+            </span>
+          ) : null}
           <div className="portfolio-feature-overlay" />
           <div className="portfolio-feature-copy">
             <span className="portfolio-index">01</span>
@@ -90,8 +110,16 @@ export function PortfolioClientsGrid({
 
         <div className="portfolio-mini-grid">
           {remaining.map((item, index) => (
-            <article key={item.slug} className="portfolio-mini-card">
+            <article
+              key={item.id ?? `${item.slug}-${index}`}
+              className={`portfolio-mini-card${hasRealPhoto(item) ? " has-photo" : ""}`}
+            >
               <PortfolioImage item={item} />
+              {hasRealPhoto(item) ? (
+                <span className="portfolio-watermark portfolio-watermark--mini" aria-hidden="true">
+                  The Wikipedia Studio
+                </span>
+              ) : null}
               <div className="portfolio-mini-shade" />
               <div className="portfolio-mini-copy">
                 <span className="portfolio-index">

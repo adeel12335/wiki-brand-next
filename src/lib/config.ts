@@ -1,8 +1,8 @@
 export const SITE_NAME = "The Wikipedia Studio";
 export const SITE_TAGLINE = "Professional Wikipedia Editorial Services";
-export const SITE_EMAIL = "hello@thewikipediastudio.com";
-export const SITE_PHONE = "+1 (800) 453-7801";
-export const SITE_PHONE_RAW = "+18004537801";
+export const SITE_EMAIL = "info@thewikipediastudio.com";
+export const SITE_PHONE = "+1 (218) 305-9586";
+export const SITE_PHONE_RAW = "+12183059586";
 export const SITE_LOCALE = "en_US";
 export const SITE_LANG = "en";
 export const SITE_TWITTER = "@wikipediastudio";
@@ -18,13 +18,24 @@ export const NAV_ITEMS = [
   { slug: "services", label: "Services" },
   { slug: "our-process", label: "Our Process" },
   { slug: "portfolio", label: "Portfolio" },
-  { slug: "faq", label: "Resources" },
+  { slug: "blog", label: "Blog" },
+  { slug: "faq", label: "FAQ" },
   { slug: "contact", label: "Contact" },
 ] as const;
 
 export function getSiteUrl(): string {
   const configured = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-  if (configured) return configured;
+
+  // Never ship localhost canonicals/OG/sitemap when NODE_ENV=production.
+  if (
+    configured &&
+    !(
+      process.env.NODE_ENV === "production" &&
+      /localhost|127\.0\.0\.1/i.test(configured)
+    )
+  ) {
+    return configured;
+  }
 
   return process.env.NODE_ENV === "production"
     ? PRODUCTION_SITE_URL

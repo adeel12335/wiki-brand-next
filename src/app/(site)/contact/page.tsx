@@ -5,7 +5,6 @@ import { ContactForm } from "@/components/contact/ContactForm";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import {
   SITE_EMAIL,
   SITE_NAME,
@@ -39,141 +38,189 @@ const pageMeta = {
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
+const nextSteps = [
+  {
+    index: "01",
+    title: "New article",
+    copy: (
+      <>
+        Start with a source audit. Bring independent coverage and we will tell you
+        whether{" "}
+        <Link href={url("services/wikipedia-page-creation")}>page creation</Link>{" "}
+        is realistic.
+      </>
+    ),
+  },
+  {
+    index: "02",
+    title: "Existing article",
+    copy: (
+      <>
+        Send the live URL. An{" "}
+        <Link href={url("services/wikipedia-page-editing")}>editing audit</Link>{" "}
+        maps tags, sourcing gaps, and what is actually fixable.
+      </>
+    ),
+  },
+  {
+    index: "03",
+    title: "Something changed",
+    copy: (
+      <>
+        If an edit concerns you,{" "}
+        <Link href={url("services/wikipedia-page-management")}>
+          page monitoring
+        </Link>{" "}
+        covers assessment and a measured response.
+      </>
+    ),
+  },
+];
+
 export default function ContactPage() {
   return (
     <>
       <BodyClass className="page-contact" />
       <JsonLd page={pageMeta} />
       <PageHero
-        eyebrow="Contact Us"
-        h1="Ready to build your <span>Wikipedia presence?</span>"
-        lede="Tell us about the subject and the coverage that already exists. We will come back with an honest read on whether a Wikipedia article is realistic."
+        eyebrow="Correspondence"
+        h1="Tell us the subject. <span>We will tell you the truth.</span>"
+        lede="Send the coverage that already exists. An editor — not a sales queue — replies with a clear read on whether a Wikipedia article is realistic."
         current="Contact"
         image="/assets/about-knowledge-sphere.png"
         imageWidth={1536}
         imageHeight={1536}
-        visualClass="page-hero-visual--knowledge page-hero-visual--contact"
+        visualClass="page-hero-visual--knowledge"
       />
 
-      <section className="section-pad">
-        <div className="shell contact-grid">
-          <ContactForm />
-          <aside className="contact-aside reveal" data-delay="100">
-            <p className="micro-label">Direct Contact</p>
-            <ul className="contact-list">
-              <li>
-                <Icon name="i-mail" />
-                <div>
-                  <strong>Email</strong>
-                  <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>
-                </div>
-              </li>
-              <li>
-                <Icon name="i-phone" />
-                <div>
-                  <strong>Phone</strong>
-                  <a href={`tel:${SITE_PHONE_RAW}`}>{SITE_PHONE}</a>
-                </div>
-              </li>
-              <li>
-                <Icon name="i-globe" />
-                <div>
-                  <strong>Coverage</strong>
-                  <span>Worldwide services</span>
-                </div>
-              </li>
-            </ul>
-            <div className="aside-note">
-              <h3>What helps us answer fast</h3>
-              <ul className="check-list compact">
+      <section className="contact-desk section-pad" aria-label="Enquiry desk">
+        <div className="shell contact-desk-shell">
+          <div className="contact-desk-rail" aria-hidden="true">
+            <span>Enquiry</span>
+            <i />
+            <span>Desk</span>
+          </div>
+
+          <div className="contact-desk-layout">
+            <ContactForm />
+
+            <aside className="contact-spine reveal" data-delay="80">
+              <div className="contact-spine-head">
+                <p className="micro-label">Direct lines</p>
+                <p className="contact-spine-lede">
+                  Prefer to skip the form? Reach the editorial desk straight away.
+                </p>
+              </div>
+
+              <ul className="contact-spine-list">
                 <li>
-                  <Icon name="i-check" />
-                  Links to independent press coverage
+                  <a className="contact-channel" href={`mailto:${SITE_EMAIL}`}>
+                    <span className="contact-spine-icon" aria-hidden="true">
+                      <Icon name="i-contact-mail" />
+                    </span>
+                    <span className="contact-channel-copy">
+                      <strong>Email</strong>
+                      <span>{SITE_EMAIL}</span>
+                    </span>
+                    <span className="contact-channel-arrow" aria-hidden="true">
+                      <Icon name="i-arrow" />
+                    </span>
+                  </a>
                 </li>
                 <li>
-                  <Icon name="i-check" />
-                  Key dates and verified milestones
+                  <a className="contact-channel" href={`tel:${SITE_PHONE_RAW}`}>
+                    <span className="contact-spine-icon" aria-hidden="true">
+                      <Icon name="i-contact-phone" />
+                    </span>
+                    <span className="contact-channel-copy">
+                      <strong>Phone</strong>
+                      <span>{SITE_PHONE}</span>
+                    </span>
+                    <span className="contact-channel-arrow" aria-hidden="true">
+                      <Icon name="i-arrow" />
+                    </span>
+                  </a>
                 </li>
                 <li>
-                  <Icon name="i-check" />
-                  Any existing Wikipedia or Wikidata entry
-                </li>
-                <li>
-                  <Icon name="i-check" />
-                  Whether you need creation, editing, or maintenance
+                  <div className="contact-channel contact-channel--static">
+                    <span className="contact-spine-icon" aria-hidden="true">
+                      <Icon name="i-globe" />
+                    </span>
+                    <span className="contact-channel-copy">
+                      <strong>Coverage</strong>
+                      <span>Worldwide editorial work</span>
+                    </span>
+                    <span className="contact-channel-status" aria-hidden="true">
+                      <i />
+                    </span>
+                  </div>
                 </li>
               </ul>
-            </div>
-          </aside>
+
+              <div className="contact-spine-note">
+                <p className="micro-label">Faster replies</p>
+                <h3>Bring these if you have them</h3>
+                <ul className="contact-spine-checks">
+                  <li>
+                    <Icon name="i-check" />
+                    <span>Independent press coverage links</span>
+                  </li>
+                  <li>
+                    <Icon name="i-check" />
+                    <span>Key dates and verified milestones</span>
+                  </li>
+                  <li>
+                    <Icon name="i-check" />
+                    <span>Any existing Wikipedia or Wikidata entry</span>
+                  </li>
+                  <li>
+                    <Icon name="i-check" />
+                    <span>Creation, editing, or maintenance need</span>
+                  </li>
+                </ul>
+              </div>
+
+              <p className="contact-spine-turnaround">
+                <span className="contact-turnaround-icon" aria-hidden="true">
+                  <Icon name="i-clock" />
+                </span>
+                <span>
+                  Typical reply window: <em>one business day</em>
+                </span>
+              </p>
+            </aside>
+          </div>
         </div>
       </section>
 
-      <section className="section-pad">
+      <section className="contact-aftermath section-pad">
         <div className="shell">
-          <SectionHeading eyebrow="After You Send It" heading="What happens next" />
-          <div className="answer-block reveal">
+          <div className="contact-aftermath-head reveal">
+            <p className="micro-label">After you send it</p>
+            <h2>What happens next</h2>
             <p>
-              Every enquiry is read by an editor rather than a sales team, and we
-              reply within one business day.
-            </p>
-            <p>
-              If the coverage looks promising, we propose a{" "}
+              Every enquiry is read by an editor. If the coverage looks promising, we
+              propose a{" "}
               <Link href={url("services/wikipedia-page-creation")}>
                 notability assessment
               </Link>{" "}
-              as the first paid step.
+              as the first paid step — not a promise of publication.
             </p>
           </div>
-          <div className="card-grid contact-next-grid reveal">
-            {[
-              {
-                icon: "i-page",
-                title: "New article",
-                copy: (
-                  <>
-                    Start with the assessment. Bring press coverage links and we
-                    will tell you whether{" "}
-                    <Link href={url("services/wikipedia-page-creation")}>
-                      page creation
-                    </Link>{" "}
-                    is realistic.
-                  </>
-                ),
-              },
-              {
-                icon: "i-edit",
-                title: "Existing article",
-                copy: (
-                  <>
-                    Send the URL. An{" "}
-                    <Link href={url("services/wikipedia-page-editing")}>
-                      editing audit
-                    </Link>{" "}
-                    tells you what is wrong and what is fixable.
-                  </>
-                ),
-              },
-              {
-                icon: "i-manage",
-                title: "Something changed",
-                copy: (
-                  <>
-                    If an edit has appeared that concerns you,{" "}
-                    <Link href={url("services/wikipedia-page-management")}>
-                      page monitoring
-                    </Link>{" "}
-                    covers assessment and response.
-                  </>
-                ),
-              },
-            ].map((item) => (
-              <article key={item.title} className="service-card">
-                <Icon name={item.icon} />
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </article>
+
+          <ol className="contact-path reveal">
+            {nextSteps.map((step) => (
+              <li key={step.index}>
+                <span className="contact-path-index" aria-hidden="true">
+                  {step.index}
+                </span>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p>{step.copy}</p>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
     </>
