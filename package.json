@@ -12,7 +12,8 @@
     "seed-portfolio": "node --env-file=.env.local scripts/seed-portfolio.mjs",
     "import-portfolio": "node --env-file=.env.local scripts/import-wp-portfolio.mjs",
     "enrich-portfolio": "node --env-file=.env.local scripts/enrich-portfolio-bodies.mjs",
-    "ping-indexnow": "node --env-file=.env.local scripts/ping-indexnow.mjs"
+    "ping-indexnow": "node --env-file=.env.local scripts/ping-indexnow.mjs",
+    "test-contact": "node --env-file=.env.local scripts/test-contact-validations.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.38.3",

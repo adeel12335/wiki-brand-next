@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 import { cacheGet, cacheSet } from "@/lib/cache/redis";
+import {
+  isTurnstileConfigured,
+  verifyTurnstileToken,
+} from "@/lib/captcha/turnstile";
 import { SITE_EMAIL, SITE_NAME } from "@/lib/config";
 import { services } from "@/lib/data";
 import { connectDB, isDbConfigured } from "@/lib/db/mongodb";
@@ -29,6 +33,7 @@ const contactSchema = z.object({
     .min(20, "Please give us at least a sentence or two about the subject.")
     .max(4000),
   website: z.string().optional(),
+  captchaToken: z.string().optional().or(z.literal("")),
 });
 
 function getClientIp(request: Request): string {
@@ -91,6 +96,24 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { errors: { subject: "Please choose one of the listed options." } },
       { status: 400 },
+    );
+  }
+
+  if (isTurnstileConfigured()) {
+    const captcha = await verifyTurnstileToken(data.captchaToken ?? "", ip);
+    if (!captcha.success) {
+      return NextResponse.json(
+        {
+          errors: {
+            captcha: "Captcha verification failed. Please try again.",
+          },
+        },
+        { status: 400 },
+      );
+    }
+  } else if (process.env.NODE_ENV === "production") {
+    console.warn(
+      "Turnstile is not configured. Contact form is running without captcha.",
     );
   }
 

@@ -1,7 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
+import { TurnstileField } from "@/components/contact/TurnstileField";
 import { SITE_EMAIL } from "@/lib/config";
 import { services } from "@/lib/data";
 
@@ -18,6 +19,7 @@ interface FormState {
   subject: string;
   message: string;
   website: string;
+  captchaToken: string;
 }
 
 const emptyForm: FormState = {
@@ -27,26 +29,100 @@ const emptyForm: FormState = {
   subject: "",
   message: "",
   website: "",
+  captchaToken: "",
 };
 
-export function ContactForm() {
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validateClient(values: FormState, captchaRequired: boolean) {
+  const errors: Record<string, string> = {};
+  if (!values.name.trim()) errors.name = "Please tell us your name.";
+  else if (values.name.trim().length > 120) {
+    errors.name = "Name is too long.";
+  }
+
+  if (!values.email.trim()) errors.email = "Please enter your email address.";
+  else if (!EMAIL_RE.test(values.email.trim())) {
+    errors.email = "Please enter a valid email address.";
+  } else if (values.email.trim().length > 180) {
+    errors.email = "Email is too long.";
+  }
+
+  if (values.phone.trim().length > 40) {
+    errors.phone = "Phone number is too long.";
+  }
+
+  if (values.subject && !subjectOptions.includes(values.subject)) {
+    errors.subject = "Please choose one of the listed options.";
+  }
+
+  const message = values.message.trim();
+  if (!message) errors.message = "Please tell us about the subject.";
+  else if (message.length < 20) {
+    errors.message =
+      "Please give us at least a sentence or two about the subject.";
+  } else if (message.length > 4000) {
+    errors.message = "Message is too long.";
+  }
+
+  if (captchaRequired && !values.captchaToken.trim()) {
+    errors.captcha = "Please complete the captcha check.";
+  }
+
+  return errors;
+}
+
+export function ContactForm({
+  turnstileSiteKey = "",
+}: {
+  turnstileSiteKey?: string;
+}) {
+  const captchaRequired = Boolean(turnstileSiteKey);
   const [values, setValues] = useState<FormState>(emptyForm);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
   const [failed, setFailed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [captchaReset, setCaptchaReset] = useState(0);
+
+  const messageHint = useMemo(() => {
+    const len = values.message.trim().length;
+    if (len === 0) return null;
+    if (len < 20) return `${20 - len} more characters needed`;
+    return null;
+  }, [values.message]);
+
+  function clearCaptcha() {
+    setValues((prev) => ({ ...prev, captchaToken: "" }));
+    setCaptchaReset((n) => n + 1);
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setFailed(false);
+
+    const clientErrors = validateClient(values, captchaRequired);
+    if (Object.keys(clientErrors).length > 0) {
+      setErrors(clientErrors);
+      return;
+    }
+
     setSubmitting(true);
     setErrors({});
-    setFailed(false);
 
     try {
       const response = await fetch("/api/contact/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          subject: values.subject,
+          message: values.message,
+          website: values.website,
+          captchaToken: values.captchaToken,
+        }),
       });
 
       const data = (await response.json()) as {
@@ -57,8 +133,11 @@ export function ContactForm() {
       if (response.ok && data.ok) {
         setSent(true);
         setValues(emptyForm);
+        clearCaptcha();
         return;
       }
+
+      clearCaptcha();
 
       if (data.errors) {
         setErrors(data.errors);
@@ -68,6 +147,7 @@ export function ContactForm() {
 
       setFailed(true);
     } catch {
+      clearCaptcha();
       setFailed(true);
       setErrors({
         form: `Network error. Please email ${SITE_EMAIL} directly.`,
@@ -82,6 +162,7 @@ export function ContactForm() {
     setFailed(false);
     setErrors({});
     setValues(emptyForm);
+    clearCaptcha();
   }
 
   return (
@@ -164,6 +245,7 @@ export function ContactForm() {
                   name="name"
                   required
                   autoComplete="name"
+                  maxLength={120}
                   value={values.name}
                   onChange={(e) =>
                     setValues({ ...values, name: e.target.value })
@@ -184,6 +266,7 @@ export function ContactForm() {
                   name="email"
                   required
                   autoComplete="email"
+                  maxLength={180}
                   value={values.email}
                   onChange={(e) =>
                     setValues({ ...values, email: e.target.value })
@@ -206,11 +289,16 @@ export function ContactForm() {
                   id="phone"
                   name="phone"
                   autoComplete="tel"
+                  maxLength={40}
                   value={values.phone}
                   onChange={(e) =>
                     setValues({ ...values, phone: e.target.value })
                   }
+                  aria-invalid={Boolean(errors.phone)}
                 />
+                {errors.phone ? (
+                  <small className="field-error">{errors.phone}</small>
+                ) : null}
               </div>
               <div className="field">
                 <label htmlFor="subject">What do you need?</label>
@@ -221,6 +309,7 @@ export function ContactForm() {
                   onChange={(e) =>
                     setValues({ ...values, subject: e.target.value })
                   }
+                  aria-invalid={Boolean(errors.subject)}
                 >
                   <option value="">Select an option</option>
                   {subjectOptions.map((option) => (
@@ -244,6 +333,7 @@ export function ContactForm() {
                 name="message"
                 rows={7}
                 required
+                maxLength={4000}
                 placeholder="Who or what is the article about, and where has it been covered independently?"
                 value={values.message}
                 onChange={(e) =>
@@ -253,8 +343,44 @@ export function ContactForm() {
               />
               {errors.message ? (
                 <small className="field-error">{errors.message}</small>
+              ) : messageHint ? (
+                <small className="field-hint">{messageHint}</small>
               ) : null}
             </div>
+
+            {captchaRequired ? (
+              <div className="field turnstile-field">
+                <label>
+                  Security check <span aria-hidden="true">*</span>
+                </label>
+                <TurnstileField
+                  siteKey={turnstileSiteKey}
+                  resetSignal={captchaReset}
+                  onToken={(token) => {
+                    setValues((prev) => ({ ...prev, captchaToken: token }));
+                    setErrors((prev) => {
+                      if (!prev.captcha) return prev;
+                      const next = { ...prev };
+                      delete next.captcha;
+                      return next;
+                    });
+                  }}
+                  onExpire={() =>
+                    setValues((prev) => ({ ...prev, captchaToken: "" }))
+                  }
+                  onError={() => {
+                    setValues((prev) => ({ ...prev, captchaToken: "" }));
+                    setErrors((prev) => ({
+                      ...prev,
+                      captcha: "Captcha failed to load. Please refresh and try again.",
+                    }));
+                  }}
+                />
+                {errors.captcha ? (
+                  <small className="field-error">{errors.captcha}</small>
+                ) : null}
+              </div>
+            ) : null}
 
             <div className="contact-form-actions">
               <button

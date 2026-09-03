@@ -5503,6 +5503,20 @@ h3 { font-size: var(--fs-h3); }
   padding-top: 8px;
 }
 
+.turnstile-field {
+  display: grid;
+  gap: 10px;
+}
+
+.turnstile-host {
+  min-height: 65px;
+}
+
+.field-hint {
+  color: rgba(232, 238, 243, 0.55);
+  font-size: 0.8125rem;
+}
+
 .contact-form-actions .button {
   min-width: 200px;
 }
