@@ -1,5 +1,18 @@
+/**
+ * Google reCAPTCHA helpers.
+ *
+ * Some public "demo" site keys still circulate online but no longer mint tokens
+ * for real domains. Treat those as unconfigured so the contact form stays usable.
+ */
+const DEAD_RECAPTCHA_SITE_KEYS = new Set([
+  // Historically circulated sample key — Google anchor returns no checkbox.
+  "6LekwaYtAAAAAJ5yOxkpP8umeHLR9QaAePlUGe17",
+]);
+
 export function getRecaptchaSiteKey(): string {
-  return process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim() ?? "";
+  const key = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim() ?? "";
+  if (!key || DEAD_RECAPTCHA_SITE_KEYS.has(key)) return "";
+  return key;
 }
 
 export function getRecaptchaSecretKey(): string {

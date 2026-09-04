@@ -10,7 +10,6 @@ import { trackEvent } from "@/lib/analytics";
 
 const subjectOptions = [
   ...Object.values(services).map((s) => s.name),
-  "Notability assessment",
   "Something else",
 ];
 

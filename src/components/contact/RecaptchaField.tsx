@@ -6,6 +6,7 @@ import Script from "next/script";
 declare global {
   interface Window {
     grecaptcha?: {
+      ready: (cb: () => void) => void;
       render: (
         container: HTMLElement,
         parameters: {
@@ -42,13 +43,18 @@ export function RecaptchaField({
   const hostRef = useRef<HTMLDivElement | null>(null);
   const widgetIdRef = useRef<number | null>(null);
   const [scriptReady, setScriptReady] = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const callbacksRef = useRef({ onToken, onExpire, onError });
   callbacksRef.current = { onToken, onExpire, onError };
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.grecaptcha?.render) {
+    window.__onRecaptchaLoad = () => setScriptReady(true);
+    if (window.grecaptcha?.render) {
       setScriptReady(true);
     }
+    return () => {
+      delete window.__onRecaptchaLoad;
+    };
   }, []);
 
   useEffect(() => {
@@ -56,23 +62,43 @@ export function RecaptchaField({
       return;
     }
 
-    if (widgetIdRef.current !== null) {
-      try {
-        window.grecaptcha.reset(widgetIdRef.current);
-      } catch {
-        // Widget may already be gone; re-render below.
-      }
-      hostRef.current.innerHTML = "";
-      widgetIdRef.current = null;
-    }
+    const grecaptcha = window.grecaptcha;
+    let cancelled = false;
 
-    widgetIdRef.current = window.grecaptcha.render(hostRef.current, {
-      sitekey: siteKey,
-      theme: "dark",
-      callback: (token) => callbacksRef.current.onToken(token),
-      "expired-callback": () => callbacksRef.current.onExpire?.(),
-      "error-callback": () => callbacksRef.current.onError?.(),
+    grecaptcha.ready(() => {
+      if (cancelled || !hostRef.current) return;
+
+      if (widgetIdRef.current !== null) {
+        try {
+          grecaptcha.reset(widgetIdRef.current);
+        } catch {
+          // Widget may already be gone; re-render below.
+        }
+        hostRef.current.innerHTML = "";
+        widgetIdRef.current = null;
+      }
+
+      try {
+        widgetIdRef.current = grecaptcha.render(hostRef.current, {
+          sitekey: siteKey,
+          theme: "dark",
+          callback: (token) => callbacksRef.current.onToken(token),
+          "expired-callback": () => callbacksRef.current.onExpire?.(),
+          "error-callback": () => {
+            setLoadError(true);
+            callbacksRef.current.onError?.();
+          },
+        });
+        setLoadError(false);
+      } catch {
+        setLoadError(true);
+        callbacksRef.current.onError?.();
+      }
     });
+
+    return () => {
+      cancelled = true;
+    };
   }, [scriptReady, siteKey]);
 
   useEffect(() => {
@@ -85,11 +111,21 @@ export function RecaptchaField({
   return (
     <>
       <Script
-        src="https://www.google.com/recaptcha/api.js?render=explicit"
+        src="https://www.google.com/recaptcha/api.js?render=explicit&onload=__onRecaptchaLoad"
         strategy="afterInteractive"
         onLoad={() => setScriptReady(true)}
+        onError={() => {
+          setLoadError(true);
+          callbacksRef.current.onError?.();
+        }}
       />
       <div ref={hostRef} className="recaptcha-host" />
+      {loadError ? (
+        <small className="field-error" role="alert">
+          Security check could not load (site key / domain mismatch). Refresh, or
+          email us directly if it keeps failing.
+        </small>
+      ) : null}
     </>
   );
 }
