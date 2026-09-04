@@ -3,7 +3,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/ui/Icon";
-import { RecaptchaField } from "@/components/contact/RecaptchaField";
+import { RecaptchaField, executeRecaptchaV3 } from "@/components/contact/RecaptchaField";
 import { SITE_EMAIL, url } from "@/lib/config";
 import { services } from "@/lib/data";
 import { trackEvent } from "@/lib/analytics";
@@ -35,7 +35,7 @@ const emptyForm: FormState = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function validateClient(values: FormState, captchaRequired: boolean) {
+function validateClient(values: FormState) {
   const errors: Record<string, string> = {};
   if (!values.name.trim()) errors.name = "Please tell us your name.";
   else if (values.name.trim().length > 120) {
@@ -66,10 +66,6 @@ function validateClient(values: FormState, captchaRequired: boolean) {
     errors.message = "Message is too long.";
   }
 
-  if (captchaRequired && !values.captchaToken.trim()) {
-    errors.captcha = "Please complete the captcha check.";
-  }
-
   return errors;
 }
 
@@ -85,7 +81,6 @@ export function ContactForm({
   const [sent, setSent] = useState(false);
   const [failed, setFailed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [captchaReset, setCaptchaReset] = useState(0);
 
   const messageHint = useMemo(() => {
     const len = values.message.trim().length;
@@ -96,14 +91,13 @@ export function ContactForm({
 
   function clearCaptcha() {
     setValues((prev) => ({ ...prev, captchaToken: "" }));
-    setCaptchaReset((n) => n + 1);
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setFailed(false);
 
-    const clientErrors = validateClient(values, captchaRequired);
+    const clientErrors = validateClient(values);
     if (Object.keys(clientErrors).length > 0) {
       setErrors(clientErrors);
       return;
@@ -113,6 +107,20 @@ export function ContactForm({
     setErrors({});
 
     try {
+      let captchaToken = values.captchaToken;
+      if (captchaRequired) {
+        try {
+          captchaToken = await executeRecaptchaV3(recaptchaSiteKey, "contact");
+        } catch {
+          setErrors({
+            captcha:
+              "Security check failed to run. Refresh and try again, or email us directly.",
+          });
+          setSubmitting(false);
+          return;
+        }
+      }
+
       const response = await fetch("/api/contact/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -123,7 +131,7 @@ export function ContactForm({
           subject: values.subject,
           message: values.message,
           website: values.website,
-          captchaToken: values.captchaToken,
+          captchaToken,
         }),
       });
 
@@ -355,26 +363,9 @@ export function ContactForm({
 
             {captchaRequired ? (
               <div className="field recaptcha-field">
-                <label>
-                  Security check <span aria-hidden="true">*</span>
-                </label>
                 <RecaptchaField
                   siteKey={recaptchaSiteKey}
-                  resetSignal={captchaReset}
-                  onToken={(token) => {
-                    setValues((prev) => ({ ...prev, captchaToken: token }));
-                    setErrors((prev) => {
-                      if (!prev.captcha) return prev;
-                      const next = { ...prev };
-                      delete next.captcha;
-                      return next;
-                    });
-                  }}
-                  onExpire={() =>
-                    setValues((prev) => ({ ...prev, captchaToken: "" }))
-                  }
                   onError={() => {
-                    setValues((prev) => ({ ...prev, captchaToken: "" }));
                     setErrors((prev) => ({
                       ...prev,
                       captcha:

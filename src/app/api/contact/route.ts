@@ -100,7 +100,9 @@ export async function POST(request: Request) {
 
   if (isRecaptchaConfigured()) {
     const captcha = await verifyRecaptchaToken(data.captchaToken ?? "", ip);
-    if (!captcha.success) {
+    const scoreOk =
+      typeof captcha.score !== "number" || captcha.score >= 0.3;
+    if (!captcha.success || !scoreOk) {
       return NextResponse.json(
         {
           errors: {
