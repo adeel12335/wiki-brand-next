@@ -45,9 +45,12 @@ export const metadata: Metadata = {
       "application/rss+xml": `${PRODUCTION_SITE_URL}/feed.xml`,
     },
   },
-  ...(googleVerification
-    ? { verification: { google: googleVerification } }
-    : {}),
+  verification: {
+    ...(googleVerification ? { google: googleVerification } : {}),
+    other: {
+      "msvalidate.01": "719D546839CD6AF6A6EACB7EF0A7C23E",
+    },
+  },
 };
 
 export default function RootLayout({

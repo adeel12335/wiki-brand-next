@@ -22,8 +22,9 @@ export function ServiceIndex({
             <h2>Comprehensive Wikipedia Solutions</h2>
           </div>
           <p>
-            Five services covering the full editorial lifecycle—from the first
-            notability check to long-term page stewardship.
+            Services covering the full editorial lifecycle — from notability
+            assessment and knowledge-panel entity work to creation, editing,
+            monitoring, and long-term stewardship.
           </p>
         </div>
       ) : null}

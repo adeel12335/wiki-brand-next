@@ -45,7 +45,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Our Services"
         h1="Comprehensive Wikipedia solutions, delivered to <span>guideline standard.</span>"
-        lede="Five services covering the full lifecycle of an article — from the first notability assessment through to long-term monitoring."
+        lede="Services covering the full lifecycle of an article — from notability assessment and knowledge-panel entity work through creation, editing, monitoring, and long-term stewardship."
         current="Services"
         actions={[
           { label: "Request an Assessment", href: url("contact") },

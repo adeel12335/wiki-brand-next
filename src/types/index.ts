@@ -3,7 +3,10 @@ export type ServiceSlug =
   | "wikipedia-page-editing"
   | "wikipedia-content-writing"
   | "wikipedia-page-management"
-  | "wikipedia-reputation-management";
+  | "wikipedia-reputation-management"
+  | "wikipedia-notability-assessment"
+  | "google-knowledge-panel-creation"
+  | "wikipedia-page-monitoring";
 
 export interface ServiceOutcome {
   title: string;

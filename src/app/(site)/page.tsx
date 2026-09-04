@@ -26,7 +26,7 @@ const homeFaqs = faqs.slice(0, 5);
 
 const pageMeta = {
   slug: "",
-  title: "Wikipedia Page Creation Services",
+  title: "Wikipedia Page Creation & Editing Services",
   shortTitle: "Home",
   description:
     "Professional Wikipedia page creation and editing services. Free notability assessment first — guideline-compliant research, drafting, and disclosed submission.",
