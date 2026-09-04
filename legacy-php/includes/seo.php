@@ -32,7 +32,7 @@ function seo_id(string $fragment): string
 function seo_organization_node(): array
 {
     return [
-        '@type'       => ['Organization', 'ProfessionalService'],
+        '@type'       => 'Organization',
         '@id'         => seo_id('organization'),
         'name'        => SITE_NAME,
         'alternateName' => 'Wikipedia Studio',

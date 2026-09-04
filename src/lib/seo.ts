@@ -92,7 +92,9 @@ export function organizationNode() {
   const twitterHandle = SITE_TWITTER.replace(/^@/, "");
 
   return {
-    "@type": ["Organization", "ProfessionalService"],
+    // Organization only — ProfessionalService is a LocalBusiness subtype and
+    // requires a street address. This agency is remote-first with no public office.
+    "@type": "Organization",
     "@id": seoId("organization"),
     name: SITE_NAME,
     alternateName: "Wikipedia Studio",
@@ -341,11 +343,14 @@ export function buildJsonLd(page: PageMeta): Record<string, unknown> {
     ? imagePath
     : assetUrl(imagePath.replace(/^\//, ""));
 
-  const graph: Record<string, unknown>[] = [
-    organizationNode(),
-    websiteNode(),
-    webpageNode(page, imageUrl),
-  ];
+  const graph: Record<string, unknown>[] = [webpageNode(page, imageUrl)];
+
+  // Canonical Organization + WebSite once on the homepage; other pages reference @id.
+  if (!page.slug) {
+    graph.unshift(organizationNode(), websiteNode());
+  } else {
+    graph.unshift(websiteNode());
+  }
 
   if (page.slug) {
     graph.push(
