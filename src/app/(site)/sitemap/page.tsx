@@ -34,6 +34,7 @@ const pageMeta = {
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 const extraLinks = [
+  { label: "Resources", slug: "resources" },
   { label: "Privacy Policy", slug: "privacy-policy" },
   { label: "Terms & Conditions", slug: "terms-conditions" },
 ];

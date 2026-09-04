@@ -1,0 +1,26 @@
+[
+  {
+    "role": "Managing Editor",
+    "icon": "i-review",
+    "focus": "Editorial standards, dual-review workflow, and paid-disclosure compliance",
+    "bio": "Owns final quality before anything is filed: notability fit, neutrality, citation integrity, and Wikimedia disclosure language. Declines engagements that would require promotional framing or undeclared editing."
+  },
+  {
+    "role": "Senior Research Editor",
+    "icon": "i-research",
+    "focus": "Source discovery, reliability grading, and citation mapping",
+    "bio": "Builds the source dossier before drafting begins — grading outlets for independence, depth, and editorial control. Maps every substantive claim to a usable reference and documents coverage gaps in plain language."
+  },
+  {
+    "role": "Article Editor",
+    "icon": "i-write",
+    "focus": "Neutral drafting, structure, and living-person care",
+    "bio": "Turns graded sources into encyclopedic prose with proportion and tone reviewers expect. Expands or repairs live articles without résumé padding, and keeps sensitive biography material inside policy."
+  },
+  {
+    "role": "Monitoring Lead",
+    "icon": "i-manage",
+    "focus": "Watchlists, vandalism triage, and stabilisation after publication",
+    "bio": "Watches published pages through their unstable early period, classifies incoming edits, escalates contested changes, and keeps clients informed without pretending anyone can lock an article."
+  }
+]

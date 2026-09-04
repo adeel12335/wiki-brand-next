@@ -7085,3 +7085,61 @@ main,
     grid-template-columns: 1fr;
   }
 }
+
+/* Homepage deep SEO guide */
+.home-deep-guide { padding-top: 20px; }
+.home-deep-intro { max-width: 820px; margin-bottom: 34px; }
+.home-deep-intro h2 { margin: 8px 0 16px; }
+.home-deep-intro p,
+.home-deep-grid p,
+.home-deep-panel p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+.home-deep-intro a,
+.home-deep-grid a,
+.home-deep-panel a { color: var(--gold-2); text-decoration: underline; text-underline-offset: 3px; }
+.home-deep-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 28px;
+  margin-bottom: 28px;
+}
+.home-deep-grid h3,
+.home-deep-panel h3,
+.home-deep-compare h3 {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+}
+.home-deep-panel,
+.home-deep-compare {
+  padding: 26px 28px;
+  border: 1px solid rgba(216,165,58,.16);
+  background: linear-gradient(165deg, rgba(10,32,48,.7), rgba(4,16,28,.5));
+  margin-bottom: 22px;
+}
+.team-role-label,
+.team-focus {
+  margin: 0 0 8px !important;
+  color: var(--gold-2) !important;
+  font-size: 11px !important;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.team-focus { color: #9aa7b2 !important; text-transform: none; letter-spacing: 0; }
+.resources-cite { max-width: 820px; }
+.resources-cite-list { display: grid; gap: 14px; margin: 22px 0; }
+.resources-cite-list dt {
+  color: var(--gold-2);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.resources-cite-list dd { margin: 4px 0 0; color: var(--paper); font-size: 14px; line-height: 1.6; }
+@media (max-width: 800px) {
+  .home-deep-grid { grid-template-columns: 1fr; }
+}

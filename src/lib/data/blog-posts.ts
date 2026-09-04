@@ -1,10 +1,11 @@
 import type { BlogPost } from "@/types";
+import { moreBlogPosts } from "./blog-posts-more";
 
 /**
  * Editorial posts grounded in Wikipedia policy pages and common client questions.
  * Bodies are trusted site HTML (not user input).
  */
-export const blogPosts: BlogPost[] = [
+const coreBlogPosts: BlogPost[] = [
   {
     slug: "wikipedia-notability-requirements-explained",
     title: "Wikipedia Notability Requirements, Explained Without the Myths",
@@ -241,3 +242,5 @@ export const blogPosts: BlogPost[] = [
 `,
   },
 ];
+
+export const blogPosts: BlogPost[] = [...coreBlogPosts, ...moreBlogPosts];

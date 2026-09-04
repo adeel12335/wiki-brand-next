@@ -100,6 +100,7 @@ export function Footer() {
         <div>
           <Link href={url("privacy-policy")}>Privacy Policy</Link>
           <Link href={url("terms-conditions")}>Terms &amp; Conditions</Link>
+          <Link href={url("resources")}>Resources</Link>
           <Link href={url("sitemap")}>Sitemap</Link>
         </div>
       </div>

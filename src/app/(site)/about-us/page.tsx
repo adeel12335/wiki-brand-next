@@ -9,6 +9,7 @@ import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { absUrl, url } from "@/lib/config";
+import { team } from "@/lib/data";
 import { buildPageMetadata, seoId } from "@/lib/seo";
 
 const pageMeta = {
@@ -161,6 +162,33 @@ export default function AboutPage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section-pad" id="editorial-team">
+        <div className="shell">
+          <SectionHeading
+            eyebrow="Editorial team"
+            heading="Roles that own the work — not anonymous ‘writers’"
+            copy="We publish the desk structure behind assessments and drafts. Named personal bios are added when individuals choose to be listed; until then you still know who does what, and that paid work is disclosed."
+          />
+          <div className="card-grid reveal">
+            {team.map((member) => (
+              <article key={member.role} className="service-card">
+                <Icon name={member.icon} />
+                <h3>{member.name ?? member.role}</h3>
+                {member.name ? (
+                  <p className="team-role-label">{member.role}</p>
+                ) : null}
+                <p className="team-focus">{member.focus}</p>
+                <p>{member.bio}</p>
+              </article>
+            ))}
+          </div>
+          <p className="reviewed-note reveal" style={{ marginTop: 18 }}>
+            Want a named editor on record for your engagement? Ask at enquiry —
+            disclosure still happens on-wiki either way.
+          </p>
         </div>
       </section>
 

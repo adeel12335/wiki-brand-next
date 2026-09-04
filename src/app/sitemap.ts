@@ -17,12 +17,13 @@ const STATIC_ROUTES = [
   "blog",
   "faq",
   "contact",
+  "resources",
   "sitemap",
   "privacy-policy",
   "terms-conditions",
 ];
 
-const CONTENT_LAST_MODIFIED = "2026-09-03";
+const CONTENT_LAST_MODIFIED = "2026-09-04";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const portfolioItems = await getPublishedPortfolio();

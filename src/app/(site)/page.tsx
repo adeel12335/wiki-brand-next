@@ -9,6 +9,7 @@ import { MetricsRail } from "@/components/sections/MetricsRail";
 import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
 import { ServiceIndex } from "@/components/sections/ServiceIndex";
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
+import { HomeDeepGuide } from "@/components/sections/HomeDeepGuide";
 import { TrustpilotReviewsSection } from "@/components/trustpilot/TrustpilotReviewsSection";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
@@ -174,6 +175,8 @@ export default async function HomePage() {
           <ExperiencePanel />
         </div>
       </section>
+
+      <HomeDeepGuide />
 
       <section className="services section-pad" id="services">
         <div className="shell">

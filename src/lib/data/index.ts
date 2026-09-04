@@ -12,6 +12,7 @@ import portfolioFallbackJson from "./portfolio-fallback.json";
 import processStepsJson from "./process-steps.json";
 import servicesJson from "./services.json";
 import testimonialsJson from "./testimonials.json";
+import teamJson from "./team.json";
 
 export const services = servicesJson as ServicesMap;
 export const serviceSlugs = Object.keys(services) as (keyof ServicesMap)[];
@@ -21,8 +22,17 @@ export const metrics = metricsJson as Metric[];
 export const testimonials = testimonialsJson as Testimonial[];
 export const processSteps = processStepsJson as ProcessStep[];
 export const portfolioFallback = portfolioFallbackJson as PortfolioFallbackItem[];
+export const team = teamJson as TeamMember[];
 
 export { blogPosts } from "./blog-posts";
+
+export interface TeamMember {
+  role: string;
+  icon: string;
+  focus: string;
+  bio: string;
+  name?: string;
+}
 
 export function getService(slug: string) {
   return services[slug as keyof ServicesMap] ?? null;
