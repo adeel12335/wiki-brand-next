@@ -5,6 +5,7 @@ import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
 import { SITE_EMAIL, SITE_NAME, SITE_PHONE, SITE_PHONE_RAW, url } from "@/lib/config";
 import { buildPageMetadata } from "@/lib/seo";
+import { getTrustpilotEvaluateUrl } from "@/lib/trustpilot";
 
 const pageMeta = {
   slug: "thank-you",
@@ -19,6 +20,8 @@ const pageMeta = {
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 export default function ThankYouPage() {
+  const evaluateUrl = getTrustpilotEvaluateUrl();
+
   return (
     <>
       <BodyClass className="page-thank-you" />
@@ -71,6 +74,14 @@ export default function ThankYouPage() {
               <a href={`tel:${SITE_PHONE_RAW}`}>{SITE_PHONE}</a>
             </p>
             <p className="reviewed-note">{SITE_NAME} editorial desk</p>
+            <Link
+              className="text-link"
+              href={evaluateUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Leave a Trustpilot review <Icon name="i-arrow" />
+            </Link>
           </article>
         </div>
       </section>

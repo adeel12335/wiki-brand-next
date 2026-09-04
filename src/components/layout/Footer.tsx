@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { TrustpilotMicroBadge } from "@/components/trustpilot/TrustpilotReviewsSection";
 import {
+  NAV_ITEMS,
   SITE_EMAIL,
   SITE_NAME,
   SITE_PHONE,
@@ -8,7 +10,6 @@ import {
   url,
 } from "@/lib/config";
 import { services } from "@/lib/data";
-import { NAV_ITEMS } from "@/lib/config";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -44,6 +45,7 @@ export function Footer() {
             <span>Source-first</span>
             <span>Worldwide</span>
           </div>
+          <TrustpilotMicroBadge />
         </div>
 
         <div className="footer-column footer-links">

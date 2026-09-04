@@ -7014,3 +7014,74 @@ main,
     transition: none;
   }
 }
+
+/* Trustpilot */
+.trustpilot-section { padding-top: 28px; }
+.trustpilot-heading { max-width: 720px; margin-bottom: 28px; }
+.trustpilot-heading h2 { margin: 8px 0 12px; }
+.trustpilot-heading p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.75; }
+.trustpilot-heading a { color: var(--gold-2); text-decoration: underline; text-underline-offset: 3px; }
+.trustpilot-frame {
+  padding: 18px 16px;
+  border: 1px solid rgba(216,165,58,.16);
+  background: linear-gradient(165deg, rgba(10,32,48,.7), rgba(4,16,28,.55));
+  min-height: 280px;
+}
+.trustpilot-micro { margin-top: 16px; max-width: 220px; min-height: 24px; }
+.footer-trustpilot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 12px 0 0;
+  color: #87949e;
+  font-size: 11px;
+}
+.footer-trustpilot-links a { color: #c5ced6; }
+.footer-trustpilot-links a:hover { color: var(--gold-2); }
+
+.trustpilot-free-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.7fr);
+  gap: 28px;
+  align-items: center;
+  padding: clamp(24px, 3vw, 36px);
+  border: 1px solid rgba(216,165,58,.2);
+  background:
+    linear-gradient(135deg, rgba(216,165,58,.08), transparent 42%),
+    linear-gradient(165deg, rgba(10,32,48,.92), rgba(4,16,28,.88));
+}
+.trustpilot-free-brand {
+  margin: 0 0 8px;
+  color: var(--gold-2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.trustpilot-free-copy strong {
+  display: block;
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--paper);
+}
+.trustpilot-free-copy p {
+  margin: 0;
+  max-width: 48ch;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+.trustpilot-free-actions {
+  display: grid;
+  gap: 12px;
+  justify-items: stretch;
+}
+@media (max-width: 800px) {
+  .trustpilot-free-card {
+    grid-template-columns: 1fr;
+  }
+}

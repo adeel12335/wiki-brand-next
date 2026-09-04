@@ -9,6 +9,7 @@ import { MetricsRail } from "@/components/sections/MetricsRail";
 import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
 import { ServiceIndex } from "@/components/sections/ServiceIndex";
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
+import { TrustpilotReviewsSection } from "@/components/trustpilot/TrustpilotReviewsSection";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
 import { Icon } from "@/components/ui/Icon";
@@ -207,6 +208,8 @@ export default async function HomePage() {
       </section>
 
       <TestimonialSection />
+
+      <TrustpilotReviewsSection />
 
       <section className="section-pad blog-home-section">
         <div className="shell">
