@@ -7,7 +7,7 @@ import { notifyIndexNow } from "@/lib/indexnow";
 import { countWordsFromHtml, estimateReadingMinutes } from "@/lib/reading-time";
 import type { BlogPost } from "@/types";
 
-export const BLOG_PAGE_SIZE = 4;
+export const BLOG_PAGE_SIZE = 6;
 
 const LOCAL_BLOG_TTL_MS = 5 * 60 * 1000;
 const BLOG_CACHE_TAG = "published-blog";

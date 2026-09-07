@@ -114,7 +114,7 @@ export interface PortfolioItem {
 
 export interface PageMeta {
   slug: string;
-  /** When set, overrides `slug` for canonical / OG url (e.g. paginated blog → /blog/). */
+  /** When set, overrides `slug` for canonical / OG url. */
   canonicalSlug?: string;
   title: string;
   shortTitle?: string;

@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BodyClass } from "@/components/layout/BodyClass";
 import { BlogIndex } from "@/components/blog/BlogIndex";
+import { BlogPaginationSeoLinks } from "@/components/blog/BlogPaginationSeoLinks";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
-import { getAllBlogPosts } from "@/lib/blog";
+import { getAllBlogPosts, getBlogPostsPage } from "@/lib/blog";
 import { absUrl, url } from "@/lib/config";
 import { buildPageMetadata, itemListNode } from "@/lib/seo";
 
@@ -27,6 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function BlogPage() {
   const posts = await getAllBlogPosts();
+  const { totalPages } = await getBlogPostsPage(1);
 
   const pageMeta = {
     slug: "blog",
@@ -39,6 +41,7 @@ export default async function BlogPage() {
     ogImage: "/assets/og/hero-orbital-globe.jpg",
     ogImageAlt: "Wikipedia editorial insights from The Wikipedia Studio",
     schema: [
+      // Full catalog on page 1 so crawlers discover every article URL from the hub.
       itemListNode(
         "blog",
         "Wikipedia Studio editorial guides",
@@ -53,6 +56,7 @@ export default async function BlogPage() {
 
   return (
     <>
+      <BlogPaginationSeoLinks page={1} totalPages={totalPages} />
       <BodyClass className="page-blog" />
       <JsonLd page={pageMeta} />
       <PageHero

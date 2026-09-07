@@ -78,10 +78,6 @@ const nextConfig: NextConfig = {
         headers: [{ key: "X-Robots-Tag", value: "noindex, follow" }],
       },
       {
-        source: "/blog/page/:page*",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, follow" }],
-      },
-      {
         source: "/admin/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },

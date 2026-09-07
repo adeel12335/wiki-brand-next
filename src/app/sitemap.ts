@@ -60,7 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-  // Index article URLs only — skip /blog/page/N pagination (thin duplicates).
+  // Index article URLs in the sitemap — pagination is crawlable via hub links + rel prev/next.
   const blogPostEntries = blogPosts.map((post) => ({
     url: absUrl(`blog/${post.slug}`),
     lastModified: post.modifiedAt,
