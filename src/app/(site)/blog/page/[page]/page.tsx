@@ -14,7 +14,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  const total = getBlogPageCount();
+  const total = await getBlogPageCount();
   return Array.from({ length: Math.max(0, total - 1) }, (_, index) => ({
     page: String(index + 2),
   }));
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!Number.isFinite(page) || page < 2) {
     return {};
   }
-  const { totalPages } = getBlogPostsPage(page);
+  const { totalPages } = await getBlogPostsPage(page);
   if (page > totalPages) return {};
 
   return buildPageMetadata({
@@ -50,7 +50,7 @@ export default async function BlogPagedPage({ params }: PageProps) {
     redirect(url("blog"));
   }
 
-  const { totalPages } = getBlogPostsPage(page);
+  const { totalPages } = await getBlogPostsPage(page);
   if (page > totalPages) notFound();
 
   const pageMeta = {

@@ -23,6 +23,11 @@ export async function POST(request: Request) {
 
   const formData = await request.formData();
   const file = formData.get("file");
+  const folderRaw = formData.get("folder");
+  const folder =
+    typeof folderRaw === "string" && ["portfolio", "blog"].includes(folderRaw)
+      ? folderRaw
+      : "portfolio";
 
   if (!(file instanceof File)) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
@@ -53,7 +58,7 @@ export async function POST(request: Request) {
     cloudinary.uploader
       .upload_stream(
         {
-          folder: "portfolio",
+          folder,
           resource_type: "image",
           transformation: [{ fetch_format: "auto", quality: "auto" }],
         },

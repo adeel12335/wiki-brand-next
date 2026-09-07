@@ -27,7 +27,7 @@ const CONTENT_LAST_MODIFIED = "2026-09-04";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const portfolioItems = await getPublishedPortfolio();
-  const blogPosts = getAllBlogPosts();
+  const blogPosts = await getAllBlogPosts();
 
   const staticEntries = STATIC_ROUTES.map((slug) => ({
     url: absUrl(slug),

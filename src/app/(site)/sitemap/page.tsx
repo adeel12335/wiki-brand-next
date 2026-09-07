@@ -39,8 +39,8 @@ const extraLinks = [
   { label: "Terms & Conditions", slug: "terms-conditions" },
 ];
 
-export default function HtmlSitemapPage() {
-  const posts = getAllBlogPosts();
+export default async function HtmlSitemapPage() {
+  const posts = await getAllBlogPosts();
 
   return (
     <>

@@ -20,7 +20,7 @@ function escapeXml(value: string): string {
 
 export async function GET() {
   const base = getSiteUrl() || PRODUCTION_SITE_URL;
-  const posts = getAllBlogPosts();
+  const posts = await getAllBlogPosts();
   const lastBuild = posts[0]?.modifiedAt ?? new Date().toISOString().slice(0, 10);
 
   const items = posts

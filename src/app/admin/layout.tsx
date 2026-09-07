@@ -29,8 +29,9 @@ export default async function AdminLayout({
           </Link>
           <nav className="admin-nav">
             <Link href="/admin/portfolio/">Portfolio</Link>
+            <Link href="/admin/blog/">Blog</Link>
             <Link href="/admin/enquiries/">Enquiries</Link>
-            <a href="/portfolio/" target="_blank" rel="noopener noreferrer">
+            <a href="/" target="_blank" rel="noopener noreferrer">
               View site ↗
             </a>
             <span className="admin-user">{session.user?.name}</span>

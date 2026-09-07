@@ -107,3 +107,34 @@ export const ContactEnquiry: Model<ContactEnquiryDocument> =
     "ContactEnquiry",
     contactEnquirySchema,
   );
+
+const blogPostSchema = new Schema(
+  {
+    slug: { type: String, required: true, unique: true, index: true },
+    title: { type: String, required: true },
+    excerpt: { type: String, required: true },
+    body: { type: String, required: true },
+    category: { type: String, default: "", index: true },
+    relatedService: { type: String, default: null },
+    ogImage: { type: String, default: "/assets/og/hero-orbital-globe.jpg" },
+    metaTitle: { type: String, default: "" },
+    metaDescription: { type: String, default: "" },
+    keywords: { type: String, default: "" },
+    publishedAt: { type: Date, default: Date.now, index: true },
+    status: {
+      type: String,
+      enum: ["draft", "published"],
+      default: "draft",
+      index: true,
+    },
+  },
+  { timestamps: true },
+);
+
+export type BlogPostDocument = InferSchemaType<typeof blogPostSchema> & {
+  _id: mongoose.Types.ObjectId;
+};
+
+export const BlogPostModel: Model<BlogPostDocument> =
+  mongoose.models.BlogPost ??
+  mongoose.model<BlogPostDocument>("BlogPost", blogPostSchema);

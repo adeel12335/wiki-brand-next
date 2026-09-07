@@ -52,6 +52,7 @@ export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 export default async function HomePage() {
   const featuredPortfolio = await getFeaturedPortfolio();
+  const latestPosts = (await getAllBlogPosts()).slice(0, 3);
   return (
     <>
       <JsonLd page={pageMeta} />
@@ -226,9 +227,7 @@ export default async function HomePage() {
             </Link>
           </div>
           <div className="blog-grid blog-grid--home reveal">
-            {getAllBlogPosts()
-              .slice(0, 3)
-              .map((post) => (
+            {latestPosts.map((post) => (
                 <BlogCard key={post.slug} post={post} />
               ))}
           </div>

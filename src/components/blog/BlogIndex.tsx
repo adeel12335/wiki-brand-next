@@ -2,8 +2,8 @@ import { BlogCard } from "@/components/blog/BlogCard";
 import { BlogPagination } from "@/components/blog/BlogPagination";
 import { getBlogPostsPage } from "@/lib/blog";
 
-export function BlogIndex({ page }: { page: number }) {
-  const { posts, totalPages, page: safePage } = getBlogPostsPage(page);
+export async function BlogIndex({ page }: { page: number }) {
+  const { posts, totalPages, page: safePage } = await getBlogPostsPage(page);
 
   return (
     <div className="blog-index">

@@ -21,13 +21,16 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return getAllBlogPosts().map((post) => ({ slug: post.slug }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const posts = await getAllBlogPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
   if (!post) return {};
 
   return buildPageMetadata({
@@ -48,10 +51,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
   if (!post) notFound();
 
-  const related = getRelatedBlogPosts(post.slug, 3);
+  const related = await getRelatedBlogPosts(post.slug, 3);
   const relatedService = post.relatedService
     ? getService(post.relatedService)
     : null;

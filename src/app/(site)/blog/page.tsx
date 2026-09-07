@@ -9,34 +9,48 @@ import { getAllBlogPosts } from "@/lib/blog";
 import { absUrl, url } from "@/lib/config";
 import { buildPageMetadata, itemListNode } from "@/lib/seo";
 
-const posts = getAllBlogPosts();
+export const revalidate = 60;
 
-const pageMeta = {
-  slug: "blog",
-  title: "Wikipedia Insights & Editorial Guides",
-  shortTitle: "Blog",
-  description:
-    "Practical guides on Wikipedia notability, reliable sources, paid-editing disclosure, page timelines, and how articles survive review.",
-  keywords:
-    "wikipedia blog, wikipedia notability guide, paid wikipedia editing, wikipedia page creation tips, wikipedia sources",
-  ogImage: "/assets/og/hero-orbital-globe.jpg",
-  ogImageAlt: "Wikipedia editorial insights from The Wikipedia Studio",
-  schema: [
-    itemListNode(
-      "blog",
-      "Wikipedia Studio editorial guides",
-      posts.map((post) => ({
-        name: post.title,
-        description: post.excerpt,
-        url: absUrl(`blog/${post.slug}`),
-      })),
-    ),
-  ],
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata({
+    slug: "blog",
+    title: "Wikipedia Insights & Editorial Guides",
+    shortTitle: "Blog",
+    description:
+      "Practical guides on Wikipedia notability, reliable sources, paid-editing disclosure, page timelines, and how articles survive review.",
+    keywords:
+      "wikipedia blog, wikipedia notability guide, paid wikipedia editing, wikipedia page creation tips, wikipedia sources",
+    ogImage: "/assets/og/hero-orbital-globe.jpg",
+    ogImageAlt: "Wikipedia editorial insights from The Wikipedia Studio",
+  });
+}
 
-export const metadata: Metadata = buildPageMetadata(pageMeta);
+export default async function BlogPage() {
+  const posts = await getAllBlogPosts();
 
-export default function BlogPage() {
+  const pageMeta = {
+    slug: "blog",
+    title: "Wikipedia Insights & Editorial Guides",
+    shortTitle: "Blog",
+    description:
+      "Practical guides on Wikipedia notability, reliable sources, paid-editing disclosure, page timelines, and how articles survive review.",
+    keywords:
+      "wikipedia blog, wikipedia notability guide, paid wikipedia editing, wikipedia page creation tips, wikipedia sources",
+    ogImage: "/assets/og/hero-orbital-globe.jpg",
+    ogImageAlt: "Wikipedia editorial insights from The Wikipedia Studio",
+    schema: [
+      itemListNode(
+        "blog",
+        "Wikipedia Studio editorial guides",
+        posts.map((post) => ({
+          name: post.title,
+          description: post.excerpt,
+          url: absUrl(`blog/${post.slug}`),
+        })),
+      ),
+    ],
+  };
+
   return (
     <>
       <BodyClass className="page-blog" />

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
+import { invalidateBlogCache } from "@/lib/blog";
 import { invalidatePortfolioCache } from "@/lib/portfolio";
 
 export async function POST(request: Request) {
@@ -11,9 +12,14 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as {
     slug?: string;
     path?: string;
+    type?: "portfolio" | "blog";
   };
 
-  await invalidatePortfolioCache(body.slug);
+  if (body.type === "blog") {
+    await invalidateBlogCache(body.slug);
+  } else {
+    await invalidatePortfolioCache(body.slug);
+  }
 
   const paths = new Set<string>([
     "/",
@@ -21,9 +27,12 @@ export async function POST(request: Request) {
     "/sitemap.xml",
     "/blog/",
     "/feed.xml",
+    "/resources/",
+    "/sitemap/",
   ]);
   if (body.path) paths.add(body.path);
-  if (body.slug) paths.add(`/portfolio/${body.slug}/`);
+  if (body.slug && body.type === "blog") paths.add(`/blog/${body.slug}/`);
+  if (body.slug && body.type !== "blog") paths.add(`/portfolio/${body.slug}/`);
 
   for (const path of paths) {
     revalidatePath(path);

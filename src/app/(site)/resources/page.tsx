@@ -71,8 +71,8 @@ const outreachIdeas = [
   },
 ];
 
-export default function ResourcesPage() {
-  const guides = getAllBlogPosts().slice(0, 8);
+export default async function ResourcesPage() {
+  const guides = (await getAllBlogPosts()).slice(0, 8);
 
   return (
     <>
