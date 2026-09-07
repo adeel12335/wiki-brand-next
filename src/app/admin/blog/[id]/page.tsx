@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 
 interface FormValues {
   title: string;
@@ -60,6 +60,33 @@ const empty: FormValues = {
   status: "draft",
 };
 
+function CharMeter({
+  value,
+  idealMin,
+  idealMax,
+}: {
+  value: number;
+  idealMin: number;
+  idealMax: number;
+}) {
+  const tone =
+    value === 0
+      ? "muted"
+      : value < idealMin
+        ? "warn"
+        : value > idealMax
+          ? "warn"
+          : "ok";
+  return (
+    <span className={`admin-char-meter is-${tone}`}>
+      {value}
+      <small>
+        / {idealMin}–{idealMax}
+      </small>
+    </span>
+  );
+}
+
 export default function AdminBlogEditPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
@@ -69,6 +96,8 @@ export default function AdminBlogEditPage() {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(!isNew);
+  const [preview, setPreview] = useState(false);
+  const [savedFlash, setSavedFlash] = useState(false);
 
   useEffect(() => {
     if (isNew) return;
@@ -97,6 +126,13 @@ export default function AdminBlogEditPage() {
       .finally(() => setLoading(false));
   }, [isNew, params.id]);
 
+  const metaTitleLen = (values.metaTitle || values.title).length;
+  const metaDescLen = (values.metaDescription || values.excerpt).length;
+  const wordCount = useMemo(() => {
+    const text = values.body.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    return text ? text.split(" ").length : 0;
+  }, [values.body]);
+
   async function uploadImage(file: File) {
     setUploading(true);
     setError(null);
@@ -120,14 +156,11 @@ export default function AdminBlogEditPage() {
     setSaving(true);
     setError(null);
 
-    const res = await fetch(
-      isNew ? "/api/blog/" : `/api/blog/${params.id}/`,
-      {
-        method: isNew ? "POST" : "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      },
-    );
+    const res = await fetch(isNew ? "/api/blog/" : `/api/blog/${params.id}/`, {
+      method: isNew ? "POST" : "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
 
     const data = await res.json();
     setSaving(false);
@@ -147,6 +180,8 @@ export default function AdminBlogEditPage() {
       return;
     }
 
+    setSavedFlash(true);
+    window.setTimeout(() => setSavedFlash(false), 2200);
     router.push(`/admin/blog/${data.item._id}/`);
     router.refresh();
   }
@@ -161,84 +196,168 @@ export default function AdminBlogEditPage() {
   }
 
   return (
-    <>
+    <div className="admin-blog-shell">
       <div className="admin-head">
         <div>
           <p className="admin-eyebrow">{isNew ? "New post" : "Edit post"}</p>
           <h1>{isNew ? "Write blog post" : values.title || "Edit post"}</h1>
           {!isNew && values.slug ? (
-            <p>
-              Public URL:{" "}
+            <p className="admin-blog-url">
+              Live URL:{" "}
               <a href={`/blog/${values.slug}/`} target="_blank" rel="noopener">
                 /blog/{values.slug}/
               </a>
             </p>
+          ) : (
+            <p>HTML body + SEO fields publish straight to the public blog.</p>
+          )}
+        </div>
+        <div className="admin-head-actions">
+          <Link className="admin-btn ghost" href="/admin/blog/">
+            ← All posts
+          </Link>
+          {!isNew && values.slug ? (
+            <a
+              className="admin-btn ghost"
+              href={`/blog/${values.slug}/`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Preview ↗
+            </a>
           ) : null}
         </div>
-        <Link className="admin-btn ghost" href="/admin/blog/">
-          ← Back to list
-        </Link>
       </div>
 
       {error ? <p className="admin-error">{error}</p> : null}
+      {savedFlash ? <p className="admin-flash">Saved successfully.</p> : null}
 
-      <form className="admin-form-grid" onSubmit={handleSubmit}>
+      <form className="admin-form-grid admin-blog-form" onSubmit={handleSubmit}>
         <div className="admin-form-main">
           <section className="admin-card">
-            <h2>Article</h2>
-            <label>Title</label>
+            <div className="admin-card-head">
+              <h2>Article</h2>
+              <span className="admin-soft-badge">{wordCount} words</span>
+            </div>
+
+            <label htmlFor="blog-title">
+              Title <span>required</span>
+            </label>
             <input
+              id="blog-title"
               value={values.title}
               onChange={(e) => setValues({ ...values, title: e.target.value })}
               placeholder="Clear, search-friendly headline"
               required
             />
 
-            <label>URL slug</label>
-            <input
-              value={values.slug}
-              onChange={(e) => setValues({ ...values, slug: e.target.value })}
-              placeholder="auto-generated from title if empty"
-            />
+            <label htmlFor="blog-slug">URL slug</label>
+            <div className="admin-slug-field">
+              <span>/blog/</span>
+              <input
+                id="blog-slug"
+                value={values.slug}
+                onChange={(e) => setValues({ ...values, slug: e.target.value })}
+                placeholder="auto-from-title"
+              />
+              <span>/</span>
+            </div>
 
-            <label>Excerpt</label>
+            <label htmlFor="blog-excerpt">
+              Excerpt <span>required</span>
+            </label>
             <textarea
+              id="blog-excerpt"
               rows={3}
               value={values.excerpt}
-              onChange={(e) =>
-                setValues({ ...values, excerpt: e.target.value })
-              }
+              onChange={(e) => setValues({ ...values, excerpt: e.target.value })}
               placeholder="1–2 sentences for cards and meta fallback"
               required
             />
 
-            <label>Body (HTML)</label>
-            <textarea
-              rows={18}
-              value={values.body}
-              onChange={(e) => setValues({ ...values, body: e.target.value })}
-              placeholder="<p>…</p><h2>…</h2>"
-              required
-              style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
-            />
+            <div className="admin-editor-toolbar">
+              <label htmlFor="blog-body" style={{ margin: 0 }}>
+                Body (HTML) <span>required</span>
+              </label>
+              <div className="admin-seg" role="group" aria-label="Editor mode">
+                <button
+                  type="button"
+                  className={`admin-seg-btn${!preview ? " is-active" : ""}`}
+                  onClick={() => setPreview(false)}
+                >
+                  Code
+                </button>
+                <button
+                  type="button"
+                  className={`admin-seg-btn${preview ? " is-active" : ""}`}
+                  onClick={() => setPreview(true)}
+                >
+                  Preview
+                </button>
+              </div>
+            </div>
+
+            {preview ? (
+              <div
+                className="admin-html-preview legal-body"
+                dangerouslySetInnerHTML={{ __html: values.body || "<p><em>Nothing to preview yet.</em></p>" }}
+              />
+            ) : (
+              <textarea
+                id="blog-body"
+                className="admin-code-editor"
+                rows={20}
+                value={values.body}
+                onChange={(e) => setValues({ ...values, body: e.target.value })}
+                placeholder={"<p>Opening paragraph…</p>\n<h2>Section</h2>\n<p>…</p>"}
+                required
+              />
+            )}
             <p className="admin-hint">
-              Use trusted HTML only (&lt;p&gt;, &lt;h2&gt;, &lt;ul&gt;, &lt;a&gt;,
-              etc.). This renders on the public post page.
+              Trusted HTML only: &lt;p&gt;, &lt;h2&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;a&gt;,
+              &lt;strong&gt;, &lt;em&gt;. Links to services help SEO.
             </p>
           </section>
 
           <section className="admin-card">
-            <h2>SEO</h2>
-            <label>Meta title</label>
+            <div className="admin-card-head">
+              <h2>SEO</h2>
+              <span className="admin-soft-badge">Search snippet</span>
+            </div>
+
+            <div className="admin-serp-preview">
+              <p className="admin-serp-url">
+                thewikipediastudio.com › blog › {values.slug || "post-slug"}
+              </p>
+              <p className="admin-serp-title">
+                {values.metaTitle || values.title || "Meta title preview"}
+              </p>
+              <p className="admin-serp-desc">
+                {values.metaDescription ||
+                  values.excerpt ||
+                  "Meta description preview appears here as Google might show it."}
+              </p>
+            </div>
+
+            <div className="admin-label-row">
+              <label htmlFor="blog-meta-title">Meta title</label>
+              <CharMeter value={metaTitleLen} idealMin={40} idealMax={60} />
+            </div>
             <input
+              id="blog-meta-title"
               value={values.metaTitle}
               onChange={(e) =>
                 setValues({ ...values, metaTitle: e.target.value })
               }
               placeholder="Defaults to title"
             />
-            <label>Meta description</label>
+
+            <div className="admin-label-row">
+              <label htmlFor="blog-meta-desc">Meta description</label>
+              <CharMeter value={metaDescLen} idealMin={120} idealMax={160} />
+            </div>
             <textarea
+              id="blog-meta-desc"
               rows={3}
               value={values.metaDescription}
               onChange={(e) =>
@@ -246,22 +365,26 @@ export default function AdminBlogEditPage() {
               }
               placeholder="Defaults to excerpt"
             />
-            <label>Keywords</label>
+
+            <label htmlFor="blog-keywords">Keywords</label>
             <input
+              id="blog-keywords"
               value={values.keywords}
               onChange={(e) =>
                 setValues({ ...values, keywords: e.target.value })
               }
-              placeholder="comma,separated,keywords"
+              placeholder="comma, separated, keywords"
             />
           </section>
         </div>
 
-        <aside className="admin-form-side">
-          <section className="admin-card">
+        <aside className="admin-form-side admin-blog-side">
+          <section className="admin-card admin-sticky-card">
             <h2>Publish</h2>
-            <label>Status</label>
+
+            <label htmlFor="blog-status">Status</label>
             <select
+              id="blog-status"
               value={values.status}
               onChange={(e) =>
                 setValues({
@@ -274,8 +397,9 @@ export default function AdminBlogEditPage() {
               <option value="published">Published</option>
             </select>
 
-            <label>Publish date</label>
+            <label htmlFor="blog-date">Publish date</label>
             <input
+              id="blog-date"
               type="date"
               value={values.publishedAt}
               onChange={(e) =>
@@ -283,8 +407,9 @@ export default function AdminBlogEditPage() {
               }
             />
 
-            <label>Category</label>
+            <label htmlFor="blog-category">Category</label>
             <input
+              id="blog-category"
               list="blog-categories"
               value={values.category}
               onChange={(e) =>
@@ -297,8 +422,9 @@ export default function AdminBlogEditPage() {
               ))}
             </datalist>
 
-            <label>Related service</label>
+            <label htmlFor="blog-service">Related service</label>
             <select
+              id="blog-service"
               value={values.relatedService}
               onChange={(e) =>
                 setValues({ ...values, relatedService: e.target.value })
@@ -311,23 +437,32 @@ export default function AdminBlogEditPage() {
               ))}
             </select>
 
-            <div className="admin-submit">
+            <div className="admin-submit admin-submit-stack">
               <button className="admin-btn" type="submit" disabled={saving}>
-                {saving ? "Saving…" : isNew ? "Create post" : "Save changes"}
+                {saving
+                  ? "Saving…"
+                  : isNew
+                    ? "Create post"
+                    : values.status === "published"
+                      ? "Save & publish"
+                      : "Save draft"}
               </button>
+              <p className="admin-hint" style={{ margin: 0 }}>
+                Published posts update sitemap, feed, and IndexNow.
+              </p>
             </div>
           </section>
 
           <section className="admin-card">
-            <h2>OG image</h2>
+            <h2>Social / OG image</h2>
             {values.ogImage ? (
               <Image
-                className="admin-preview"
+                className="admin-preview admin-preview--wide"
                 src={values.ogImage}
                 alt={values.title || "OG image"}
                 width={1200}
                 height={630}
-                sizes="(max-width: 900px) 100vw, 420px"
+                sizes="(max-width: 900px) 100vw, 360px"
                 unoptimized={values.ogImage.startsWith("http")}
               />
             ) : (
@@ -345,8 +480,9 @@ export default function AdminBlogEditPage() {
               />
               <span>{uploading ? "Uploading…" : "Upload image (max 5 MB)"}</span>
             </label>
-            <label>Image URL / path</label>
+            <label htmlFor="blog-og">Image URL / path</label>
             <input
+              id="blog-og"
               value={values.ogImage}
               onChange={(e) =>
                 setValues({ ...values, ogImage: e.target.value })
@@ -356,6 +492,6 @@ export default function AdminBlogEditPage() {
           </section>
         </aside>
       </form>
-    </>
+    </div>
   );
 }

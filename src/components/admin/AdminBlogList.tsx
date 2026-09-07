@@ -13,6 +13,7 @@ interface BlogRow {
   status: "draft" | "published";
   publishedAt?: string;
   updatedAt?: string;
+  ogImage?: string;
 }
 
 type StatusFilter = "all" | "published" | "draft";
@@ -125,14 +126,14 @@ export function AdminBlogList() {
   const hasFilters = query.trim() !== "" || statusFilter !== "all";
 
   return (
-    <>
+    <div className="admin-blog-shell">
       {toast ? <div className="admin-toast">{toast}</div> : null}
 
       <div className="admin-head">
         <div>
-          <p className="admin-eyebrow">Dashboard</p>
-          <h1>Blog</h1>
-          <p>Write and publish SEO guides on the public blog.</p>
+          <p className="admin-eyebrow">Content</p>
+          <h1>Blog posts</h1>
+          <p>Draft, polish SEO, and publish guides that feed the public blog and sitemap.</p>
         </div>
         <div className="admin-head-actions">
           <Link className="admin-btn" href="/admin/blog/new/">
@@ -149,13 +150,13 @@ export function AdminBlogList() {
         </div>
       </div>
 
-      <div className="admin-stats">
+      <div className="admin-stats admin-stats--3">
         <AdminStat label="Total posts" value={stats.total} />
-        <AdminStat label="Published" value={stats.published} hint="Live on site" />
-        <AdminStat label="Drafts" value={stats.draft} />
+        <AdminStat label="Published" value={stats.published} hint="Indexed when live" />
+        <AdminStat label="Drafts" value={stats.draft} hint="Admin only" />
       </div>
 
-      <div className="admin-toolbar">
+      <div className="admin-toolbar admin-blog-toolbar">
         <div className="admin-search">
           <span className="admin-search-icon" aria-hidden>
             ⌕
@@ -164,20 +165,29 @@ export function AdminBlogList() {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by title, slug, or category…"
+            placeholder="Search title, slug, category…"
             aria-label="Search blog posts"
           />
         </div>
         <div className="admin-filters">
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-            aria-label="Filter by status"
-          >
-            <option value="all">All statuses</option>
-            <option value="published">Published</option>
-            <option value="draft">Draft</option>
-          </select>
+          <div className="admin-seg" role="group" aria-label="Filter by status">
+            {(
+              [
+                ["all", "All"],
+                ["published", "Published"],
+                ["draft", "Drafts"],
+              ] as const
+            ).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                className={`admin-seg-btn${statusFilter === value ? " is-active" : ""}`}
+                onClick={() => setStatusFilter(value)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
           {hasFilters ? (
             <button
               type="button"
@@ -187,7 +197,7 @@ export function AdminBlogList() {
                 setStatusFilter("all");
               }}
             >
-              Clear filters
+              Reset
             </button>
           ) : null}
         </div>
@@ -201,7 +211,7 @@ export function AdminBlogList() {
       ) : items.length === 0 ? (
         <div className="admin-card admin-empty">
           <h2>No blog posts yet</h2>
-          <p>Seed existing posts or write your first article.</p>
+          <p>Write your first SEO guide — it will appear on /blog/ when published.</p>
           <div className="admin-submit">
             <Link className="admin-btn" href="/admin/blog/new/">
               Write first post
@@ -211,7 +221,7 @@ export function AdminBlogList() {
       ) : filtered.length === 0 ? (
         <div className="admin-card admin-empty">
           <h2>No matches</h2>
-          <p>Try a different search or clear your filters.</p>
+          <p>Try another search or reset filters.</p>
           <button
             type="button"
             className="admin-btn ghost"
@@ -220,102 +230,96 @@ export function AdminBlogList() {
               setStatusFilter("all");
             }}
           >
-            Clear filters
+            Reset filters
           </button>
         </div>
       ) : (
-        <div className="admin-table-wrap">
-          <div className="admin-table-meta">
+        <div className="admin-blog-list">
+          <div className="admin-blog-list-meta">
             Showing {filtered.length} of {items.length} posts
           </div>
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>Post</th>
-                <th>Category</th>
-                <th>Status</th>
-                <th>Published</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((item) => {
-                const isBusy = busyId === item._id;
-                return (
-                  <tr key={item._id} className={isBusy ? "is-busy" : ""}>
-                    <td>
-                      <div className="admin-client-cell">
-                        <div>
-                          <Link href={`/admin/blog/${item._id}/`}>
-                            {item.title}
-                          </Link>
-                          <small>/blog/{item.slug}/</small>
-                          {item.excerpt ? (
-                            <small className="admin-client-summary">
-                              {item.excerpt}
-                            </small>
-                          ) : null}
-                        </div>
-                      </div>
-                    </td>
-                    <td>{item.category || "—"}</td>
-                    <td>
+          <ul className="admin-blog-cards">
+            {filtered.map((item) => {
+              const isBusy = busyId === item._id;
+              return (
+                <li
+                  key={item._id}
+                  className={`admin-blog-card${isBusy ? " is-busy" : ""}`}
+                >
+                  <div className="admin-blog-card-main">
+                    <div className="admin-blog-card-top">
+                      {item.category ? (
+                        <span className="admin-blog-cat">{item.category}</span>
+                      ) : null}
                       <span
                         className={`admin-pill ${item.status === "published" ? "live" : "draft"}`}
                       >
                         {item.status}
                       </span>
-                    </td>
-                    <td>{formatDate(item.publishedAt)}</td>
-                    <td>
-                      <div className="admin-actions">
-                        <Link
-                          className="admin-btn ghost small"
-                          href={`/admin/blog/${item._id}/`}
-                        >
-                          Edit
-                        </Link>
-                        <a
-                          className="admin-btn ghost small"
-                          href={`/blog/${item.slug}/`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          View
-                        </a>
-                        <button
-                          type="button"
-                          className="admin-btn ghost small"
-                          disabled={isBusy}
-                          onClick={() =>
-                            action(
-                              item._id,
-                              { action: "toggle" },
-                              item.status === "published"
-                                ? "Moved to draft"
-                                : "Published",
-                            )
-                          }
-                        >
-                          {item.status === "published" ? "Unpublish" : "Publish"}
-                        </button>
-                        <button
-                          type="button"
-                          className="admin-btn ghost small danger"
-                          disabled={isBusy}
-                          onClick={() => remove(item._id, item.title)}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                    </div>
+                    <Link
+                      className="admin-blog-card-title"
+                      href={`/admin/blog/${item._id}/`}
+                    >
+                      {item.title}
+                    </Link>
+                    {item.excerpt ? (
+                      <p className="admin-blog-card-excerpt">{item.excerpt}</p>
+                    ) : null}
+                    <div className="admin-blog-card-meta">
+                      <span>/blog/{item.slug}/</span>
+                      <span>Published {formatDate(item.publishedAt)}</span>
+                      {item.updatedAt ? (
+                        <span>Updated {formatDate(item.updatedAt)}</span>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="admin-blog-card-actions">
+                    <Link
+                      className="admin-btn ghost small"
+                      href={`/admin/blog/${item._id}/`}
+                    >
+                      Edit
+                    </Link>
+                    <a
+                      className="admin-btn ghost small"
+                      href={`/blog/${item.slug}/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Preview ↗
+                    </a>
+                    <button
+                      type="button"
+                      className="admin-btn ghost small"
+                      disabled={isBusy}
+                      onClick={() =>
+                        action(
+                          item._id,
+                          { action: "toggle" },
+                          item.status === "published"
+                            ? "Moved to draft"
+                            : "Published",
+                        )
+                      }
+                    >
+                      {item.status === "published" ? "Unpublish" : "Publish"}
+                    </button>
+                    <button
+                      type="button"
+                      className="admin-btn danger small"
+                      disabled={isBusy}
+                      onClick={() => remove(item._id, item.title)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
-    </>
+    </div>
   );
 }

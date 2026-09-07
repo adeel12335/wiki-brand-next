@@ -11,5 +11,5 @@ export default async function BlogAdminLayout({
     redirect("/admin/?timeout=1");
   }
 
-  return children;
+  return <div className="admin-blog">{children}</div>;
 }
