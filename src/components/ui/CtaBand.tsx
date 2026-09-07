@@ -25,6 +25,7 @@ export function CtaBand({
           aria-hidden="true"
           width={1024}
           height={341}
+          sizes="(max-width: 900px) 92vw, 720px"
         />
         <div className="contact-copy">
           <span className="micro-label">Start with clarity</span>

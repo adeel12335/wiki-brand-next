@@ -35,6 +35,13 @@ export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 const extraLinks = [
   { label: "Resources", slug: "resources" },
+  { label: "Notability checker", slug: "wikipedia-notability-checker" },
+  { label: "How to choose an agency", slug: "how-to-choose-wikipedia-agency" },
+  { label: "Case studies", slug: "case-studies" },
+  { label: "For authors", slug: "wikipedia-page-for-authors" },
+  { label: "For companies", slug: "wikipedia-page-for-companies" },
+  { label: "For academics", slug: "wikipedia-page-for-academics" },
+  { label: "For musicians", slug: "wikipedia-page-for-musicians" },
   { label: "Privacy Policy", slug: "privacy-policy" },
   { label: "Terms & Conditions", slug: "terms-conditions" },
 ];

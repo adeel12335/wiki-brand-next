@@ -120,6 +120,7 @@ const blogPostSchema = new Schema(
     metaTitle: { type: String, default: "" },
     metaDescription: { type: String, default: "" },
     keywords: { type: String, default: "" },
+    authorSlug: { type: String, default: "editorial-team", index: true },
     publishedAt: { type: Date, default: Date.now, index: true },
     status: {
       type: String,

@@ -10,9 +10,13 @@ import {
   url,
 } from "@/lib/config";
 import { services } from "@/lib/data";
+import { getTrustpilotReviewUrl } from "@/lib/trustpilot";
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const companyNumber = process.env.NEXT_PUBLIC_COMPANY_NUMBER?.trim();
+  const companyAddress = process.env.NEXT_PUBLIC_COMPANY_ADDRESS?.trim();
+  const trustpilotUrl = getTrustpilotReviewUrl();
 
   return (
     <footer className="site-footer">
@@ -55,6 +59,12 @@ export function Footer() {
               {item.label}
             </Link>
           ))}
+          <Link href={url("wikipedia-notability-checker")}>
+            Notability checker
+          </Link>
+          <Link href={url("how-to-choose-wikipedia-agency")}>
+            How to choose an agency
+          </Link>
         </div>
 
         <div className="footer-column footer-services">
@@ -70,7 +80,12 @@ export function Footer() {
           <h3>Contact Us</h3>
           <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>
           <a href={`tel:${SITE_PHONE_RAW}`}>{SITE_PHONE}</a>
-          <span>Worldwide Services</span>
+          <span>Remote-first · Worldwide services</span>
+          {companyNumber ? <span>Company no. {companyNumber}</span> : null}
+          {companyAddress ? <span>{companyAddress}</span> : null}
+          <a href={trustpilotUrl} target="_blank" rel="noopener noreferrer">
+            Trustpilot reviews
+          </a>
         </div>
       </div>
 

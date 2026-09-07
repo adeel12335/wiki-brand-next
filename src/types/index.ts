@@ -145,6 +145,8 @@ export interface BlogPost {
   readingMinutes: number;
   ogImage: string;
   relatedService?: string;
+  /** Author slug from `src/lib/data/authors.ts`. Defaults to editorial-team. */
+  authorSlug?: string;
   body: string;
   /** Computed at read time from body HTML when served. */
   wordCount?: number;

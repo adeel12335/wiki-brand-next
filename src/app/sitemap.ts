@@ -14,6 +14,7 @@ const STATIC_ROUTES = [
   "wikipedia-page-cost",
   "our-process",
   "portfolio",
+  "case-studies",
   "blog",
   "faq",
   "contact",
@@ -21,13 +22,22 @@ const STATIC_ROUTES = [
   "sitemap",
   "privacy-policy",
   "terms-conditions",
+  "wikipedia-notability-checker",
+  "how-to-choose-wikipedia-agency",
+  "wikipedia-page-for-authors",
+  "wikipedia-page-for-companies",
+  "wikipedia-page-for-academics",
+  "wikipedia-page-for-musicians",
 ];
 
 const CONTENT_LAST_MODIFIED = "2026-09-04";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const portfolioItems = await getPublishedPortfolio();
-  const blogPosts = await getAllBlogPosts();
+  // Never fail the whole sitemap if Mongo/Redis is briefly unavailable.
+  const [portfolioItems, blogPosts] = await Promise.all([
+    getPublishedPortfolio().catch(() => []),
+    getAllBlogPosts().catch(() => []),
+  ]);
 
   const staticEntries = STATIC_ROUTES.map((slug) => ({
     url: absUrl(slug),

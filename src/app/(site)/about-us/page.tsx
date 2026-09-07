@@ -182,6 +182,24 @@ export default function AboutPage() {
                 ) : null}
                 <p className="team-focus">{member.focus}</p>
                 <p>{member.bio}</p>
+                {member.linkedIn || member.wikipediaUserPage ? (
+                  <p className="team-links">
+                    {member.linkedIn ? (
+                      <a href={member.linkedIn} target="_blank" rel="noopener noreferrer">
+                        LinkedIn
+                      </a>
+                    ) : null}
+                    {member.wikipediaUserPage ? (
+                      <a
+                        href={member.wikipediaUserPage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Wikipedia user page
+                      </a>
+                    ) : null}
+                  </p>
+                ) : null}
               </article>
             ))}
           </div>

@@ -14,7 +14,8 @@ import {
   getRelatedBlogPosts,
 } from "@/lib/blog";
 import { getService } from "@/lib/data";
-import { url } from "@/lib/config";
+import { getAuthor } from "@/lib/data/authors";
+import { absUrl, url } from "@/lib/config";
 import { articleNode, buildPageMetadata } from "@/lib/seo";
 
 interface PageProps {
@@ -58,6 +59,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   const relatedService = post.relatedService
     ? getService(post.relatedService)
     : null;
+  const author = getAuthor(post.authorSlug);
 
   const pageMeta = {
     slug: `blog/${post.slug}`,
@@ -83,6 +85,8 @@ export default async function BlogPostPage({ params }: PageProps) {
         category: post.category,
         keywords: post.keywords,
         wordCount: post.wordCount,
+        authorName: author.name,
+        authorUrl: absUrl(`author/${author.slug}`),
       }),
     ],
   };
@@ -103,6 +107,10 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="shell blog-article-layout">
           <div className="blog-article-main reveal">
             <div className="blog-article-meta">
+              <span>
+                By{" "}
+                <Link href={url(`author/${author.slug}`)}>{author.name}</Link>
+              </span>
               <time dateTime={post.publishedAt}>
                 {formatBlogDate(post.publishedAt)}
               </time>
@@ -111,6 +119,12 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <span>Updated {formatBlogDate(post.modifiedAt)}</span>
               ) : null}
             </div>
+            {post.excerpt ? (
+              <aside className="blog-key-takeaway" aria-label="Key takeaway">
+                <p className="micro-label">Key takeaway</p>
+                <p>{post.excerpt}</p>
+              </aside>
+            ) : null}
             <div
               className="blog-prose legal-body"
               dangerouslySetInnerHTML={{ __html: post.body }}

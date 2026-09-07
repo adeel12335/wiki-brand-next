@@ -46,6 +46,7 @@ function mapDoc(doc: {
   metaTitle?: string | null;
   metaDescription?: string | null;
   keywords?: string | null;
+  authorSlug?: string | null;
   publishedAt?: Date | string | null;
   updatedAt?: Date | string | null;
 }): BlogPost {
@@ -64,6 +65,7 @@ function mapDoc(doc: {
     readingMinutes: 1,
     ogImage: doc.ogImage || "/assets/og/hero-orbital-globe.jpg",
     relatedService: doc.relatedService || undefined,
+    authorSlug: doc.authorSlug || "editorial-team",
     body: doc.body || "",
   });
 }

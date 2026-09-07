@@ -18,7 +18,7 @@ import {
   pricingFaqs,
   pricingTiers,
 } from "@/lib/data/pricing";
-import { buildPageMetadata, faqNode, seoId } from "@/lib/seo";
+import { buildPageMetadata, faqNode, productOfferNode, seoId } from "@/lib/seo";
 
 const pageSlug = "wikipedia-page-cost";
 const pageUrl = absUrl(pageSlug);
@@ -37,18 +37,28 @@ const offerNodes = pricingTiers.map((tier) => ({
   url: `${pageUrl}#${tier.id}`,
 }));
 
+const productNodes = pricingTiers.map((tier) =>
+  productOfferNode({
+    slug: pageSlug,
+    name: `${tier.name} Wikipedia page package`,
+    description: `${tier.bestFor}. ${tier.blurb}`,
+    price: tier.price,
+    url: `${pageUrl}#${tier.id}`,
+  }),
+);
+
 const pageMeta = {
   slug: pageSlug,
-  title: "Wikipedia Page Cost: Pricing & Packages (2026)",
+  title: "Wikipedia Page Cost 2026: Packages from $700",
   shortTitle: "Pricing",
   breadcrumbName: "Pricing",
   description:
-    "What a Wikipedia page actually costs, what drives the price, and our three published tiers from $700. Free notability assessment first — we tell you if the sources aren't there.",
+    "Wikipedia page cost: four published tiers from $700 to $2,500+. What drives the price, what's included, and a free notability assessment before you pay.",
   keywords:
     "wikipedia page creation cost, wikipedia page cost, how much does a wikipedia page cost, wikipedia page price, wikipedia editing cost, wikipedia agency pricing",
   ogImage: "/assets/og/reference-dark.jpg",
   ogImageAlt: "Wikipedia page cost and pricing packages from The Wikipedia Studio",
-  modified: "2026-09-03",
+  modified: "2026-09-07",
   schema: [
     {
       "@type": "Service",
@@ -79,6 +89,7 @@ const pageMeta = {
         },
       },
     },
+    ...productNodes,
     faqNode([...pricingFaqs], pageSlug),
   ],
 };
@@ -93,7 +104,7 @@ export default function WikipediaPageCostPage() {
       <PageHero
         eyebrow="Pricing"
         h1="What a Wikipedia page costs — and what actually <span>drives the price</span>"
-        lede="Professional Wikipedia page creation typically costs between $700 and $2,500, depending on how much independent coverage exists about the subject and how much verification that coverage demands. Our published tiers start at $700 for straightforward subjects and $1,800 for complex or previously rejected ones. Every engagement begins with a free notability assessment."
+        lede="Professional Wikipedia page creation typically costs between $700 and $2,500+, depending on how much independent coverage exists about the subject and how much verification that coverage demands. Our published tiers run from $700 for straightforward subjects, $1,100 for most engagements, and $1,800 for complex or previously rejected ones — with Custom work from $2,500+. Every engagement begins with a free notability assessment."
         current="Pricing"
         actions={[
           {

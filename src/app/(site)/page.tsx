@@ -31,9 +31,10 @@ const pageMeta = {
   title: "Wikipedia Page Creation & Editing Services",
   shortTitle: "Home",
   description:
-    "Professional Wikipedia page creation and editing services. Free notability assessment first — guideline-compliant research, drafting, and disclosed submission.",
+    "Professional Wikipedia page creation and editing. Free notability assessment first — guideline-compliant research, drafting, and disclosed submission.",
   ogImage: "/assets/og/hero-orbital-globe.jpg",
   ogImageAlt: `${SITE_NAME} — professional Wikipedia editorial services`,
+  modified: "2026-09-07",
   schema: [
     itemListNode(
       "",
@@ -111,18 +112,21 @@ export default async function HomePage() {
                   alt=""
                   width={68}
                   height={68}
+                  sizes="68px"
                 />
                 <Image
                   src="/assets/portfolio-author.jpg"
                   alt=""
                   width={68}
                   height={68}
+                  sizes="68px"
                 />
                 <Image
                   src="/assets/portfolio-entrepreneur.jpg"
                   alt=""
                   width={68}
                   height={68}
+                  sizes="68px"
                 />
                 <span>W</span>
               </div>

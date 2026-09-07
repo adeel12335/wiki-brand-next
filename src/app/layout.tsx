@@ -26,7 +26,8 @@ const googleVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
 export const metadata: Metadata = {
   title: {
     default: SITE_NAME,
-    template: `%s | ${SITE_NAME}`,
+    // Shorter brand suffix so SERP titles stay near ~55–60 characters.
+    template: "%s | Wikipedia Studio",
   },
   description: SITE_TAGLINE,
   metadataBase: new URL(getSiteUrl()),

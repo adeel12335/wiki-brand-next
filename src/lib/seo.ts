@@ -114,7 +114,11 @@ export function organizationNode() {
       caption: SITE_NAME,
     },
     image: { "@id": seoId("logo") },
-    sameAs: [`https://x.com/${twitterHandle}`, `https://twitter.com/${twitterHandle}`],
+    sameAs: [
+      `https://x.com/${twitterHandle}`,
+      `https://twitter.com/${twitterHandle}`,
+      "https://www.trustpilot.com/review/thewikipediastudio.com",
+    ],
     areaServed: { "@type": "Place", name: "Worldwide" },
     knowsAbout: [
       "Wikipedia page creation",
@@ -251,6 +255,8 @@ export function articleNode(post: {
   category?: string;
   keywords?: string;
   wordCount?: number;
+  authorName?: string;
+  authorUrl?: string;
 }) {
   const pageUrl = absUrl(`blog/${post.slug}`);
   const imageUrl = post.image
@@ -278,8 +284,8 @@ export function articleNode(post: {
     ...(typeof post.wordCount === "number" ? { wordCount: post.wordCount } : {}),
     author: {
       "@type": "Organization",
-      name: SITE_NAME,
-      url: absUrl(),
+      name: post.authorName ?? SITE_NAME,
+      url: post.authorUrl ?? absUrl(),
     },
     publisher: { "@id": seoId("organization") },
     mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
@@ -293,7 +299,37 @@ export function articleNode(post: {
     isPartOf: { "@id": seoId("website") },
     speakable: {
       "@type": "SpeakableSpecification",
-      cssSelector: [".blog-article-main h1", ".blog-article-main p", ".page-hero-lede"],
+      cssSelector: [
+        ".blog-article-main h1",
+        ".blog-article-main p",
+        ".page-hero-lede",
+        ".blog-key-takeaway",
+      ],
+    },
+  };
+}
+
+export function productOfferNode(input: {
+  slug: string;
+  name: string;
+  description: string;
+  price: number | string;
+  currency?: string;
+  url: string;
+}) {
+  return {
+    "@type": "Product",
+    "@id": `${input.url}#product`,
+    name: input.name,
+    description: input.description,
+    brand: { "@id": seoId("organization") },
+    offers: {
+      "@type": "Offer",
+      url: input.url,
+      priceCurrency: input.currency ?? "USD",
+      price: String(input.price),
+      availability: "https://schema.org/InStock",
+      seller: { "@id": seoId("organization") },
     },
   };
 }

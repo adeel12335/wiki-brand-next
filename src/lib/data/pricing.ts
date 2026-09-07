@@ -14,7 +14,7 @@ export const pricingTiers = [
       sources: "Up to 12 sources",
       length: "800–1,200 words",
       editors: "1 editor + review pass",
-      references: "Reference formatting",
+      references: "Basic citations",
       infobox: "Basic",
       images: false,
       wikidata: false,

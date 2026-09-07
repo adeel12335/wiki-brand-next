@@ -25,6 +25,7 @@ export const blogPayloadSchema = z.object({
   metaTitle: z.string().trim().max(200).optional(),
   metaDescription: z.string().trim().max(500).optional(),
   keywords: z.string().trim().max(300).optional(),
+  authorSlug: z.string().trim().max(80).optional(),
   publishedAt: z.string().trim().max(40).optional(),
   status: z.enum(["draft", "published"]).optional(),
 });

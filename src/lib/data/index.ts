@@ -32,6 +32,8 @@ export interface TeamMember {
   focus: string;
   bio: string;
   name?: string;
+  linkedIn?: string;
+  wikipediaUserPage?: string;
 }
 
 export function getService(slug: string) {
