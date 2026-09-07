@@ -101,13 +101,24 @@ pre {
 .admin-head {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 22px;
 }
 
-.admin-head h1 { margin: 0; font-size: 26px; font-weight: 600; }
+.admin-head > div:first-child {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.admin-head h1 {
+  margin: 0;
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
 
 .admin-head p { margin: 4px 0 0; color: var(--a-muted); font-size: 13px; }
 
@@ -124,6 +135,8 @@ pre {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  flex: 0 0 auto;
+  align-items: center;
 }
 
 .admin-checkbox {
@@ -181,20 +194,26 @@ label {
   margin: 18px 0 7px;
   font-size: 13px;
   font-weight: 600;
+  color: var(--a-text);
 }
 
-label span { margin-left: 6px; color: var(--a-gold); font-weight: 400; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+label .admin-req {
+  margin-left: 6px;
+  color: var(--a-gold);
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
 
-input[type="text"],
-input[type="password"],
-input[type="url"],
-input[type="email"],
-input[type="search"],
-input[type="date"],
-input[type="file"],
+.admin-field,
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]):not([type="submit"]):not([type="button"]),
 textarea,
 select {
+  display: block;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   padding: 10px 12px;
   color: var(--a-text);
   border: 1px solid var(--a-line);
@@ -202,6 +221,7 @@ select {
   background: #0d1620;
   font-family: inherit;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 input[type="date"] {
@@ -615,17 +635,32 @@ form { margin: 0; }
 }
 
 .admin-upload {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   margin: 12px 0 0;
   cursor: pointer;
+  font-weight: 400;
 }
 
-.admin-upload input[type="file"] { padding: 8px; }
+.admin-upload input[type="file"] {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  color: var(--a-muted);
+  border: 1px dashed var(--a-line);
+  border-radius: 8px;
+  background: #0a1017;
+  font-size: 12px;
+}
 
-.admin-upload span {
+.admin-upload-caption {
   color: var(--a-muted);
   font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 @media (max-width: 960px) {
@@ -825,13 +860,42 @@ form { margin: 0; }
 .admin-slug-field {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
   color: var(--a-muted);
+  border: 1px solid var(--a-line);
+  border-radius: 7px;
+  background: #0d1620;
   font-size: 13px;
+}
+
+.admin-slug-field:focus-within {
+  border-color: var(--a-gold);
+  outline: 2px solid rgba(216, 165, 58, .2);
+  outline-offset: 1px;
+}
+
+.admin-slug-field > span {
+  flex: 0 0 auto;
+  padding: 10px 10px;
+  color: var(--a-muted);
+  background: rgba(0, 0, 0, .18);
+  white-space: nowrap;
 }
 
 .admin-slug-field input {
   flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+  margin: 0;
+  padding: 10px 8px;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .admin-editor-toolbar {
@@ -932,8 +996,22 @@ form { margin: 0; }
 }
 
 .admin-sticky-card {
-  position: sticky;
-  top: 16px;
+  position: static;
+}
+
+.admin-blog-side {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.admin-thumb-box {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-thumb-box .admin-preview--wide {
+  margin: 0;
 }
 
 .admin-submit-stack {
@@ -948,10 +1026,18 @@ form { margin: 0; }
 
 .admin-preview--wide {
   max-width: 100%;
+  width: 100%;
   height: auto;
   aspect-ratio: 1200 / 630;
   object-fit: cover;
-  margin-bottom: 8px;
+  margin-bottom: 0;
+  display: block;
+}
+
+.admin-divider {
+  margin: 22px 0 16px;
+  border: 0;
+  border-top: 1px solid var(--a-line);
 }
 
 .admin-blog-url a {
@@ -960,6 +1046,15 @@ form { margin: 0; }
 
 .admin-blog-form {
   grid-template-columns: minmax(0, 1.55fr) minmax(300px, .75fr);
+}
+
+.admin-blog-form .admin-form-main,
+.admin-blog-form .admin-form-side {
+  min-width: 0;
+}
+
+.admin-blog-form .admin-card {
+  overflow: visible;
 }
 
 @media (max-width: 960px) {

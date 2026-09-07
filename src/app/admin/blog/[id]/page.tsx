@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { FormEvent, useEffect, useMemo, useState } from "react";
@@ -72,11 +71,9 @@ function CharMeter({
   const tone =
     value === 0
       ? "muted"
-      : value < idealMin
+      : value < idealMin || value > idealMax
         ? "warn"
-        : value > idealMax
-          ? "warn"
-          : "ok";
+        : "ok";
   return (
     <span className={`admin-char-meter is-${tone}`}>
       {value}
@@ -129,25 +126,39 @@ export default function AdminBlogEditPage() {
   const metaTitleLen = (values.metaTitle || values.title).length;
   const metaDescLen = (values.metaDescription || values.excerpt).length;
   const wordCount = useMemo(() => {
-    const text = values.body.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    const text = values.body
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
     return text ? text.split(" ").length : 0;
   }, [values.body]);
 
   async function uploadImage(file: File) {
     setUploading(true);
     setError(null);
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("folder", "blog");
-    const res = await fetch("/api/upload/", { method: "POST", body: formData });
-    const data = await res.json();
-    setUploading(false);
-    if (!res.ok) {
-      setError(data.error ?? "Image upload failed");
-      return;
-    }
-    if (data.image?.url) {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("folder", "blog");
+      const res = await fetch("/api/upload/", { method: "POST", body: formData });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(
+          typeof data.error === "string"
+            ? data.error
+            : "Image upload failed. Check Cloudinary env keys on Vercel.",
+        );
+        return;
+      }
+      if (!data.image?.url) {
+        setError("Upload returned no image URL");
+        return;
+      }
       setValues((prev) => ({ ...prev, ogImage: data.image.url }));
+    } catch {
+      setError("Image upload failed — network or server error");
+    } finally {
+      setUploading(false);
     }
   }
 
@@ -241,10 +252,12 @@ export default function AdminBlogEditPage() {
             </div>
 
             <label htmlFor="blog-title">
-              Title <span>required</span>
+              Title <span className="admin-req">required</span>
             </label>
             <input
               id="blog-title"
+              type="text"
+              className="admin-field"
               value={values.title}
               onChange={(e) => setValues({ ...values, title: e.target.value })}
               placeholder="Clear, search-friendly headline"
@@ -256,6 +269,7 @@ export default function AdminBlogEditPage() {
               <span>/blog/</span>
               <input
                 id="blog-slug"
+                type="text"
                 value={values.slug}
                 onChange={(e) => setValues({ ...values, slug: e.target.value })}
                 placeholder="auto-from-title"
@@ -264,10 +278,11 @@ export default function AdminBlogEditPage() {
             </div>
 
             <label htmlFor="blog-excerpt">
-              Excerpt <span>required</span>
+              Excerpt <span className="admin-req">required</span>
             </label>
             <textarea
               id="blog-excerpt"
+              className="admin-field"
               rows={3}
               value={values.excerpt}
               onChange={(e) => setValues({ ...values, excerpt: e.target.value })}
@@ -277,7 +292,7 @@ export default function AdminBlogEditPage() {
 
             <div className="admin-editor-toolbar">
               <label htmlFor="blog-body" style={{ margin: 0 }}>
-                Body (HTML) <span>required</span>
+                Body (HTML) <span className="admin-req">required</span>
               </label>
               <div className="admin-seg" role="group" aria-label="Editor mode">
                 <button
@@ -299,23 +314,28 @@ export default function AdminBlogEditPage() {
 
             {preview ? (
               <div
-                className="admin-html-preview legal-body"
-                dangerouslySetInnerHTML={{ __html: values.body || "<p><em>Nothing to preview yet.</em></p>" }}
+                className="admin-html-preview"
+                dangerouslySetInnerHTML={{
+                  __html:
+                    values.body || "<p><em>Nothing to preview yet.</em></p>",
+                }}
               />
             ) : (
               <textarea
                 id="blog-body"
-                className="admin-code-editor"
+                className="admin-code-editor admin-field"
                 rows={20}
                 value={values.body}
                 onChange={(e) => setValues({ ...values, body: e.target.value })}
-                placeholder={"<p>Opening paragraph…</p>\n<h2>Section</h2>\n<p>…</p>"}
+                placeholder={
+                  "<p>Opening paragraph…</p>\n<h2>Section</h2>\n<p>…</p>"
+                }
                 required
               />
             )}
             <p className="admin-hint">
-              Trusted HTML only: &lt;p&gt;, &lt;h2&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;a&gt;,
-              &lt;strong&gt;, &lt;em&gt;. Links to services help SEO.
+              Trusted HTML only: &lt;p&gt;, &lt;h2&gt;, &lt;ul&gt;, &lt;ol&gt;,
+              &lt;a&gt;, &lt;strong&gt;, &lt;em&gt;. Links to services help SEO.
             </p>
           </section>
 
@@ -345,6 +365,8 @@ export default function AdminBlogEditPage() {
             </div>
             <input
               id="blog-meta-title"
+              type="text"
+              className="admin-field"
               value={values.metaTitle}
               onChange={(e) =>
                 setValues({ ...values, metaTitle: e.target.value })
@@ -358,6 +380,7 @@ export default function AdminBlogEditPage() {
             </div>
             <textarea
               id="blog-meta-desc"
+              className="admin-field"
               rows={3}
               value={values.metaDescription}
               onChange={(e) =>
@@ -369,6 +392,8 @@ export default function AdminBlogEditPage() {
             <label htmlFor="blog-keywords">Keywords</label>
             <input
               id="blog-keywords"
+              type="text"
+              className="admin-field"
               value={values.keywords}
               onChange={(e) =>
                 setValues({ ...values, keywords: e.target.value })
@@ -379,12 +404,13 @@ export default function AdminBlogEditPage() {
         </div>
 
         <aside className="admin-form-side admin-blog-side">
-          <section className="admin-card admin-sticky-card">
+          <section className="admin-card">
             <h2>Publish</h2>
 
             <label htmlFor="blog-status">Status</label>
             <select
               id="blog-status"
+              className="admin-field"
               value={values.status}
               onChange={(e) =>
                 setValues({
@@ -401,6 +427,7 @@ export default function AdminBlogEditPage() {
             <input
               id="blog-date"
               type="date"
+              className="admin-field"
               value={values.publishedAt}
               onChange={(e) =>
                 setValues({ ...values, publishedAt: e.target.value })
@@ -410,6 +437,8 @@ export default function AdminBlogEditPage() {
             <label htmlFor="blog-category">Category</label>
             <input
               id="blog-category"
+              type="text"
+              className="admin-field"
               list="blog-categories"
               value={values.category}
               onChange={(e) =>
@@ -425,6 +454,7 @@ export default function AdminBlogEditPage() {
             <label htmlFor="blog-service">Related service</label>
             <select
               id="blog-service"
+              className="admin-field"
               value={values.relatedService}
               onChange={(e) =>
                 setValues({ ...values, relatedService: e.target.value })
@@ -437,8 +467,52 @@ export default function AdminBlogEditPage() {
               ))}
             </select>
 
+            <hr className="admin-divider" />
+
+            <h2>Card thumbnail / OG image</h2>
+            <div className="admin-thumb-box">
+              {values.ogImage ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  className="admin-preview admin-preview--wide"
+                  src={values.ogImage}
+                  alt={values.title || "OG image"}
+                />
+              ) : (
+                <div className="admin-image-placeholder">No image yet</div>
+              )}
+
+              <label className="admin-upload">
+                <span className="admin-upload-caption">
+                  {uploading ? "Uploading…" : "Choose image (JPEG/PNG/WebP, max 5 MB)"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  disabled={uploading}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) void uploadImage(file);
+                    e.target.value = "";
+                  }}
+                />
+              </label>
+
+              <label htmlFor="blog-og">Image URL / path</label>
+              <input
+                id="blog-og"
+                type="text"
+                className="admin-field"
+                value={values.ogImage}
+                onChange={(e) =>
+                  setValues({ ...values, ogImage: e.target.value })
+                }
+                placeholder="/assets/og/… or https://…"
+              />
+            </div>
+
             <div className="admin-submit admin-submit-stack">
-              <button className="admin-btn" type="submit" disabled={saving}>
+              <button className="admin-btn" type="submit" disabled={saving || uploading}>
                 {saving
                   ? "Saving…"
                   : isNew
@@ -451,44 +525,6 @@ export default function AdminBlogEditPage() {
                 Published posts update sitemap, feed, and IndexNow.
               </p>
             </div>
-          </section>
-
-          <section className="admin-card">
-            <h2>Social / OG image</h2>
-            {values.ogImage ? (
-              <Image
-                className="admin-preview admin-preview--wide"
-                src={values.ogImage}
-                alt={values.title || "OG image"}
-                width={1200}
-                height={630}
-                sizes="(max-width: 900px) 100vw, 360px"
-                unoptimized={values.ogImage.startsWith("http")}
-              />
-            ) : (
-              <div className="admin-image-placeholder">No image yet</div>
-            )}
-            <label className="admin-upload">
-              <input
-                type="file"
-                accept="image/jpeg,image/png,image/webp,image/gif"
-                disabled={uploading}
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) uploadImage(file);
-                }}
-              />
-              <span>{uploading ? "Uploading…" : "Upload image (max 5 MB)"}</span>
-            </label>
-            <label htmlFor="blog-og">Image URL / path</label>
-            <input
-              id="blog-og"
-              value={values.ogImage}
-              onChange={(e) =>
-                setValues({ ...values, ogImage: e.target.value })
-              }
-              placeholder="/assets/og/… or https://…"
-            />
           </section>
         </aside>
       </form>
