@@ -8,12 +8,8 @@ export async function BlogIndex({ page }: { page: number }) {
   return (
     <div className="blog-index">
       <div className="blog-grid reveal">
-        {posts.map((post, index) => (
-          <BlogCard
-            key={post.slug}
-            post={post}
-            featured={safePage === 1 && index === 0}
-          />
+        {posts.map((post) => (
+          <BlogCard key={post.slug} post={post} />
         ))}
       </div>
       <BlogPagination page={safePage} totalPages={totalPages} />
