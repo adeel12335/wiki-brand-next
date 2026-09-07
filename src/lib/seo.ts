@@ -28,7 +28,7 @@ export function buildPageMetadata(page: PageMeta): Metadata {
   const slug = page.slug ?? "";
   const title = page.title;
   const description = metaTrim(page.description, 160);
-  const canonical = absUrl(slug);
+  const canonical = absUrl(page.canonicalSlug ?? slug);
   const imagePath = page.ogImage ?? SEO_DEFAULT_OG_IMAGE;
   const imageUrl = imagePath.startsWith("http")
     ? imagePath

@@ -31,6 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return buildPageMetadata({
     slug: `blog/page/${page}`,
+    // Point crawlers at the index; keep noindex so pagination stays out of SERPs.
+    canonicalSlug: "blog",
     title: `Wikipedia Insights — Page ${page}`,
     shortTitle: `Blog · Page ${page}`,
     description: `Page ${page} of editorial guides on Wikipedia notability, sourcing, disclosure, and page creation timelines.`,

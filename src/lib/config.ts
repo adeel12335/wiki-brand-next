@@ -28,6 +28,7 @@ export function getSiteUrl(): string {
   const configured = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 
   // Never ship localhost canonicals/OG/sitemap when NODE_ENV=production.
+  let resolved: string;
   if (
     configured &&
     !(
@@ -35,12 +36,32 @@ export function getSiteUrl(): string {
       /localhost|127\.0\.0\.1/i.test(configured)
     )
   ) {
-    return configured;
+    resolved = configured;
+  } else {
+    resolved =
+      process.env.NODE_ENV === "production"
+        ? PRODUCTION_SITE_URL
+        : "http://localhost:3000";
   }
 
-  return process.env.NODE_ENV === "production"
-    ? PRODUCTION_SITE_URL
-    : "http://localhost:3000";
+  // Always emit apex host in production (avoids www canonical / sitemap drift).
+  if (process.env.NODE_ENV === "production") {
+    try {
+      const parsed = new URL(
+        /^https?:\/\//i.test(resolved) ? resolved : `https://${resolved}`,
+      );
+      if (parsed.hostname === "www.thewikipediastudio.com") {
+        parsed.hostname = "thewikipediastudio.com";
+      }
+      parsed.protocol = "https:";
+      parsed.port = "";
+      return parsed.origin;
+    } catch {
+      return PRODUCTION_SITE_URL;
+    }
+  }
+
+  return resolved;
 }
 
 /** Root-relative URL with trailing slash (matches PHP canonical URLs). */

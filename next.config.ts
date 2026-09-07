@@ -18,6 +18,14 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   async redirects() {
     return [
+      // Collapse www → apex so Google does not treat both hosts as duplicates.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.thewikipediastudio.com" }],
+        destination: "https://thewikipediastudio.com/:path*",
+        permanent: true,
+      },
+      // Old pricing URL (keep both slash variants; trailingSlash may hop once).
       {
         source: "/pricing",
         destination: "/wikipedia-page-cost/",
@@ -59,6 +67,23 @@ const nextConfig: NextConfig = {
       {
         source: "/api/:path*",
         headers: [{ key: "X-Content-Type-Options", value: "nosniff" }],
+      },
+      // Reinforce intentional noindex (meta + header) so GSC exclusion is deliberate.
+      {
+        source: "/thank-you",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, follow" }],
+      },
+      {
+        source: "/thank-you/",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, follow" }],
+      },
+      {
+        source: "/blog/page/:page*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, follow" }],
+      },
+      {
+        source: "/admin/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
     ];
   },
