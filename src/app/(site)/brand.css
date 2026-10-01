@@ -1,0 +1,261 @@
+/* ==========================================================================
+   brand.css — global type system, section tones and utilities
+   Loaded after site.css (see globals.css) so it is the final word on type.
+
+   1. Tokens
+   2. Base typography (p, ul li, h1, h2, eyebrow, links)
+   3. Section tones (.tone-dark / .tone-light)
+   4. Utilities (.u-heading, .u-eyebrow, .u-text, .u-list, .u-card)
+   5. FAQ accordion
+
+   Scope note: `body:not(#_)` matches every page but carries ID weight, so
+   these rules beat the legacy per-section class chains in site.css without
+   !important. Admin (.admin-body) and the site header keep their own styles.
+   ========================================================================== */
+
+/* 1. Tokens --------------------------------------------------------------- */
+
+:root {
+  --type-p: 1.0625rem;                                    /* 17px */
+  --type-h1: clamp(2.25rem, 1.2rem + 3.6vw, 3.75rem);     /* 36 → 60px */
+  --type-h2: clamp(1.75rem, 1.25rem + 1.6vw, 2.25rem);    /* 28 → 36px */
+  --type-eyebrow: 0.6875rem;                              /* 11px */
+  --lh-text: 1.65;
+
+  --eyebrow: #efc871;
+  --eyebrow-on-light: #9c6f1f;  /* #efc871 is ~1.6:1 on white — unreadable */
+  --heading-sans: var(--font-segoe), "Segoe UI", system-ui, -apple-system,
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --tone-dark-bg: #020c16;
+  --tone-light-bg: #ffffff;
+  --tone-light-ink: #0b1b2a;
+  --tone-light-text: #45525f;
+  --tone-light-line: rgba(11, 27, 42, 0.1);
+
+  --card-radius: 12px;
+  --card-pad: clamp(20px, 2vw, 28px);
+}
+
+/* 2. Base typography ------------------------------------------------------ */
+
+body:not(#_) p:not(.micro-label, .admin-body *),
+body:not(#_) li:not(.admin-body *, .breadcrumb *),
+body:not(#_) li p:not(.admin-body *) {
+  font-size: var(--type-p);
+  line-height: var(--lh-text);
+}
+
+body:not(#_) :is(.micro-label, .service-kicker, .portfolio-label) {
+  color: var(--eyebrow);
+  font-size: var(--type-eyebrow);
+}
+
+/* Main hero heading — home .hero and inner .page-hero */
+body:not(#_) h1:not(.admin-body *) {
+  font-size: var(--type-h1);
+  line-height: 1.06;
+}
+
+/* Section heading */
+body:not(#_) h2:not(.admin-body *) {
+  font-family: var(--heading-sans);
+  font-size: var(--type-h2);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Links: no underline at rest, underline on hover / keyboard focus */
+body:not(#_) a:not(.site-header a, .admin-body a) {
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+body:not(#_) a:not(.site-header a, .admin-body a, .button, .brand):is(:hover, :focus-visible) {
+  text-decoration: underline;
+}
+
+/* 3. Section tones -------------------------------------------------------- */
+
+body:not(#_) .tone-dark {
+  background-color: var(--tone-dark-bg);
+}
+/* Body copy on dark sections is pure white */
+body:not(#_) .tone-dark p:not(.micro-label),
+body:not(#_) .tone-dark li { color: #ffffff; }
+body:not(#_) .tone-dark :is(p, li) a:not(.button) { color: var(--eyebrow); }
+
+/* Light sections remap the palette tokens most components already read. */
+body:not(#_) .tone-light {
+  --paper: var(--tone-light-ink);
+  --muted: var(--tone-light-text);
+  --soft-line: var(--tone-light-line);
+  --line: rgba(156, 111, 31, 0.3);
+  --editorial-line: rgba(156, 111, 31, 0.22);
+  position: relative;
+  background: var(--tone-light-bg);
+  color: var(--tone-light-text);
+}
+body:not(#_) .tone-light :is(h1, h2, h3, h4) { color: var(--tone-light-ink); }
+body:not(#_) .tone-light :is(h1, h2) span { color: var(--gold-deep); }
+body:not(#_) .tone-light p:not(.micro-label),
+body:not(#_) .tone-light li { color: var(--tone-light-text); }
+body:not(#_) .tone-light :is(.micro-label, .service-kicker, .portfolio-label) { color: var(--eyebrow-on-light); }
+body:not(#_) .tone-light .text-link { color: var(--gold-deep); }
+body:not(#_) .tone-light .button-outline {
+  border-color: rgba(11, 27, 42, 0.22);
+  background: #ffffff;
+  color: var(--tone-light-ink);
+}
+body:not(#_) .tone-light .button-outline:hover {
+  border-color: var(--gold-deep);
+  color: var(--gold-deep);
+}
+body:not(#_) .tone-light svg { color: var(--gold-deep); }
+
+/* 4. Utilities ------------------------------------------------------------ */
+
+body:not(#_) .u-eyebrow {
+  margin: 0 0 10px;
+  color: var(--eyebrow);
+  font-family: var(--sans);
+  font-size: var(--type-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+body:not(#_) .u-heading {
+  margin: 0 0 16px;
+  color: var(--paper);
+  font-family: var(--heading-sans);
+  font-size: var(--type-h2);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+body:not(#_) .u-text {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: var(--type-p);
+  line-height: var(--lh-text);
+}
+
+body:not(#_) .u-list {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+body:not(#_) .u-list > li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--muted);
+  font-size: var(--type-p);
+  line-height: var(--lh-text);
+}
+body:not(#_) .u-list > li::before {
+  content: "";
+  position: absolute;
+  top: 0.68em;
+  left: 2px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* Card — dark by default, flips to a white card inside .tone-light */
+body:not(#_) .u-card {
+  padding: var(--card-pad);
+  border: 1px solid rgba(216, 165, 58, 0.22);
+  border-radius: var(--card-radius);
+  background: linear-gradient(160deg, rgba(10, 30, 46, 0.92), rgba(4, 16, 27, 0.92));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+body:not(#_) .u-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(240, 198, 104, 0.6);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.3);
+}
+body:not(#_) .tone-light .u-card {
+  border-color: var(--tone-light-line);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(11, 27, 42, 0.07);
+}
+body:not(#_) .tone-light .u-card:hover {
+  border-color: rgba(156, 111, 31, 0.45);
+  box-shadow: 0 18px 40px rgba(11, 27, 42, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:not(#_) .u-card,
+  body:not(#_) .u-card:hover { transition: none; transform: none; }
+}
+
+/* 5. FAQ accordion (every FAQ list) ---------------------------------------- */
+
+body:not(#_) .faq-heading {
+  margin: 0;
+  font: inherit;
+  letter-spacing: normal;
+}
+/* Collapse with grid rows so height animates without measuring in JS */
+body:not(#_) .faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.22, 0.8, 0.25, 1);
+}
+body:not(#_) .faq-item.is-open > .faq-panel { grid-template-rows: 1fr; }
+body:not(#_) .faq-panel-inner { min-height: 0; overflow: hidden; }
+body:not(#_) .faq-panel .faq-answer {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.35s ease;
+}
+body:not(#_) .faq-item.is-open .faq-answer {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.08s;
+}
+/* Toggle: + in a ring → − when open. Legacy site.css rotates the span 45deg
+   on [aria-expanded="true"]; neutralise that so the minus stays horizontal. */
+body:not(#_) .faq-question .faq-toggle,
+body:not(#_) .faq-question[aria-expanded="true"] .faq-toggle {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.85;
+  transform: none;
+  transition: transform 0.35s ease, background 0.25s, color 0.25s, opacity 0.25s;
+}
+body:not(#_) .faq-question .faq-toggle::before,
+body:not(#_) .faq-question .faq-toggle::after { width: 12px; height: 1.5px; }
+body:not(#_) .faq-question .faq-toggle::after { transition: opacity 0.3s, transform 0.3s; }
+body:not(#_) .faq-item.is-open .faq-question .faq-toggle {
+  opacity: 1;
+  transform: rotate(180deg);
+}
+body:not(#_) .faq-item.is-open .faq-question .faq-toggle::after {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg) scaleX(0);
+}
+/* Keyboard focus only — no box on mouse click */
+body:not(#_) .faq-question:focus { outline: none; }
+body:not(#_) .faq-question:focus-visible {
+  outline: 2px solid var(--eyebrow);
+  outline-offset: -2px;
+  border-radius: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:not(#_) .faq-panel,
+  body:not(#_) .faq-panel .faq-answer { transition: none; }
+}

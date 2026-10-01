@@ -1,8 +1,13 @@
 @import "./site.css";
+@import "./brand.css";
+@import "./layout.css";
+@import "./home.css";
 
 :root {
-  --sans: var(--font-manrope), "Manrope", Arial, sans-serif;
-  --serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  /* One professional family site-wide: Segoe UI (self-hosted, see app/layout.tsx).
+     --serif is kept as a token name for legacy rules but now resolves to the same sans. */
+  --sans: var(--font-segoe), "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: var(--sans);
   --fs-h1: clamp(2rem, 3.6vw, 3rem);
   --fs-h2: clamp(1.625rem, 2.4vw, 2.25rem);
   --fs-h3: 1.375rem;

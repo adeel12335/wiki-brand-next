@@ -16,25 +16,28 @@ export function CtaBand({
   href?: string;
 }) {
   return (
-    <section className="contact" id="contact">
-      <div className="shell contact-panel reveal">
-        <Image
-          className="contact-art"
-          src="/assets/cta-wikipedia-globe.png"
-          alt=""
-          aria-hidden="true"
-          width={1024}
-          height={341}
-          sizes="(max-width: 900px) 92vw, 720px"
-        />
-        <div className="contact-copy">
+    <section className="cta-band" id="contact">
+      <div className="shell cta-band-inner reveal">
+        <div className="cta-band-copy">
           <span className="micro-label">Start with clarity</span>
           <HtmlHeading html={heading} as="h2" />
           <p>{copy}</p>
+          <Link className="button button-gold magnetic" href={href ?? url("contact")}>
+            {label} <Icon name="i-arrow" />
+          </Link>
         </div>
-        <Link className="button button-gold magnetic" href={href ?? url("contact")}>
-          {label} <Icon name="i-arrow" />
-        </Link>
+        <div className="cta-band-visual" aria-hidden="true">
+          <span className="cta-band-ring cta-band-ring--outer" />
+          <span className="cta-band-ring cta-band-ring--inner" />
+          <Image
+            className="cta-band-globe"
+            src="/assets/globe.png"
+            alt=""
+            width={730}
+            height={606}
+            sizes="(max-width: 900px) 220px, 340px"
+          />
+        </div>
       </div>
     </section>
   );

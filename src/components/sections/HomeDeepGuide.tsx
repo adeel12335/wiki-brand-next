@@ -9,7 +9,7 @@ import { url } from "@/lib/config";
 export function HomeDeepGuide() {
   return (
     <section
-      className="section-pad home-deep-guide"
+      className="section-pad home-deep-guide tone-dark"
       aria-labelledby="home-deep-title"
     >
       <div className="shell">
@@ -43,66 +43,95 @@ export function HomeDeepGuide() {
           </p>
         </div>
 
-        <div className="home-deep-grid reveal">
-          <article>
-            <h3>1. Notability assessment before any draft</h3>
-            <p>
-              Most failed pages fail before a sentence is written. If there is no
-              significant coverage in independent newspapers, books, journals, or serious
-              trade press, no amount of skilled writing will carry a draft through review.
-              That is why every engagement starts with a{" "}
-              <Link href={url("services/wikipedia-notability-assessment")}>
-                notability assessment
-              </Link>
-              : a written proceed / wait / decline verdict tied to the sources we found,
-              not to a sales quota.
-            </p>
-          </article>
-          <article>
-            <h3>2. Research, citation mapping, and neutral drafting</h3>
-            <p>
-              When the sources exist, we map each claim to a citation, write in encyclopedic
-              voice, and run a second-editor check so promotional adjectives and unsupported
-              milestones never ship. This is the core of{" "}
-              <Link href={url("services/wikipedia-page-creation")}>
-                Wikipedia page creation
-              </Link>{" "}
-              and{" "}
-              <Link href={url("services/wikipedia-content-writing")}>
-                content writing
-              </Link>
-              . The article reflects what independent outlets published — including
-              criticism — not what a marketing brief prefers.
-            </p>
-          </article>
-          <article>
-            <h3>3. Disclosed submission and review support</h3>
-            <p>
-              Paid editing is allowed when it is disclosed under Wikimedia&apos;s Terms of
-              Use. We declare the client relationship rather than editing covertly. Volunteer
-              reviewers still decide outcomes; nobody can sell a guaranteed approval. After
-              filing we respond to feedback on the merits and revise where the guidelines
-              and sources allow.
-            </p>
-          </article>
-          <article>
-            <h3>4. Editing, monitoring, and entity consistency</h3>
-            <p>
-              Existing articles need different care: tag cleanup, dead-link repair, and
-              talk-page process via{" "}
-              <Link href={url("services/wikipedia-page-editing")}>page editing</Link>. Live
-              pages need{" "}
-              <Link href={url("services/wikipedia-page-monitoring")}>monitoring</Link> so
-              vandalism and unsourced edits do not settle. Where search and AI systems
-              assemble an entity record, we also work on Wikidata consistency and{" "}
-              <Link href={url("services/google-knowledge-panel-creation")}>
-                knowledge-panel signals
-              </Link>{" "}
-              — without fake “guaranteed panel” claims.
-            </p>
-          </article>
-        </div>
+        <ol className="process-timeline reveal">
+          <li className="timeline-item">
+            <span className="timeline-marker" aria-hidden="true" />
+            <div className="timeline-side" aria-hidden="true">
+              <span className="timeline-num">01</span>
+            </div>
+            <div className="timeline-content">
+              <p className="timeline-step">Step 01</p>
+              <h3>Notability assessment before any draft</h3>
+                <p>
+                  Most failed pages fail before a sentence is written. If there is no
+                  significant coverage in independent newspapers, books, journals, or serious
+                  trade press, no amount of skilled writing will carry a draft through review.
+                  That is why every engagement starts with a{" "}
+                  <Link href={url("services/wikipedia-notability-assessment")}>
+                    notability assessment
+                  </Link>
+                  : a written proceed / wait / decline verdict tied to the sources we found,
+                  not to a sales quota.
+                </p>
+            </div>
+          </li>
+          <li className="timeline-item">
+            <span className="timeline-marker" aria-hidden="true" />
+            <div className="timeline-side" aria-hidden="true">
+              <span className="timeline-num">02</span>
+            </div>
+            <div className="timeline-content">
+              <p className="timeline-step">Step 02</p>
+              <h3>Research, citation mapping, and neutral drafting</h3>
+                <p>
+                  When the sources exist, we map each claim to a citation, write in encyclopedic
+                  voice, and run a second-editor check so promotional adjectives and unsupported
+                  milestones never ship. This is the core of{" "}
+                  <Link href={url("services/wikipedia-page-creation")}>
+                    Wikipedia page creation
+                  </Link>{" "}
+                  and{" "}
+                  <Link href={url("services/wikipedia-content-writing")}>
+                    content writing
+                  </Link>
+                  . The article reflects what independent outlets published — including
+                  criticism — not what a marketing brief prefers.
+                </p>
+            </div>
+          </li>
+          <li className="timeline-item">
+            <span className="timeline-marker" aria-hidden="true" />
+            <div className="timeline-side" aria-hidden="true">
+              <span className="timeline-num">03</span>
+            </div>
+            <div className="timeline-content">
+              <p className="timeline-step">Step 03</p>
+              <h3>Disclosed submission and review support</h3>
+                <p>
+                  Paid editing is allowed when it is disclosed under Wikimedia&apos;s Terms of
+                  Use. We declare the client relationship rather than editing covertly. Volunteer
+                  reviewers still decide outcomes; nobody can sell a guaranteed approval. After
+                  filing we respond to feedback on the merits and revise where the guidelines
+                  and sources allow.
+                </p>
+            </div>
+          </li>
+          <li className="timeline-item">
+            <span className="timeline-marker" aria-hidden="true" />
+            <div className="timeline-side" aria-hidden="true">
+              <span className="timeline-num">04</span>
+            </div>
+            <div className="timeline-content">
+              <p className="timeline-step">Step 04</p>
+              <h3>Editing, monitoring, and entity consistency</h3>
+                <p>
+                  Existing articles need different care: tag cleanup, dead-link repair, and
+                  talk-page process via{" "}
+                  <Link href={url("services/wikipedia-page-editing")}>page editing</Link>. Live
+                  pages need{" "}
+                  <Link href={url("services/wikipedia-page-monitoring")}>monitoring</Link> so
+                  vandalism and unsourced edits do not settle. Where search and AI systems
+                  assemble an entity record, we also work on Wikidata consistency and{" "}
+                  <Link href={url("services/google-knowledge-panel-creation")}>
+                    knowledge-panel signals
+                  </Link>{" "}
+                  — without fake “guaranteed panel” claims.
+                </p>
+            </div>
+          </li>
+        </ol>
 
+        <div className="home-deep-cards">
         <div className="home-deep-panel reveal">
           <h3>Who this service is for — and who should wait</h3>
           <p>
@@ -162,6 +191,7 @@ export function HomeDeepGuide() {
               Published pricing and a clear process from research to monitoring
             </li>
           </ul>
+        </div>
         </div>
       </div>
     </section>

@@ -339,22 +339,7 @@
   }
   renderTestimonial();
 
-  // FAQ keeps one answer open at a time.
-  const faqItems = $$('.faq-item');
-  faqItems.forEach(item => {
-    const question = $('.faq-question', item);
-    const answer = $('.faq-answer', item);
-    question?.addEventListener('click', () => {
-      const willOpen = question.getAttribute('aria-expanded') !== 'true';
-      faqItems.forEach(other => {
-        $('.faq-question', other)?.setAttribute('aria-expanded', 'false');
-        const otherAnswer = $('.faq-answer', other);
-        if (otherAnswer) otherAnswer.hidden = true;
-      });
-      question.setAttribute('aria-expanded', String(willOpen));
-      if (answer) answer.hidden = !willOpen;
-    });
-  });
+  // FAQ accordion is handled in React (components/ui/FaqList.tsx).
 
   // Experience panel play is handled in React (ExperiencePanel.tsx).
 

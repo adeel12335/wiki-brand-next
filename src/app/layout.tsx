@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import {
   SITE_NAME,
   SITE_TAGLINE,
@@ -8,16 +8,15 @@ import {
 } from "@/lib/config";
 import "./(site)/globals.css";
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-  display: "swap",
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-cormorant",
+const segoeUi = localFont({
+  src: [
+    { path: "./fonts/segoe-ui/SegoeUI-Light.woff2", weight: "300", style: "normal" },
+    { path: "./fonts/segoe-ui/SegoeUI.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/segoe-ui/SegoeUI-Italic.woff2", weight: "400", style: "italic" },
+    { path: "./fonts/segoe-ui/SegoeUI-Bold.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/segoe-ui/SegoeUI-BoldItalic.woff2", weight: "700", style: "italic" },
+  ],
+  variable: "--font-segoe",
   display: "swap",
 });
 
@@ -62,7 +61,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={`${manrope.variable} ${cormorant.variable}`}
+      className={segoeUi.variable}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

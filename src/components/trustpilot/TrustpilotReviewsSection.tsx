@@ -10,28 +10,61 @@ import {
 } from "@/lib/trustpilot";
 
 /** Homepage Trustpilot block — free profile card, or paid TrustBox when configured. */
-export function TrustpilotReviewsSection() {
+export function TrustpilotReviewsSection({
+  className,
+}: {
+  className?: string;
+} = {}) {
   const reviewUrl = getTrustpilotReviewUrl();
   const evaluateUrl = getTrustpilotEvaluateUrl();
   const hasTrustBox = isTrustpilotConfigured();
 
   return (
     <section
-      className="section-pad trustpilot-section"
+      className={["section-pad trustpilot-section", className].filter(Boolean).join(" ")}
       aria-labelledby="trustpilot-title"
     >
-      <div className="shell">
-        <div className="trustpilot-heading reveal">
+      <div className="shell tp-layout">
+        <div className="tp-intro reveal">
           <p className="micro-label">Trustpilot</p>
           <h2 id="trustpilot-title">Independent reviews on Trustpilot</h2>
           <p>
             We invite finished clients to leave an honest review on Trustpilot —
             not a private testimonial form we control.
           </p>
+          <ul className="tp-points">
+            <li>
+              <span className="tp-point-icon" aria-hidden="true">
+                <Icon name="i-shield" />
+              </span>
+              <span>
+                <strong>Published by Trustpilot</strong>
+                Reviews live on Trustpilot&apos;s platform, not on a page we edit.
+              </span>
+            </li>
+            <li>
+              <span className="tp-point-icon" aria-hidden="true">
+                <Icon name="i-users" />
+              </span>
+              <span>
+                <strong>Every finished client is invited</strong>
+                Not a hand-picked shortlist of the happiest projects.
+              </span>
+            </li>
+            <li>
+              <span className="tp-point-icon" aria-hidden="true">
+                <Icon name="i-search" />
+              </span>
+              <span>
+                <strong>Read them before you commit</strong>
+                Check what past clients wrote before you request an assessment.
+              </span>
+            </li>
+          </ul>
         </div>
 
         {hasTrustBox ? (
-          <div className="trustpilot-frame reveal">
+          <div className="tp-card tp-card--widget reveal">
             <TrustBox
               businessUnitId={getTrustpilotBusinessUnitId()}
               templateId={getTrustpilotCarouselTemplateId()}
@@ -41,16 +74,24 @@ export function TrustpilotReviewsSection() {
             />
           </div>
         ) : (
-          <div className="trustpilot-free-card reveal">
-            <div className="trustpilot-free-copy">
-              <p className="trustpilot-free-brand">Trustpilot</p>
-              <strong>See what clients publish about The Wikipedia Studio</strong>
-              <p>
-                Open our public Trustpilot profile for the live TrustScore and
-                written reviews. After an engagement, you can leave your own.
-              </p>
-            </div>
-            <div className="trustpilot-free-actions">
+          <div className="tp-card reveal">
+            <p className="tp-card-label">How reviews work</p>
+            <h3>See what clients publish about The Wikipedia Studio</h3>
+            <ol className="tp-steps">
+              <li>
+                <b>1</b>
+                <span>Open our public Trustpilot profile for the live TrustScore.</span>
+              </li>
+              <li>
+                <b>2</b>
+                <span>Read written reviews from completed engagements.</span>
+              </li>
+              <li>
+                <b>3</b>
+                <span>Worked with us? Leave your own review.</span>
+              </li>
+            </ol>
+            <div className="tp-actions">
               <a
                 className="button button-gold"
                 href={reviewUrl}

@@ -58,7 +58,7 @@ export default async function HomePage() {
     <>
       <JsonLd page={pageMeta} />
 
-      <section className="hero" aria-labelledby="hero-title">
+      <section className="hero tone-dark" aria-labelledby="hero-title">
         <div className="hero-art" aria-hidden="true">
           <Image
             className="hero-art-image"
@@ -141,7 +141,7 @@ export default async function HomePage() {
         <MetricsRail items={metrics} />
       </section>
 
-      <section className="about section-pad" id="about">
+      <section className="about section-pad tone-light" id="about">
         <div className="shell about-grid">
           <div className="section-copy reveal">
             <p className="micro-label">About The Wikipedia Studio</p>
@@ -183,7 +183,7 @@ export default async function HomePage() {
 
       <HomeDeepGuide />
 
-      <section className="services section-pad" id="services">
+      <section className="services section-pad tone-light" id="services">
         <div className="shell">
           <ServiceIndex showHeading />
           <div className="section-actions reveal">
@@ -194,13 +194,13 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="process section-pad" id="process">
+      <section className="process section-pad tone-dark" id="process">
         <div className="shell">
           <ProcessShowcase />
         </div>
       </section>
 
-      <section className="work section-pad" id="work">
+      <section className="work section-pad tone-light" id="work">
         <div className="shell">
           <div className="work-head reveal">
             <div>
@@ -217,9 +217,9 @@ export default async function HomePage() {
 
       <TestimonialSection />
 
-      <TrustpilotReviewsSection />
+      <TrustpilotReviewsSection className="tone-light" />
 
-      <section className="section-pad blog-home-section">
+      <section className="section-pad blog-home-section tone-dark">
         <div className="shell">
           <div className="portfolio-heading reveal">
             <div>
@@ -238,47 +238,17 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="resources section-pad" id="resources">
-        <div className="shell trust-faq reveal">
-          <div className="trust-column">
-            <p className="micro-label">Why Clients Trust Us</p>
-            <h2>Built on Trust. Driven by Excellence.</h2>
-            <p>
-              We follow strict editorial standards and maintain complete transparency
-              in everything we do.
-            </p>
-            <div className="trust-list">
-              <article className="trust-item">
-                <Icon name="i-users" />
-                <div>
-                  <strong>100% Confidential</strong>
-                  <span>Your information is always secure with us.</span>
-                </div>
-              </article>
-              <article className="trust-item">
-                <Icon name="i-shield" />
-                <div>
-                  <strong>Ethical &amp; Compliant</strong>
-                  <span>We follow the encyclopedia&apos;s policies and guidelines.</span>
-                </div>
-              </article>
-              <article className="trust-item">
-                <Icon name="i-check" />
-                <div>
-                  <strong>Transparent Process</strong>
-                  <span>Clear communication at every step.</span>
-                </div>
-              </article>
-            </div>
+      <section className="resources section-pad tone-light" id="resources">
+        <div className="shell home-faq reveal">
+          <div className="home-faq-head">
+            <p className="micro-label">Frequently Asked Questions</p>
+            <h2>Straight answers, before you commit.</h2>
+          </div>
+          <FaqList items={homeFaqs} />
+          <div className="home-faq-actions">
             <Link className="button button-gold button-small" href={url("faq")}>
               Read The Full FAQ <Icon name="i-arrow" />
             </Link>
-          </div>
-
-          <div className="faq-column">
-            <p className="micro-label">Frequently Asked Questions</p>
-            <h3>Straight answers, before you commit.</h3>
-            <FaqList items={homeFaqs} />
           </div>
         </div>
       </section>

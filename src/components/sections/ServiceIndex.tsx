@@ -16,7 +16,7 @@ export function ServiceIndex({
   return (
     <div className="service-index">
       {showHeading ? (
-        <div className="service-index-heading reveal">
+        <div className="svc-heading reveal">
           <div>
             <p className="micro-label">Our Services</p>
             <h2>Comprehensive Wikipedia Solutions</h2>
@@ -29,57 +29,52 @@ export function ServiceIndex({
         </div>
       ) : null}
 
-      <div className="service-index-layout reveal">
+      <div className="svc-grid reveal">
         <Link
-          className="service-feature"
+          className="svc-card svc-card--featured"
           href={url(`services/${featuredSlug}`)}
-          aria-label={`Explore ${featuredService.name}`}
         >
           <Image
-            className="service-feature-art"
+            className="svc-card-art"
             src="/assets/services-hero-knowledge-archive.webp"
-            alt="Editorial knowledge archive illustrating Wikipedia page creation research"
+            alt=""
             fill
-            loading="eager"
-            sizes="(max-width: 900px) 100vw, 48vw"
+            sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
           />
-          <span className="service-feature-shade" aria-hidden="true" />
-          <span className="service-number">01</span>
-          <div className="service-feature-copy">
-            <span className="service-kicker">Featured service</span>
-            <span className="service-feature-icon" aria-hidden="true">
-              <Icon name={featuredService.icon} />
+          <span className="svc-card-shade" aria-hidden="true" />
+          <div className="svc-card-body">
+            <span className="svc-card-top">
+              <span className="svc-card-icon" aria-hidden="true">
+                <Icon name={featuredService.icon} />
+              </span>
+              <span className="svc-card-num">01</span>
             </span>
-            <h3>{featuredService.name}</h3>
-            <p>{featuredService.card}</p>
-            <span className="text-link">
+            <span className="svc-card-kicker">Featured service</span>
+            <h3 className="svc-card-title">{featuredService.name}</h3>
+            <p className="svc-card-text">{featuredService.card}</p>
+            <span className="svc-card-link">
               Explore this service <Icon name="i-arrow" />
             </span>
           </div>
         </Link>
 
-        <div className="service-list" role="list">
-          {remaining.map(([slug, service], index) => (
-            <Link
-              className="service-row"
-              href={url(`services/${slug}`)}
-              key={slug}
-              role="listitem"
-            >
-              <span className="service-number">
-                {String(index + 2).padStart(2, "0")}
-              </span>
-              <span className="service-row-icon" aria-hidden="true">
+        {remaining.map(([slug, service], index) => (
+          <Link className="svc-card" href={url(`services/${slug}`)} key={slug}>
+            <span className="svc-card-top">
+              <span className="svc-card-icon" aria-hidden="true">
                 <Icon name={service.icon} />
               </span>
-              <span className="service-row-copy">
-                <strong>{service.name}</strong>
-                <small>{service.card}</small>
+              <span className="svc-card-num">
+                {String(index + 2).padStart(2, "0")}
               </span>
-              <Icon name="i-arrow" />
-            </Link>
-          ))}
-        </div>
+            </span>
+            <h3 className="svc-card-title">{service.name}</h3>
+            <p className="svc-card-text">{service.card}</p>
+            <span className="svc-card-link">
+              Learn more <Icon name="i-arrow" />
+            </span>
+          </Link>
+        ))}
       </div>
     </div>
   );

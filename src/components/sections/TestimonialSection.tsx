@@ -1,13 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { testimonials } from "@/lib/data";
 
+const AUTOPLAY_MS = 6000;
+
 export function TestimonialSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
   const active = testimonials[activeIndex];
+
+  useEffect(() => {
+    if (paused || testimonials.length < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      if (document.hidden) return;
+      setActiveIndex((current) => (current + 1) % testimonials.length);
+    }, AUTOPLAY_MS);
+    return () => window.clearInterval(id);
+  }, [paused, activeIndex]);
 
   const select = (index: number) => {
     const length = testimonials.length;
@@ -15,48 +27,60 @@ export function TestimonialSection() {
   };
 
   return (
-    <section className="testimonials section-pad" aria-labelledby="testimonial-title">
+    <section
+      className="testimonials section-pad tone-dark"
+      aria-labelledby="testimonial-title"
+    >
       <div className="shell">
         <div className="testimonial-heading reveal">
           <p className="micro-label">Client Testimonials</p>
           <h2 id="testimonial-title">What Our Clients Say</h2>
         </div>
-        <div className="testimonial-stage reveal">
-          <Image
-            className="testimonial-orb"
-            src="/assets/globe-small.png"
-            alt=""
+
+        <figure
+          className="testimonial-card reveal"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+        >
+          <svg
+            className="testimonial-mark"
+            viewBox="0 0 48 36"
             aria-hidden="true"
-            width={520}
-            height={430}
-            sizes="(max-width: 900px) 70vw, 520px"
-          />
-          <button
-            className="round-arrow previous"
-            type="button"
-            aria-label="Previous testimonial"
-            onClick={() => select(activeIndex - 1)}
+            focusable="false"
           >
-            <Icon name="i-arrow" />
-          </button>
-          <div className="testimonial-window" aria-live="polite">
-            <blockquote>&ldquo;{active.quote}&rdquo;</blockquote>
-            <div className="testimonial-author">
-              <strong>{active.name}</strong>
-              <span>{active.role}</span>
-            </div>
+            <path d="M0 36V21.6C0 9.9 6.2 2.7 18.6 0l2.2 4.6C14.4 6.6 11 10.4 10.5 16H19v20H0Zm29 0V21.6C29 9.9 35.2 2.7 47.6 0l2.2 4.6C43.4 6.6 40 10.4 39.5 16H48v20H29Z" />
+          </svg>
+
+          <div className="testimonial-slide" key={activeIndex} aria-live={paused ? "polite" : "off"}>
+            <blockquote className="testimonial-quote">
+              <p>{active.quote}</p>
+            </blockquote>
+            <p className="testimonial-person">
+              <span className="testimonial-avatar" aria-hidden="true">
+                {active.name.charAt(0)}
+              </span>
+              <span>
+                <strong>{active.name}</strong>
+                <span>{active.role}</span>
+              </span>
+            </p>
           </div>
-          <button
-            className="round-arrow next"
-            type="button"
-            aria-label="Next testimonial"
-            onClick={() => select(activeIndex + 1)}
-          >
-            <Icon name="i-arrow" />
-          </button>
-          <div className="testimonial-progress">
-            <span aria-hidden="true">{String(activeIndex + 1).padStart(2, "0")}</span>
-            <div aria-label={`Testimonial ${activeIndex + 1} of ${testimonials.length}`}>
+
+          <div className="testimonial-controls">
+            <button
+              className="testimonial-nav testimonial-nav--prev"
+              type="button"
+              aria-label="Previous testimonial"
+              onClick={() => select(activeIndex - 1)}
+            >
+              <Icon name="i-arrow" />
+            </button>
+            <div
+              className="testimonial-pager"
+              aria-label={`Testimonial ${activeIndex + 1} of ${testimonials.length}`}
+            >
               {testimonials.map((item, index) => (
                 <button
                   type="button"
@@ -67,9 +91,16 @@ export function TestimonialSection() {
                 />
               ))}
             </div>
-            <span aria-hidden="true">{String(testimonials.length).padStart(2, "0")}</span>
+            <button
+              className="testimonial-nav"
+              type="button"
+              aria-label="Next testimonial"
+              onClick={() => select(activeIndex + 1)}
+            >
+              <Icon name="i-arrow" />
+            </button>
           </div>
-        </div>
+        </figure>
       </div>
     </section>
   );
