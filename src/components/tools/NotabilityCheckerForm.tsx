@@ -95,6 +95,15 @@ export function NotabilityCheckerForm() {
 
   return (
     <div className="notability-checker reveal">
+      <header className="nc-card-head">
+        <span className="nc-card-icon" aria-hidden="true">
+          <Icon name="i-search" />
+        </span>
+        <div>
+          <p className="nc-card-kicker">Preliminary screen</p>
+          <p className="nc-card-title">Six questions, about a minute</p>
+        </div>
+      </header>
       <form
         className="notability-checker-form"
         onSubmit={(event) => {
@@ -102,8 +111,8 @@ export function NotabilityCheckerForm() {
           setSubmitted(true);
         }}
       >
-        <label>
-          Subject type
+        <label className="nc-question">
+          <span className="nc-q-label"><b>01</b> Subject type</span>
           <select
             value={state.subjectType}
             onChange={(event) =>
@@ -119,8 +128,8 @@ export function NotabilityCheckerForm() {
           </select>
         </label>
 
-        <label>
-          How many independent outlets have covered the subject in depth?
+        <label className="nc-question">
+          <span className="nc-q-label"><b>02</b> How many independent outlets have covered the subject in depth?</span>
           <select
             value={state.independentOutlets}
             onChange={(event) =>
@@ -137,8 +146,8 @@ export function NotabilityCheckerForm() {
           </select>
         </label>
 
-        <label>
-          Depth of the best independent coverage
+        <label className="nc-question">
+          <span className="nc-q-label"><b>03</b> Depth of the best independent coverage</span>
           <select
             value={state.coverageDepth}
             onChange={(event) =>
@@ -155,6 +164,8 @@ export function NotabilityCheckerForm() {
           </select>
         </label>
 
+        <p className="nc-checks-label">Also true? Tick any that apply.</p>
+
         <label className="notability-check">
           <input
             type="checkbox"
@@ -166,7 +177,7 @@ export function NotabilityCheckerForm() {
               }))
             }
           />
-          Coverage may include paywalled archives, books, or journals
+          <span className="nc-check-text">Coverage may include paywalled archives, books, or journals</span>
         </label>
 
         <label className="notability-check">
@@ -180,7 +191,7 @@ export function NotabilityCheckerForm() {
               }))
             }
           />
-          A draft or page was previously declined / deleted
+          <span className="nc-check-text">A draft or page was previously declined / deleted</span>
         </label>
 
         <label className="notability-check">
@@ -194,11 +205,11 @@ export function NotabilityCheckerForm() {
               }))
             }
           />
-          Almost all coverage is press releases, sponsored posts, or self-published
+          <span className="nc-check-text">Almost all coverage is press releases, sponsored posts, or self-published</span>
         </label>
 
-        <button className="button button-gold" type="submit">
-          Get preliminary verdict <Icon name="i-arrow" />
+        <button className="button button-gold nc-submit" type="submit">
+          Get Preliminary Verdict <Icon name="i-arrow" />
         </button>
       </form>
 
@@ -207,6 +218,16 @@ export function NotabilityCheckerForm() {
           className={`notability-verdict notability-verdict--${result.verdict}`}
           role="status"
         >
+          <div className="nc-meter" aria-hidden="true">
+            {(["unlikely", "borderline", "promising"] as const).map((step) => (
+              <span
+                key={step}
+                className={`nc-meter-step${step === result.verdict ? " is-active" : ""}`}
+              >
+                {step}
+              </span>
+            ))}
+          </div>
           <h3>{verdictCopy[result.verdict].title}</h3>
           <p>{verdictCopy[result.verdict].body}</p>
           <ul>

@@ -1,0 +1,589 @@
+/* ==========================================================================
+   about.css — About Us page sections, grouped top → bottom
+   Order: hero D → intro W → How We Work D (unchanged) → principles W
+   → includes D → standards W → team D → team band GOLD → audience W
+   → testimonials D → next steps W → CTA D.
+
+   1. Shared card bits (icon badge, numbers)
+   2. Principles .......... white
+   3. Editorial team ...... dark
+   4. Who we work with .... white
+   5. Editorial standards . white + independence note
+   6. Engagement includes . dark
+   7. Team band ........... gold, full width (after the dark team cards)
+   8. Next steps .......... white — two link cards
+   ========================================================================== */
+
+/* 1. Shared (BodyClass puts .page-about-us on <body> itself) --------------- */
+
+body.page-about-us:not(#_) .ab-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(239, 200, 113, 0.16);
+  color: var(--gold-deep);
+  transition: background 0.25s, color 0.25s;
+}
+body.page-about-us:not(#_) .ab-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+body.page-about-us:not(#_) .tone-dark .ab-icon {
+  border: 1px solid rgba(239, 200, 113, 0.3);
+  background: rgba(239, 200, 113, 0.08);
+  color: var(--eyebrow);
+}
+body.page-about-us:not(#_) .section-heading { margin-bottom: clamp(32px, 4vw, 48px); }
+body.page-about-us:not(#_) .section-heading-copy { max-width: 680px; margin-inline: auto; }
+
+/* Hero heading: three balanced lines instead of four oversized ones */
+body.page-about-us:not(#_) .page-hero h1 {
+  max-width: 15ch;
+  font-size: clamp(2.375rem, 4.4vw, 4rem);
+  line-height: 1.06;
+}
+
+/* 1b. About Us intro (white) — story + mission/vision/promise + facts ----- */
+
+body:not(#_) .ab-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(40px, 6vw, 88px);
+}
+body:not(#_) .ab-intro-copy .micro-label { margin: 0 0 12px; }
+body:not(#_) .ab-intro-copy h2 { margin: 0 0 22px; }
+body:not(#_) .ab-intro-copy p:not(.micro-label) {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+body:not(#_) .tone-light .ab-intro-copy p.ab-intro-lead {
+  color: var(--tone-light-ink);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  line-height: 1.65;
+}
+body:not(#_) .ab-intro-copy .text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+body:not(#_) .ab-pillars {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body:not(#_) .ab-pillar {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid var(--tone-light-line);
+  border-radius: var(--card-radius);
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(11, 27, 42, 0.06);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+body:not(#_) .ab-pillar:hover {
+  transform: translateX(6px);
+  border-color: rgba(156, 111, 31, 0.4);
+  box-shadow: 0 18px 38px rgba(11, 27, 42, 0.1);
+}
+body:not(#_) .ab-pillar:hover .ab-icon { background: var(--eyebrow); color: var(--tone-light-ink); }
+body:not(#_) .ab-pillar h3 {
+  margin: 0 0 6px;
+  font-family: var(--heading-sans);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+body:not(#_) .tone-light .ab-pillar p { margin: 0; font-size: 0.9375rem; line-height: 1.65; }
+
+body:not(#_) .ab-intro-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: clamp(48px, 6vw, 72px) 0 0;
+  padding: 0;
+  border: 1px solid var(--tone-light-line);
+  border-radius: var(--card-radius);
+  background: linear-gradient(120deg, #fbf6ea, #ffffff 60%);
+  list-style: none;
+  overflow: hidden;
+}
+body:not(#_) .ab-intro-facts li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 26px 28px;
+  border-left: 1px solid var(--tone-light-line);
+}
+body:not(#_) .ab-intro-facts li:first-child { border-left: 0; }
+body:not(#_) .ab-intro-facts strong {
+  color: var(--gold-deep);
+  font-family: var(--heading-sans);
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+body:not(#_) .tone-light .ab-intro-facts span { color: var(--tone-light-text); font-size: 0.875rem; }
+
+@media (max-width: 960px) {
+  body:not(#_) .ab-intro-grid { grid-template-columns: 1fr; }
+  body:not(#_) .ab-intro-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body:not(#_) .ab-intro-facts li:nth-child(3) { border-left: 0; }
+  body:not(#_) .ab-intro-facts li:nth-child(n + 3) { border-top: 1px solid var(--tone-light-line); }
+}
+@media (max-width: 480px) {
+  body:not(#_) .ab-pillar { padding: 20px 18px; }
+  body:not(#_) .ab-intro-facts li { padding: 20px 18px; }
+}
+
+/* 2. Principles (white) — four numbered cards ----------------------------- */
+
+body:not(#_) .ab-principle-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+body:not(#_) .ab-principle {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px 30px;
+  border: 1px solid var(--tone-light-line);
+  border-radius: var(--card-radius);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(11, 27, 42, 0.06);
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+/* Gold rule that grows along the top edge on hover */
+body:not(#_) .ab-principle::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--eyebrow));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+body:not(#_) .ab-principle:hover {
+  transform: translateY(-6px);
+  border-color: rgba(156, 111, 31, 0.4);
+  box-shadow: 0 22px 44px rgba(11, 27, 42, 0.12);
+}
+body:not(#_) .ab-principle:hover::before { transform: scaleX(1); }
+body:not(#_) .ab-principle:hover .ab-icon { background: var(--eyebrow); color: var(--tone-light-ink); }
+body:not(#_) .ab-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+body:not(#_) .ab-num {
+  color: rgba(156, 111, 31, 0.45);
+  font-family: var(--heading-sans);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+body:not(#_) .ab-principle h3 {
+  margin: 0 0 12px;
+  font-family: var(--heading-sans);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+body:not(#_) .ab-principle p { margin: 0; font-size: 0.9375rem; line-height: 1.7; }
+
+/* 3. Editorial team (dark) — 2×2 role cards ------------------------------- */
+
+body:not(#_) .ab-team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+body:not(#_) .ab-team-card {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border: 1px solid rgba(239, 200, 113, 0.16);
+  border-radius: var(--card-radius);
+  background: linear-gradient(160deg, rgba(14, 40, 60, 0.9), rgba(4, 16, 27, 0.95));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+body:not(#_) .ab-team-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(239, 200, 113, 0.45);
+  box-shadow: 0 26px 54px rgba(0, 0, 0, 0.35);
+}
+body:not(#_) .ab-team-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+body:not(#_) .ab-team-head h3 {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--heading-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+body:not(#_) .ab-team-head .team-role-label {
+  display: block;
+  margin-top: 2px;
+  color: var(--eyebrow);
+  font-size: 0.8125rem;
+}
+body:not(#_) .tone-dark .ab-team-card p.ab-team-focus {
+  margin: 0 0 12px;
+  color: var(--eyebrow);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+body:not(#_) .tone-dark .ab-team-card p.ab-team-bio {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9375rem;
+  line-height: 1.75;
+}
+body:not(#_) .ab-team-card .team-links { display: flex; gap: 16px; margin: 16px 0 0; }
+body:not(#_) .tone-dark .ab-team-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 760px;
+  margin: 28px auto 0;
+  padding: 14px 20px;
+  border: 1px dashed rgba(239, 200, 113, 0.3);
+  border-radius: 99px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9375rem;
+  text-align: center;
+}
+body:not(#_) .ab-team-note svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: var(--eyebrow);
+  stroke-width: 1.6;
+}
+
+/* 4. Who we work with (white) — photo cards ------------------------------- */
+
+body:not(#_) .ab-audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+body:not(#_) .ab-audience-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--tone-light-line);
+  border-radius: var(--card-radius);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(11, 27, 42, 0.06);
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+body:not(#_) .ab-audience-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(11, 27, 42, 0.14);
+}
+body:not(#_) .ab-audience-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+  background: #0a2135;
+}
+body:not(#_) .ab-audience-media img {
+  border-radius: inherit;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+body:not(#_) .ab-audience-card:hover .ab-audience-media img { transform: scale(1.05); }
+/* Soft navy fade so the icon badge always reads */
+body:not(#_) .ab-audience-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, transparent 45%, rgba(2, 12, 22, 0.55));
+}
+body.page-about-us:not(#_) .ab-audience-icon {
+  position: absolute;
+  bottom: -26px;
+  left: 24px;
+  z-index: 1;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  background: var(--eyebrow);
+  color: var(--tone-light-ink);
+  box-shadow: 0 10px 22px rgba(11, 27, 42, 0.18);
+}
+body:not(#_) .ab-audience-body { padding: 40px 24px 28px; }
+body:not(#_) .ab-audience-body h3 {
+  margin: 0 0 10px;
+  font-family: var(--heading-sans);
+  font-size: 1.3125rem;
+  font-weight: 700;
+}
+body:not(#_) .ab-audience-body p { margin: 0; font-size: 0.9375rem; line-height: 1.7; }
+
+/* 5. Editorial standards (white) — connected checks ----------------------- */
+
+body:not(#_) .ab-standards-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Dashed connector running behind the three index badges */
+body:not(#_) .ab-standards-grid::before {
+  content: "";
+  position: absolute;
+  top: 34px;
+  left: 16%;
+  right: 16%;
+  border-top: 1px dashed rgba(156, 111, 31, 0.4);
+}
+body:not(#_) .ab-standard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 12px;
+  text-align: center;
+}
+body:not(#_) .ab-standard-index {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 22px;
+  border: 1px solid rgba(156, 111, 31, 0.35);
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--gold-deep);
+  font-family: var(--heading-sans);
+  font-size: 1.375rem;
+  font-weight: 700;
+  box-shadow: 0 0 0 8px var(--tone-light-bg);
+}
+body:not(#_) .ab-standard h3 {
+  margin: 0 0 10px;
+  font-family: var(--heading-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+body:not(#_) .ab-standard p { max-width: 340px; margin: 0; font-size: 0.9375rem; line-height: 1.75; }
+body:not(#_) .ab-standards .section-actions { margin-top: 36px; text-align: center; }
+
+body:not(#_) .ab-independence {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 920px;
+  margin: clamp(48px, 6vw, 72px) auto 0;
+  padding: 26px 30px;
+  border: 1px solid var(--tone-light-line);
+  border-left: 4px solid var(--eyebrow);
+  border-radius: var(--card-radius);
+  background: #fbf8f1;
+}
+body:not(#_) .ab-independence .micro-label { margin: 0 0 6px; }
+body:not(#_) .ab-independence h2 {
+  margin: 0 0 8px;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+}
+body:not(#_) .ab-independence p:not(.micro-label) { margin: 0; font-size: 0.9375rem; line-height: 1.7; }
+
+/* 6. What every engagement includes (dark) — 3×2 icon grid -------------- */
+
+body:not(#_) .ab-includes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(40px, 5vw, 56px) clamp(32px, 5vw, 64px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body:not(#_) .ab-include .ab-icon { margin-bottom: 20px; }
+body:not(#_) .ab-include h3 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-family: var(--heading-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+body:not(#_) .tone-dark .ab-include p {
+  max-width: 380px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+/* 7. Team band — full-width gold band closing the team part -------------- */
+
+body:not(#_) .ab-team-band {
+  position: relative;
+  padding: clamp(56px, 7vw, 96px) 0;
+  background: linear-gradient(120deg, #f4d68a 0%, #efc871 45%, #d8a53a 100%);
+  text-align: center;
+  overflow: hidden;
+}
+/* Faint orbit rings echo the globe motif */
+body:not(#_) .ab-team-band::before,
+body:not(#_) .ab-team-band::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px solid rgba(11, 27, 42, 0.08);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+body:not(#_) .ab-team-band::before { width: 760px; height: 760px; }
+body:not(#_) .ab-team-band::after { width: 1160px; height: 1160px; }
+body:not(#_) .ab-team-band-inner { position: relative; z-index: 1; max-width: 900px; }
+body:not(#_) .ab-team-band h2 {
+  margin: 0 0 20px;
+  color: #0b1b2a;
+  font-size: clamp(2rem, 3.6vw, 3rem);
+}
+body:not(#_) .ab-team-band h2 span { color: #ffffff; text-shadow: 0 2px 14px rgba(120, 80, 10, 0.25); }
+body:not(#_) .ab-team-band > .shell > p:not(.ab-panel-label) {
+  max-width: 780px;
+  margin: 0 auto 32px;
+  color: rgba(11, 27, 42, 0.82);
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+/* Shared: small label + dark pill button (team band + next steps) */
+body:not(#_) :is(.ab-team-band, .ab-next) .ab-panel-label {
+  margin: 0 0 12px;
+  color: #0b1b2a;
+  font-family: var(--heading-sans);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+body:not(#_) :is(.ab-team-band, .ab-next) a.ab-pill.ab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 32px;
+  border-radius: 99px;
+  background: #0b1b2a;
+  color: #ffffff;
+  font-family: var(--heading-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+body:not(#_) .ab-next a.ab-pill.ab-pill:hover { background: var(--gold-deep); transform: translateY(-2px); }
+body:not(#_) .ab-team-band a.ab-pill.ab-pill:hover { background: #ffffff; color: #0b1b2a; transform: translateY(-2px); }
+body:not(#_) .ab-pill svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: transform 0.2s;
+}
+body:not(#_) .ab-pill:hover svg { transform: translateX(3px); }
+
+/* 8. Next steps (white) — two tinted link cards -------------------------- */
+
+body:not(#_) .ab-duo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+body:not(#_) .ab-duo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 420px;
+  padding: clamp(32px, 5vw, 64px);
+  border-radius: 28px;
+}
+body:not(#_) .ab-duo-card--gold { background: linear-gradient(135deg, #fbf4e2 0%, #f8efdb 100%); }
+body:not(#_) .ab-duo-card--slate { background: linear-gradient(135deg, #eef1f5 0%, #e7ebf1 100%); }
+body:not(#_) .ab-duo-card h2 {
+  margin: 0 0 20px;
+  font-size: clamp(1.875rem, 3.2vw, 2.75rem);
+  line-height: 1.12;
+}
+body:not(#_) .ab-duo-card > p:not(.ab-panel-label) {
+  max-width: 520px;
+  margin: 0 0 32px;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+body:not(#_) .ab-duo-card .ab-pill { margin-top: auto; }
+
+/* Responsive -------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  body:not(#_) .ab-includes-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body:not(#_) .ab-duo { grid-template-columns: 1fr; gap: 20px; }
+  body:not(#_) .ab-duo-card { min-height: 0; }
+}
+@media (max-width: 620px) {
+  body:not(#_) .ab-includes-grid { grid-template-columns: 1fr; }
+  body:not(#_) .ab-duo-card { border-radius: 20px; }
+  body:not(#_) :is(.ab-team-band, .ab-next) a.ab-pill.ab-pill { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 1100px) {
+  body:not(#_) .ab-principle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body:not(#_) .ab-audience-grid { gap: 16px; }
+}
+@media (max-width: 760px) {
+  body:not(#_) .ab-team-grid,
+  body:not(#_) .ab-audience-grid,
+  body:not(#_) .ab-standards-grid { grid-template-columns: 1fr; }
+  body:not(#_) .ab-standards-grid { gap: 36px; }
+  body:not(#_) .ab-standards-grid::before { display: none; }
+  body:not(#_) .ab-team-card { padding: 24px 20px; }
+}
+@media (max-width: 620px) {
+  body:not(#_) .ab-principle-grid { grid-template-columns: 1fr; }
+  body:not(#_) .tone-dark .ab-team-note { border-radius: var(--card-radius); text-align: left; }
+  body:not(#_) .ab-independence { flex-direction: column; padding: 22px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body:not(#_) :is(.ab-principle, .ab-team-card, .ab-audience-card, .ab-audience-media img) { transition: none; }
+  body:not(#_) :is(.ab-principle, .ab-team-card, .ab-audience-card):hover { transform: none; }
+}

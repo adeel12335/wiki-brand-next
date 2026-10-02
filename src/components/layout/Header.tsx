@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import {
   NAV_ITEMS,
@@ -12,18 +12,56 @@ import {
   url,
 } from "@/lib/config";
 
+const ALERT_DISMISSED_KEY = "ws-site-alert-dismissed";
+
 export function Header() {
   const pathname = usePathname();
   const currentSlug = pathname === "/" ? "" : pathname.replace(/^\/|\/$/g, "");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileReady, setMobileReady] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(true);
+  const alertRef = useRef<HTMLDivElement>(null);
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   useEffect(() => {
     setMobileReady(true);
+    try {
+      if (window.localStorage.getItem(ALERT_DISMISSED_KEY) === "1") {
+        setAlertOpen(false);
+      }
+    } catch {
+      // Storage blocked (private mode) — keep the bar visible.
+    }
   }, []);
+
+  // Main content is offset by the bar's height; keep that in sync when the
+  // copy wraps (narrow screens, zoom).
+  useEffect(() => {
+    const node = alertRef.current;
+    if (!alertOpen || !node) return;
+    const root = document.documentElement;
+    const sync = () => {
+      // Hidden while the header is in its scrolled state — keep the last height.
+      if (node.offsetHeight > 0) {
+        root.style.setProperty("--site-alert-h", `${node.offsetHeight}px`);
+      }
+    };
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [alertOpen]);
+
+  const dismissAlert = () => {
+    setAlertOpen(false);
+    try {
+      window.localStorage.setItem(ALERT_DISMISSED_KEY, "1");
+    } catch {
+      // Ignore — dismissal just will not persist.
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 22);
@@ -58,6 +96,44 @@ export function Header() {
       className={`site-header${scrolled ? " scrolled" : ""}${menuOpen ? " menu-open" : ""}`}
       id="top"
     >
+      {alertOpen ? (
+        <div className="site-alert" ref={alertRef} role="note">
+          <div className="site-alert-inner">
+            <span className="site-alert-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 11v5M12 8h.01" />
+              </svg>
+            </span>
+            <p>
+              {SITE_NAME} is an independent editorial service and is not
+              affiliated with{" "}
+              <a href="https://www.wikipedia.org/" target="_blank" rel="noopener noreferrer">
+                Wikipedia
+              </a>{" "}
+              or the{" "}
+              <a
+                href="https://wikimediafoundation.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Foundation
+              </a>
+              .
+            </p>
+            <button
+              type="button"
+              className="site-alert-close"
+              aria-label="Dismiss notice"
+              onClick={dismissAlert}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      ) : null}
       <div className="shell nav-shell">
         <Link className="brand" href={url()} aria-label={`${SITE_NAME} home`}>
           <Image

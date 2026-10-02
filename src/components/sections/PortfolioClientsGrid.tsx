@@ -56,6 +56,9 @@ export function PortfolioClientsGrid({
         ) : null}
       </div>
       <div className="client-card-body">
+        {item.category && item.category !== item.title ? (
+          <span className="client-card-category">{item.category}</span>
+        ) : null}
         <h3>
           {isIndexablePortfolioItem(item) ? (
             <Link href={`/portfolio/${item.slug}/`}>{item.title}</Link>

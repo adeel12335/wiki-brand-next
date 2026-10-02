@@ -94,7 +94,7 @@ export default async function BlogPagedPage({ params }: PageProps) {
       <JsonLd page={pageMeta} />
       <PageHero
         eyebrow="Insights"
-        h1={`Editorial guides <span>· page ${page} of ${totalPages}</span>`}
+        h1={`Editorial Guides <span>· Page ${page} of ${totalPages}</span>`}
         lede="More notes on notability, sourcing, disclosure, and how Wikipedia review actually behaves. Each guide is also listed in the sitemap for crawlers."
         breadcrumbs={[{ label: "Blog", slug: "blog" }]}
         current={`Page ${page}`}
@@ -106,7 +106,7 @@ export default async function BlogPagedPage({ params }: PageProps) {
         ]}
       />
 
-      <section className="section-pad blog-section">
+      <section className="section-pad tone-light blog-section bl-index">
         <div className="shell">
           <BlogIndex page={page} />
         </div>

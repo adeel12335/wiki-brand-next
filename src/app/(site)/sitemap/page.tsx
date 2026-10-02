@@ -4,7 +4,7 @@ import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Icon } from "@/components/ui/Icon";
 import { NAV_ITEMS, absUrl, url } from "@/lib/config";
 import { getAllBlogPosts } from "@/lib/blog";
 import { serviceSlugs, services } from "@/lib/data";
@@ -33,15 +33,18 @@ const pageMeta = {
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
-const extraLinks = [
+const guideLinks = [
   { label: "Resources", slug: "resources" },
-  { label: "Notability checker", slug: "wikipedia-notability-checker" },
-  { label: "How to choose an agency", slug: "how-to-choose-wikipedia-agency" },
-  { label: "Case studies", slug: "case-studies" },
-  { label: "For authors", slug: "wikipedia-page-for-authors" },
-  { label: "For companies", slug: "wikipedia-page-for-companies" },
-  { label: "For academics", slug: "wikipedia-page-for-academics" },
-  { label: "For musicians", slug: "wikipedia-page-for-musicians" },
+  { label: "Notability Checker", slug: "wikipedia-notability-checker" },
+  { label: "How to Choose an Agency", slug: "how-to-choose-wikipedia-agency" },
+  { label: "Case Studies", slug: "case-studies" },
+  { label: "Wikipedia Page for Authors", slug: "wikipedia-page-for-authors" },
+  { label: "Wikipedia Page for Companies", slug: "wikipedia-page-for-companies" },
+  { label: "Wikipedia Page for Academics", slug: "wikipedia-page-for-academics" },
+  { label: "Wikipedia Page for Musicians", slug: "wikipedia-page-for-musicians" },
+];
+
+const legalLinks = [
   { label: "Privacy Policy", slug: "privacy-policy" },
   { label: "Terms & Conditions", slug: "terms-conditions" },
 ];
@@ -55,63 +58,104 @@ export default async function HtmlSitemapPage() {
       <JsonLd page={pageMeta} />
       <PageHero
         eyebrow="Sitemap"
-        h1="Every public page, <span>in one place.</span>"
+        h1="Every Public Page, <span>in One Place.</span>"
         lede="A crawlable HTML directory of services, pricing, process, portfolio, and editorial guides."
         current="Sitemap"
       />
 
-      <section className="section-pad">
-        <div className="shell sitemap-grid">
-          <div className="reveal">
-            <SectionHeading eyebrow="Main" heading="Primary pages" />
-            <ul className="sitemap-list">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.slug || "home"}>
-                  <Link href={url(item.slug)}>{item.label}</Link>
-                </li>
-              ))}
-              {extraLinks.map((item) => (
-                <li key={item.slug}>
-                  <Link href={url(item.slug)}>{item.label}</Link>
-                </li>
-              ))}
-            </ul>
+      <section className="section-pad tone-light sm-section" aria-label="Site directory">
+        <div className="shell sm-grid">
+          <div className="sm-col">
+            <section className="sm-card reveal" aria-labelledby="sm-main">
+              <header>
+                <span className="sm-icon" aria-hidden="true"><Icon name="i-globe" /></span>
+                <h2 id="sm-main">Main Pages</h2>
+                <span className="sm-count">{NAV_ITEMS.length}</span>
+              </header>
+              <ul className="sm-list">
+                {NAV_ITEMS.map((item) => (
+                  <li key={item.slug || "home"}>
+                    <Link href={url(item.slug)}>{item.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section className="sm-card reveal" aria-labelledby="sm-legal">
+              <header>
+                <span className="sm-icon" aria-hidden="true"><Icon name="i-shield" /></span>
+                <h2 id="sm-legal">Legal</h2>
+                <span className="sm-count">{legalLinks.length}</span>
+              </header>
+              <ul className="sm-list">
+                {legalLinks.map((item) => (
+                  <li key={item.slug}>
+                    <Link href={url(item.slug)}>{item.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </div>
 
-          <div className="reveal" data-delay="80">
-            <SectionHeading eyebrow="Services" heading="Editorial services" />
-            <ul className="sitemap-list">
-              <li>
-                <Link href={url("services")}>All services</Link>
-              </li>
-              {serviceSlugs.map((slug) => (
-                <li key={slug}>
-                  <Link href={url(`services/${slug}`)}>{services[slug].name}</Link>
+          <div className="sm-col">
+            <section className="sm-card reveal" data-delay="60" aria-labelledby="sm-services">
+              <header>
+                <span className="sm-icon" aria-hidden="true"><Icon name="i-page" /></span>
+                <h2 id="sm-services">Editorial Services</h2>
+                <span className="sm-count">{serviceSlugs.length + 1}</span>
+              </header>
+              <ul className="sm-list">
+                <li>
+                  <Link href={url("services")}>All Services</Link>
                 </li>
-              ))}
-            </ul>
+                {serviceSlugs.map((slug) => (
+                  <li key={slug}>
+                    <Link href={url(`services/${slug}`)}>{services[slug].name}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section className="sm-card reveal" data-delay="60" aria-labelledby="sm-guides">
+              <header>
+                <span className="sm-icon" aria-hidden="true"><Icon name="i-search" /></span>
+                <h2 id="sm-guides">Guides &amp; Tools</h2>
+                <span className="sm-count">{guideLinks.length}</span>
+              </header>
+              <ul className="sm-list">
+                {guideLinks.map((item) => (
+                  <li key={item.slug}>
+                    <Link href={url(item.slug)}>{item.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </div>
 
-          <div className="reveal" data-delay="120">
-            <SectionHeading eyebrow="Insights" heading="Blog guides" />
-            <ul className="sitemap-list">
-              <li>
-                <Link href={url("blog")}>All articles</Link>
-              </li>
-              {posts.map((post) => (
-                <li key={post.slug}>
-                  <Link href={url(`blog/${post.slug}`)}>{post.title}</Link>
+          <div className="sm-col">
+            <section className="sm-card reveal" data-delay="120" aria-labelledby="sm-blog">
+              <header>
+                <span className="sm-icon" aria-hidden="true"><Icon name="i-write" /></span>
+                <h2 id="sm-blog">Blog Guides</h2>
+                <span className="sm-count">{posts.length + 1}</span>
+              </header>
+              <ul className="sm-list">
+                <li>
+                  <Link href={url("blog")}>All Articles</Link>
                 </li>
-              ))}
-            </ul>
+                {posts.map((post) => (
+                  <li key={post.slug}>
+                    <Link href={url(`blog/${post.slug}`)}>{post.title}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </div>
         </div>
       </section>
 
       <CtaBand
-        heading="Looking for <span>pricing?</span>"
+        heading="Looking for <span>Pricing?</span>"
         copy="Published packages start from $700. Every engagement begins with a free notability assessment."
-        label="View pricing"
+        label="View Pricing"
         href={url("wikipedia-page-cost")}
       />
     </>

@@ -3,10 +3,11 @@ import Link from "next/link";
 import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
+import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { url } from "@/lib/config";
 import { buildPageMetadata } from "@/lib/seo";
+import { titleCase } from "@/lib/utils";
 
 interface PersonaPage {
   slug: string;
@@ -144,6 +145,31 @@ export function buildPersonaMetadata(page: PersonaPage): Metadata {
   });
 }
 
+const PERSONA_ICONS: Record<string, string> = {
+  "wikipedia-page-for-authors": "i-write",
+  "wikipedia-page-for-companies": "i-building",
+  "wikipedia-page-for-academics": "i-research",
+  "wikipedia-page-for-musicians": "i-globe",
+};
+
+const approachSteps = [
+  {
+    icon: "i-search",
+    title: "Free Notability Assessment",
+    copy: "We search for independent coverage and check it against the guideline that applies to you — before any fee is agreed.",
+  },
+  {
+    icon: "i-research",
+    title: "Source Map & Written Verdict",
+    copy: "You get a plain-language read on what the coverage supports, what is missing, and whether a draft is worth attempting.",
+  },
+  {
+    icon: "i-write",
+    title: "Neutral Draft, Disclosed Submission",
+    copy: "If the sources are there, editors draft a neutral, fully cited article and submit it with paid-contribution disclosure.",
+  },
+];
+
 export function PersonaPageView({ page }: { page: PersonaPage }) {
   const pageMeta = {
     slug: page.slug,
@@ -162,57 +188,132 @@ export function PersonaPageView({ page }: { page: PersonaPage }) {
       },
     ],
   };
+  const otherAudiences = personaPages.filter((item) => item.slug !== page.slug);
 
   return (
     <>
-      <BodyClass className={`page-persona page-${page.slug}`} />
+      <BodyClass className="page-persona" />
       <JsonLd page={pageMeta} />
       <PageHero
-        eyebrow="Audience guide"
-        h1={page.h1}
+        eyebrow="Audience Guide"
+        h1={titleCase(page.h1)}
         lede={page.lede}
         current={page.shortTitle}
         actions={[
-          { label: "Free notability checker", href: url("wikipedia-notability-checker") },
-          { label: "Request assessment", href: url("contact"), style: "button-outline" },
+          { label: "Free Notability Checker", href: url("wikipedia-notability-checker") },
+          { label: "Request Assessment", href: url("contact"), style: "button-outline" },
         ]}
       />
 
-      <section className="section-pad">
+      {/* 1. What reviewers look for (white) */}
+      <section className="section-pad tone-light pa-focus" aria-labelledby="pa-focus-title">
         <div className="shell">
-          <SectionHeading
-            eyebrow="Guideline focus"
-            heading="What reviewers actually look for"
-            copy={`Primary reading: ${page.guidelineName}.`}
-          />
-          <div className="card-grid reveal">
-            {page.points.map((item) => (
-              <article key={item.title} className="service-card">
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </article>
-            ))}
+          <div className="section-heading center reveal">
+            <p className="micro-label">Guideline Focus</p>
+            <h2 id="pa-focus-title">
+              What Reviewers <span>Actually Look For</span>
+            </h2>
+            <p className="section-heading-copy">Primary reading: {page.guidelineName}.</p>
           </div>
-          <p style={{ marginTop: 24 }}>
-            Guideline:{" "}
-            <a href={page.guidelineUrl} target="_blank" rel="noopener noreferrer">
-              {page.guidelineName}
-            </a>
-            . Related:{" "}
-            <Link href={url("services/wikipedia-notability-assessment")}>
-              notability assessment
+          <ol className="pa-points reveal">
+            {page.points.map((item, index) => (
+              <li key={item.title} className="pa-point">
+                <span className="pa-point-num" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3>{titleCase(item.title)}</h3>
+                <p>{item.copy}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="pa-guideline reveal">
+            <span className="pa-icon" aria-hidden="true">
+              <Icon name="i-review" />
+            </span>
+            <div>
+              <p className="pa-guideline-label">The guideline reviewers apply</p>
+              <a href={page.guidelineUrl} target="_blank" rel="noopener noreferrer">
+                {page.guidelineName} ↗
+              </a>
+            </div>
+            <Link className="button button-gold button-small" href={url("wikipedia-notability-checker")}>
+              Check Your Coverage <Icon name="i-arrow" />
             </Link>
-            ,{" "}
-            <Link href={url("services/wikipedia-page-creation")}>page creation</Link>,{" "}
-            <Link href={url("wikipedia-page-cost")}>pricing</Link>.
+          </div>
+        </div>
+      </section>
+
+      {/* 2. How we approach it (dark) */}
+      <section className="section-pad tone-dark pa-approach" aria-labelledby="pa-approach-title">
+        <div className="shell">
+          <div className="section-heading center reveal">
+            <p className="micro-label">How We Approach It</p>
+            <h2 id="pa-approach-title">
+              Evidence First, <span>Drafting Second</span>
+            </h2>
+          </div>
+          <ol className="pa-steps reveal">
+            {approachSteps.map((step, index) => (
+              <li key={step.title} className="pa-step">
+                <div className="pa-step-top">
+                  <span className="pa-icon" aria-hidden="true">
+                    <Icon name={step.icon} />
+                  </span>
+                  <span className="pa-step-num" aria-hidden="true">
+                    Step {index + 1}
+                  </span>
+                </div>
+                <h3>{step.title}</h3>
+                <p>{step.copy}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="section-actions reveal">
+            <Link className="button button-outline button-small" href={url("our-process")}>
+              See the Full Process <Icon name="i-arrow" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Explore more (white) */}
+      <section className="section-pad tone-light pa-more" aria-labelledby="pa-more-title">
+        <div className="shell">
+          <div className="section-heading center reveal">
+            <p className="micro-label">Other Audiences</p>
+            <h2 id="pa-more-title">
+              Guides for <span>Other Subjects</span>
+            </h2>
+          </div>
+          <ul className="pa-audiences reveal">
+            {otherAudiences.map((item) => (
+              <li key={item.slug}>
+                <Link className="pa-audience" href={url(item.slug)}>
+                  <span className="pa-icon" aria-hidden="true">
+                    <Icon name={PERSONA_ICONS[item.slug] ?? "i-page"} />
+                  </span>
+                  <strong>{item.title}</strong>
+                  <span className="pa-audience-copy">{item.lede}</span>
+                  <span className="pa-audience-link">
+                    Read the guide <Icon name="i-arrow" />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="pa-related reveal">
+            <span>Related:</span>
+            <Link href={url("services/wikipedia-notability-assessment")}>Notability assessment</Link>
+            <Link href={url("services/wikipedia-page-creation")}>Page creation</Link>
+            <Link href={url("wikipedia-page-cost")}>Pricing</Link>
           </p>
         </div>
       </section>
 
       <CtaBand
-        heading="Not sure your coverage qualifies?"
+        heading="Not Sure Your Coverage <span>Qualifies?</span>"
         copy="Run the free checker or ask for a human source map."
-        label="Start free assessment"
+        label="Start Free Assessment"
       />
     </>
   );

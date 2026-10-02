@@ -6,7 +6,7 @@ import { TestimonialSection } from "@/components/sections/TestimonialSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Icon } from "@/components/ui/Icon";
 import { url, absUrl } from "@/lib/config";
 import { buildPageMetadata, itemListNode } from "@/lib/seo";
 import {
@@ -27,6 +27,24 @@ const staticMeta = {
   ogImage: "/assets/og/portfolio-public-figure.jpg",
   ogImageAlt: "Wikipedia editorial work by The Wikipedia Studio",
 };
+
+const confidentialityPoints = [
+  {
+    icon: "i-globe",
+    title: "The Article Belongs to Wikipedia",
+    copy: "Not to the subject, and not to the editor who drafted it — so we show the live result, not a private brief.",
+  },
+  {
+    icon: "i-research",
+    title: "Independent Coverage, Every Time",
+    copy: "Each profile was built on significant coverage in sources independent of the subject.",
+  },
+  {
+    icon: "i-shield",
+    title: "Disclosed On-Wiki",
+    copy: "Paid contributions are declared as Wikipedia's terms of use require, on every engagement.",
+  },
+];
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata(staticMeta);
@@ -57,7 +75,7 @@ export default async function PortfolioPage() {
       <JsonLd page={pageMeta} />
       <PageHero
         eyebrow="Our Clients"
-        h1="Selected work. <span>Published Wikipedia pages.</span>"
+        h1="Selected Work. <span>Published Wikipedia Pages.</span>"
         lede="A selection of live Wikipedia articles across leadership, academia, sport, and public life."
         current="Portfolios"
         actions={[
@@ -70,25 +88,37 @@ export default async function PortfolioPage() {
         visualClass="page-hero-visual--portfolio"
       />
 
-      <section className="section-pad clients-section">
+      <section className="section-pad tone-light clients-section pf-work" aria-labelledby="pf-work-title">
         <div className="shell">
-          <SectionHeading
-            eyebrow="Published Work"
-            heading="Profiles and articles in the encyclopedia"
-            copy="Each card links to a live Wikipedia article."
-            center={false}
-          />
+          <div className="pf-work-head reveal">
+            <div>
+              <p className="micro-label">Published Work</p>
+              <h2 id="pf-work-title">
+                Profiles and Articles in <span>the Encyclopedia</span>
+              </h2>
+              <p>
+                Each card links to a live Wikipedia article or a short engagement
+                profile — leadership, academia, sport, and public life.
+              </p>
+            </div>
+            <p className="pf-count">
+              <strong>{items.length}</strong>
+              <span>Published profiles</span>
+            </p>
+          </div>
           <PortfolioClientsGrid items={items} />
         </div>
       </section>
 
-      <section className="section-pad">
-        <div className="shell">
-          <div className="section-heading reveal">
+      <TestimonialSection />
+
+      <section className="section-pad tone-light pf-confidential" aria-labelledby="pf-confidential-title">
+        <div className="shell pf-confidential-grid">
+          <div className="pf-confidential-copy reveal">
             <p className="micro-label">Confidentiality</p>
-            <h2>Why we showcase categories, not briefs</h2>
-          </div>
-          <div className="prose reveal">
+            <h2 id="pf-confidential-title">
+              Why We Showcase Categories, <span>Not Briefs</span>
+            </h2>
             <p>
               Wikipedia articles belong to the encyclopedia, not to the subject or to
               the editor who drafted them. Each profile above links to a live article
@@ -103,11 +133,26 @@ export default async function PortfolioPage() {
               </Link>
               .
             </p>
+            <Link className="button button-gold button-small" href={url("contact")}>
+              Discuss Your Project <Icon name="i-arrow" />
+            </Link>
           </div>
+          <ul className="pf-points reveal" data-delay="100">
+            {confidentialityPoints.map((item) => (
+              <li key={item.title} className="pf-point">
+                <span className="pf-icon" aria-hidden="true">
+                  <Icon name={item.icon} />
+                </span>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.copy}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <TestimonialSection />
       <CtaBand />
     </>
   );

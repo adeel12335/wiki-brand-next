@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
+import { LegalAside } from "@/components/ui/LegalAside";
 import { PageHero } from "@/components/ui/PageHero";
 import { SITE_EMAIL, SITE_NAME } from "@/lib/config";
 import { buildPageMetadata } from "@/lib/seo";
@@ -31,8 +32,10 @@ export default function PrivacyPolicyPage() {
         lede="This policy explains what information this website collects, why, and how long it is kept."
         current="Privacy Policy"
       />
-      <section className="section-pad">
-        <div className="shell legal-body reveal">
+      <section className="section-pad tone-light lg-section">
+        <div className="shell lg-layout">
+          <LegalAside target=".lg-doc" email={SITE_EMAIL} topic="this policy" />
+          <div className="lg-doc legal-body reveal">
           <p className="legal-updated">Last updated: September 3, 2026</p>
 
           <h2>Who we are</h2>
@@ -128,6 +131,7 @@ export default function PrivacyPolicyPage() {
             If this policy changes, the revised version will be published on this
             page with a new date at the top.
           </p>
+          </div>
         </div>
       </section>
       <CtaBand />

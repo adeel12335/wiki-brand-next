@@ -7,7 +7,6 @@ import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { absUrl, url } from "@/lib/config";
 import {
   comparisonRows,
@@ -103,7 +102,7 @@ export default function WikipediaPageCostPage() {
       <JsonLd page={pageMeta} />
       <PageHero
         eyebrow="Pricing"
-        h1="What a Wikipedia page costs — and what actually <span>drives the price</span>"
+        h1="What a Wikipedia Page Costs — and What Actually <span>Drives the Price</span>"
         lede="Professional Wikipedia page creation typically costs between $700 and $2,500+, depending on how much independent coverage exists about the subject and how much verification that coverage demands. Our published tiers run from $700 for straightforward subjects, $1,100 for most engagements, and $1,800 for complex or previously rejected ones — with Custom work from $2,500+. Every engagement begins with a free notability assessment."
         current="Pricing"
         actions={[
@@ -123,117 +122,41 @@ export default function WikipediaPageCostPage() {
         visualClass="page-hero-visual--archive"
       />
 
-      <section className="section-pad" aria-labelledby="why-price-varies">
-        <div className="shell definition-grid">
-          <div className="reveal">
-            <p className="micro-label">Why It Varies</p>
-            <h2 id="why-price-varies">Why the price varies at all</h2>
-            <p className="definition-copy">
-              Pricing a Wikipedia article by word count makes no sense, because the
-              writing is the small part. Roughly two thirds of the work happens before
-              a single sentence is drafted, in the search for significant coverage
-              published by sources independent of the subject.
-            </p>
-            <p className="definition-copy">
-              A founder with fifteen years of scattered trade-press mentions takes far
-              longer to source properly than a subject with three strong national
-              profiles — even though the finished articles look similar in length. That
-              research burden is what the tiers reflect.
-            </p>
-            <p className="definition-copy">
-              The assessment tells us which tier applies. The figure is then fixed in
-              writing before any work is commissioned.
-            </p>
-            <Link className="text-link" href={url("our-process")}>
-              See how the editorial process runs <Icon name="i-arrow" />
-            </Link>
-          </div>
-          <aside className="who-panel reveal" data-delay="100">
-            <h3>Payment terms</h3>
-            <ul className="check-list compact">
-              <li>
-                <Icon name="i-check" />
-                Notability assessment: free, no commitment
-              </li>
-              <li>
-                <Icon name="i-check" />
-                50% at engagement start, 50% on draft submission
-              </li>
-              <li>
-                <Icon name="i-check" />
-                Quote fixed in writing after scope is agreed
-              </li>
-              <li>
-                <Icon name="i-check" />
-                No charge for approval — approval is not sold
-              </li>
-            </ul>
-            <p className="reviewed-note">
-              Priced in USD. Billed in your local currency at the prevailing rate when
-              needed.
-            </p>
-          </aside>
-        </div>
-      </section>
-
-      <section className="section-pad" aria-labelledby="cost-drivers">
+      {/* 1. Packages + comparison (white) */}
+      <section
+        className="section-pad tone-light pc-packages"
+        id="packages"
+        aria-labelledby="packages-heading"
+      >
         <div className="shell">
-          <SectionHeading
-            eyebrow="Cost Drivers"
-            heading="What drives the cost up or down"
-          />
-          <div className="pricing-table-wrap reveal">
-            <table className="pricing-table">
-              <caption className="sr-only">
-                Factors that push Wikipedia page creation cost down or up
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">Factor</th>
-                  <th scope="col">Pushes cost down</th>
-                  <th scope="col">Pushes cost up</th>
-                </tr>
-              </thead>
-              <tbody>
-                {costDrivers.map((row) => (
-                  <tr key={row.factor}>
-                    <th scope="row">{row.factor}</th>
-                    <td data-label="Pushes cost down">{row.down}</td>
-                    <td data-label="Pushes cost up">{row.up}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="section-heading center reveal">
+            <p className="micro-label">Our Packages</p>
+            <h2 id="packages-heading">
+              Published Tiers, <span>Fixed After Assessment</span>
+            </h2>
+            <p className="section-heading-copy">
+              Every engagement starts from one of these published tiers. Which one
+              applies depends on how much source material exists and how much
+              verification it demands — decided by the notability assessment, not by
+              guesswork.
+            </p>
           </div>
-        </div>
-      </section>
 
-      <section className="section-pad" id="packages" aria-labelledby="packages-heading">
-        <div className="shell">
-          <SectionHeading
-            eyebrow="Our Packages"
-            heading="Published tiers, fixed after assessment"
-          />
-          <p className="pricing-intro reveal" id="packages-heading">
-            Every engagement starts from one of these published tiers. Which one applies
-            depends on how much source material exists and how much verification it
-            demands — decided by the notability assessment, not by guesswork.
-          </p>
-
-          <div className="pricing-tier-grid reveal">
+          <div className="pc-tier-grid reveal">
             {pricingTiers.map((tier) => (
               <article
                 key={tier.id}
                 id={tier.id}
-                className={`pricing-tier-card${tier.badge ? " is-featured" : ""}`}
+                className={`pc-tier${tier.badge ? " is-featured" : ""}`}
               >
-                {tier.badge ? (
-                  <span className="pricing-tier-badge">{tier.badge}</span>
-                ) : null}
-                <p className="micro-label">{tier.name}</p>
-                <h3>{tier.priceLabel}</h3>
-                <p className="pricing-tier-blurb">{tier.blurb}</p>
-                <ul className="check-list compact">
+                {tier.badge ? <span className="pc-tier-badge">{tier.badge}</span> : null}
+                <p className="pc-tier-name">{tier.name}</p>
+                <p className="pc-tier-price">{tier.priceLabel}</p>
+                <p className="pc-tier-blurb">{tier.blurb}</p>
+                <p className="pc-tier-best">
+                  <strong>Best for:</strong> {tier.bestFor}
+                </p>
+                <ul className="pc-tier-list">
                   <li>
                     <Icon name="i-check" />
                     {tier.features.sources}
@@ -263,66 +186,134 @@ export default function WikipediaPageCostPage() {
             ))}
           </div>
 
-          <div className="pricing-table-wrap reveal" data-delay="80">
-            <table className="pricing-table pricing-table--compare">
-              <caption className="sr-only">
-                Full package comparison for Essential, Standard, Comprehensive and Custom
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">Included</th>
-                  {pricingTiers.map((tier) => (
-                    <th key={tier.id} scope="col">
-                      {tier.name}
-                      <span className="pricing-th-price">{tier.priceLabel}</span>
-                      {tier.badge ? (
-                        <span className="pricing-th-badge">{tier.badge}</span>
-                      ) : null}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonRows.map((row) => (
-                  <tr key={row.label}>
-                    <th scope="row">{row.label}</th>
-                    {row.values.map((value, index) => (
-                      <td
-                        key={`${row.label}-${pricingTiers[index].id}`}
-                        data-label={`${pricingTiers[index].name} · ${pricingTiers[index].priceLabel}`}
-                      >
-                        {value}
-                      </td>
+          <div className="pc-compare reveal" data-delay="80">
+            <h3 className="pc-compare-title">Compare Every Package</h3>
+            <div className="pricing-table-wrap">
+              <table className="pricing-table pricing-table--compare">
+                <caption className="sr-only">
+                  Full package comparison for Essential, Standard, Comprehensive and Custom
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Included</th>
+                    {pricingTiers.map((tier) => (
+                      <th key={tier.id} scope="col">
+                        {tier.name}
+                        <span className="pricing-th-price">{tier.priceLabel}</span>
+                        {tier.badge ? (
+                          <span className="pricing-th-badge">{tier.badge}</span>
+                        ) : null}
+                      </th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {comparisonRows.map((row) => (
+                    <tr key={row.label}>
+                      <th scope="row">{row.label}</th>
+                      {row.values.map((value, index) => (
+                        <td
+                          key={`${row.label}-${pricingTiers[index].id}`}
+                          data-label={`${pricingTiers[index].name} · ${pricingTiers[index].priceLabel}`}
+                        >
+                          {value}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section-pad" aria-labelledby="addons-heading">
+      {/* 2. Why the price varies + payment terms (dark) */}
+      <section className="section-pad tone-dark pc-why" aria-labelledby="why-price-varies">
+        <div className="shell pc-why-grid">
+          <div className="pc-why-copy reveal">
+            <p className="micro-label">Why It Varies</p>
+            <h2 id="why-price-varies">
+              Why the Price <span>Varies at All</span>
+            </h2>
+            <p>
+              Pricing a Wikipedia article by word count makes no sense, because the
+              writing is the small part. Roughly two thirds of the work happens before
+              a single sentence is drafted, in the search for significant coverage
+              published by sources independent of the subject.
+            </p>
+            <p>
+              A founder with fifteen years of scattered trade-press mentions takes far
+              longer to source properly than a subject with three strong national
+              profiles — even though the finished articles look similar in length. That
+              research burden is what the tiers reflect.
+            </p>
+            <p>
+              The assessment tells us which tier applies. The figure is then fixed in
+              writing before any work is commissioned.
+            </p>
+            <Link className="pc-arrow-link" href={url("our-process")}>
+              See how the editorial process runs <Icon name="i-arrow" />
+            </Link>
+          </div>
+          <aside className="pc-terms reveal" data-delay="100">
+            <span className="pc-icon" aria-hidden="true">
+              <Icon name="i-plan" />
+            </span>
+            <h3>Payment Terms</h3>
+            <ul>
+              <li>
+                <Icon name="i-check" />
+                Notability assessment: free, no commitment
+              </li>
+              <li>
+                <Icon name="i-check" />
+                50% at engagement start, 50% on draft submission
+              </li>
+              <li>
+                <Icon name="i-check" />
+                Quote fixed in writing after scope is agreed
+              </li>
+              <li>
+                <Icon name="i-check" />
+                No charge for approval — approval is not sold
+              </li>
+            </ul>
+            <p>
+              Priced in USD. Billed in your local currency at the prevailing rate when
+              needed.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      {/* 3. Cost drivers (white) */}
+      <section className="section-pad tone-light pc-drivers" aria-labelledby="cost-drivers">
         <div className="shell">
-          <SectionHeading eyebrow="Add-ons" heading="Optional work beyond the package" />
+          <div className="section-heading center reveal">
+            <p className="micro-label">Cost Drivers</p>
+            <h2 id="cost-drivers">
+              What Drives the Cost <span>Up or Down</span>
+            </h2>
+          </div>
           <div className="pricing-table-wrap reveal">
-            <table className="pricing-table">
-              <caption className="sr-only" id="addons-heading">
-                Optional Wikipedia services and retainer pricing
+            <table className="pricing-table pc-drivers-table">
+              <caption className="sr-only">
+                Factors that push Wikipedia page creation cost down or up
               </caption>
               <thead>
                 <tr>
-                  <th scope="col">Service</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Note</th>
+                  <th scope="col">Factor</th>
+                  <th scope="col">Pushes cost down</th>
+                  <th scope="col">Pushes cost up</th>
                 </tr>
               </thead>
               <tbody>
-                {pricingAddOns.map((item) => (
-                  <tr key={item.name}>
-                    <th scope="row">{item.name}</th>
-                    <td data-label="Price">{item.price}</td>
-                    <td data-label="Note">{item.note}</td>
+                {costDrivers.map((row) => (
+                  <tr key={row.factor}>
+                    <th scope="row">{row.factor}</th>
+                    <td data-label="Pushes cost down">{row.down}</td>
+                    <td data-label="Pushes cost up">{row.up}</td>
                   </tr>
                 ))}
               </tbody>
@@ -331,88 +322,124 @@ export default function WikipediaPageCostPage() {
         </div>
       </section>
 
-      <section className="section-pad" aria-labelledby="not-included">
+      {/* 4. Add-ons (dark) */}
+      <section className="section-pad tone-dark pc-addons" aria-labelledby="addons-heading">
         <div className="shell">
-          <SectionHeading
-            eyebrow="Honest Limits"
-            heading="What is not included at any price"
-          />
-          <div className="card-grid reveal" id="not-included">
-            {notIncluded.map((item) => (
-              <article key={item.title} className="service-card">
-                <Icon name="i-shield" />
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </article>
-            ))}
+          <div className="section-heading center reveal">
+            <p className="micro-label">Add-ons</p>
+            <h2 id="addons-heading">
+              Optional Work Beyond <span>the Package</span>
+            </h2>
           </div>
+          <ul className="pc-addon-grid reveal">
+            {pricingAddOns.map((item) => (
+              <li key={item.name} className="pc-addon">
+                <span className="pc-addon-price">{item.price}</span>
+                <h3>{item.name}</h3>
+                <p>{item.note}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section className="section-pad" aria-labelledby="money-work">
-        <div className="shell split-grid">
+      {/* 5. How money and work line up + cheaper options (white) */}
+      <section className="section-pad tone-light pc-money" aria-labelledby="money-work">
+        <div className="shell pc-money-grid">
           <div className="reveal">
             <p className="micro-label">How It Lines Up</p>
-            <h2 id="money-work">How the money and the work line up</h2>
-            <ol className="numbered-steps">
-              {paymentSteps.map((step) => (
+            <h2 id="money-work">
+              How the Money and <span>the Work Line Up</span>
+            </h2>
+            <ol className="pc-steps">
+              {paymentSteps.map((step, index) => (
                 <li key={step.title}>
-                  <strong>{step.title}.</strong> {step.copy}
+                  <span className="pc-step-num" aria-hidden="true">
+                    {index + 1}
+                  </span>
+                  <div>
+                    <strong>{step.title}</strong>
+                    <p>{step.copy}</p>
+                  </div>
                 </li>
               ))}
             </ol>
-            <Link className="text-link" href={url("faq")}>
+            <Link className="pc-arrow-link" href={url("faq")}>
               More answers in the FAQ <Icon name="i-arrow" />
             </Link>
           </div>
-          <div className="reveal" data-delay="100">
+          <aside className="pc-cheaper reveal" data-delay="100">
             <p className="micro-label">Cheaper Options</p>
-            <h2>Is a cheaper Wikipedia page worth it?</h2>
-            <p className="definition-copy">
+            <h3>Is a Cheaper Wikipedia Page Worth It?</h3>
+            <p>
               Below roughly $500, something is usually being skipped — normally the
               source research, occasionally the disclosure. Both create the same
               outcome: a draft that reads well, fails review, and leaves the subject
               with a rejection on record that makes the next attempt harder.
             </p>
-            <p className="definition-copy">
+            <p>
               The cheapest genuinely useful thing we offer is the notability
               assessment, and it is free. If the coverage is not there yet, that answer
               saves you the entire budget.
             </p>
-            <Link
-              className="text-link"
-              href={url("services/wikipedia-page-creation")}
-            >
+            <Link className="pc-arrow-link" href={url("services/wikipedia-page-creation")}>
               Read about page creation <Icon name="i-arrow" />
             </Link>
-          </div>
+          </aside>
         </div>
       </section>
 
-      <section className="section-pad" aria-labelledby="management-heading">
-        <div className="shell definition-grid">
-          <div className="reveal">
-            <p className="micro-label">After Publication</p>
-            <h2 id="management-heading">Ongoing page management</h2>
-            <p className="definition-copy">
+      {/* 6. Not included at any price (dark) */}
+      <section className="section-pad tone-dark pc-limits" aria-labelledby="not-included-heading">
+        <div className="shell">
+          <div className="section-heading center reveal">
+            <p className="micro-label">Honest Limits</p>
+            <h2 id="not-included-heading">
+              What Is Not Included <span>at Any Price</span>
+            </h2>
+          </div>
+          <ul className="pc-limit-grid reveal" id="not-included">
+            {notIncluded.map((item) => (
+              <li key={item.title} className="pc-limit">
+                <span className="pc-limit-mark" aria-hidden="true">
+                  <Icon name="i-close" />
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.copy}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 7. Ongoing management — full-width gold band */}
+      <section className="pc-manage-band" aria-labelledby="management-heading">
+        <div className="shell pc-manage-grid reveal">
+          <div>
+            <p className="pc-band-label">After Publication</p>
+            <h2 id="management-heading">
+              Ongoing Page <span>Management</span>
+            </h2>
+            <p>
               Publication is not the end. Articles get edited by anyone, milestones go
               stale, and links rot.
             </p>
-            <p className="definition-copy">
+            <p>
               <strong>$250/month or $2,500/year</strong> covers watchlist monitoring,
               assessment of incoming edits, milestone updates drawn from independent
               sources, dead-link repair, and a quarterly report in plain language
               explaining what changed and why.
             </p>
-            <Link
-              className="text-link"
-              href={url("services/wikipedia-page-management")}
-            >
-              How ongoing management works <Icon name="i-arrow" />
+            <Link className="pc-pill" href={url("services/wikipedia-page-management")}>
+              How Ongoing Management Works <Icon name="i-arrow" />
             </Link>
           </div>
-          <aside className="who-panel reveal" data-delay="100">
-            <h3>Do you need a retainer?</h3>
+          <aside className="pc-manage-card">
+            <p className="pc-manage-price">
+              $250<span>/month</span>
+            </p>
+            <p className="pc-manage-alt">or $2,500/year</p>
+            <h3>Do You Need a Retainer?</h3>
             <p>
               You need it if the subject is active enough that facts change or the
               article attracts edits. If neither is true, a page can sit stable for
@@ -422,33 +449,34 @@ export default function WikipediaPageCostPage() {
         </div>
       </section>
 
-      <section className="section-pad" aria-labelledby="pricing-faq">
+      {/* 8. Pricing FAQ (white) */}
+      <section className="section-pad tone-light pc-faq" aria-labelledby="pricing-faq">
         <div className="shell faq-library">
           <div className="faq-library-intro reveal">
             <p className="micro-label">Pricing FAQ</p>
             <h2 id="pricing-faq">
-              Straight answers on <span>cost and payment.</span>
+              Straight Answers on <span>Cost and Payment.</span>
             </h2>
             <p>
               If a quote elsewhere looks dramatically cheaper, ask what proportion of
               the fee covers independent source research before drafting starts.
             </p>
             <PricingTrackLink
-              className="text-link"
+              className="button button-gold button-small"
               href={url("contact")}
               event="pricing_cta_click"
             >
-              Request a free assessment <Icon name="i-arrow" />
+              Request a Free Assessment <Icon name="i-arrow" />
             </PricingTrackLink>
           </div>
-          <div className="faq-wide">
+          <div className="faq-wide reveal">
             <FaqList items={[...pricingFaqs]} wide />
           </div>
         </div>
       </section>
 
       <CtaBand
-        heading="Start with the assessment, <span>not the invoice.</span>"
+        heading="Start With the Assessment, <span>Not the Invoice.</span>"
         copy="Bring the strongest independent coverage you have. We will tell you which tier applies — or that a page is not realistic yet."
         label="Request a free notability assessment"
       />

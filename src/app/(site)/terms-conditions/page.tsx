@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
+import { LegalAside } from "@/components/ui/LegalAside";
 import { PageHero } from "@/components/ui/PageHero";
 import { SITE_EMAIL, SITE_NAME } from "@/lib/config";
 import { buildPageMetadata } from "@/lib/seo";
@@ -31,8 +32,10 @@ export default function TermsPage() {
         lede="These terms cover use of this website and the basis on which we accept editorial work."
         current="Terms & Conditions"
       />
-      <section className="section-pad">
-        <div className="shell legal-body reveal">
+      <section className="section-pad tone-light lg-section">
+        <div className="shell lg-layout">
+          <LegalAside target=".lg-doc" email={SITE_EMAIL} topic="these terms" />
+          <div className="lg-doc legal-body reveal">
           <p className="legal-updated">Last updated: September 3, 2026</p>
 
           <h2>1. About these terms</h2>
@@ -157,6 +160,7 @@ export default function TermsPage() {
             Questions about these terms:{" "}
             <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
           </p>
+          </div>
         </div>
       </section>
       <CtaBand />

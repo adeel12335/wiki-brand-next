@@ -100,7 +100,11 @@ export function PageHero({
             <span className="page-hero-orbit orbit-one" />
             <span className="page-hero-orbit orbit-two" />
             <Image
-              src={heroImage.startsWith("/") ? heroImage : `/${heroImage}`}
+              src={
+                /^https?:\/\//i.test(heroImage) || heroImage.startsWith("/")
+                  ? heroImage
+                  : `/${heroImage}`
+              }
               alt={imageAlt}
               width={imageWidth}
               height={imageHeight}

@@ -27,7 +27,7 @@ export function TrustpilotReviewsSection({
       <div className="shell tp-layout">
         <div className="tp-intro reveal">
           <p className="micro-label">Trustpilot</p>
-          <h2 id="trustpilot-title">Independent reviews on Trustpilot</h2>
+          <h2 id="trustpilot-title">Independent Reviews on Trustpilot</h2>
           <p>
             We invite finished clients to leave an honest review on Trustpilot —
             not a private testimonial form we control.

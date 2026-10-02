@@ -39,6 +39,27 @@ const pageMeta = {
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
+const readyLinks = [
+  {
+    icon: "i-search",
+    title: "Check Your Notability",
+    copy: "A quick self-check on the coverage you already have.",
+    href: "wikipedia-notability-checker",
+  },
+  {
+    icon: "i-page",
+    title: "See Pricing",
+    copy: "Published tiers from $700, fixed after assessment.",
+    href: "wikipedia-page-cost",
+  },
+  {
+    icon: "i-review",
+    title: "Read the FAQ",
+    copy: "Straight answers on timelines, disclosure, and approval.",
+    href: "faq",
+  },
+];
+
 const nextSteps = [
   {
     index: "01",
@@ -86,7 +107,7 @@ export default function ContactPage() {
       <JsonLd page={pageMeta} />
       <PageHero
         eyebrow="Correspondence"
-        h1="Tell us the subject. <span>We will tell you the truth.</span>"
+        h1="Tell Us the Subject. <span>We Will Tell You the Truth.</span>"
         lede="Send the coverage that already exists. An editor — not a sales queue — replies with a clear read on whether a Wikipedia article is realistic."
         current="Contact"
         image="/assets/about-knowledge-sphere.png"
@@ -95,7 +116,7 @@ export default function ContactPage() {
         visualClass="page-hero-visual--knowledge"
       />
 
-      <section className="contact-desk section-pad" aria-label="Enquiry desk">
+      <section className="contact-desk section-pad tone-light ct-desk" aria-label="Enquiry desk">
         <div className="shell contact-desk-shell">
           <div className="contact-desk-rail" aria-hidden="true">
             <span>Enquiry</span>
@@ -195,11 +216,13 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="contact-aftermath section-pad">
+      <section className="contact-aftermath section-pad tone-dark ct-next">
         <div className="shell">
           <div className="contact-aftermath-head reveal">
-            <p className="micro-label">After you send it</p>
-            <h2>What happens next</h2>
+            <p className="micro-label">After You Send It</p>
+            <h2>
+              What Happens <span>Next</span>
+            </h2>
             <p>
               Every enquiry is read by an editor. If the coverage looks promising, we
               propose a{" "}
@@ -223,6 +246,35 @@ export default function ContactPage() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      <section className="ct-ready-band" aria-labelledby="ct-ready-title">
+        <div className="shell reveal">
+          <div className="ct-ready-head">
+            <p className="ct-band-label">Not Ready to Write Yet?</p>
+            <h2 id="ct-ready-title">
+              Look Around <span>First</span>
+            </h2>
+          </div>
+          <ul className="ct-ready-grid">
+            {readyLinks.map((item) => (
+              <li key={item.href}>
+                <Link className="ct-ready-card" href={url(item.href)}>
+                  <span className="ct-ready-icon" aria-hidden="true">
+                    <Icon name={item.icon} />
+                  </span>
+                  <span>
+                    <strong>{item.title}</strong>
+                    <span className="ct-ready-copy">{item.copy}</span>
+                  </span>
+                  <span className="ct-ready-arrow" aria-hidden="true">
+                    <Icon name="i-arrow" />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </>

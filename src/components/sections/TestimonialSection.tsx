@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { testimonials } from "@/lib/data";
 
-const AUTOPLAY_MS = 6000;
+const AUTOPLAY_MS = 5000;
 
 export function TestimonialSection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -12,8 +12,9 @@ export function TestimonialSection() {
   const active = testimonials[activeIndex];
 
   useEffect(() => {
+    // Slides crossfade only (motion CSS respects reduced-motion), so autoplay
+    // stays on everywhere; hover/focus still pauses it.
     if (paused || testimonials.length < 2) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = window.setInterval(() => {
       if (document.hidden) return;
       setActiveIndex((current) => (current + 1) % testimonials.length);
@@ -41,7 +42,10 @@ export function TestimonialSection() {
           className="testimonial-card reveal"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          onFocusCapture={() => setPaused(true)}
+          onFocusCapture={(event) => {
+            // Keyboard focus pauses; a mouse click on an arrow should not.
+            if ((event.target as HTMLElement).matches(":focus-visible")) setPaused(true);
+          }}
           onBlurCapture={() => setPaused(false)}
         >
           <svg

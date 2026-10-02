@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { TrustpilotMicroBadge } from "@/components/trustpilot/TrustpilotReviewsSection";
+import { Icon } from "@/components/ui/Icon";
 import {
   NAV_ITEMS,
   SITE_EMAIL,
@@ -44,12 +44,6 @@ export function Footer() {
             We craft credible, authoritative, and impactful Wikipedia pages that
             elevate your presence or brand reputation worldwide.
           </p>
-          <div className="footer-principles" aria-label="Working principles">
-            <span>Guideline-led</span>
-            <span>Source-first</span>
-            <span>Worldwide</span>
-          </div>
-          <TrustpilotMicroBadge />
         </div>
 
         <div className="footer-column footer-links">
@@ -78,8 +72,24 @@ export function Footer() {
 
         <div className="footer-column footer-contact">
           <h3>Contact Us</h3>
-          <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>
-          <a href={`tel:${SITE_PHONE_RAW}`}>{SITE_PHONE}</a>
+          <a className="footer-contact-line" href={`mailto:${SITE_EMAIL}`}>
+            <span className="footer-contact-icon" aria-hidden="true">
+              <Icon name="i-mail" />
+            </span>
+            <span className="footer-contact-text">
+              <small>Email us</small>
+              {SITE_EMAIL}
+            </span>
+          </a>
+          <a className="footer-contact-line" href={`tel:${SITE_PHONE_RAW}`}>
+            <span className="footer-contact-icon" aria-hidden="true">
+              <Icon name="i-phone" />
+            </span>
+            <span className="footer-contact-text">
+              <small>Call us</small>
+              {SITE_PHONE}
+            </span>
+          </a>
           <span>Remote-first · Worldwide services</span>
           {companyNumber ? <span>Company no. {companyNumber}</span> : null}
           {companyAddress ? <span>{companyAddress}</span> : null}
@@ -89,25 +99,6 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="shell footer-disclaimer">
-        <p>
-          {SITE_NAME} is an independent editorial service and is not affiliated
-          with{" "}
-          <a href="https://www.wikipedia.org/" target="_blank" rel="noopener noreferrer">
-            Wikipedia
-          </a>{" "}
-          or the{" "}
-          <a
-            href="https://wikimediafoundation.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Wikimedia Foundation
-          </a>
-          .
-        </p>
-      </div>
-
       <div className="shell footer-bottom">
         <p>
           © {year} {SITE_NAME}. All Rights Reserved.
@@ -115,8 +106,6 @@ export function Footer() {
         <div>
           <Link href={url("privacy-policy")}>Privacy Policy</Link>
           <Link href={url("terms-conditions")}>Terms &amp; Conditions</Link>
-          <Link href={url("resources")}>Resources</Link>
-          <Link href={url("sitemap")}>Sitemap</Link>
         </div>
       </div>
     </footer>

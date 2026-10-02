@@ -34,6 +34,7 @@ export function BlogCard({
       </Link>
 
       <div className="blog-card-body">
+        {featured ? <span className="blog-card-kicker">Latest Guide</span> : null}
         <div className="blog-card-meta">
           <span className="blog-card-category">{post.category}</span>
           <time dateTime={post.publishedAt}>

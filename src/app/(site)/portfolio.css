@@ -1,0 +1,214 @@
+/* ==========================================================================
+   portfolio.css — Portfolio index page, grouped top → bottom
+   Order: hero D → published work W → testimonials D → confidentiality W
+   → CTA D. Legacy .page-portfolio card rules live in site.css; these
+   override them for the light grid.
+
+   1. Published work head + count
+   2. Client cards (light)
+   3. Confidentiality (white)
+   ========================================================================== */
+
+/* 1. Published work (white) ----------------------------------------------- */
+
+body:not(#_) .pf-work-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+body:not(#_) .pf-work-head .micro-label { margin: 0 0 12px; }
+body:not(#_) .pf-work-head h2 { margin: 0 0 14px; }
+body:not(#_) .tone-light .pf-work-head p:not(.micro-label, .pf-count) {
+  max-width: 640px;
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+body:not(#_) .tone-light p.pf-count {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 20px 28px;
+  border-radius: 20px;
+  background: linear-gradient(120deg, #f4d68a, #d8a53a);
+  box-shadow: 0 14px 30px rgba(156, 111, 31, 0.25);
+  text-align: center;
+}
+body:not(#_) .pf-count strong {
+  color: #0b1b2a;
+  font-family: var(--heading-sans);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+body:not(#_) .pf-count span {
+  margin-top: 4px;
+  color: rgba(11, 27, 42, 0.8);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* 2. Client cards — white cards with a gold hairline on hover ------------- */
+
+/* Layout copied from the legacy .page-portfolio rules so the cards work on
+   any page that marks its section .pf-work (index + detail "more work"). */
+body:not(#_) .pf-work .clients-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+body:not(#_) .pf-work .client-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+body:not(#_) .pf-work .client-card-image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+body:not(#_) .pf-work .client-card-image .portfolio-photo {
+  object-fit: cover;
+  object-position: center 18%;
+  transition: transform 0.5s, filter 0.4s;
+}
+body:not(#_) .pf-work .client-card:hover .portfolio-photo { transform: scale(1.04); }
+body:not(#_) .pf-work .client-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+body:not(#_) .pf-work .client-card-body h3 { margin: 0; font-size: 1.25rem; line-height: 1.3; }
+body:not(#_) .pf-work .client-card-body p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: hidden;
+  min-height: 0;
+  margin: 0;
+  line-height: 1.6;
+}
+body:not(#_) .pf-work .client-card-body .text-link { margin-top: auto; }
+body:not(#_) .pf-work .client-card {
+  border: 1px solid var(--tone-light-line);
+  border-radius: var(--card-radius);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(11, 27, 42, 0.06);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+body:not(#_) .pf-work .client-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(156, 111, 31, 0.45);
+  box-shadow: 0 22px 46px rgba(11, 27, 42, 0.12);
+}
+body:not(#_) .pf-work .client-card-image { background: #e9edf1; }
+body:not(#_) .pf-work .client-card-image .portfolio-photo { filter: saturate(0.9) contrast(1.03); }
+body:not(#_) .pf-work .client-card:hover .portfolio-photo { filter: none; }
+body:not(#_) .pf-work .client-card-body { gap: 10px; padding: 22px 24px 24px; }
+body:not(#_) .client-card-category {
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 99px;
+  background: #fbf3df;
+  color: var(--gold-deep);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+body:not(#_) .pf-work .client-card-body h3 { font-family: var(--heading-sans); font-weight: 700; }
+body:not(#_) .pf-work .client-card-body h3 a { color: var(--tone-light-ink); text-decoration: none; }
+body:not(#_) .pf-work .client-card-body h3 a:hover { color: var(--gold-deep); }
+body:not(#_) .pf-work .client-card-body p { color: var(--tone-light-text); font-size: 0.9375rem; }
+body:not(#_) .pf-work .client-card-body .text-link {
+  padding-top: 14px;
+  border-top: 1px solid var(--tone-light-line);
+  color: var(--gold-deep);
+  font-weight: 700;
+}
+
+/* 3. Confidentiality (white) — copy + three point cards ------------------- */
+
+body:not(#_) .pf-confidential { border-top: 1px solid var(--tone-light-line); }
+body:not(#_) .pf-confidential-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(40px, 6vw, 88px);
+}
+body:not(#_) .pf-confidential-copy .micro-label { margin: 0 0 12px; }
+body:not(#_) .pf-confidential-copy h2 { margin: 0 0 22px; }
+body:not(#_) .tone-light .pf-confidential-copy p:not(.micro-label) { margin: 0 0 16px; font-size: 1.0625rem; line-height: 1.8; }
+body:not(#_) .pf-confidential-copy p a { color: var(--gold-deep); font-weight: 700; }
+body:not(#_) .pf-confidential-copy .button { margin-top: 12px; }
+
+body:not(#_) .pf-points { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+body:not(#_) .pf-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid var(--tone-light-line);
+  border-radius: var(--card-radius);
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(11, 27, 42, 0.06);
+  transition: transform 0.25s, border-color 0.25s;
+}
+body:not(#_) .pf-point:hover { transform: translateX(6px); border-color: rgba(156, 111, 31, 0.4); }
+body:not(#_) .pf-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(239, 200, 113, 0.16);
+  color: var(--gold-deep);
+  transition: background 0.25s, color 0.25s;
+}
+body:not(#_) .pf-point:hover .pf-icon { background: var(--eyebrow); color: var(--tone-light-ink); }
+body:not(#_) .pf-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+body:not(#_) .pf-point h3 {
+  margin: 0 0 6px;
+  font-family: var(--heading-sans);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+body:not(#_) .tone-light .pf-point p { margin: 0; font-size: 0.9375rem; line-height: 1.65; }
+
+/* Responsive -------------------------------------------------------------- */
+
+@media (max-width: 960px) {
+  body:not(#_) .pf-confidential-grid { grid-template-columns: 1fr; }
+  body:not(#_) .pf-work .clients-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  body:not(#_) .pf-work .clients-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  body:not(#_) .pf-work-head { flex-direction: column; align-items: flex-start; }
+  body:not(#_) .tone-light p.pf-count { flex-direction: row; gap: 12px; padding: 14px 20px; }
+  body:not(#_) .pf-count span { margin-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body:not(#_) .pf-work .client-card,
+  body:not(#_) .pf-point { transition: none; }
+  body:not(#_) .pf-work .client-card:hover,
+  body:not(#_) .pf-point:hover { transform: none; }
+}

@@ -17,11 +17,9 @@ export function ServiceIndex({
     <div className="service-index">
       {showHeading ? (
         <div className="svc-heading reveal">
-          <div>
-            <p className="micro-label">Our Services</p>
-            <h2>Comprehensive Wikipedia Solutions</h2>
-          </div>
-          <p>
+          <p className="micro-label">Our Services</p>
+          <h2>Comprehensive Wikipedia Solutions</h2>
+          <p className="svc-heading-copy">
             Services covering the full editorial lifecycle — from notability
             assessment and knowledge-panel entity work to creation, editing,
             monitoring, and long-term stewardship.

@@ -4,8 +4,8 @@ import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
+import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { url } from "@/lib/config";
 import { buildPageMetadata, faqNode } from "@/lib/seo";
 
@@ -26,29 +26,60 @@ const faqs = [
 
 const checks = [
   {
-    title: "Notability before drafting fees",
+    title: "Notability Before Drafting Fees",
     copy: "An honest desk screens independent sources first and will tell you when coverage is missing. Paying for prose without a source map is how pages get declined.",
   },
   {
-    title: "Paid-contribution disclosure",
+    title: "Paid-Contribution Disclosure",
     copy: "Wikimedia Terms of Use require disclosure of paid editing. Agencies that hide client relationships create deletion risk for you and ban risk for editors.",
   },
   {
-    title: "No approval guarantees",
+    title: "No Approval Guarantees",
     copy: "Volunteer reviewers decide. Guarantees and “100% approval” claims are marketing — not how English Wikipedia works.",
   },
   {
-    title: "Published pricing and exclusions",
+    title: "Published Pricing and Exclusions",
     copy: "Ask what is not included: PR placement, removing criticism, locking pages, or inventing coverage. Transparent desks publish those limits.",
   },
   {
-    title: "Named process, not anonymous writers",
+    title: "Named Process, Not Anonymous Writers",
     copy: "You should know how research, drafting, and review are separated — and how conflicts of interest are handled on-wiki.",
   },
   {
-    title: "Aftercare realism",
+    title: "Aftercare Realism",
     copy: "Monitoring and talk-page engagement matter after publication. Nobody can “lock” a page against community edits.",
   },
+];
+
+const priceBands = [
+  {
+    name: "DIY",
+    price: "Free",
+    note: "Slow, and easy to mishandle without a source plan.",
+  },
+  {
+    name: "Freelancers",
+    price: "$500–$2,000",
+    note: "Often uneven on disclosure and source standards.",
+  },
+  {
+    name: "Typical agencies",
+    price: "$2,500–$10,000+",
+    note: "Wide range; ask what the fee actually covers.",
+  },
+  {
+    name: "The Wikipedia Studio",
+    price: "$700–$2,500+",
+    note: "Published tiers, after a free notability assessment.",
+    ours: true,
+  },
+];
+
+const notForSale = [
+  "Guaranteed acceptance",
+  "Undisclosed paid editing",
+  "Paid positive coverage",
+  "Removal of well-sourced criticism",
 ];
 
 const pageMeta = {
@@ -71,75 +102,124 @@ export default function ChooseAgencyPage() {
       <BodyClass className="page-choose-agency" />
       <JsonLd page={pageMeta} />
       <PageHero
-        eyebrow="Buyer guide"
-        h1="How to choose a Wikipedia agency <span>without getting scammed</span>"
+        eyebrow="Buyer Guide"
+        h1="How to Choose a Wikipedia Agency <span>Without Getting Scammed</span>"
         lede="This niche attracts operators who sell guarantees and hide paid editing. Use this checklist to evaluate any desk — including ours — before you pay for a draft."
         current="How to Choose"
         actions={[
-          { label: "Free notability checker", href: url("wikipedia-notability-checker") },
+          { label: "Free Notability Checker", href: url("wikipedia-notability-checker") },
           {
-            label: "See published pricing",
+            label: "See Published Pricing",
             href: url("wikipedia-page-cost"),
             style: "button-outline",
           },
         ]}
       />
 
-      <section className="section-pad">
+      {/* 1. Checklist (white) */}
+      <section className="section-pad tone-light ag-checks" aria-labelledby="ag-checks-title">
         <div className="shell">
-          <SectionHeading
-            eyebrow="Checklist"
-            heading="Six questions that filter most bad actors"
-            copy="If a vendor cannot answer these plainly, walk away."
-          />
-          <div className="card-grid reveal">
-            {checks.map((item) => (
-              <article key={item.title} className="service-card">
+          <div className="section-heading center reveal">
+            <p className="micro-label">Checklist</p>
+            <h2 id="ag-checks-title">
+              Six Questions That Filter <span>Most Bad Actors</span>
+            </h2>
+            <p className="section-heading-copy">
+              If a vendor cannot answer these plainly, walk away — and hold us to the
+              same standard.
+            </p>
+          </div>
+          <ol className="ag-check-grid reveal">
+            {checks.map((item, index) => (
+              <li key={item.title} className="ag-check">
+                <div className="ag-check-top">
+                  <span className="ag-check-tick" aria-hidden="true">
+                    <Icon name="i-check" />
+                  </span>
+                  <span className="ag-check-num" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
                 <h3>{item.title}</h3>
                 <p>{item.copy}</p>
-              </article>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <section className="section-pad">
-        <div className="shell definition-grid">
-          <div>
-            <p className="micro-label">Market context</p>
-            <h2>Typical price bands (illustrative)</h2>
-            <p>
-              DIY is free but slow and easy to mishandle. Freelancers often sit
-              around $500–$2,000 with uneven disclosure. Agencies commonly charge
-              $2,500–$10,000+. Our published tiers run{" "}
-              <Link href={url("wikipedia-page-cost")}>$700 to $2,500+</Link> after a
-              free notability assessment — we decline when sources are not there.
-            </p>
-          </div>
-          <div>
-            <p className="micro-label">Our stance</p>
-            <h2>What we will not sell</h2>
-            <p>
-              Guaranteed acceptance, undisclosed editing, paid positive coverage,
-              or removal of well-sourced criticism. See the full exclusions on the{" "}
-              <Link href={url("wikipedia-page-cost")}>pricing page</Link> and our{" "}
-              <Link href={url("about-us")}>about page</Link>.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad">
+      {/* 2. Market context (dark) */}
+      <section className="section-pad tone-dark ag-market" aria-labelledby="ag-market-title">
         <div className="shell">
-          <SectionHeading eyebrow="FAQ" heading="Common buyer questions" />
-          <FaqList items={faqs} wide />
+          <div className="section-heading center reveal">
+            <p className="micro-label">Market Context</p>
+            <h2 id="ag-market-title">
+              Typical Price Bands <span>(Illustrative)</span>
+            </h2>
+            <p className="section-heading-copy">
+              Ranges vary widely. The useful question is not the number — it is what
+              the number pays for, and whether sources are checked first.
+            </p>
+          </div>
+          <ul className="ag-band-grid reveal">
+            {priceBands.map((band) => (
+              <li key={band.name} className={`ag-band${band.ours ? " is-ours" : ""}`}>
+                {band.ours ? <span className="ag-band-badge">Our published tiers</span> : null}
+                <p className="ag-band-name">{band.name}</p>
+                <p className="ag-band-price">{band.price}</p>
+                <p className="ag-band-note">{band.note}</p>
+              </li>
+            ))}
+          </ul>
+
+          <div className="ag-stance reveal">
+            <div>
+              <p className="micro-label">Our Stance</p>
+              <h3>What We Will Not Sell</h3>
+              <p>
+                We decline when sources are not there. See the full exclusions on the{" "}
+                <Link href={url("wikipedia-page-cost")}>pricing page</Link> and our{" "}
+                <Link href={url("about-us")}>about page</Link>.
+              </p>
+            </div>
+            <ul>
+              {notForSale.map((item) => (
+                <li key={item}>
+                  <Icon name="i-close" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Buyer FAQ (white) */}
+      <section className="section-pad tone-light ag-faq" aria-labelledby="ag-faq-title">
+        <div className="shell faq-library">
+          <div className="faq-library-intro reveal">
+            <p className="micro-label">FAQ</p>
+            <h2 id="ag-faq-title">
+              Common Buyer <span>Questions</span>
+            </h2>
+            <p>
+              Straight answers on price, scams, and what an honest agency should
+              publish before you pay anything.
+            </p>
+            <Link className="button button-gold button-small" href={url("wikipedia-notability-checker")}>
+              Try the Free Checker <Icon name="i-arrow" />
+            </Link>
+          </div>
+          <div className="faq-wide reveal">
+            <FaqList items={faqs} wide />
+          </div>
         </div>
       </section>
 
       <CtaBand
-        heading="Start with sources, not a sales call"
+        heading="Start With Sources, <span>Not a Sales Call</span>"
         copy="Run the free checker or request a human assessment."
-        label="Request free assessment"
+        label="Request Free Assessment"
       />
     </>
   );

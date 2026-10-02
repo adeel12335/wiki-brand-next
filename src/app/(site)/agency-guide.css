@@ -1,0 +1,217 @@
+/* ==========================================================================
+   agency-guide.css — How to Choose a Wikipedia Agency
+   Order: hero D → checklist W → market context D → buyer FAQ W → CTA D.
+   ========================================================================== */
+
+body.page-choose-agency:not(#_) .section-heading { margin-bottom: clamp(32px, 4vw, 48px); }
+body.page-choose-agency:not(#_) .section-heading-copy { max-width: 700px; margin-inline: auto; }
+body.page-choose-agency:not(#_) :is(.ag-check-tick, .ag-stance li) svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 1. Checklist (white) ----------------------------------------------------- */
+
+body:not(#_) .ag-check-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body:not(#_) .ag-check {
+  position: relative;
+  padding: 28px 26px;
+  border: 1px solid var(--tone-light-line);
+  border-radius: var(--card-radius);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(11, 27, 42, 0.06);
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+body:not(#_) .ag-check::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--eyebrow));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+body:not(#_) .ag-check:hover {
+  transform: translateY(-5px);
+  border-color: rgba(156, 111, 31, 0.4);
+  box-shadow: 0 20px 42px rgba(11, 27, 42, 0.12);
+}
+body:not(#_) .ag-check:hover::before { transform: scaleX(1); }
+body:not(#_) .ag-check-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+body:not(#_) .ag-check-tick {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(239, 200, 113, 0.18);
+  color: var(--gold-deep);
+  transition: background 0.25s, color 0.25s;
+}
+body:not(#_) .ag-check:hover .ag-check-tick { background: var(--eyebrow); color: var(--tone-light-ink); }
+body:not(#_) .ag-check-tick svg { width: 20px; height: 20px; stroke-width: 2; }
+body:not(#_) .ag-check-num {
+  color: rgba(156, 111, 31, 0.45);
+  font-family: var(--heading-sans);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+body:not(#_) .ag-check h3 {
+  margin: 0 0 10px;
+  font-family: var(--heading-sans);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+body:not(#_) .tone-light .ag-check p { margin: 0; font-size: 0.9375rem; line-height: 1.7; }
+
+/* 2. Market context (dark) ------------------------------------------------- */
+
+body:not(#_) .ag-band-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body:not(#_) .ag-band {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--card-radius);
+  background: rgba(255, 255, 255, 0.03);
+}
+body:not(#_) .ag-band.is-ours {
+  border-color: transparent;
+  background: linear-gradient(120deg, #f4d68a, #d8a53a);
+  box-shadow: 0 22px 46px rgba(216, 165, 58, 0.25);
+}
+body:not(#_) .ag-band-badge {
+  position: absolute;
+  top: -13px;
+  left: 24px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  background: #0b1b2a;
+  color: var(--eyebrow);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+body:not(#_) .tone-dark p.ag-band-name {
+  margin: 0 0 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+body:not(#_) .tone-dark p.ag-band-price {
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-family: var(--heading-sans);
+  font-size: clamp(1.5rem, 2.2vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+body:not(#_) .tone-dark p.ag-band-note { margin: 0; color: rgba(255, 255, 255, 0.72); font-size: 0.9375rem; line-height: 1.6; }
+body:not(#_) .tone-dark .ag-band.is-ours :is(p.ag-band-name, p.ag-band-price, p.ag-band-note) { color: #0b1b2a; }
+
+body:not(#_) .ag-stance {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 64px);
+  margin-top: clamp(40px, 5vw, 56px);
+  padding: clamp(28px, 4vw, 40px);
+  border: 1px solid rgba(239, 200, 113, 0.2);
+  border-radius: 24px;
+  background: linear-gradient(160deg, rgba(14, 40, 60, 0.9), rgba(4, 16, 27, 0.95));
+}
+body:not(#_) .ag-stance .micro-label { margin: 0 0 8px; }
+body:not(#_) .ag-stance h3 {
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-family: var(--heading-sans);
+  font-size: 1.625rem;
+  font-weight: 700;
+}
+body:not(#_) .tone-dark .ag-stance p:not(.micro-label) { margin: 0; color: rgba(255, 255, 255, 0.78); font-size: 0.9375rem; line-height: 1.7; }
+body:not(#_) .ag-stance p a { color: var(--eyebrow); font-weight: 700; }
+body:not(#_) .ag-stance ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+body:not(#_) .tone-dark .ag-stance li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+body:not(#_) .ag-stance li svg { width: 18px; height: 18px; flex: 0 0 auto; color: #e58f84; stroke-width: 2.2; }
+
+/* 3. Buyer FAQ (white) — library layout, light colours -------------------- */
+
+body:not(#_) .ag-faq .faq-library-intro h2 { margin-bottom: 18px; }
+body:not(#_) .ag-faq .faq-library-intro > p:not(.micro-label) { margin-bottom: 24px; font-size: 1rem; line-height: 1.75; }
+body:not(#_) .ag-faq .faq-item { border-top-color: rgba(156, 111, 31, 0.22); }
+body:not(#_) .ag-faq .faq-item:last-child { border-bottom: 1px solid rgba(156, 111, 31, 0.22); }
+body:not(#_) .ag-faq .faq-question {
+  color: var(--tone-light-ink);
+  font-family: var(--heading-sans);
+  font-weight: 700;
+  transition: color 0.2s;
+}
+body:not(#_) .ag-faq .faq-question:hover,
+body:not(#_) .ag-faq .faq-item.is-open .faq-question { color: var(--gold-deep); }
+body:not(#_) .ag-faq .faq-toggle { color: var(--gold-deep); }
+body:not(#_) .ag-faq .faq-item.is-open .faq-toggle {
+  border-color: var(--eyebrow);
+  background: var(--eyebrow);
+  color: var(--tone-light-ink);
+}
+body:not(#_) .ag-faq .faq-answer { color: var(--tone-light-text); }
+
+/* Responsive -------------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+  body:not(#_) .ag-band-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
+}
+@media (max-width: 960px) {
+  body:not(#_) .ag-check-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body:not(#_) .ag-stance { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  body:not(#_) .ag-check-grid,
+  body:not(#_) .ag-band-grid,
+  body:not(#_) .ag-stance ul { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body:not(#_) .ag-check,
+  body:not(#_) .ag-check:hover { transition: none; transform: none; }
+}

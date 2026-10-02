@@ -16,7 +16,7 @@ export function HomeDeepGuide() {
         <div className="home-deep-intro reveal">
           <p className="micro-label">Wikipedia page creation, explained</p>
           <h2 id="home-deep-title">
-            What a professional Wikipedia page creation service actually does
+            What a Professional Wikipedia Page Creation Service Actually Does
           </h2>
           <p>
             Hiring a Wikipedia page creation service is not the same as hiring a

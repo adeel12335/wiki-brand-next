@@ -19,15 +19,17 @@ export function CtaBand({
     <section className="cta-band" id="contact">
       <div className="shell cta-band-inner reveal">
         <div className="cta-band-copy">
-          <span className="micro-label">Start with clarity</span>
+          <span className="micro-label cta-band-label">Start with clarity</span>
           <HtmlHeading html={heading} as="h2" />
           <p>{copy}</p>
-          <Link className="button button-gold magnetic" href={href ?? url("contact")}>
+          <Link className="button button-gold cta-band-button" href={href ?? url("contact")}>
             {label} <Icon name="i-arrow" />
           </Link>
         </div>
+
         <div className="cta-band-visual" aria-hidden="true">
           <span className="cta-band-ring cta-band-ring--outer" />
+          <span className="cta-band-ring cta-band-ring--mid" />
           <span className="cta-band-ring cta-band-ring--inner" />
           <Image
             className="cta-band-globe"
@@ -35,7 +37,7 @@ export function CtaBand({
             alt=""
             width={730}
             height={606}
-            sizes="(max-width: 900px) 220px, 340px"
+            sizes="(max-width: 900px) 260px, 360px"
           />
         </div>
       </div>

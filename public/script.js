@@ -428,7 +428,6 @@
     window.addEventListener('resize', resizeStars);
   }
 
-  // Hero globe parallax — subtle tilt toward the pointer on desktop
   // Hero particle system: orbiting light trails, depth sparks, and a soft pointer wake.
   // It stays canvas-native so this lightweight page does not gain a heavy animation dependency.
   const hero = $('.hero');
@@ -619,28 +618,6 @@
     }
 
     startHeroParticles();
-  }
-
-  const heroArt = $('.hero-art');
-  if (heroArt && richMotion) {
-    const strength = 16;
-    let targetX = 0;
-    let targetY = 0;
-    let currentX = 0;
-    let currentY = 0;
-
-    window.addEventListener('pointermove', event => {
-      if (event.pointerType && event.pointerType !== 'mouse') return;
-      targetX = (event.clientX / window.innerWidth - 0.5) * strength;
-      targetY = (event.clientY / window.innerHeight - 0.5) * strength;
-    }, { passive: true });
-
-    (function tiltHero() {
-      currentX += (targetX - currentX) * 0.06;
-      currentY += (targetY - currentY) * 0.06;
-      heroArt.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0) scale(1.06)`;
-      window.requestAnimationFrame(tiltHero);
-    })();
   }
 
   // Active section navigation.

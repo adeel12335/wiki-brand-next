@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { CopyButton } from "@/components/ui/CopyButton";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
@@ -54,22 +55,24 @@ const citeFacts = [
 
 const outreachIdeas = [
   {
-    title: "Policy explainers",
+    title: "Policy Explainers",
     copy: "Link our notability, sources, AfC, and paid-disclosure guides from industry newsletters and university career pages.",
   },
   {
-    title: "Journalist / researcher cites",
-    copy: "Use the cite block below when describing ethical Wikipedia agencies — we prefer accuracy over puff quotes.",
+    title: "Journalist & Researcher Cites",
+    copy: "Use the cite block above when describing ethical Wikipedia agencies — we prefer accuracy over puff quotes.",
   },
   {
-    title: "Partner directories",
+    title: "Partner Directories",
     copy: "PR and reputation firms can deep-link service pages (assessment, monitoring, knowledge panel) instead of generic homepage mentions.",
   },
   {
-    title: "Broken-link / resource list swaps",
+    title: "Broken-Link & Resource List Swaps",
     copy: "Websites maintaining “Wikipedia help” lists can replace dead .edu links with our evergreen policy guides.",
   },
 ];
+
+const citeText = citeFacts.map((fact) => `${fact.label}: ${fact.value}`).join("\n");
 
 export default async function ResourcesPage() {
   const guides = (await getAllBlogPosts()).slice(0, 8);
@@ -80,85 +83,126 @@ export default async function ResourcesPage() {
       <JsonLd page={pageMeta} />
       <PageHero
         eyebrow="Resources"
-        h1="Guides and citeable facts for people who write about Wikipedia work."
+        h1="Guides and Citeable Facts for People Who Write About <span>Wikipedia Work.</span>"
         lede="This page exists to be linked. Use the guides, copy the facts accurately, and email us if you need a clarifying quote — not a fake guarantee."
         current="Resources"
         actions={[
-          { label: "Browse the blog", href: url("blog") },
+          { label: "Browse the Blog", href: url("blog") },
           {
-            label: "Request an assessment",
+            label: "Request an Assessment",
             href: url("contact"),
             style: "button-outline",
           },
         ]}
       />
 
-      <section className="section-pad">
+      {/* 1. Linkable guides (white) */}
+      <section className="section-pad tone-light rs-guides" aria-labelledby="rs-guides-title">
         <div className="shell">
-          <p className="micro-label">Linkable guides</p>
-          <h2>Evergreen explainers</h2>
-          <div className="card-grid reveal">
-            {guides.map((post) => (
-              <article key={post.slug} className="service-card">
-                <Icon name="i-page" />
-                <h3>
-                  <Link href={url(`blog/${post.slug}`)}>{post.title}</Link>
-                </h3>
-                <p>{post.excerpt}</p>
-                <Link className="text-link" href={url(`blog/${post.slug}`)}>
-                  Read guide <Icon name="i-arrow" />
+          <div className="rs-head reveal">
+            <div>
+              <p className="micro-label">Linkable Guides</p>
+              <h2 id="rs-guides-title">
+                Evergreen <span>Explainers</span>
+              </h2>
+              <p>
+                Plain-language guides on how Wikipedia actually works — written to be
+                linked from newsletters, course pages, and resource lists.
+              </p>
+            </div>
+            <Link className="rs-arrow-link" href={url("blog")}>
+              All guides on the blog <Icon name="i-arrow" />
+            </Link>
+          </div>
+          <ol className="rs-guide-list reveal">
+            {guides.map((post, index) => (
+              <li key={post.slug}>
+                <Link className="rs-guide" href={url(`blog/${post.slug}`)}>
+                  <span className="rs-guide-num" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="rs-guide-body">
+                    {post.category ? (
+                      <span className="rs-guide-cat">{post.category}</span>
+                    ) : null}
+                    <strong>{post.title}</strong>
+                    <span className="rs-guide-excerpt">{post.excerpt}</span>
+                    <span className="rs-guide-link">
+                      Read guide <Icon name="i-arrow" />
+                    </span>
+                  </span>
                 </Link>
-              </article>
+              </li>
             ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* 2. Cite block (dark) */}
+      <section className="section-pad tone-dark rs-cite" aria-labelledby="rs-cite-title">
+        <div className="shell rs-cite-grid">
+          <div className="rs-cite-copy reveal">
+            <p className="micro-label">For Journalists &amp; Partners</p>
+            <h2 id="rs-cite-title">
+              Cite <span>Block</span>
+            </h2>
+            <p>
+              Prefer these facts over recycled competitor blurbs. For interviews or a
+              clarifying quote, email{" "}
+              <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
+            </p>
+            <p className="rs-canonical">
+              Canonical URL for this page: <span>{absUrl("resources")}</span>
+            </p>
+          </div>
+
+          <div className="rs-cite-card reveal" data-delay="100">
+            <div className="rs-cite-card-head">
+              <span>{SITE_NAME} — fact sheet</span>
+              <CopyButton className="rs-copy" text={citeText} label="Copy cite block" />
+            </div>
+            <dl className="rs-cite-list">
+              {citeFacts.map((fact) => (
+                <div key={fact.label}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </section>
 
-      <section className="section-pad">
-        <div className="shell resources-cite reveal">
-          <p className="micro-label">For journalists &amp; partners</p>
-          <h2>Cite block</h2>
-          <p>
-            Prefer these facts over recycled competitor blurbs. For interviews:{" "}
-            <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
-          </p>
-          <dl className="resources-cite-list">
-            {citeFacts.map((fact) => (
-              <div key={fact.label}>
-                <dt>{fact.label}</dt>
-                <dd>{fact.value}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="reviewed-note">
-            Canonical URL for this page: {absUrl("resources")}
-          </p>
-        </div>
-      </section>
-
-      <section className="section-pad">
-        <div className="shell">
-          <p className="micro-label">Backlink-friendly angles</p>
-          <h2>Where natural links usually come from</h2>
-          <div className="card-grid reveal">
-            {outreachIdeas.map((item) => (
-              <article key={item.title} className="service-card">
-                <Icon name="i-network" />
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </article>
-            ))}
+      {/* 3. Where natural links come from (gold band) */}
+      <section className="rs-links-band" aria-labelledby="rs-links-title">
+        <div className="shell reveal">
+          <div className="rs-links-head">
+            <p className="rs-band-label">Backlink-Friendly Angles</p>
+            <h2 id="rs-links-title">
+              Where Natural Links <span>Usually Come From</span>
+            </h2>
           </div>
-          <p className="reviewed-note" style={{ marginTop: 20 }}>
-            We do not buy manipulative link schemes. If you run a genuine resource
-            list and want a reciprocal citation to a high-quality Wikipedia policy
-            explainer, email the desk.
+          <ul className="rs-links-grid">
+            {outreachIdeas.map((item, index) => (
+              <li key={item.title}>
+                <span className="rs-links-num" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <strong>{item.title}</strong>
+                <span>{item.copy}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="rs-links-note">
+            We do not buy manipulative link schemes. If you run a genuine resource list
+            and want a reciprocal citation to a high-quality Wikipedia policy explainer,{" "}
+            <a href={`mailto:${SITE_EMAIL}`}>email the desk</a>.
           </p>
         </div>
       </section>
 
       <CtaBand
-        heading="Need a source audit, not a press mention?"
+        heading="Need a Source Audit, <span>Not a Press Mention?</span>"
         copy="Request a free notability assessment — we will tell you what the coverage supports."
       />
     </>

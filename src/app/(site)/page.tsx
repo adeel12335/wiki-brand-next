@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { BlogCard } from "@/components/blog/BlogCard";
-import { ExperiencePanel } from "@/components/sections/ExperiencePanel";
+import { ExperiencePanel, ExperienceStats } from "@/components/sections/ExperiencePanel";
 import { PortfolioClientsGrid } from "@/components/sections/PortfolioClientsGrid";
 import { MetricsRail } from "@/components/sections/MetricsRail";
 import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
@@ -99,42 +99,6 @@ export default async function HomePage() {
                 Explore Our Services <Icon name="i-arrow" />
               </Link>
             </div>
-            <p className="hero-pricing-link">
-              <Link className="text-link" href={url("wikipedia-page-cost")}>
-                Wikipedia page cost &amp; packages from $700{" "}
-                <Icon name="i-arrow" />
-              </Link>
-            </p>
-            <div className="hero-proof">
-              <div className="proof-avatars" aria-hidden="true">
-                <Image
-                  src="/assets/portfolio-business-leader.jpg"
-                  alt=""
-                  width={68}
-                  height={68}
-                  sizes="68px"
-                />
-                <Image
-                  src="/assets/portfolio-author.jpg"
-                  alt=""
-                  width={68}
-                  height={68}
-                  sizes="68px"
-                />
-                <Image
-                  src="/assets/portfolio-entrepreneur.jpg"
-                  alt=""
-                  width={68}
-                  height={68}
-                  sizes="68px"
-                />
-                <span>W</span>
-              </div>
-              <p>
-                Guideline-compliant editorial work for clients{" "}
-                <strong>worldwide</strong>
-              </p>
-            </div>
           </div>
         </div>
 
@@ -142,11 +106,11 @@ export default async function HomePage() {
       </section>
 
       <section className="about section-pad tone-light" id="about">
-        <div className="shell about-grid">
+        <div className="shell about-grid about-grid--split">
           <div className="section-copy reveal">
             <p className="micro-label">About The Wikipedia Studio</p>
             <h2>
-              Where editorial <span>excellence</span> meets global standards.
+              Where Editorial <span>Excellence</span> Meets Global Standards.
             </h2>
             <p>
               We are a team of Wikipedia specialists, researchers, and content
@@ -172,12 +136,13 @@ export default async function HomePage() {
                 Long-term page monitoring and maintenance
               </li>
             </ul>
+            <ExperienceStats />
             <Link className="button button-gold button-small" href={url("about-us")}>
               Learn More About Us <Icon name="i-arrow" />
             </Link>
           </div>
 
-          <ExperiencePanel />
+          <ExperiencePanel statsBeside={false} />
         </div>
       </section>
 
@@ -224,7 +189,7 @@ export default async function HomePage() {
           <div className="portfolio-heading reveal">
             <div>
               <p className="micro-label">Insights</p>
-              <h2>Guides worth reading before you draft</h2>
+              <h2>Guides Worth Reading Before You Draft</h2>
             </div>
             <Link className="text-link" href={url("blog")}>
               View All Articles <Icon name="i-arrow" />
@@ -238,23 +203,33 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="resources section-pad tone-light" id="resources">
-        <div className="shell home-faq reveal">
-          <div className="home-faq-head">
+      <section
+        className="resources section-pad tone-light home-faq-section"
+        id="resources"
+        aria-labelledby="home-faq-title"
+      >
+        <div className="shell faq-library home-faq-library">
+          <div className="faq-library-intro reveal">
             <p className="micro-label">Frequently Asked Questions</p>
-            <h2>Straight answers, before you commit.</h2>
-          </div>
-          <FaqList items={homeFaqs} />
-          <div className="home-faq-actions">
+            <h2 id="home-faq-title">
+              Straight Answers, <span>Before You Commit.</span>
+            </h2>
+            <p>
+              The questions we hear most before an engagement starts — on
+              notability, cost, and what a paid editor can and cannot do.
+            </p>
             <Link className="button button-gold button-small" href={url("faq")}>
               Read The Full FAQ <Icon name="i-arrow" />
             </Link>
+          </div>
+          <div className="faq-wide reveal">
+            <FaqList items={homeFaqs} wide />
           </div>
         </div>
       </section>
 
       <CtaBand
-        heading="Let&apos;s build your Wikipedia presence <span>the right way.</span>"
+        heading="Let&apos;s Build Your Wikipedia Presence <span>the Right Way.</span>"
         copy="Request an honest notability assessment. We will tell you what the sources support before any work is commissioned."
       />
     </>

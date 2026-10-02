@@ -6,7 +6,6 @@ import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { url } from "@/lib/config";
 import { faqs } from "@/lib/data";
 import { buildPageMetadata, faqNode } from "@/lib/seo";
@@ -27,6 +26,45 @@ const pageMeta = {
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
+const concepts = [
+  {
+    icon: "i-search",
+    title: "Notability",
+    copy: "A subject qualifies when multiple reliable, independent sources have covered it significantly.",
+    policy: "https://en.wikipedia.org/wiki/Wikipedia:Notability",
+  },
+  {
+    icon: "i-check",
+    title: "Verifiability",
+    copy: "Readers must be able to check every claim against a published source.",
+    policy: "https://en.wikipedia.org/wiki/Wikipedia:Verifiability",
+  },
+  {
+    icon: "i-shield",
+    title: "Neutral Point of View",
+    copy: "Articles describe subjects fairly and without promotion.",
+    policy: "https://en.wikipedia.org/wiki/Wikipedia:Neutral_point_of_view",
+  },
+];
+
+const trustPoints = [
+  {
+    icon: "i-users",
+    title: "100% Confidential",
+    copy: "Your information is always secure with us.",
+  },
+  {
+    icon: "i-shield",
+    title: "Ethical & Compliant",
+    copy: "We follow Wikipedia's policies and guidelines.",
+  },
+  {
+    icon: "i-check",
+    title: "Transparent Process",
+    copy: "Clear communication at every step.",
+  },
+];
+
 export default function FaqPage() {
   return (
     <>
@@ -34,7 +72,7 @@ export default function FaqPage() {
       <JsonLd page={pageMeta} />
       <PageHero
         eyebrow="Resources & FAQ"
-        h1="Wikipedia questions, answered without the <span>sales pitch.</span>"
+        h1="Wikipedia Questions, Answered Without the <span>Sales Pitch.</span>"
         lede="The Wikipedia questions clients ask most, answered the way we would answer them on a call — including the parts that make a commission less likely."
         current="Resources & FAQ"
         actions={[{ label: "Ask Us Something Else", href: url("contact") }]}
@@ -44,12 +82,13 @@ export default function FaqPage() {
         visualClass="page-hero-visual--archive page-hero-visual--faq"
       />
 
-      <section className="section-pad faq-library-section">
+      {/* 1. FAQ library (white) */}
+      <section className="section-pad tone-light faq-library-section fq-library" aria-labelledby="fq-library-title">
         <div className="shell faq-library">
           <div className="faq-library-intro reveal">
             <p className="micro-label">Knowledge Library</p>
-            <h2>
-              Clear answers, organised around <span>what actually matters.</span>
+            <h2 id="fq-library-title">
+              Clear Answers, Organised Around <span>What Actually Matters.</span>
             </h2>
             <p>
               Start with eligibility, then understand how editorial review works and
@@ -60,128 +99,94 @@ export default function FaqPage() {
               <span><b>02</b> Drafting &amp; editorial review</span>
               <span><b>03</b> Publication &amp; maintenance</span>
             </div>
-            <Link className="text-link" href={url("contact")}>
-              Ask an editor directly <Icon name="i-arrow" />
+            <Link className="button button-gold button-small" href={url("contact")}>
+              Ask an Editor Directly <Icon name="i-arrow" />
             </Link>
-            <Link className="text-link" href={url("wikipedia-page-cost")}>
+            <Link className="fq-arrow-link" href={url("wikipedia-page-cost")}>
               See Wikipedia page cost &amp; packages <Icon name="i-arrow" />
             </Link>
           </div>
-          <div className="faq-wide">
+          <div className="faq-wide reveal">
             <FaqList items={faqs} wide />
           </div>
         </div>
       </section>
 
-      <section className="section-pad">
+      {/* 2. Key concepts (dark) */}
+      <section className="section-pad tone-dark fq-concepts" aria-labelledby="fq-concepts-title">
         <div className="shell">
-          <SectionHeading
-            eyebrow="Key Concepts"
-            heading="Three rules that decide most outcomes"
-          />
-          <div className="card-grid concept-grid reveal">
-            {[
-              {
-                icon: "i-search",
-                title: "Notability",
-                copy: "A subject qualifies when multiple reliable, independent sources have covered it significantly.",
-              },
-              {
-                icon: "i-check",
-                title: "Verifiability",
-                copy: "Readers must be able to check every claim against a published source.",
-              },
-              {
-                icon: "i-shield",
-                title: "Neutral point of view",
-                copy: "Articles describe subjects fairly and without promotion.",
-              },
-            ].map((item) => (
-              <article key={item.title} className="service-card">
-                <Icon name={item.icon} />
+          <div className="section-heading center reveal">
+            <p className="micro-label">Key Concepts</p>
+            <h2 id="fq-concepts-title">
+              Three Rules That Decide <span>Most Outcomes</span>
+            </h2>
+            <p className="section-heading-copy">
+              Wikipedia publishes the policies we work to. If an agency&apos;s promises
+              conflict with these documents, the documents win.
+            </p>
+          </div>
+          <ol className="fq-concept-grid reveal">
+            {concepts.map((item, index) => (
+              <li key={item.title} className="fq-concept">
+                <div className="fq-concept-top">
+                  <span className="fq-icon" aria-hidden="true">
+                    <Icon name={item.icon} />
+                  </span>
+                  <span className="fq-concept-num" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
                 <h3>{item.title}</h3>
                 <p>{item.copy}</p>
-              </article>
+                <a
+                  className="fq-arrow-link"
+                  href={item.policy}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Read the Wikipedia policy <Icon name="i-arrow" />
+                </a>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <section className="resources section-pad">
-        <div className="shell resource-panel reveal">
-          <div className="principles">
-            <p className="micro-label">Why Clients Trust Us</p>
-            <h2>Built on Trust. Driven by Excellence.</h2>
+      {/* 3. Trust band (gold, full width) */}
+      <section className="fq-trust-band" aria-labelledby="fq-trust-title">
+        <div className="shell reveal">
+          <div className="fq-trust-head">
+            <p className="fq-band-label">Why Clients Trust Us</p>
+            <h2 id="fq-trust-title">
+              Built on Trust. <span>Driven by Excellence.</span>
+            </h2>
             <p>
-              We follow strict editorial standards and maintain complete transparency
-              in everything we do.
+              We follow strict editorial standards and maintain complete transparency in
+              everything we do — including{" "}
+              <a
+                href="https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use#4._Refraining_from_Certain_Activities"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                paid-contribution disclosure
+              </a>
+              .
             </p>
-            <div className="principle-grid">
-              <article>
-                <Icon name="i-users" />
-                <div>
-                  <strong>100% Confidential</strong>
-                  <span>Your information is always secure with us.</span>
-                </div>
-              </article>
-              <article>
-                <Icon name="i-shield" />
-                <div>
-                  <strong>Ethical &amp; Compliant</strong>
-                  <span>We follow Wikipedia&apos;s policies and guidelines.</span>
-                </div>
-              </article>
-              <article>
-                <Icon name="i-check" />
-                <div>
-                  <strong>Transparent Process</strong>
-                  <span>Clear communication at every step.</span>
-                </div>
-              </article>
-            </div>
           </div>
-          <div className="faq">
-            <p className="micro-label">Useful Reading</p>
-            <div className="prose">
-              <p>
-                Wikipedia publishes the policies we work to:{" "}
-                <a
-                  href="https://en.wikipedia.org/wiki/Wikipedia:Notability"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  notability
-                </a>
-                ,{" "}
-                <a
-                  href="https://en.wikipedia.org/wiki/Wikipedia:Verifiability"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  verifiability
-                </a>
-                ,{" "}
-                <a
-                  href="https://en.wikipedia.org/wiki/Wikipedia:Neutral_point_of_view"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  neutral point of view
-                </a>
-                , and{" "}
-                <a
-                  href="https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use#4._Refraining_from_Certain_Activities"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  paid-contribution disclosure
-                </a>
-                .
-              </p>
-              <p>If an agency&apos;s promises conflict with those documents, the documents win.</p>
-            </div>
-            <Link className="text-link" href={url("our-process")}>
-              See how we apply them <Icon name="i-arrow" />
+          <ul className="fq-trust-grid">
+            {trustPoints.map((item) => (
+              <li key={item.title}>
+                <span className="fq-trust-icon" aria-hidden="true">
+                  <Icon name={item.icon} />
+                </span>
+                <strong>{item.title}</strong>
+                <span>{item.copy}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="fq-trust-actions">
+            <Link className="fq-pill" href={url("our-process")}>
+              See How We Apply Them <Icon name="i-arrow" />
             </Link>
           </div>
         </div>

@@ -1,0 +1,182 @@
+/* ==========================================================================
+   case-studies.css — Case Studies page
+   Order: hero D → cases W (alternating feature rows) → common-thread band
+   GOLD → CTA D.
+   ========================================================================== */
+
+body.page-case-studies:not(#_) .section-heading { margin-bottom: clamp(36px, 5vw, 56px); }
+
+/* 1. Cases (white) ---------------------------------------------------------- */
+
+body:not(#_) .cs-list { display: grid; gap: clamp(32px, 5vw, 56px); }
+body:not(#_) .cs-case {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  overflow: hidden;
+  border: 1px solid var(--tone-light-line);
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 22px 54px rgba(11, 27, 42, 0.1);
+}
+body:not(#_) .cs-case--flip { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); }
+body:not(#_) .cs-case--flip .cs-case-media { order: 2; }
+body:not(#_) .cs-case-media {
+  position: relative;
+  min-height: 420px;
+  background: linear-gradient(160deg, #10304a, #06172a);
+}
+body:not(#_) .cs-case-media img { object-fit: cover; object-position: center 20%; }
+body:not(#_) .cs-case-index {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 2;
+  padding: 6px 14px;
+  border-radius: 99px;
+  background: linear-gradient(120deg, #f4d68a, #d8a53a);
+  color: #0b1b2a;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+body:not(#_) .cs-case-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(28px, 4vw, 56px);
+}
+body:not(#_) .tone-light p.cs-case-subject {
+  margin: 0 0 10px;
+  color: var(--eyebrow-on-light);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+body:not(#_) .cs-case-body h3 {
+  margin: 0 0 18px;
+  font-family: var(--heading-sans);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+body:not(#_) .cs-case-focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+body:not(#_) .tone-light .cs-case-focus li {
+  padding: 6px 14px;
+  border: 1px solid rgba(156, 111, 31, 0.25);
+  border-radius: 99px;
+  background: #fbf8f1;
+  color: var(--gold-deep);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+body:not(#_) .tone-light p.cs-case-story {
+  margin: 0 0 24px;
+  color: #33414d;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+body:not(#_) a.cs-arrow-link.cs-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 18px;
+  border-top: 1px solid var(--tone-light-line);
+  color: var(--gold-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+body:not(#_) :is(.cs-arrow-link, .cs-lesson-icon) svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+body:not(#_) .cs-arrow-link svg { width: 16px; height: 16px; stroke-width: 2; transition: transform 0.2s; }
+body:not(#_) .cs-arrow-link:hover svg { transform: translateX(4px); }
+
+/* 2. Common-thread band (gold, full width) -------------------------------- */
+
+body:not(#_) .cs-lessons-band {
+  position: relative;
+  padding: clamp(56px, 7vw, 96px) 0;
+  background: linear-gradient(120deg, #f4d68a 0%, #efc871 45%, #d8a53a 100%);
+  overflow: hidden;
+}
+body:not(#_) .cs-lessons-band::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -200px;
+  width: 640px;
+  height: 640px;
+  border: 1px solid rgba(11, 27, 42, 0.08);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+body:not(#_) .cs-lessons-head { position: relative; max-width: 760px; margin: 0 auto 36px; text-align: center; }
+body:not(#_) .cs-lessons-band .cs-band-label {
+  margin: 0 0 12px;
+  color: #0b1b2a;
+  font-family: var(--heading-sans);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+body:not(#_) .cs-lessons-band h2 { margin: 0; color: #0b1b2a; font-size: clamp(2rem, 3.6vw, 3rem); }
+body:not(#_) .cs-lessons-band h2 span { color: #ffffff; text-shadow: 0 2px 14px rgba(120, 80, 10, 0.25); }
+body:not(#_) .cs-lessons-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body:not(#_) .cs-lessons-grid li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px 24px;
+  border: 1px solid rgba(11, 27, 42, 0.1);
+  border-radius: var(--card-radius);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+body:not(#_) .cs-lesson-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: #0b1b2a;
+  color: var(--eyebrow);
+}
+body:not(#_) .cs-lesson-icon svg { width: 22px; height: 22px; stroke-width: 1.7; }
+body:not(#_) .cs-lessons-grid strong { color: #0b1b2a; font-family: var(--heading-sans); font-size: 1.1875rem; }
+body:not(#_) .cs-lessons-grid li > span:last-child { color: rgba(11, 27, 42, 0.8); font-size: 0.9375rem; line-height: 1.65; }
+
+/* Responsive -------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  body:not(#_) .cs-case,
+  body:not(#_) .cs-case--flip { grid-template-columns: 1fr; }
+  body:not(#_) .cs-case--flip .cs-case-media { order: 0; }
+  body:not(#_) .cs-case-media { min-height: 0; aspect-ratio: 16 / 10; }
+  body:not(#_) .cs-lessons-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  body:not(#_) .cs-case { border-radius: 18px; }
+}

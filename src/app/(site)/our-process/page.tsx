@@ -6,7 +6,6 @@ import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { url, absUrl } from "@/lib/config";
 import { processSteps } from "@/lib/data";
 import { buildPageMetadata } from "@/lib/seo";
@@ -57,6 +56,47 @@ const pageMeta = {
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
+const bring = [
+  "Links to independent press coverage — news, books, journals, trade press",
+  "Key milestones with dates: founding, awards, publications, appointments",
+  "Exact spellings of names, titles, and organisations",
+  "Any existing Wikipedia article or Wikidata entry",
+];
+
+const cannotCite = [
+  "Company blogs and your own website",
+  "Press releases and newswire distributions",
+  "Sponsored, paid, or advertorial features",
+  "Interviews where you are the main source",
+];
+
+const timeline = [
+  {
+    icon: "i-search",
+    title: "Assessment",
+    duration: "A few days",
+    copy: "We search for independent coverage and give you a written verdict on notability.",
+  },
+  {
+    icon: "i-write",
+    title: "Drafting & Review",
+    duration: "A few weeks",
+    copy: "Typically a few weeks, depending on how much coverage exists and how much it needs verifying.",
+  },
+  {
+    icon: "i-clock",
+    title: "Wikipedia Review Queue",
+    duration: "Outside anyone's control",
+    copy: "Volunteer reviewers work through a backlog. We give you a realistic range, never a promise.",
+  },
+  {
+    icon: "i-manage",
+    title: "Post-Publication",
+    duration: "Ongoing",
+    copy: "Monitoring through the first stabilisation period matters as much as the launch itself.",
+  },
+];
+
 export default function OurProcessPage() {
   return (
     <>
@@ -64,7 +104,7 @@ export default function OurProcessPage() {
       <JsonLd page={pageMeta} />
       <PageHero
         eyebrow="Our Process"
-        h1="A proven <span>five-step Wikipedia process</span>, from research to publication."
+        h1="A Proven <span>Five-Step Wikipedia Process</span>, From Research to Publication."
         lede="Our Wikipedia process runs the same five stages on every engagement, and it is deliberately front-loaded."
         current="Our Process"
         actions={[
@@ -77,115 +117,209 @@ export default function OurProcessPage() {
         visualClass="page-hero-visual--process"
       />
 
-      <section className="section-pad process-index-section">
+      {/* 1. Why the process is front-loaded (white) */}
+      <section className="section-pad tone-light pr-why" aria-labelledby="pr-why-title">
+        <div className="shell pr-why-grid">
+          <div className="pr-why-copy reveal">
+            <p className="micro-label">Why It Works</p>
+            <h2 id="pr-why-title">
+              Research First, <span>Writing Second</span>
+            </h2>
+            <p>
+              Most Wikipedia drafts fail for one reason: nobody checked whether
+              independent coverage existed before the writing started. Our process is
+              deliberately front-loaded so that question is answered first.
+            </p>
+            <p>
+              Roughly two thirds of the work happens before a single sentence is
+              drafted — in finding, reading, and grading the sources that decide what
+              the article is allowed to say.
+            </p>
+          </div>
+
+          <div className="pr-effort reveal" data-delay="100">
+            <p className="pr-effort-title">Where the work goes</p>
+            <div className="pr-effort-bar" aria-hidden="true">
+              <span className="pr-effort-before">≈ 2/3</span>
+              <span className="pr-effort-after">≈ 1/3</span>
+            </div>
+            <div className="pr-effort-legend">
+              <div>
+                <strong>Before drafting</strong>
+                <span>Source search, notability verdict, source grading, and planning</span>
+              </div>
+              <div>
+                <strong>Drafting and after</strong>
+                <span>Neutral writing, second-editor review, disclosed submission, monitoring</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Five stages at a glance — interactive stepper (dark) */}
+      <section className="section-pad tone-dark process-index-section pr-glance" aria-labelledby="pr-glance-title">
         <div className="shell">
+          <div className="section-heading center reveal">
+            <p className="micro-label">At a Glance</p>
+            <h2 id="pr-glance-title">
+              The Five Stages, <span>Step by Step</span>
+            </h2>
+            <p className="section-heading-copy">
+              Select a stage to see what happens inside it — the same order on every
+              engagement, whatever the subject.
+            </p>
+          </div>
           <ProcessShowcase showHeading={false} />
         </div>
       </section>
 
-      <section className="section-pad">
-        <div className="shell stage-list">
-          <SectionHeading
-            eyebrow="Stage By Stage"
-            heading="What actually happens at each step"
-          />
-          {processSteps.map((step, index) => (
-            <article key={step.title} className="stage-row reveal" id={`step-${index + 1}`}>
-              <div className="stage-marker" aria-hidden="true">
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <Icon name={step.icon} />
-              </div>
-              <div>
-                <h3>{step.title}</h3>
-                <p>{step.copy}</p>
-                <p>{step.detail}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section-pad">
+      {/* 3. Stage by stage — vertical timeline (white) */}
+      <section className="section-pad tone-light pr-stages" aria-labelledby="pr-stages-title">
         <div className="shell">
-          <SectionHeading eyebrow="Before We Start" heading="What we need from you" />
-          <div className="shell-inner answer-block reveal">
-            <p>
-              The research stage moves faster when you arrive with links to
-              independent press coverage, key milestones with dates, exact spellings
-              of names, and any existing{" "}
-              <Link href={url("services/wikipedia-reputation-management")}>
-                Wikipedia or Wikidata entry
-              </Link>
-              .
-            </p>
-            <p>
-              What we cannot use as citations is anything you control: company blogs,
-              press releases, sponsored features, and your own website. That follows
-              Wikipedia&apos;s published guidance on{" "}
-              <a
-                href="https://en.wikipedia.org/wiki/Wikipedia:Identifying_reliable_sources"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                identifying reliable sources
-              </a>{" "}
-              and{" "}
-              <a
-                href="https://en.wikipedia.org/wiki/Wikipedia:Independent_sources"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                source independence
-              </a>
-              .
-            </p>
+          <div className="section-heading center reveal">
+            <p className="micro-label">Stage By Stage</p>
+            <h2 id="pr-stages-title">
+              What Actually Happens at <span>Each Step</span>
+            </h2>
           </div>
-        </div>
-      </section>
-
-      <section className="section-pad">
-        <div className="shell">
-          <SectionHeading eyebrow="Timelines" heading="What to expect, realistically" />
-          <div className="card-grid reveal">
-            {[
-              {
-                icon: "i-search",
-                title: "Assessment",
-                copy: "A few days. We search for independent coverage and give you a written verdict on notability.",
-              },
-              {
-                icon: "i-write",
-                title: "Drafting & review",
-                copy: "Typically a few weeks, depending on how much coverage exists.",
-              },
-              {
-                icon: "i-clock",
-                title: "Wikipedia review queue",
-                copy: "Outside anyone's control. Volunteer reviewers work through a backlog.",
-              },
-              {
-                icon: "i-manage",
-                title: "Post-publication",
-                copy: "Ongoing monitoring through the first stabilisation period matters as much as launch.",
-              },
-            ].map((item) => (
-              <article key={item.title} className="service-card">
-                <Icon name={item.icon} />
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </article>
+          <ol className="pr-timeline">
+            {processSteps.map((step, index) => (
+              <li key={step.title} className="pr-stage reveal" id={`step-${index + 1}`}>
+                <div className="pr-stage-marker" aria-hidden="true">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </div>
+                <article className="pr-stage-card">
+                  <header>
+                    <span className="pr-icon" aria-hidden="true">
+                      <Icon name={step.icon} />
+                    </span>
+                    <div>
+                      <p className="pr-stage-kicker">Stage {index + 1} of {processSteps.length}</p>
+                      <h3>{step.title}</h3>
+                    </div>
+                  </header>
+                  <p>{step.copy}</p>
+                  <p className="pr-stage-detail">{step.detail}</p>
+                </article>
+              </li>
             ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* 4. What we need from you (dark) */}
+      <section className="section-pad tone-dark pr-need" aria-labelledby="pr-need-title">
+        <div className="shell">
+          <div className="section-heading center reveal">
+            <p className="micro-label">Before We Start</p>
+            <h2 id="pr-need-title">
+              What We Need <span>From You</span>
+            </h2>
+            <p className="section-heading-copy">
+              The research stage moves faster when you arrive with the right material —
+              and knowing what Wikipedia will not accept saves everyone time.
+            </p>
           </div>
-          <p className="pricing-crosslink reveal">
-            <Link className="text-link" href={url("wikipedia-page-cost")}>
-              View Wikipedia page cost &amp; packages <Icon name="i-arrow" />
+          <div className="pr-need-grid">
+            <article className="pr-need-card pr-need-card--yes reveal">
+              <h3>
+                <span className="pr-need-badge" aria-hidden="true">
+                  <Icon name="i-check" />
+                </span>
+                Helpful to Bring
+              </h3>
+              <ul>
+                {bring.map((item) => (
+                  <li key={item}>
+                    <Icon name="i-check" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p>
+                Already have a page?{" "}
+                <Link href={url("services/wikipedia-reputation-management")}>
+                  See how we handle Wikipedia and Wikidata entries
+                </Link>
+                .
+              </p>
+            </article>
+            <article className="pr-need-card pr-need-card--no reveal" data-delay="100">
+              <h3>
+                <span className="pr-need-badge" aria-hidden="true">
+                  <Icon name="i-close" />
+                </span>
+                What We Cannot Cite
+              </h3>
+              <ul>
+                {cannotCite.map((item) => (
+                  <li key={item}>
+                    <Icon name="i-close" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p>
+                This follows Wikipedia&apos;s published guidance on{" "}
+                <a
+                  href="https://en.wikipedia.org/wiki/Wikipedia:Identifying_reliable_sources"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  identifying reliable sources
+                </a>{" "}
+                and{" "}
+                <a
+                  href="https://en.wikipedia.org/wiki/Wikipedia:Independent_sources"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  source independence
+                </a>
+                .
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Timelines (white) */}
+      <section className="section-pad tone-light pr-time" aria-labelledby="pr-time-title">
+        <div className="shell">
+          <div className="section-heading center reveal">
+            <p className="micro-label">Timelines</p>
+            <h2 id="pr-time-title">
+              What to Expect, <span>Realistically</span>
+            </h2>
+          </div>
+          <ol className="pr-time-grid reveal">
+            {timeline.map((item, index) => (
+              <li key={item.title} className="pr-time-card">
+                <div className="pr-time-top">
+                  <span className="pr-icon" aria-hidden="true">
+                    <Icon name={item.icon} />
+                  </span>
+                  <span className="pr-time-index" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3>{item.title}</h3>
+                <span className="pr-time-chip">{item.duration}</span>
+                <p>{item.copy}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="section-actions reveal">
+            <Link className="button button-gold button-small" href={url("wikipedia-page-cost")}>
+              View Wikipedia Page Cost &amp; Packages <Icon name="i-arrow" />
             </Link>
-          </p>
+          </div>
         </div>
       </section>
 
       <CtaBand
-        heading="Start with the <span>research stage.</span>"
+        heading="Start With the <span>Research Stage.</span>"
         copy="The assessment tells you whether an article is viable before you commit to anything else. Published packages start from $700 — see the full pricing page for what each tier includes."
         label="Request An Assessment"
       />
