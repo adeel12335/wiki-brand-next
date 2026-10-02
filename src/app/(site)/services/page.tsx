@@ -14,12 +14,12 @@ import { buildPageMetadata, itemListNode } from "@/lib/seo";
 
 const pageMeta = {
   slug: "services",
-  title: "Wikipedia Editorial Services",
+  title: "Wikipedia & Wiki Services Provider",
   shortTitle: "Services",
   description:
-    "Wikipedia services for people and organisations: page creation, editing, content research, ongoing management, and entity building.",
+    "Wiki Studio is a full-service Wikipedia services provider: page creation, editing, research, ongoing management, and entity building for people and brands.",
   keywords:
-    "wikipedia services, wikipedia page creation, wikipedia editing services, wikipedia content writing, wikipedia page management, wikipedia entity building, wikipedia agency services",
+    "wikipedia services provider, wikipedia service provider, wiki services provider, wiki services, wikipedia services, wikipedia page creation, wikipedia editing services, wikipedia content writing, wikipedia page management, wiki studio",
   ogImage: "/assets/og/hero-orbital-globe.jpg",
   ogImageAlt: "Wikipedia editorial services from The Wikipedia Studio",
   schema: [
@@ -86,8 +86,8 @@ export default function ServicesPage() {
       <JsonLd page={pageMeta} />
       <PageHero
         eyebrow="Our Services"
-        h1="Comprehensive Wikipedia Solutions, Delivered to <span>Guideline Standard.</span>"
-        lede="Services covering the full lifecycle of an article — from notability assessment and knowledge-panel entity work through creation, editing, monitoring, and long-term stewardship."
+        h1="A Wikipedia Service Provider Working to <span>Guideline Standard.</span>"
+        lede="Wiki Studio provides Wikipedia services across the full lifecycle of an article — from notability assessment and knowledge-panel entity work through page creation, editing, monitoring, and long-term stewardship."
         current="Services"
         actions={[
           { label: "Request an Assessment", href: url("contact") },

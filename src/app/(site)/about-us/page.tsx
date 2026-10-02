@@ -16,12 +16,12 @@ import { buildPageMetadata, seoId } from "@/lib/seo";
 
 const pageMeta = {
   slug: "about-us",
-  title: "About Our Wikipedia Editorial Agency",
+  title: "About Wiki Studio, a Wikipedia Service Provider",
   shortTitle: "About Us",
   description:
-    "An editorial agency of Wikipedia specialists, researchers, and strategists working to the platform's own sourcing and neutrality standards.",
+    "About The Wikipedia Studio (Wiki Studio): a Wikipedia service provider of specialists, researchers, and editors working to Wikipedia's own sourcing standards.",
   keywords:
-    "wikipedia agency, wikipedia editorial team, wikipedia specialists, professional wikipedia editors, about the wikipedia studio, wikipedia consultants",
+    "about wiki studio, the wikipedia studio, wikipedia service provider, wikipedia agency, wikipedia editorial team, wikipedia specialists, professional wikipedia editors, wikipedia consultants",
   ogImage: "/assets/og/globe.jpg",
   ogImageAlt: "About The Wikipedia Studio",
   schema: [
@@ -187,9 +187,9 @@ export default function AboutPage() {
                 Who We Are and <span>Why We Exist</span>
               </h2>
               <p className="ab-intro-lead">
-                The Wikipedia Studio is an independent editorial agency that helps
-                people, companies, and institutions earn an accurate presence on
-                Wikipedia — the reference that search engines, journalists, and AI
+                The Wikipedia Studio — Wiki Studio for short — is an independent
+                Wikipedia service provider that helps people, companies, and
+                institutions earn an accurate presence on Wikipedia — the reference that search engines, journalists, and AI
                 assistants turn to first.
               </p>
               <p>

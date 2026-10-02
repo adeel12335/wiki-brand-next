@@ -41,8 +41,9 @@ export function Footer() {
             </span>
           </Link>
           <p>
-            We craft credible, authoritative, and impactful Wikipedia pages that
-            elevate your presence or brand reputation worldwide.
+            The Wikipedia Studio (Wiki Studio) is a Wikipedia service provider
+            crafting credible, authoritative pages that elevate your presence or
+            brand reputation worldwide.
           </p>
         </div>
 

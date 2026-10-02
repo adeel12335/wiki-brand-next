@@ -22,17 +22,25 @@ const TITLE_CASE_MINOR = new Set([
  * contain inline tags such as <span> — only the text between tags is changed.
  */
 export function titleCase(html: string): string {
-  const WORD = /[A-Za-z][\w'’-]*/g;
+  // Entities (&amp; &#39; …) are matched as whole tokens and left untouched.
+  const TOKEN = /&#?\w+;|[A-Za-z][\w'’-]*/g;
+  const isEntity = (token: string) => token.startsWith("&");
   const parts = html.split(/(<[^>]+>)/);
   const total = parts
     .filter((part) => !part.startsWith("<"))
-    .reduce((sum, part) => sum + (part.match(WORD)?.length ?? 0), 0);
+    .reduce(
+      (sum, part) => sum + (part.match(TOKEN) ?? []).filter((t) => !isEntity(t)).length,
+      0,
+    );
   let index = 0;
 
   return parts
     .map((part) => {
       if (part.startsWith("<")) return part;
-      return part.replace(WORD, (word) => {
+      return part.replace(TOKEN, (word, offset: number) => {
+        if (isEntity(word)) return word;
+        // Letters glued to a preceding entity ("Let&apos;s") continue that word.
+        if (/&#?\w+;$/.test(part.slice(0, offset))) return word;
         const position = index++;
         if (/[A-Z]/.test(word)) return word;
         const edge = position === 0 || position === total - 1;
@@ -43,11 +51,23 @@ export function titleCase(html: string): string {
     .join("");
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/** Hero heading HTML for a portfolio item. The CMS title is escaped because
+ *  the result is rendered with dangerouslySetInnerHTML (HtmlHeading). */
 export function portfolioHeading(title: string): string {
+  const safeTitle = escapeHtml(title);
   if (title.toLowerCase().includes("wikipedia")) {
-    return title;
+    return safeTitle;
   }
-  return `${title} <span>Wikipedia</span> page`;
+  return `${safeTitle} <span>Wikipedia</span> page`;
 }
 
 export function portfolioMetaTitle(

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   SEO_DEFAULT_OG_IMAGE,
   SEO_DEFAULT_ROBOTS,
+  SITE_ALTERNATE_NAMES,
   SITE_EMAIL,
   SITE_LANG,
   SITE_LOCALE,
@@ -97,10 +98,11 @@ export function organizationNode() {
     "@type": "Organization",
     "@id": seoId("organization"),
     name: SITE_NAME,
-    alternateName: "Wikipedia Studio",
+    // Brand variants people actually search for ("Wiki Studio" et al.).
+    alternateName: SITE_ALTERNATE_NAMES,
     url: absUrl(),
     description:
-      "Independent professional editorial agency providing Wikipedia page creation, editing, research, and ongoing management for individuals, businesses, and organisations.",
+      "Independent Wikipedia service provider (also known as Wiki Studio) offering Wikipedia page creation, editing, research, and ongoing management for individuals, businesses, and organisations.",
     disambiguatingDescription:
       "The Wikipedia Studio is an independent editorial service and is not affiliated with Wikipedia or the Wikimedia Foundation.",
     email: SITE_EMAIL,
@@ -128,6 +130,8 @@ export function organizationNode() {
       "Citation and source verification",
       "Wikidata and structured entity data",
       "Online reputation management",
+      "Wikipedia services",
+      "Wiki page creation",
     ],
     contactPoint: [
       {
@@ -148,6 +152,8 @@ export function websiteNode() {
     "@id": seoId("website"),
     url: absUrl(),
     name: SITE_NAME,
+    // Google reads WebSite.alternateName when choosing the site name in results.
+    alternateName: SITE_ALTERNATE_NAMES,
     description: SITE_TAGLINE,
     publisher: { "@id": seoId("organization") },
     inLanguage: SITE_LANG,

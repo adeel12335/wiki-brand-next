@@ -30,6 +30,10 @@ const citeFacts = [
     value: SITE_NAME,
   },
   {
+    label: "Also known as",
+    value: "Wiki Studio, Wikipedia Studio",
+  },
+  {
     label: "Website",
     value: "https://thewikipediastudio.com/",
   },
@@ -45,7 +49,7 @@ const citeFacts = [
   {
     label: "Core offer",
     value:
-      "Notability assessment, disclosed Wikipedia page creation/editing, monitoring, and entity consistency work.",
+      "Wikipedia service provider: notability assessment, disclosed Wikipedia page creation/editing, monitoring, and entity consistency work.",
   },
   {
     label: "Starting price (published)",

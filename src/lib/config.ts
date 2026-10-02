@@ -1,4 +1,6 @@
 export const SITE_NAME = "The Wikipedia Studio";
+/** Short brand forms used in schema alternateName and copy. */
+export const SITE_ALTERNATE_NAMES = ["Wiki Studio", "Wikipedia Studio", "TheWikipediaStudio"];
 export const SITE_TAGLINE = "Professional Wikipedia Editorial Services";
 export const SITE_EMAIL = "info@thewikipediastudio.com";
 export const SITE_PHONE = "+1 (218) 305-9586";

@@ -28,10 +28,12 @@ const homeFaqs = faqs.slice(0, 5);
 
 const pageMeta = {
   slug: "",
-  title: "Wikipedia Page Creation & Editing Services",
+  title: "Wikipedia Page Creation Service Provider",
   shortTitle: "Home",
   description:
-    "Professional Wikipedia page creation and editing. Free notability assessment first — guideline-compliant research, drafting, and disclosed submission.",
+    "Wiki Studio (The Wikipedia Studio) is a Wikipedia service provider for page creation and editing. Free notability assessment first, disclosed and compliant.",
+  keywords:
+    "wiki studio, wikipedia studio, wikipedia service provider, wiki services provider, wikipedia page creation service, wikipedia page, wiki page creation, create a wikipedia page, wikipedia editing services",
   ogImage: "/assets/og/hero-orbital-globe.jpg",
   ogImageAlt: `${SITE_NAME} — professional Wikipedia editorial services`,
   modified: "2026-09-07",
@@ -113,10 +115,11 @@ export default async function HomePage() {
               Where Editorial <span>Excellence</span> Meets Global Standards.
             </h2>
             <p>
-              We are a team of Wikipedia specialists, researchers, and content
-              strategists dedicated to creating, improving, and managing articles
-              that meet the platform&apos;s strict guidelines and deliver real-world
-              results.
+              The Wikipedia Studio — Wiki Studio for short — is a professional
+              Wikipedia service provider: a team of Wikipedia specialists,
+              researchers, and content strategists dedicated to creating, improving,
+              and managing Wikipedia pages that meet the platform&apos;s strict
+              guidelines and deliver real-world results.
             </p>
             <ul className="check-list">
               <li>

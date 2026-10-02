@@ -4,6 +4,10 @@
     "a": "You cannot buy approval, and writing the page yourself usually fails when you have a conflict of interest. The workable path is: confirm significant coverage in independent reliable sources, then have a disclosed editor draft a neutral, fully cited article. We start with a free notability assessment so you know whether that coverage exists before anyone writes a draft."
   },
   {
+    "q": "What does a Wikipedia service provider do?",
+    "a": "A Wikipedia service provider helps people and organisations get an accurate, policy-compliant Wikipedia page. The work is research first: checking whether independent, reliable sources cover the subject in depth, then drafting a neutral, fully cited article, submitting it with paid-contribution disclosure, and monitoring it after publication. A reputable provider will tell you when the coverage is not there yet — The Wikipedia Studio starts every engagement with a free notability assessment."
+  },
+  {
     "q": "How famous do you need to be to get a Wikipedia page?",
     "a": "Fame is the wrong measure. Wikipedia looks for significant coverage in multiple reliable sources independent of the subject — newspapers, books, journals, major trade press — not follower counts, revenue, or awards alone. Some quiet academics qualify; some viral celebrities do not. The assessment is about sources, not celebrity."
   },
@@ -46,5 +50,9 @@
   {
     "q": "Will my Wikipedia page appear in Google and AI answers?",
     "a": "Wikipedia articles are usually indexed, but Google and AI systems decide how they rank, whether a knowledge panel appears, and what they quote. Nobody can promise a specific placement. What a well-sourced article does provide is a consistent factual record those systems can draw on."
+  },
+  {
+    "q": "What is The Wikipedia Studio (Wiki Studio)?",
+    "a": "The Wikipedia Studio — often shortened to Wiki Studio — is an independent Wikipedia service provider offering notability assessments, Wikipedia page creation, editing, research, and ongoing page management for individuals, companies, and institutions worldwide. It is not affiliated with Wikipedia or the Wikimedia Foundation, discloses all paid editing, and publishes its packages from $700."
   }
 ]
