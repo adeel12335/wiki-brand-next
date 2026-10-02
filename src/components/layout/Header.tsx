@@ -135,7 +135,7 @@ export function Header() {
         </div>
       ) : null}
       <div className="shell nav-shell">
-        <Link className="brand" href={url()} aria-label={`${SITE_NAME} home`}>
+        <Link className="brand" href={url()}>
           <Image
             src="/assets/globe-small.png"
             alt=""

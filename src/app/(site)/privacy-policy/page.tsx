@@ -16,7 +16,7 @@ const pageMeta = {
   keywords: "privacy policy, data protection, wikipedia studio privacy",
   ogImage: "/assets/og/globe.jpg",
   ogImageAlt: "Privacy Policy — The Wikipedia Studio",
-  modified: "2026-09-03",
+  modified: "2026-10-02",
 };
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
@@ -36,7 +36,7 @@ export default function PrivacyPolicyPage() {
         <div className="shell lg-layout">
           <LegalAside target=".lg-doc" email={SITE_EMAIL} topic="this policy" />
           <div className="lg-doc legal-body reveal">
-          <p className="legal-updated">Last updated: September 3, 2026</p>
+          <p className="legal-updated">Last updated: October 2, 2026</p>
 
           <h2>Who we are</h2>
           <p>
@@ -79,9 +79,18 @@ export default function PrivacyPolicyPage() {
 
           <h2>Confidentiality</h2>
           <p>
-            Client engagements are confidential. We do not publish client names
-            or identify specific Wikipedia articles as our work. Where
-            Wikipedia&apos;s terms of use require disclosure of a paid
+            Client engagements are confidential by default. We only name a
+            client, or identify a Wikipedia article as our work — for example in
+            our portfolio or case studies — when that client has given us
+            permission. You can withdraw that permission at any time and we will
+            remove the reference.
+          </p>
+          <p>
+            <strong>Without a client&apos;s permission, we never publish their
+            name, their project details, or the articles we worked on.</strong>
+          </p>
+          <p>
+            Where Wikipedia&apos;s terms of use require disclosure of a paid
             relationship, that disclosure is made on Wikipedia in the form the
             platform requires, and we discuss its scope with you first.
           </p>

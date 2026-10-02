@@ -30,6 +30,11 @@ const staticMeta = {
 
 const confidentialityPoints = [
   {
+    icon: "i-users",
+    title: "Shown Only With Permission",
+    copy: "Clients appear here only when they have agreed to it. Without a client's permission, we never name them or their article.",
+  },
+  {
     icon: "i-globe",
     title: "The Article Belongs to Wikipedia",
     copy: "Not to the subject, and not to the editor who drafted it — so we show the live result, not a private brief.",

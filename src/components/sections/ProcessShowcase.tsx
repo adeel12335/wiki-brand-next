@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import Link from "next/link";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Icon } from "@/components/ui/Icon";
 import { url } from "@/lib/config";
 import { processSteps } from "@/lib/data";
@@ -18,80 +16,93 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
 
   // Scroll-driven entrance: the track draws left → right and each step card
   // lands as the line reaches it, then the detail panel rises in.
+  // GSAP is imported on demand so it stays out of the initial JS bundle.
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const mm = gsap.matchMedia();
+    let cancelled = false;
+    let revert: (() => void) | undefined;
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const heading = root.querySelector(".proc-heading");
-      const stepsRow = root.querySelector(".proc-steps");
-      const line = root.querySelector(".proc-steps-line");
-      const panel = root.querySelector(".proc-panel");
-      const steps = gsap.utils.toArray<HTMLElement>(".proc-step", root);
-      if (!stepsRow || !line || !panel || !steps.length) return;
+    void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
+      ([{ gsap }, { ScrollTrigger }]) => {
+        if (cancelled) return;
+        gsap.registerPlugin(ScrollTrigger);
+        const mm = gsap.matchMedia();
+        revert = () => mm.revert();
 
-      if (heading) {
-        gsap.from(heading.children, {
-          autoAlpha: 0,
-          y: 32,
-          duration: 0.9,
-          ease: "power3.out",
-          stagger: 0.12,
-          scrollTrigger: { trigger: heading, start: "top 85%", once: true },
-        });
-      }
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          const heading = root.querySelector(".proc-heading");
+          const stepsRow = root.querySelector(".proc-steps");
+          const line = root.querySelector(".proc-steps-line");
+          const panel = root.querySelector(".proc-panel");
+          const steps = gsap.utils.toArray<HTMLElement>(".proc-step", root);
+          if (!stepsRow || !line || !panel || !steps.length) return;
 
-      const timeline = gsap.timeline({
-        defaults: { ease: "power3.out" },
-        scrollTrigger: {
-          trigger: stepsRow,
-          start: "top 85%",
-          end: "bottom 40%",
-          scrub: 0.8,
-        },
-      });
+          if (heading) {
+            gsap.from(heading.children, {
+              autoAlpha: 0,
+              y: 32,
+              duration: 0.9,
+              ease: "power3.out",
+              stagger: 0.12,
+              scrollTrigger: { trigger: heading, start: "top 85%", once: true },
+            });
+          }
 
-      timeline.fromTo(
-        line,
-        { scaleX: 0 },
-        { scaleX: 1, ease: "none", duration: steps.length - 1 },
-        0,
-      );
+          const timeline = gsap.timeline({
+            defaults: { ease: "power3.out" },
+            scrollTrigger: {
+              trigger: stepsRow,
+              start: "top 85%",
+              end: "bottom 40%",
+              scrub: 0.8,
+            },
+          });
 
-      steps.forEach((step, index) => {
-        const at = index * 0.9;
-        timeline
-          .fromTo(
-            step,
-            { autoAlpha: 0, y: 70, scale: 0.88 },
-            { autoAlpha: 1, y: 0, scale: 1, duration: 0.8 },
-            at,
-          )
-          .fromTo(
-            step.querySelector(".proc-step-dot svg"),
-            { scale: 0, rotate: -120 },
-            { scale: 1, rotate: 0, duration: 0.6, ease: "back.out(2)" },
-            at + 0.15,
-          )
-          .fromTo(
-            step.querySelectorAll(".proc-step-num, .proc-step-title, .proc-step-card"),
-            { autoAlpha: 0, y: 18 },
-            { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.08 },
-            at + 0.25,
+          timeline.fromTo(
+            line,
+            { scaleX: 0 },
+            { scaleX: 1, ease: "none", duration: steps.length - 1 },
+            0,
           );
-      });
 
-      timeline.fromTo(
-        panel,
-        { autoAlpha: 0, y: 60 },
-        { autoAlpha: 1, y: 0, duration: 1 },
-        steps.length * 0.9,
-      );
-    });
+          steps.forEach((step, index) => {
+            const at = index * 0.9;
+            timeline
+              .fromTo(
+                step,
+                { autoAlpha: 0, y: 70, scale: 0.88 },
+                { autoAlpha: 1, y: 0, scale: 1, duration: 0.8 },
+                at,
+              )
+              .fromTo(
+                step.querySelector(".proc-step-dot svg"),
+                { scale: 0, rotate: -120 },
+                { scale: 1, rotate: 0, duration: 0.6, ease: "back.out(2)" },
+                at + 0.15,
+              )
+              .fromTo(
+                step.querySelectorAll(".proc-step-num, .proc-step-title, .proc-step-card"),
+                { autoAlpha: 0, y: 18 },
+                { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.08 },
+                at + 0.25,
+              );
+          });
 
-    return () => mm.revert();
+          timeline.fromTo(
+            panel,
+            { autoAlpha: 0, y: 60 },
+            { autoAlpha: 1, y: 0, duration: 1 },
+            steps.length * 0.9,
+          );
+        });
+      },
+    );
+
+    return () => {
+      cancelled = true;
+      revert?.();
+    };
   }, []);
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {

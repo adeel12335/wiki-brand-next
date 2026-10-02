@@ -22,7 +22,7 @@ export function Footer() {
     <footer className="site-footer">
       <div className="shell footer-grid">
         <div className="footer-brand">
-          <Link className="brand" href={url()} aria-label={`${SITE_NAME} home`}>
+          <Link className="brand" href={url()}>
             <Image
               src="/assets/globe-small.png"
               alt=""

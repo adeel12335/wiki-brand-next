@@ -21,6 +21,10 @@ import type { PageMeta } from "@/types";
 const OG_IMAGE_WIDTH = 1200;
 const OG_IMAGE_HEIGHT = 630;
 
+/** Must match the title.template suffix in app/layout.tsx. */
+const TITLE_SUFFIX = " | Wikipedia Studio";
+const SERP_TITLE_LIMIT = 62;
+
 export function seoId(fragment: string): string {
   return `${getSiteUrl()}/#${fragment}`;
 }
@@ -37,7 +41,12 @@ export function buildPageMetadata(page: PageMeta): Metadata {
   const ogType = page.ogType ?? "website";
 
   const metadata: Metadata = {
-    title,
+    // Root layout appends " | Wikipedia Studio". When that would push the SERP
+    // title past ~62 characters, drop the suffix so Google shows the full title.
+    title:
+      title.length + TITLE_SUFFIX.length > SERP_TITLE_LIMIT
+        ? { absolute: title }
+        : title,
     description,
     authors: [{ name: SITE_NAME }],
     publisher: SITE_NAME,

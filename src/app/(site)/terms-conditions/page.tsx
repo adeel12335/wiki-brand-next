@@ -16,7 +16,7 @@ const pageMeta = {
   keywords: "terms and conditions, service terms, wikipedia studio terms",
   ogImage: "/assets/og/globe.jpg",
   ogImageAlt: "Terms & Conditions — The Wikipedia Studio",
-  modified: "2026-09-03",
+  modified: "2026-10-02",
 };
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
@@ -36,7 +36,7 @@ export default function TermsPage() {
         <div className="shell lg-layout">
           <LegalAside target=".lg-doc" email={SITE_EMAIL} topic="these terms" />
           <div className="lg-doc legal-body reveal">
-          <p className="legal-updated">Last updated: September 3, 2026</p>
+          <p className="legal-updated">Last updated: October 2, 2026</p>
 
           <h2>1. About these terms</h2>
           <p>
@@ -127,9 +127,12 @@ export default function TermsPage() {
 
           <h2>8. Confidentiality</h2>
           <p>
-            We keep client engagements confidential and do not identify clients or
-            their articles publicly. You agree that we may describe the general
-            category of work in anonymised form.
+            We keep client engagements confidential. We identify a client or their
+            article publicly — for example in our portfolio or case studies — only
+            with that client&apos;s permission, and we will remove it if that
+            permission is withdrawn. Without permission, we never name a client or
+            their article; we may only describe the general category of work in
+            anonymised form.
           </p>
 
           <h2>9. Intellectual property</h2>
