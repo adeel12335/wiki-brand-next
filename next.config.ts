@@ -14,6 +14,48 @@ const securityHeaders = [
   },
 ];
 
+const LEGACY_HOST = "(?:www\\.)?thewikistudio\\.com";
+const PRIMARY = "https://thewikipediastudio.com";
+
+/** Old WordPress page → closest new page; anything unmatched → homepage. */
+const LEGACY_PAGE_MAP: Array<[string, string]> = [
+  ["/about", "/about-us/"],
+  ["/team", "/about-us/"],
+  ["/team-details", "/about-us/"],
+  ["/contact", "/contact/"],
+  ["/free-consultation", "/contact/"],
+  ["/faqs", "/faq/"],
+  ["/portfolios", "/portfolio/"],
+  ["/portfolio/:slug*", "/portfolio/"],
+  ["/portfolio-category/:slug*", "/portfolio/"],
+  ["/pricing", "/wikipedia-page-cost/"],
+  ["/service", "/services/"],
+  ["/services11", "/services/"],
+  ["/service121", "/services/"],
+  ["/service-details", "/services/"],
+  ["/privacy-policy-2", "/privacy-policy/"],
+  ["/privacy-policy-3", "/privacy-policy/"],
+  ["/blog-grid", "/blog/"],
+  ["/blog-standard", "/blog/"],
+  ["/feed", "/feed.xml"],
+];
+
+function legacyDomainRedirects() {
+  const has = [{ type: "host" as const, value: LEGACY_HOST }];
+  return [
+    ...LEGACY_PAGE_MAP.flatMap(([source, target]) =>
+      // Match with and without the trailing slash.
+      [source, `${source}/`].map((path) => ({
+        source: path,
+        has,
+        destination: `${PRIMARY}${target}`,
+        permanent: true,
+      })),
+    ),
+    { source: "/:path*", has, destination: `${PRIMARY}/`, permanent: true },
+  ];
+}
+
 const nextConfig: NextConfig = {
   trailingSlash: true,
   async redirects() {
@@ -25,6 +67,10 @@ const nextConfig: NextConfig = {
         destination: "https://thewikipediastudio.com/:path*",
         permanent: true,
       },
+      // Legacy brand domain thewikistudio.com (old WordPress site). Only takes
+      // effect if that domain is attached to this deployment; while it is still
+      // hosted on Hostinger, config/thewikistudio-redirect.htaccess does the job.
+      ...legacyDomainRedirects(),
       // Old pricing URL (keep both slash variants; trailingSlash may hop once).
       {
         source: "/pricing",

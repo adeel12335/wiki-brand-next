@@ -1,0 +1,30 @@
+# ---------------------------------------------------------------------------
+# thewikistudio.com  →  https://thewikipediastudio.com  (301, permanent)
+#
+# Paste this block at the VERY TOP of the .htaccess file in the
+# thewikistudio.com public_html folder on Hostinger (above "# BEGIN WordPress").
+# Old pages map to their closest new page; everything else goes to the homepage.
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Keep old media files and the WordPress login reachable (not redirected).
+RewriteRule ^wp-content/uploads/ - [L]
+RewriteRule ^(wp-admin|wp-login\.php) - [L]
+
+# Page-to-page mapping
+RewriteRule ^about/?$                                       https://thewikipediastudio.com/about-us/ [R=301,L]
+RewriteRule ^team(-details)?/?$                             https://thewikipediastudio.com/about-us/ [R=301,L]
+RewriteRule ^(contact|free-consultation)/?$                 https://thewikipediastudio.com/contact/ [R=301,L]
+RewriteRule ^faqs?/?$                                       https://thewikipediastudio.com/faq/ [R=301,L]
+RewriteRule ^(portfolios|portfolio|portfolio-category)(/.*)?$ https://thewikipediastudio.com/portfolio/ [R=301,L]
+RewriteRule ^pricing/?$                                     https://thewikipediastudio.com/wikipedia-page-cost/ [R=301,L]
+RewriteRule ^(service|services|services11|service121|service-details)/?$ https://thewikipediastudio.com/services/ [R=301,L]
+RewriteRule ^privacy-policy(-2|-3)?/?$                      https://thewikipediastudio.com/privacy-policy/ [R=301,L]
+RewriteRule ^(blog|blog-grid|blog-standard)/?$              https://thewikipediastudio.com/blog/ [R=301,L]
+RewriteRule ^feed/?$                                        https://thewikipediastudio.com/feed.xml [R=301,L]
+
+# Everything else (theme demo pages, shop, posts) → homepage
+RewriteRule ^ https://thewikipediastudio.com/ [R=301,L]
+</IfModule>
+# --------------------------- end redirect block ----------------------------
