@@ -54,6 +54,9 @@ export function Footer() {
               {item.label}
             </Link>
           ))}
+          <Link href={url("hire-wikipedia-writer")}>
+            Hire a Wikipedia writer
+          </Link>
           <Link href={url("wikipedia-notability-checker")}>
             Notability checker
           </Link>

@@ -34,6 +34,7 @@ const pageMeta = {
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 const guideLinks = [
+  { label: "Hire a Wikipedia Writer", slug: "hire-wikipedia-writer" },
   { label: "Resources", slug: "resources" },
   { label: "Notability Checker", slug: "wikipedia-notability-checker" },
   { label: "How to Choose an Agency", slug: "how-to-choose-wikipedia-agency" },

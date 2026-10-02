@@ -19,6 +19,7 @@
 @import "./case-studies.css"; /* Case Studies page */
 @import "./agency-guide.css"; /* How to choose a Wikipedia agency */
 @import "./legal.css"; /* Privacy, Terms, HTML sitemap */
+@import "./hire.css"; /* Hire a Wikipedia writer landing page */
 
 :root {
   /* One professional family site-wide: Segoe UI (self-hosted, see app/layout.tsx).

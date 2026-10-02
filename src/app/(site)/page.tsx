@@ -158,6 +158,9 @@ export default async function HomePage() {
             <Link className="button button-outline button-small" href={url("services")}>
               View All Services <Icon name="i-arrow" />
             </Link>
+            <Link className="button button-gold button-small" href={url("hire-wikipedia-writer")}>
+              Hire a Wikipedia Writer <Icon name="i-arrow" />
+            </Link>
           </div>
         </div>
       </section>

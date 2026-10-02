@@ -364,6 +364,14 @@ body:not(#_) .svc-heading .micro-label { margin: 0 0 12px; }
 body:not(#_) .svc-heading h2 { margin: 0 0 14px; }
 body:not(#_) .svc-heading .svc-heading-copy { max-width: 680px; margin: 0; }
 
+/* "View All Services" + "Hire a Wikipedia Writer" sit side by side */
+body:not(#_) .services .section-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
 /* Cards are whole-card links — never underline their text on hover */
 body:not(#_) a.svc-card.svc-card,
 body:not(#_) a.svc-card.svc-card:is(:hover, :focus-visible) { text-decoration: none; }

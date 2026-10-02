@@ -11,6 +11,7 @@ const STATIC_ROUTES = [
   "",
   "about-us",
   "services",
+  "hire-wikipedia-writer",
   "wikipedia-page-cost",
   "our-process",
   "portfolio",
@@ -49,7 +50,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ? 1
         : slug === "contact" ||
             slug === "blog" ||
-            slug === "wikipedia-page-cost"
+            slug === "wikipedia-page-cost" ||
+            slug === "hire-wikipedia-writer"
           ? 0.9
           : 0.8,
   }));
