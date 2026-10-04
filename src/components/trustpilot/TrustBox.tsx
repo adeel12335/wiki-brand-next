@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import Script from "next/script";
 
 declare global {
@@ -10,6 +10,8 @@ declare global {
     };
   }
 }
+
+const subscribeNoop = () => () => {};
 
 export interface TrustBoxProps {
   businessUnitId: string;
@@ -40,6 +42,15 @@ export function TrustBox({
   fallbackLabel = "Read reviews on Trustpilot",
 }: TrustBoxProps) {
   const ref = useRef<HTMLDivElement | null>(null);
+  // The Trustpilot script rewrites every `.trustpilot-widget` it finds. If it
+  // runs before this part of the page hydrates, React sees a different DOM and
+  // throws away the whole tree, so the widget div only exists after mount.
+  // false while server-rendering and hydrating, true once mounted on the client.
+  const mounted = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
 
   useEffect(() => {
     const el = ref.current;
@@ -64,7 +75,17 @@ export function TrustBox({
     }, 200);
 
     return () => window.clearInterval(timer);
-  }, [businessUnitId, templateId, theme, height, width, stars]);
+  }, [mounted, businessUnitId, templateId, theme, height, width, stars]);
+
+  const fallback = (
+    <a href={reviewUrl} target="_blank" rel="noopener noreferrer">
+      {fallbackLabel}
+    </a>
+  );
+
+  if (!mounted) {
+    return <div className={className}>{fallback}</div>;
+  }
 
   return (
     <>
@@ -84,9 +105,7 @@ export function TrustBox({
         data-stars={stars}
         data-review-languages="en"
       >
-        <a href={reviewUrl} target="_blank" rel="noopener noreferrer">
-          {fallbackLabel}
-        </a>
+        {fallback}
       </div>
     </>
   );

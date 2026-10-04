@@ -10,9 +10,8 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
   const [activeIndex, setActiveIndex] = useState(0);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const rootRef = useRef<HTMLDivElement>(null);
-  // Scroll range of the pinned "steps advance on scroll" trigger (desktop only).
-  const pinRangeRef = useRef<{ start: number; end: number } | null>(null);
-  const active = processSteps[activeIndex];
+  // Scroll range + timeline length of the pinned card deck (desktop only).
+  const pinRangeRef = useRef<{ start: number; end: number; duration: number } | null>(null);
   const total = processSteps.length;
   const progress = total > 1 ? activeIndex / (total - 1) : 0;
 
@@ -36,7 +35,7 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
           const heading = root.querySelector(".proc-heading");
           const stepsRow = root.querySelector(".proc-steps");
           const line = root.querySelector(".proc-steps-line");
-          const panel = root.querySelector(".proc-panel");
+          const panel = root.querySelector(".proc-deck");
           const steps = gsap.utils.toArray<HTMLElement>(".proc-step", root);
           if (!stepsRow || !line || !panel || !steps.length) return;
 
@@ -100,37 +99,60 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
           );
         });
 
-        // Desktop: pin the stepper + panel under the header and let scrolling
-        // walk through the stages (Step 1 → 5), updating the active step,
-        // progress line, and detail panel as it goes.
+        // Desktop: pin the stepper + card deck under the header. Scrolling is
+        // scrubbed into a timeline where each stage card rises in over the
+        // previous one (which settles back into the stack), so the change is
+        // tied to the scroll position instead of a sudden swap.
         mm.add(
           "(prefers-reduced-motion: no-preference) and (min-width: 901px)",
           () => {
             const heading = root.querySelector<HTMLElement>(".proc-heading");
+            const cards = gsap.utils.toArray<HTMLElement>(".proc-panel", root);
+            if (cards.length < 2) return;
             const headerOffset = 96;
-            const stagesCount = processSteps.length;
+            const last = cards.length - 1;
+            root.classList.add("is-pinned");
 
-            const trigger = ScrollTrigger.create({
-              trigger: root,
-              start: () => `top+=${heading?.offsetHeight ?? 0} ${headerOffset}`,
-              end: () => `+=${Math.round(window.innerHeight * 0.55 * stagesCount)}`,
-              pin: true,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-              onRefresh: (self) => {
-                pinRangeRef.current = { start: self.start, end: self.end };
-              },
-              onUpdate: (self) => {
-                const next = Math.min(
-                  stagesCount - 1,
-                  Math.floor(self.progress * stagesCount),
-                );
-                setActiveIndex((current) => (current === next ? current : next));
+            gsap.set(cards, { transformOrigin: "50% 0%" });
+            gsap.set(cards.slice(1), { autoAlpha: 0, y: 160, scale: 1 });
+            gsap.set(cards[0], { autoAlpha: 1, y: 0, scale: 1 });
+
+            const deck = gsap.timeline({
+              defaults: { ease: "power2.inOut", duration: 1 },
+              scrollTrigger: {
+                trigger: root,
+                start: () => `top+=${heading?.offsetHeight ?? 0} ${headerOffset}`,
+                end: () => `+=${Math.round(window.innerHeight * 0.7 * cards.length)}`,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onRefresh: (self) => {
+                  pinRangeRef.current = { start: self.start, end: self.end, duration: deck.duration() };
+                },
+                onUpdate: (self) => {
+                  // A stage becomes active once its card is half way in.
+                  const time = self.progress * deck.duration();
+                  const next = Math.min(last, Math.floor(time + 0.5));
+                  setActiveIndex((current) => (current === next ? current : next));
+                },
               },
             });
-            pinRangeRef.current = { start: trigger.start, end: trigger.end };
+
+            cards.forEach((card, index) => {
+              if (index === 0) return;
+              const at = index - 1;
+              deck
+                .to(card, { autoAlpha: 1, y: 0 }, at)
+                .to(cards[index - 1], { scale: 0.94, y: -22, autoAlpha: 0.35 }, at);
+              // Older cards fade out entirely so only one sits behind the new one.
+              if (index > 1) deck.to(cards[index - 2], { autoAlpha: 0 }, at);
+            });
+            // Short hold on the last stage before the pin releases.
+            deck.to({}, { duration: 0.35 });
 
             return () => {
+              root.classList.remove("is-pinned");
               pinRangeRef.current = null;
             };
           },
@@ -149,8 +171,8 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
   const goTo = (index: number) => {
     const range = pinRangeRef.current;
     if (range && window.scrollY >= range.start - 1 && window.scrollY <= range.end + 1) {
-      const slice = (range.end - range.start) / total;
-      window.scrollTo({ top: Math.ceil(range.start + slice * index + slice / 2) });
+      const perStage = (range.end - range.start) / range.duration;
+      window.scrollTo({ top: Math.ceil(range.start + perStage * index), behavior: "smooth" });
     }
     setActiveIndex(index);
   };
@@ -201,7 +223,7 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
               role="tab"
               id={`proc-tab-${index + 1}`}
               aria-selected={selected}
-              aria-controls="proc-panel"
+              aria-controls={`proc-panel-${index + 1}`}
               tabIndex={selected ? 0 : -1}
               className={`proc-step${selected ? " is-active" : ""}${index < activeIndex ? " is-done" : ""}`}
               onClick={() => goTo(index)}
@@ -221,31 +243,40 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
         })}
       </div>
 
-      <div
-        className="proc-panel"
-        id="proc-panel"
-        role="tabpanel"
-        aria-labelledby={`proc-tab-${activeIndex + 1}`}
-        aria-live="polite"
-      >
-        <div className="proc-panel-index" aria-hidden="true">
-          <span>Step</span>
-          <b key={activeIndex}>{String(activeIndex + 1).padStart(2, "0")}</b>
-          <small>of {String(total).padStart(2, "0")}</small>
-        </div>
-        <div className="proc-panel-copy" key={activeIndex}>
-          <h3>{active.title}</h3>
-          <p>{active.copy}</p>
-          <p>{active.detail}</p>
-        </div>
-        <div className="proc-panel-actions">
-          <Link className="text-link" href={`${url("our-process")}#step-${activeIndex + 1}`}>
-            Read this stage <Icon name="i-arrow" />
-          </Link>
-          <Link className="button button-outline button-small" href={url("our-process")}>
-            See The Full Process <Icon name="i-arrow" />
-          </Link>
-        </div>
+      <div className="proc-deck">
+        {processSteps.map((step, index) => {
+          const selected = index === activeIndex;
+          return (
+            <div
+              key={step.title}
+              className={`proc-panel${selected ? " is-active" : ""}`}
+              id={`proc-panel-${index + 1}`}
+              role="tabpanel"
+              aria-labelledby={`proc-tab-${index + 1}`}
+              aria-hidden={!selected}
+              inert={!selected}
+            >
+              <div className="proc-panel-index" aria-hidden="true">
+                <span>Step</span>
+                <b>{String(index + 1).padStart(2, "0")}</b>
+                <small>of {String(total).padStart(2, "0")}</small>
+              </div>
+              <div className="proc-panel-copy">
+                <h3>{step.title}</h3>
+                <p>{step.copy}</p>
+                <p>{step.detail}</p>
+              </div>
+              <div className="proc-panel-actions">
+                <Link className="text-link" href={`${url("our-process")}#step-${index + 1}`}>
+                  Read this stage <Icon name="i-arrow" />
+                </Link>
+                <Link className="button button-outline button-small" href={url("our-process")}>
+                  See The Full Process <Icon name="i-arrow" />
+                </Link>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

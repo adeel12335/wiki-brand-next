@@ -48,20 +48,34 @@ body:not(#_) .hero.tone-dark {
   body:not(#_) .hero .hero-copy { margin-inline: auto; text-align: center; }
   body:not(#_) .hero .hero-copy h1 { margin-inline: auto; line-height: 1.44; }
   body:not(#_) .hero .hero-actions { justify-content: center; }
+  /* Full-bleed globe below the copy: covers the width edge to edge and fades
+     into the hero background top and bottom, so it reads as a backdrop. */
   body:not(#_) .hero .hero-art {
     position: relative;
     inset: auto;
+    z-index: 0;
     order: 2;
-    width: min(88%, 420px);
+    width: 100%;
     height: auto;
-    aspect-ratio: 2 / 3; /* hero-orbital-globe.jpg is 1024×1536 */
-    margin: 8px auto 0;
+    aspect-ratio: 4 / 5;
+    max-height: 560px;
+    margin: -36px 0 0;
     transform: none;
   }
-  body:not(#_) .hero .hero-art::before { display: none; }
+  body:not(#_) .hero .hero-grid { position: relative; z-index: 1; }
+  body:not(#_) .hero .hero-art::before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, var(--tone-dark-bg) 0%, transparent 22%, transparent 78%, var(--tone-dark-bg) 100%);
+    pointer-events: none;
+  }
   body:not(#_) .hero .hero-art-image {
-    object-fit: contain;
-    object-position: center;
+    object-fit: cover;
+    object-position: center 40%;
     transform: none;
   }
 }
@@ -576,16 +590,18 @@ body:not(#_) .proc-steps::after {
   transition: width 0.45s cubic-bezier(0.22, 0.8, 0.25, 1);
 }
 
-/* Panel content swaps in when the active stage changes (click or scroll) */
-body:not(#_) .proc-panel-copy,
-body:not(#_) .proc-panel-index b { animation: procSwap 0.45s cubic-bezier(0.22, 0.8, 0.25, 1) both; }
+/* Card deck: every stage card shares one grid cell. Without the desktop pin
+   only the active card shows and rises in; when pinned, GSAP drives them. */
+body:not(#_) .proc-deck { display: grid; margin-top: 48px; }
+body:not(#_) .proc-deck > .proc-panel { grid-area: 1 / 1; margin-top: 0; will-change: transform, opacity; }
+body:not(#_) .process-showcase:not(.is-pinned) .proc-panel:not(.is-active) { visibility: hidden; opacity: 0; }
+body:not(#_) .process-showcase:not(.is-pinned) .proc-panel.is-active { animation: procSwap 0.5s cubic-bezier(0.22, 0.8, 0.25, 1) both; }
 @keyframes procSwap {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  body:not(#_) .proc-panel-copy,
-  body:not(#_) .proc-panel-index b { animation: none; }
+  body:not(#_) .process-showcase .proc-panel.is-active { animation: none; }
 }
 
 /* Scroll-drawn guide line (GSAP scales it 0 → 1); sits under the active fill */
@@ -671,7 +687,7 @@ body:not(#_) .proc-panel {
   padding: clamp(28px, 4vw, 44px);
   border: 1px solid rgba(239, 200, 113, 0.22);
   border-radius: 20px;
-  background: linear-gradient(150deg, rgba(14, 38, 58, 0.95), rgba(4, 16, 27, 0.95));
+  background: linear-gradient(150deg, #0e263a, #04101b);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 }
 body:not(#_) .proc-panel-index {
@@ -733,7 +749,8 @@ body:not(#_) .proc-panel-actions .text-link { color: var(--eyebrow); font-size: 
   body:not(#_) .proc-step-num { display: none; }
   body:not(#_) .proc-step-title { font-size: 0.8125rem; }
   body:not(#_) .proc-step-dot svg { width: 18px; height: 18px; }
-  body:not(#_) .proc-panel { grid-template-columns: 1fr; gap: 20px; margin-top: 32px; }
+  body:not(#_) .proc-panel { grid-template-columns: 1fr; gap: 20px; }
+  body:not(#_) .proc-deck { margin-top: 32px; }
   body:not(#_) .proc-panel-index {
     flex-direction: row;
     align-items: baseline;
