@@ -20,6 +20,8 @@ export interface TrustBoxProps {
   theme?: "dark" | "light";
   stars?: string;
   className?: string;
+  /** Link text shown until (or if) the TrustBox script loads. */
+  fallbackLabel?: string;
 }
 
 /**
@@ -35,6 +37,7 @@ export function TrustBox({
   theme = "dark",
   stars = "1,2,3,4,5",
   className = "",
+  fallbackLabel = "Read reviews on Trustpilot",
 }: TrustBoxProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -82,7 +85,7 @@ export function TrustBox({
         data-review-languages="en"
       >
         <a href={reviewUrl} target="_blank" rel="noopener noreferrer">
-          Read reviews on Trustpilot
+          {fallbackLabel}
         </a>
       </div>
     </>

@@ -9,7 +9,6 @@ const AUTOPLAY_MS = 5000;
 export function TestimonialSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const active = testimonials[activeIndex];
 
   useEffect(() => {
     // Slides crossfade only (motion CSS respects reduced-motion), so autoplay
@@ -57,19 +56,35 @@ export function TestimonialSection() {
             <path d="M0 36V21.6C0 9.9 6.2 2.7 18.6 0l2.2 4.6C14.4 6.6 11 10.4 10.5 16H19v20H0Zm29 0V21.6C29 9.9 35.2 2.7 47.6 0l2.2 4.6C43.4 6.6 40 10.4 39.5 16H48v20H29Z" />
           </svg>
 
-          <div className="testimonial-slide" key={activeIndex} aria-live={paused ? "polite" : "off"}>
-            <blockquote className="testimonial-quote">
-              <p>{active.quote}</p>
-            </blockquote>
-            <p className="testimonial-person">
-              <span className="testimonial-avatar" aria-hidden="true">
-                {active.name.charAt(0)}
-              </span>
-              <span>
-                <strong>{active.name}</strong>
-                <span>{active.role}</span>
-              </span>
-            </p>
+          {/* Sliding track: every testimonial is rendered side by side and the
+              track translates to the active one. */}
+          <div className="testimonial-viewport" aria-live={paused ? "polite" : "off"}>
+            <div
+              className="testimonial-track"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            >
+              {testimonials.map((item, index) => (
+                <div
+                  key={item.name}
+                  className="testimonial-slide"
+                  aria-hidden={index !== activeIndex}
+                  inert={index !== activeIndex}
+                >
+                  <blockquote className="testimonial-quote">
+                    <p>{item.quote}</p>
+                  </blockquote>
+                  <p className="testimonial-person">
+                    <span className="testimonial-avatar" aria-hidden="true">
+                      {item.name.charAt(0)}
+                    </span>
+                    <span>
+                      <strong>{item.name}</strong>
+                      <span>{item.role}</span>
+                    </span>
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="testimonial-controls">

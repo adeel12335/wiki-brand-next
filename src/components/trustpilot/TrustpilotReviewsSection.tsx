@@ -1,16 +1,34 @@
 import { TrustBox } from "@/components/trustpilot/TrustBox";
+import { TrustpilotRating } from "@/components/trustpilot/TrustpilotRating";
 import { Icon } from "@/components/ui/Icon";
 import {
+  TRUSTPILOT_TEMPLATE_REVIEW_COLLECTOR,
   getTrustpilotBusinessUnitId,
   getTrustpilotCarouselTemplateId,
   getTrustpilotEvaluateUrl,
   getTrustpilotMicroTemplateId,
   getTrustpilotReviewUrl,
+  getTrustpilotSummary,
   isTrustpilotConfigured,
 } from "@/lib/trustpilot";
 
+/** Official free "Review us on Trustpilot" TrustBox (falls back to a plain link). */
+function ReviewCollector({ theme, evaluateUrl }: { theme: "dark" | "light"; evaluateUrl: string }) {
+  return (
+    <TrustBox
+      businessUnitId={getTrustpilotBusinessUnitId()}
+      templateId={TRUSTPILOT_TEMPLATE_REVIEW_COLLECTOR}
+      reviewUrl={evaluateUrl}
+      height="52px"
+      theme={theme}
+      fallbackLabel="Review us on Trustpilot"
+      className="tp-collector"
+    />
+  );
+}
+
 /** Homepage Trustpilot block — free profile card, or paid TrustBox when configured. */
-export function TrustpilotReviewsSection({
+export async function TrustpilotReviewsSection({
   className,
 }: {
   className?: string;
@@ -18,6 +36,7 @@ export function TrustpilotReviewsSection({
   const reviewUrl = getTrustpilotReviewUrl();
   const evaluateUrl = getTrustpilotEvaluateUrl();
   const hasTrustBox = isTrustpilotConfigured();
+  const summary = await getTrustpilotSummary();
 
   return (
     <section
@@ -75,22 +94,12 @@ export function TrustpilotReviewsSection({
           </div>
         ) : (
           <div className="tp-card reveal">
-            <p className="tp-card-label">How reviews work</p>
-            <h3>See what clients publish about The Wikipedia Studio</h3>
-            <ol className="tp-steps">
-              <li>
-                <b>1</b>
-                <span>Open our public Trustpilot profile for the live TrustScore.</span>
-              </li>
-              <li>
-                <b>2</b>
-                <span>Read written reviews from completed engagements.</span>
-              </li>
-              <li>
-                <b>3</b>
-                <span>Worked with us? Leave your own review.</span>
-              </li>
-            </ol>
+            <p className="tp-card-label">Our Trustpilot Rating</p>
+            {summary ? (
+              <TrustpilotRating summary={summary} reviewUrl={reviewUrl} variant="card" />
+            ) : (
+              <h3>See what clients publish about The Wikipedia Studio</h3>
+            )}
             <div className="tp-actions">
               <a
                 className="button button-gold"
@@ -109,6 +118,10 @@ export function TrustpilotReviewsSection({
                 Leave a review
               </a>
             </div>
+            <div className="tp-collector-wrap">
+              <p>Worked with us? Share your experience:</p>
+              <ReviewCollector theme="dark" evaluateUrl={evaluateUrl} />
+            </div>
           </div>
         )}
       </div>
@@ -116,34 +129,32 @@ export function TrustpilotReviewsSection({
   );
 }
 
-/** Compact footer badge — TrustBox when paid widgets are available, else links. */
-export function TrustpilotMicroBadge() {
+/** Footer badge: live TrustScore + official "Review us on Trustpilot" TrustBox. */
+export async function TrustpilotMicroBadge() {
   const reviewUrl = getTrustpilotReviewUrl();
   const evaluateUrl = getTrustpilotEvaluateUrl();
-
-  if (isTrustpilotConfigured()) {
-    return (
-      <div className="trustpilot-micro">
-        <TrustBox
-          businessUnitId={getTrustpilotBusinessUnitId()}
-          templateId={getTrustpilotMicroTemplateId()}
-          reviewUrl={reviewUrl}
-          height="24px"
-          theme="dark"
-        />
-      </div>
-    );
-  }
+  const summary = await getTrustpilotSummary();
 
   return (
-    <p className="footer-trustpilot-links">
-      <a href={reviewUrl} target="_blank" rel="noopener noreferrer">
-        Trustpilot reviews
-      </a>
-      <span aria-hidden="true">·</span>
-      <a href={evaluateUrl} target="_blank" rel="noopener noreferrer">
-        Leave a review
-      </a>
-    </p>
+    <div className="footer-trustpilot">
+      {isTrustpilotConfigured() ? (
+        <div className="trustpilot-micro">
+          <TrustBox
+            businessUnitId={getTrustpilotBusinessUnitId()}
+            templateId={getTrustpilotMicroTemplateId()}
+            reviewUrl={reviewUrl}
+            height="24px"
+            theme="dark"
+          />
+        </div>
+      ) : summary ? (
+        <TrustpilotRating summary={summary} reviewUrl={reviewUrl} />
+      ) : (
+        <a className="footer-trustpilot-link" href={reviewUrl} target="_blank" rel="noopener noreferrer">
+          Read our Trustpilot reviews
+        </a>
+      )}
+      <ReviewCollector theme="dark" evaluateUrl={evaluateUrl} />
+    </div>
   );
 }

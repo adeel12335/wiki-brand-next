@@ -53,6 +53,10 @@ body:not(#_) .nav-cta {
 /* Logo: breathing room between the globe and the wordmark (header + footer) */
 body:not(#_) .brand { gap: 12px; }
 body:not(#_) .brand > img { margin-right: 0; }
+/* "— STUDIO —" row spans the full wordmark so it starts flush under "THE" */
+body:not(#_) .brand-copy { align-items: stretch; }
+body:not(#_) .brand-copy > span { justify-content: center; }
+body:not(#_) .brand-copy i { flex: 1 1 auto; min-width: 14px; }
 
 /* Site-wide alert bar (top of the header, dismissible) */
 :root { --site-alert-h: 40px; }
@@ -62,7 +66,8 @@ body:not(#_) .site-alert {
   border-bottom: 1px solid rgba(239, 200, 113, 0.22);
   background: linear-gradient(90deg, #0b2134, #102b42 50%, #0b2134);
 }
-body:not(#_) .site-header.scrolled .site-alert { display: none; }
+body:not(#_) .site-header.scrolled .site-alert,
+body:not(#_) .site-header.menu-open .site-alert { display: none; }
 body:not(#_) .site-alert-inner {
   min-height: 40px;
   display: flex;
@@ -127,11 +132,28 @@ body:not(#_) .site-alert-icon svg { width: 18px; height: 18px; stroke-width: 1.6
   body:not(#_) .site-alert-icon { display: none; }
 }
 
+/* No short gold rule under section headings (legacy site.css h2::after) */
+body:not(#_) :is(.section-heading.center h2, .work-head h2, .testimonial-heading h2)::after {
+  display: none;
+}
+
 /* Inner-page heroes: clear the fixed header with real breathing room */
 body:not(#_) .page-hero { padding: 132px 0 72px; }
 body:not(#_) .page-hero .breadcrumb { margin-bottom: 20px; }
 @media (max-width: 900px) {
   body:not(#_) .page-hero { padding: 108px 0 56px; }
+  /* One mobile hero for every inner page (PageHero): centred, full width */
+  body:not(#_) .page-hero .shell { text-align: center; }
+  body:not(#_) .page-hero .breadcrumb ol { justify-content: center; }
+  body:not(#_) .page-hero-copy { max-width: none; margin-inline: auto; }
+  body:not(#_) .page-hero .page-hero-copy h1 {
+    max-width: none;
+    margin-inline: auto;
+    font-size: clamp(1.875rem, 7.4vw, 2.5rem);
+    line-height: 1.44;
+  }
+  body:not(#_) .page-hero-lede { margin-inline: auto; }
+  body:not(#_) .page-hero .hero-actions { justify-content: center; }
 }
 @media (max-width: 620px) {
   body:not(#_) .page-hero { padding: 100px 0 48px; }
@@ -164,7 +186,7 @@ body:not(#_) .page-hero .breadcrumb { margin-bottom: 20px; }
 body:not(#_) .cta-band {
   position: relative;
   overflow: hidden;
-  padding: clamp(40px, 4.5vw, 64px) 0;
+  padding: clamp(40px, 4.5vw, 60px) 0 clamp(32px, 3.5vw, 44px);
   border-top: 1px solid rgba(239, 200, 113, 0.14);
   background:
     radial-gradient(circle at 78% 50%, rgba(239, 200, 113, 0.12), transparent 32%),
@@ -206,11 +228,13 @@ body:not(#_) .cta-band-copy p {
   font-size: 1.0625rem;
   line-height: 1.7;
 }
-body:not(#_) .cta-band-button {
+/* Tight shadow only — the old wide gold glow left a smudge under the button */
+body:not(#_) .cta-band .cta-band-button,
+body:not(#_) .cta-band .cta-band-button:hover {
   min-height: 56px;
   padding-inline: 34px;
   font-size: 1rem;
-  box-shadow: 0 14px 34px rgba(216, 165, 58, 0.28);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Globe with soft glow and three CSS orbit rings */
@@ -282,12 +306,13 @@ body:not(#_) .site-footer {
   border-top: 0;
   background: #010810;
 }
+/* One even hairline across the full width where the page meets the footer */
 body:not(#_) .site-footer::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(239, 200, 113, 0.7), transparent);
+  background: rgba(239, 200, 113, 0.18);
 }
 
 body:not(#_) .footer-grid {
@@ -331,7 +356,7 @@ body:not(#_) .footer-grid :is(a, span) {
   transition: color 0.2s;
 }
 body:not(#_) .footer-grid a:hover { color: var(--eyebrow); }
-/* Email + phone: ringed gold icon, small label, value on one line */
+/* Email + phone: small label, value on one line */
 body:not(#_) .footer-grid .footer-contact-line {
   display: flex;
   align-items: center;
@@ -359,31 +384,6 @@ body:not(#_) .footer-grid .footer-contact-text small {
   text-transform: uppercase;
 }
 body:not(#_) .footer-grid .footer-contact-line:hover .footer-contact-text { color: #ffffff; }
-body:not(#_) .footer-grid .footer-contact-icon {
-  width: 40px;
-  height: 40px;
-  display: grid;
-  flex: 0 0 auto;
-  place-items: center;
-  border: 1px solid rgba(239, 200, 113, 0.35);
-  border-radius: 50%;
-  background: rgba(239, 200, 113, 0.08);
-  color: var(--eyebrow);
-  transition: background 0.2s, color 0.2s;
-}
-body:not(#_) .footer-contact-icon svg {
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-body:not(#_) .footer-grid .footer-contact-line:hover .footer-contact-icon {
-  background: var(--eyebrow);
-  color: #010810;
-}
 
 /* Bottom bar */
 body:not(#_) .footer-bottom {
@@ -411,4 +411,60 @@ body:not(#_) .footer-bottom a:hover { color: var(--eyebrow); }
   body:not(#_) .site-footer { padding-top: 48px; }
   body:not(#_) .footer-grid { grid-template-columns: 1fr; gap: 36px; }
   body:not(#_) .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+
+/* Trustpilot: shared stars/logo + footer badge ----------------------------- */
+
+body:not(#_) .tp-stars { --tp-size: 22px; display: inline-flex; gap: 3px; }
+body:not(#_) .tp-star {
+  width: var(--tp-size);
+  height: var(--tp-size);
+  display: grid;
+  place-items: center;
+  background: linear-gradient(90deg, #00b67a var(--tp-fill), #dcdce6 var(--tp-fill));
+}
+body:not(#_) .tp-star svg { width: 76%; height: 76%; fill: #ffffff; }
+body:not(#_) .tp-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #ffffff;
+  font-family: var(--heading-sans);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+body:not(#_) .tp-logo svg { width: 18px; height: 18px; fill: #00b67a; }
+
+body:not(#_) .site-footer .footer-trustpilot {
+  display: grid;
+  gap: 12px;
+  max-width: 236px;
+  margin-top: 20px;
+}
+body:not(#_) .site-footer a.tp-score-inline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+body:not(#_) .site-footer a.tp-score-inline:hover { border-color: rgba(0, 182, 122, 0.55); }
+body:not(#_) .site-footer .tp-score-inline .tp-stars { --tp-size: 20px; }
+body:not(#_) .site-footer .tp-score-inline .tp-score-meta {
+  grid-column: 1 / -1;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8125rem;
+}
+body:not(#_) .site-footer .tp-score-meta b { color: #ffffff; }
+body:not(#_) .site-footer .tp-collector { min-height: 52px; }
+body:not(#_) .site-footer :is(.tp-collector > a, .footer-trustpilot-link) { color: var(--eyebrow); font-size: 0.875rem; font-weight: 700; }
+@media (max-width: 900px) {
+  body:not(#_) .site-footer .footer-trustpilot { margin-inline: auto; }
 }

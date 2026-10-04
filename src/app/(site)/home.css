@@ -3,7 +3,7 @@
    Rhythm: hero dark → stats gold → then white / dark alternating.
 
    1. Hero ................ dark
-   2. Stats band .......... gold
+   2. Stats band .......... dark (StatsBand, under the hero)
    3. About ............... white
    4. Deep guide .......... dark   (procedure timeline + two cards)
    5. Services ............ white
@@ -29,104 +29,110 @@ body:not(#_) .hero.tone-dark {
   }
 }
 
-/* 2. Stats band ----------------------------------------------------------- */
+/* Mobile/tablet: copy first, then the full globe image below it (contained,
+   never cropped) instead of a cropped backdrop behind the text. */
+@media (max-width: 900px) {
+  body:not(#_) .hero.tone-dark {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  body:not(#_) .hero::after,
+  body:not(#_) .hero .hero-particles,
+  body:not(#_) .hero .hero-beacon { display: none; }
+  body:not(#_) .hero .hero-grid {
+    order: 1;
+    min-height: 0;
+    padding-top: 28px;
+  }
+  body:not(#_) .hero .hero-copy { margin-inline: auto; text-align: center; }
+  body:not(#_) .hero .hero-copy h1 { margin-inline: auto; line-height: 1.44; }
+  body:not(#_) .hero .hero-actions { justify-content: center; }
+  body:not(#_) .hero .hero-art {
+    position: relative;
+    inset: auto;
+    order: 2;
+    width: min(88%, 420px);
+    height: auto;
+    aspect-ratio: 2 / 3; /* hero-orbital-globe.jpg is 1024×1536 */
+    margin: 8px auto 0;
+    transform: none;
+  }
+  body:not(#_) .hero .hero-art::before { display: none; }
+  body:not(#_) .hero .hero-art-image {
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+  }
+}
 
-body:not(#_) .metrics-rail {
-  --stat-ink: #0b1b2a;
-  --stat-ink-soft: rgba(11, 27, 42, 0.72);
-  --stat-rule: rgba(11, 27, 42, 0.16);
-  /* Legacy site.css forces width: 100%; keep the band inside the page container */
-  width: min(calc(100% - 56px), var(--shell));
-  max-width: var(--shell);
-  margin-inline: auto;
-  margin-top: clamp(20px, 3vw, 36px);
-  padding: 8px 4px;
-  border-radius: 16px;
-  background: linear-gradient(120deg, #f4d68a 0%, #efc871 45%, #d8a53a 100%);
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.35), inset 0 1px rgba(255, 255, 255, 0.45);
-  overflow: hidden;
-}
-body:not(#_) .metrics-rail::before,
-body:not(#_) .metrics-rail::after { display: none; }
+/* 2. Stats band (dark) — quiet proof strip directly under the hero -------- */
 
-body:not(#_) .metrics-rail article {
-  min-height: 0;
-  padding: 26px clamp(16px, 1.8vw, 28px) 22px;
-  grid-template-columns: 48px minmax(0, 1fr);
-  gap: 14px;
-  animation: none;
+body:not(#_) .stats-band {
+  position: relative;
+  padding: clamp(36px, 4.5vw, 56px) 0;
+  border-top: 1px solid rgba(239, 200, 113, 0.14);
+  border-bottom: 1px solid rgba(239, 200, 113, 0.14);
+  background:
+    radial-gradient(ellipse 70% 120% at 50% 0%, rgba(239, 200, 113, 0.06), transparent 70%),
+    #041220;
 }
-body:not(#_) .metrics-rail-desktop article::after {
-  top: 22%;
-  bottom: 22%;
-  background: var(--stat-rule);
-}
-body:not(#_) .metrics-rail .metric-index {
-  top: 10px;
-  color: var(--stat-ink-soft);
-  font-family: var(--sans);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-}
-body:not(#_) .metrics-rail .metric-icon {
-  width: 48px;
-  height: 48px;
+body:not(#_) .stats-band-grid {
   display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: rgba(11, 27, 42, 0.1);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
 }
-body:not(#_) .metrics-rail svg {
-  width: 26px;
-  height: 26px;
-  color: var(--stat-ink);
-  stroke-width: 1.6;
-  filter: none;
+body:not(#_) .stats-band-item {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 4px clamp(16px, 2.2vw, 32px);
+  border-left: 1px solid rgba(239, 200, 113, 0.16);
 }
-body:not(#_) .metrics-rail .metric-copy strong {
-  color: var(--stat-ink);
+body:not(#_) .stats-band-item:first-child { padding-left: 0; border-left: 0; }
+body:not(#_) .stats-band-item dd {
+  margin: 0;
+  color: #ffffff;
   font-family: var(--heading-sans);
-  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-size: clamp(2rem, 3vw, 2.75rem);
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.02em;
 }
-body:not(#_) .metrics-rail .metric-copy span {
-  margin-top: 6px;
-  color: var(--stat-ink-soft);
-  font-size: 0.875rem;
+body:not(#_) .stats-band-item dt {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.8125rem;
   font-weight: 600;
-  line-height: 1.35;
-  white-space: normal;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+body:not(#_) .stats-band-icon { flex: 0 0 auto; color: var(--eyebrow); }
+body:not(#_) .stats-band-icon svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 @media (max-width: 1024px) {
-  body:not(#_) .metrics-rail { padding: 6px 6px 14px !important; }
-  body:not(#_) .metrics-carousel-slide article {
-    padding: 22px 14px 12px;
-    border-right-color: var(--stat-rule);
-  }
-  body:not(#_) .metrics-carousel-slide .metric-index { top: 8px; }
-  body:not(#_) .metrics-carousel-viewport,
-  body:not(#_) .metrics-carousel-dots {
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-  }
-  body:not(#_) .metrics-rail .metric-copy span { letter-spacing: 0; }
-  body:not(#_) .metrics-carousel-dots button { background: rgba(11, 27, 42, 0.25); }
-  body:not(#_) .metrics-carousel-dots button.active { background: var(--stat-ink); }
-  body:not(#_) .metrics-carousel-arrow {
-    border-color: rgba(11, 27, 42, 0.3);
-    background: rgba(255, 255, 255, 0.35);
-    color: var(--stat-ink);
-  }
+  body:not(#_) .stats-band-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 28px; }
+  body:not(#_) .stats-band-item:nth-child(3n + 1) { padding-left: 0; border-left: 0; }
 }
-@media (max-width: 480px) {
-  body:not(#_) .metrics-rail .metric-icon { width: 40px; height: 40px; }
-  body:not(#_) .metrics-rail svg { width: 22px; height: 22px; }
-  body:not(#_) .metrics-carousel-slide article { grid-template-columns: 40px minmax(0, 1fr); }
+@media (max-width: 620px) {
+  body:not(#_) .stats-band-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body:not(#_) .stats-band-item,
+  body:not(#_) .stats-band-item:nth-child(3n + 1) { padding-left: 16px; border-left: 1px solid rgba(239, 200, 113, 0.16); }
+  body:not(#_) .stats-band-item:nth-child(odd) { padding-left: 0; border-left: 0; }
+  body:not(#_) .stats-band-item:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 
 /* 3. About (white) -------------------------------------------------------- */
@@ -570,6 +576,18 @@ body:not(#_) .proc-steps::after {
   transition: width 0.45s cubic-bezier(0.22, 0.8, 0.25, 1);
 }
 
+/* Panel content swaps in when the active stage changes (click or scroll) */
+body:not(#_) .proc-panel-copy,
+body:not(#_) .proc-panel-index b { animation: procSwap 0.45s cubic-bezier(0.22, 0.8, 0.25, 1) both; }
+@keyframes procSwap {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body:not(#_) .proc-panel-copy,
+  body:not(#_) .proc-panel-index b { animation: none; }
+}
+
 /* Scroll-drawn guide line (GSAP scales it 0 → 1); sits under the active fill */
 body:not(#_) .proc-steps-line {
   position: absolute;
@@ -959,6 +977,39 @@ body:not(#_) .tone-light .tp-card .button-outline {
 body:not(#_) .tone-light .tp-card .button-outline:hover { border-color: var(--eyebrow); color: var(--eyebrow); }
 body:not(#_) .tone-light .tp-card .button-gold svg { color: currentColor; }
 
+/* Live TrustScore card + review collector inside the dark card */
+body:not(#_) a.tp-score-card {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 26px;
+  padding: 22px 22px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+body:not(#_) a.tp-score-card:hover { border-color: rgba(0, 182, 122, 0.55); background: rgba(255, 255, 255, 0.06); }
+body:not(#_) .tp-score-top { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+body:not(#_) .tone-light .tp-score-top strong {
+  color: #ffffff;
+  font-family: var(--heading-sans);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+body:not(#_) .tp-score-card .tp-stars { --tp-size: 32px; }
+body:not(#_) .tone-light .tp-score-card .tp-score-meta { color: rgba(255, 255, 255, 0.78); font-size: 0.9375rem; }
+body:not(#_) .tp-score-meta b { color: #ffffff; }
+body:not(#_) .tp-collector-wrap {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+body:not(#_) .tone-light .tp-collector-wrap p { margin: 0 0 10px; color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; }
+body:not(#_) .tp-collector { min-height: 52px; }
+body:not(#_) .tone-light .tp-collector > a { color: var(--eyebrow); font-weight: 700; }
+
 @media (max-width: 900px) {
   body:not(#_) .tp-layout { grid-template-columns: 1fr; }
 }
@@ -1086,12 +1137,22 @@ body:not(#_) .home-faq-library .faq-answer { color: var(--tone-light-text); }
   body:not(#_) .blog-home-section .blog-card:hover { transform: none; }
 }
 
-/* Testimonial slide fade (autoplay + manual) */
-body:not(#_) .testimonial-slide { animation: testimonialIn 0.6s cubic-bezier(0.22, 0.8, 0.25, 1) both; }
-@keyframes testimonialIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
+/* Testimonial slider — the track slides horizontally between quotes */
+body:not(#_) .testimonial-viewport { overflow: hidden; }
+body:not(#_) .testimonial-track {
+  display: flex;
+  align-items: center;
+  transition: transform 0.7s cubic-bezier(0.22, 0.8, 0.25, 1);
+  will-change: transform;
 }
+body:not(#_) .testimonial-track > .testimonial-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  opacity: 0.25;
+  transition: opacity 0.7s ease;
+}
+body:not(#_) .testimonial-track > .testimonial-slide[aria-hidden="false"] { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
-  body:not(#_) .testimonial-slide { animation: none; }
+  body:not(#_) .testimonial-track,
+  body:not(#_) .testimonial-track > .testimonial-slide { transition: none; }
 }

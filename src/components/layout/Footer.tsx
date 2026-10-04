@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Icon } from "@/components/ui/Icon";
 import {
   NAV_ITEMS,
   SITE_EMAIL,
@@ -10,13 +9,12 @@ import {
   url,
 } from "@/lib/config";
 import { services } from "@/lib/data";
-import { getTrustpilotReviewUrl } from "@/lib/trustpilot";
+import { TrustpilotMicroBadge } from "@/components/trustpilot/TrustpilotReviewsSection";
 
 export function Footer() {
   const year = new Date().getFullYear();
   const companyNumber = process.env.NEXT_PUBLIC_COMPANY_NUMBER?.trim();
   const companyAddress = process.env.NEXT_PUBLIC_COMPANY_ADDRESS?.trim();
-  const trustpilotUrl = getTrustpilotReviewUrl();
 
   return (
     <footer className="site-footer">
@@ -45,6 +43,7 @@ export function Footer() {
             crafting credible, authoritative pages that elevate your presence or
             brand reputation worldwide.
           </p>
+          <TrustpilotMicroBadge />
         </div>
 
         <div className="footer-column footer-links">
@@ -77,18 +76,12 @@ export function Footer() {
         <div className="footer-column footer-contact">
           <h3>Contact Us</h3>
           <a className="footer-contact-line" href={`mailto:${SITE_EMAIL}`}>
-            <span className="footer-contact-icon" aria-hidden="true">
-              <Icon name="i-mail" />
-            </span>
             <span className="footer-contact-text">
               <small>Email us</small>
               {SITE_EMAIL}
             </span>
           </a>
           <a className="footer-contact-line" href={`tel:${SITE_PHONE_RAW}`}>
-            <span className="footer-contact-icon" aria-hidden="true">
-              <Icon name="i-phone" />
-            </span>
             <span className="footer-contact-text">
               <small>Call us</small>
               {SITE_PHONE}
@@ -97,9 +90,6 @@ export function Footer() {
           <span>Remote-first · Worldwide services</span>
           {companyNumber ? <span>Company no. {companyNumber}</span> : null}
           {companyAddress ? <span>{companyAddress}</span> : null}
-          <a href={trustpilotUrl} target="_blank" rel="noopener noreferrer">
-            Trustpilot reviews
-          </a>
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
+import { ProcessScrollStepper } from "@/components/sections/ProcessScrollStepper";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
@@ -157,25 +157,8 @@ export default function OurProcessPage() {
         </div>
       </section>
 
-      {/* 2. Five stages at a glance — interactive stepper (dark) */}
-      <section className="section-pad tone-dark process-index-section pr-glance" aria-labelledby="pr-glance-title">
-        <div className="shell">
-          <div className="section-heading center reveal">
-            <p className="micro-label">At a Glance</p>
-            <h2 id="pr-glance-title">
-              The Five Stages, <span>Step by Step</span>
-            </h2>
-            <p className="section-heading-copy">
-              Select a stage to see what happens inside it — the same order on every
-              engagement, whatever the subject.
-            </p>
-          </div>
-          <ProcessShowcase showHeading={false} />
-        </div>
-      </section>
-
       {/* 3. Stage by stage — vertical timeline (white) */}
-      <section className="section-pad tone-light pr-stages" aria-labelledby="pr-stages-title">
+      <section className="section-pad tone-light pr-stages pr-stages--stepper" aria-labelledby="pr-stages-title">
         <div className="shell">
           <div className="section-heading center reveal">
             <p className="micro-label">Stage By Stage</p>
@@ -183,28 +166,7 @@ export default function OurProcessPage() {
               What Actually Happens at <span>Each Step</span>
             </h2>
           </div>
-          <ol className="pr-timeline">
-            {processSteps.map((step, index) => (
-              <li key={step.title} className="pr-stage reveal" id={`step-${index + 1}`}>
-                <div className="pr-stage-marker" aria-hidden="true">
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                </div>
-                <article className="pr-stage-card">
-                  <header>
-                    <span className="pr-icon" aria-hidden="true">
-                      <Icon name={step.icon} />
-                    </span>
-                    <div>
-                      <p className="pr-stage-kicker">Stage {index + 1} of {processSteps.length}</p>
-                      <h3>{step.title}</h3>
-                    </div>
-                  </header>
-                  <p>{step.copy}</p>
-                  <p className="pr-stage-detail">{step.detail}</p>
-                </article>
-              </li>
-            ))}
-          </ol>
+          <ProcessScrollStepper />
         </div>
       </section>
 

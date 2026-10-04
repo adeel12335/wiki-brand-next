@@ -333,3 +333,214 @@ body:not(#_) .pr-time .section-actions { margin-top: 36px; text-align: center; }
   body:not(#_) .pr-time-card,
   body:not(#_) .pr-time-card:hover { transition: none; transform: none; }
 }
+
+/* 7. Stage-by-stage scroll stepper (light cream) -------------------------- */
+/* Sticky stepper row above every stage's full write-up; the active dot and
+   gold progress line follow the stage crossing the middle of the screen. */
+
+body:not(#_) .pr-stages--stepper { background: linear-gradient(180deg, #fdf9f0 0%, #f8f1e1 100%); }
+
+body:not(#_) .ps-rail {
+  position: sticky;
+  top: 76px;
+  z-index: 5;
+  margin: 0 calc(-1 * clamp(12px, 2vw, 24px)) 28px;
+  padding: 18px clamp(12px, 2vw, 24px) 14px;
+  border: 1px solid rgba(156, 111, 31, 0.16);
+  border-radius: 20px;
+  background: rgba(253, 249, 240, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 32px rgba(11, 27, 42, 0.08);
+}
+body:not(#_) .ps-steps {
+  --dot: 52px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Track between first and last dot centres, plus the gold fill */
+body:not(#_) .ps-steps::before,
+body:not(#_) .ps-steps::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--dot) / 2 - 1px);
+  left: 10%;
+  height: 2px;
+  border-radius: 2px;
+}
+body:not(#_) .ps-steps::before { right: 10%; background: rgba(156, 111, 31, 0.18); }
+body:not(#_) .ps-steps::after {
+  width: calc(80% * var(--ps-progress, 0));
+  background: linear-gradient(90deg, #d8a53a, var(--eyebrow));
+  transition: width 0.45s cubic-bezier(0.22, 0.8, 0.25, 1);
+}
+body:not(#_) .ps-step {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: var(--tone-light-ink);
+  text-align: center;
+  cursor: pointer;
+}
+body:not(#_) .ps-step-dot {
+  width: var(--dot);
+  height: var(--dot);
+  display: grid;
+  place-items: center;
+  margin-bottom: 6px;
+  border: 1px solid rgba(156, 111, 31, 0.3);
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--gold-deep);
+  transition: background 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+body:not(#_) .ps-step-dot svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+body:not(#_) .ps-step.is-done .ps-step-dot { border-color: var(--eyebrow); }
+body:not(#_) .ps-step.is-active .ps-step-dot {
+  border-color: transparent;
+  background: linear-gradient(135deg, #f4d68a, #d8a53a);
+  color: #0b1b2a;
+  transform: scale(1.06);
+  box-shadow: 0 0 0 6px rgba(239, 200, 113, 0.25);
+}
+body:not(#_) .ps-step-num {
+  color: rgba(156, 111, 31, 0.75);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+body:not(#_) .ps-step-title {
+  font-family: var(--heading-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  transition: color 0.3s;
+}
+body:not(#_) .ps-step.is-active .ps-step-title { color: var(--gold-deep); }
+body:not(#_) .ps-step:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 4px; border-radius: 12px; }
+
+/* Stage panels */
+body:not(#_) .ps-panels { display: grid; gap: 22px; }
+body:not(#_) .ps-panel {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 48px);
+  padding: clamp(26px, 4vw, 44px);
+  border: 1px solid var(--tone-light-line);
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(11, 27, 42, 0.06);
+  scroll-margin-top: 230px;
+  transition: border-color 0.35s, box-shadow 0.35s, opacity 0.35s;
+}
+body:not(#_) .ps-panel.is-active {
+  border-color: rgba(156, 111, 31, 0.45);
+  box-shadow: 0 22px 50px rgba(11, 27, 42, 0.12);
+}
+body:not(#_) .ps-panel-index {
+  display: flex;
+  flex-direction: column;
+  padding-right: clamp(16px, 3vw, 32px);
+  border-right: 1px solid var(--tone-light-line);
+}
+body:not(#_) .ps-panel-index span,
+body:not(#_) .ps-panel-index small {
+  color: var(--eyebrow-on-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+body:not(#_) .ps-panel-index b {
+  margin: 4px 0;
+  color: var(--gold-deep);
+  font-family: var(--heading-sans);
+  font-size: clamp(2.75rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+}
+body:not(#_) .ps-panel-copy header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+body:not(#_) .ps-panel-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(239, 200, 113, 0.18);
+  color: var(--gold-deep);
+}
+body:not(#_) .ps-panel-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+body:not(#_) .ps-panel-copy h3 {
+  margin: 0;
+  font-family: var(--heading-sans);
+  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  font-weight: 700;
+}
+body:not(#_) .tone-light .ps-panel-copy p {
+  margin: 0 0 14px;
+  color: #33414d;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+body:not(#_) .tone-light .ps-panel-copy p.ps-panel-card { color: var(--gold-deep); font-weight: 600; }
+body:not(#_) .tone-light .ps-panel-copy p.ps-panel-detail {
+  margin: 0;
+  padding: 16px 18px;
+  border-left: 3px solid var(--eyebrow);
+  border-radius: 0 12px 12px 0;
+  background: #fbf8f1;
+  color: var(--tone-light-text);
+  font-size: 0.9375rem;
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  body:not(#_) .ps-rail { top: 72px; margin-inline: -8px; padding: 14px 8px 10px; border-radius: 16px; }
+  body:not(#_) .ps-steps { --dot: 40px; }
+  body:not(#_) .ps-step-dot svg { width: 18px; height: 18px; }
+  body:not(#_) .ps-step-num { display: none; }
+  body:not(#_) .ps-step-title { font-size: 0.75rem; }
+  body:not(#_) .ps-panel { grid-template-columns: 1fr; gap: 16px; scroll-margin-top: 190px; }
+  body:not(#_) .ps-panel-index {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+    padding: 0 0 14px;
+    border-right: 0;
+    border-bottom: 1px solid var(--tone-light-line);
+  }
+  body:not(#_) .ps-panel-index b { font-size: 2.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body:not(#_) .ps-steps::after,
+  body:not(#_) .ps-step-dot,
+  body:not(#_) .ps-panel { transition: none; }
+}

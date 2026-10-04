@@ -1,7 +1,7 @@
 /* ==========================================================================
    about.css — About Us page sections, grouped top → bottom
    Order: hero D → intro W → How We Work D (unchanged) → principles W
-   → includes D → standards W → team D → team band GOLD → audience W
+   → includes D → standards W → team D → team band CREAM → audience W
    → testimonials D → next steps W → CTA D.
 
    1. Shared card bits (icon badge, numbers)
@@ -10,7 +10,7 @@
    4. Who we work with .... white
    5. Editorial standards . white + independence note
    6. Engagement includes . dark
-   7. Team band ........... gold, full width (after the dark team cards)
+   7. Team band ........... light cream, full width (after the dark team cards)
    8. Next steps .......... white — two link cards
    ========================================================================== */
 
@@ -66,12 +66,8 @@ body:not(#_) .ab-intro-copy p:not(.micro-label) {
   font-size: 1rem;
   line-height: 1.8;
 }
-body:not(#_) .tone-light .ab-intro-copy p.ab-intro-lead {
-  color: var(--tone-light-ink);
-  font-size: 1.1875rem;
-  font-weight: 600;
-  line-height: 1.65;
-}
+/* Lead paragraph matches the body copy (same size/weight) — only a touch darker */
+body:not(#_) .tone-light .ab-intro-copy p.ab-intro-lead { color: var(--tone-light-ink); }
 body:not(#_) .ab-intro-copy .text-link {
   display: inline-flex;
   align-items: center;
@@ -424,6 +420,10 @@ body:not(#_) .ab-independence h2 {
 }
 body:not(#_) .ab-independence p:not(.micro-label) { margin: 0; font-size: 0.9375rem; line-height: 1.7; }
 
+/* Legacy site.css draws a short vertical gold line above every .about
+   section; on the About page it floats over the "How We Work" heading. */
+body:not(#_) .about::before { display: none; }
+
 /* 6. What every engagement includes (dark) — 3×2 icon grid -------------- */
 
 body:not(#_) .ab-includes-grid {
@@ -450,12 +450,17 @@ body:not(#_) .tone-dark .ab-include p {
   line-height: 1.7;
 }
 
-/* 7. Team band — full-width gold band closing the team part -------------- */
+/* 7. Team band — light cream band with role chips (between dark team cards
+   and the white audience section) ---------------------------------------- */
 
 body:not(#_) .ab-team-band {
   position: relative;
-  padding: clamp(56px, 7vw, 96px) 0;
-  background: linear-gradient(120deg, #f4d68a 0%, #efc871 45%, #d8a53a 100%);
+  padding: clamp(56px, 7vw, 88px) 0;
+  border-top: 1px solid rgba(156, 111, 31, 0.18);
+  border-bottom: 1px solid rgba(156, 111, 31, 0.18);
+  background:
+    radial-gradient(ellipse 60% 90% at 50% 0%, rgba(239, 200, 113, 0.22), transparent 70%),
+    linear-gradient(180deg, #fdf8ec 0%, #f8f0dc 100%);
   text-align: center;
   overflow: hidden;
 }
@@ -466,26 +471,77 @@ body:not(#_) .ab-team-band::after {
   position: absolute;
   top: 50%;
   left: 50%;
-  border: 1px solid rgba(11, 27, 42, 0.08);
+  border: 1px solid rgba(156, 111, 31, 0.1);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
 body:not(#_) .ab-team-band::before { width: 760px; height: 760px; }
 body:not(#_) .ab-team-band::after { width: 1160px; height: 1160px; }
-body:not(#_) .ab-team-band-inner { position: relative; z-index: 1; max-width: 900px; }
+body:not(#_) .ab-team-band-inner { position: relative; z-index: 1; max-width: 920px; }
+body:not(#_) .ab-team-band .ab-panel-label {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 1px solid rgba(156, 111, 31, 0.3);
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--gold-deep);
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 body:not(#_) .ab-team-band h2 {
-  margin: 0 0 20px;
+  margin: 0 0 18px;
   color: #0b1b2a;
   font-size: clamp(2rem, 3.6vw, 3rem);
 }
-body:not(#_) .ab-team-band h2 span { color: #ffffff; text-shadow: 0 2px 14px rgba(120, 80, 10, 0.25); }
+body:not(#_) .ab-team-band h2 span { color: var(--gold-deep); }
 body:not(#_) .ab-team-band > .shell > p:not(.ab-panel-label) {
-  max-width: 780px;
-  margin: 0 auto 32px;
-  color: rgba(11, 27, 42, 0.82);
-  font-size: 1.125rem;
+  max-width: 760px;
+  margin: 0 auto 28px;
+  color: var(--tone-light-text);
+  font-size: 1.0625rem;
   line-height: 1.75;
+}
+body:not(#_) .ab-team-roles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+body:not(#_) .ab-team-roles li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 8px;
+  border: 1px solid rgba(156, 111, 31, 0.22);
+  border-radius: 99px;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(11, 27, 42, 0.06);
+  color: var(--tone-light-ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+body:not(#_) .ab-team-roles li > span {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(239, 200, 113, 0.22);
+  color: var(--gold-deep);
+}
+body:not(#_) .ab-team-roles svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Shared: small label + dark pill button (team band + next steps) */
@@ -512,7 +568,7 @@ body:not(#_) :is(.ab-team-band, .ab-next) a.ab-pill.ab-pill {
   transition: background 0.2s, transform 0.2s;
 }
 body:not(#_) .ab-next a.ab-pill.ab-pill:hover { background: var(--gold-deep); transform: translateY(-2px); }
-body:not(#_) .ab-team-band a.ab-pill.ab-pill:hover { background: #ffffff; color: #0b1b2a; transform: translateY(-2px); }
+body:not(#_) .ab-team-band a.ab-pill.ab-pill:hover { background: var(--gold-deep); color: #ffffff; transform: translateY(-2px); }
 body:not(#_) .ab-pill svg {
   width: 18px;
   height: 18px;
@@ -557,11 +613,17 @@ body:not(#_) .ab-duo-card .ab-pill { margin-top: auto; }
 
 @media (max-width: 900px) {
   body:not(#_) .ab-includes-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Divider under each item once the grid stacks */
+  body:not(#_) .ab-include {
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(239, 200, 113, 0.16);
+  }
   body:not(#_) .ab-duo { grid-template-columns: 1fr; gap: 20px; }
   body:not(#_) .ab-duo-card { min-height: 0; }
 }
 @media (max-width: 620px) {
-  body:not(#_) .ab-includes-grid { grid-template-columns: 1fr; }
+  body:not(#_) .ab-includes-grid { grid-template-columns: 1fr; row-gap: 28px; }
+  body:not(#_) .ab-include:last-child { padding-bottom: 0; border-bottom: 0; }
   body:not(#_) .ab-duo-card { border-radius: 20px; }
   body:not(#_) :is(.ab-team-band, .ab-next) a.ab-pill.ab-pill { width: 100%; justify-content: center; }
 }

@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { ExperiencePanel, ExperienceStats } from "@/components/sections/ExperiencePanel";
 import { PortfolioClientsGrid } from "@/components/sections/PortfolioClientsGrid";
-import { MetricsRail } from "@/components/sections/MetricsRail";
+import { StatsBand } from "@/components/sections/StatsBand";
 import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
 import { ServiceIndex } from "@/components/sections/ServiceIndex";
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
@@ -24,7 +24,7 @@ import {
 import { getFeaturedPortfolio } from "@/lib/portfolio";
 import { buildPageMetadata, faqNode, itemListNode } from "@/lib/seo";
 
-const homeFaqs = faqs.slice(0, 5);
+const homeFaqs = faqs.slice(0, 10);
 
 const pageMeta = {
   slug: "",
@@ -103,9 +103,9 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
-
-        <MetricsRail items={metrics} />
       </section>
+
+      <StatsBand items={metrics} />
 
       <section className="about section-pad tone-light" id="about">
         <div className="shell about-grid about-grid--split">

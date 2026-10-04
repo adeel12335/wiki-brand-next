@@ -54,5 +54,25 @@
   {
     "q": "What is The Wikipedia Studio (Wiki Studio)?",
     "a": "The Wikipedia Studio — often shortened to Wiki Studio — is an independent Wikipedia service provider offering notability assessments, Wikipedia page creation, editing, research, and ongoing page management for individuals, companies, and institutions worldwide. It is not affiliated with Wikipedia or the Wikimedia Foundation, discloses all paid editing, and publishes its packages from $700."
+  },
+  {
+    "q": "Do you create Wikipedia pages for companies and businesses?",
+    "a": "Yes, when the company meets Wikipedia's notability guideline for organisations (WP:NCORP). That means significant coverage in independent, reliable sources — not press releases, funding announcements, or routine business listings. We check that coverage in a free assessment before recommending a company article."
+  },
+  {
+    "q": "What do you need from me to get started?",
+    "a": "Links to any independent press coverage, key milestones with dates, exact spellings of names, and any existing Wikipedia or Wikidata entry. Your own website, company blog, press releases, and sponsored articles cannot be used as citations, but they help us understand the subject while we search for independent sources."
+  },
+  {
+    "q": "Can you create a Wikipedia page in another language?",
+    "a": "Yes. Additional language versions are available at $400 each, and our Comprehensive package includes one. Each language edition of Wikipedia has its own notability and sourcing standards, so we check the coverage for that language before drafting."
+  },
+  {
+    "q": "What happens after my Wikipedia page is published?",
+    "a": "Every package includes a monitoring period, from 30 days up to 12 months depending on the tier, so we can catch problem edits early. After that, ongoing page management is available at $250 per month or $2,500 per year, covering watchlist monitoring, milestone updates from independent sources, dead-link repair, and a quarterly report."
+  },
+  {
+    "q": "Is there a refund if my Wikipedia page is not published?",
+    "a": "We do not refund research that was properly done — the notability report and source pack are real deliverables you keep. Instead, we prevent that situation at the start: the notability assessment is free and honest, and if the coverage is not there yet we tell you before you pay for a draft."
   }
 ]

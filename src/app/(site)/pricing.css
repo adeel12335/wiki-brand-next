@@ -1,7 +1,7 @@
 /* ==========================================================================
    pricing.css — Wikipedia Page Cost page, grouped top → bottom
    Order: hero D → packages + compare W → why it varies D → cost drivers W
-   → add-ons D → money & work W → not included D → management band GOLD
+   → add-ons D → money & work W → not included D → management band CREAM
    → pricing FAQ W → CTA D.
 
    1. Shared (icon badge, arrow link, heading spacing)
@@ -11,7 +11,7 @@
    5. Add-ons ................. dark
    6. Money & work ............ white
    7. Not included ............ dark
-   8. Management band ......... gold, full width
+   8. Management band ......... light cream, full width
    9. Pricing FAQ ............. white
    Legacy table/tier rules live in site.css; these override them per tone.
    ========================================================================== */
@@ -433,12 +433,16 @@ body:not(#_) .tone-dark .pc-limit p {
   line-height: 1.65;
 }
 
-/* 8. Management band (gold, full width) ----------------------------------- */
+/* 8. Management band — light cream (matches the About team band) -------- */
 
 body:not(#_) .pc-manage-band {
   position: relative;
   padding: clamp(56px, 7vw, 96px) 0;
-  background: linear-gradient(120deg, #f4d68a 0%, #efc871 45%, #d8a53a 100%);
+  border-top: 1px solid rgba(156, 111, 31, 0.18);
+  border-bottom: 1px solid rgba(156, 111, 31, 0.18);
+  background:
+    radial-gradient(ellipse 60% 90% at 20% 0%, rgba(239, 200, 113, 0.22), transparent 70%),
+    linear-gradient(180deg, #fdf8ec 0%, #f8f0dc 100%);
   overflow: hidden;
 }
 body:not(#_) .pc-manage-band::before {
@@ -448,7 +452,7 @@ body:not(#_) .pc-manage-band::before {
   left: -200px;
   width: 640px;
   height: 640px;
-  border: 1px solid rgba(11, 27, 42, 0.08);
+  border: 1px solid rgba(156, 111, 31, 0.1);
   border-radius: 50%;
   transform: translateY(-50%);
   pointer-events: none;
@@ -461,21 +465,28 @@ body:not(#_) .pc-manage-grid {
   gap: clamp(40px, 6vw, 88px);
 }
 body:not(#_) .pc-manage-band .pc-band-label {
-  margin: 0 0 12px;
-  color: #0b1b2a;
-  font-family: var(--heading-sans);
-  font-size: 1.125rem;
+  display: inline-block;
+  margin: 0 0 14px;
+  padding: 6px 16px;
+  border: 1px solid rgba(156, 111, 31, 0.3);
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--gold-deep);
+  font-size: 0.8125rem;
   font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 body:not(#_) .pc-manage-band h2 {
   margin: 0 0 18px;
   color: #0b1b2a;
-  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-size: clamp(1.875rem, 3.6vw, 3rem);
+  line-height: 1.15;
 }
-body:not(#_) .pc-manage-band h2 span { color: #ffffff; text-shadow: 0 2px 14px rgba(120, 80, 10, 0.25); }
+body:not(#_) .pc-manage-band h2 span { color: var(--gold-deep); }
 body:not(#_) .pc-manage-grid > div > p:not(.pc-band-label) {
   margin: 0 0 14px;
-  color: rgba(11, 27, 42, 0.85);
+  color: var(--tone-light-text);
   font-size: 1.0625rem;
   line-height: 1.75;
 }
@@ -493,44 +504,65 @@ body:not(#_) a.pc-pill.pc-pill {
   font-family: var(--heading-sans);
   font-weight: 700;
   text-decoration: none;
-  transition: background 0.2s, color 0.2s, transform 0.2s;
+  transition: background 0.2s, transform 0.2s;
 }
-body:not(#_) a.pc-pill.pc-pill:hover { background: #ffffff; color: #0b1b2a; transform: translateY(-2px); }
+body:not(#_) a.pc-pill.pc-pill:hover { background: var(--gold-deep); transform: translateY(-2px); }
 body:not(#_) .pc-pill svg { width: 18px; height: 18px; stroke-width: 2; }
+
+/* Price card — white, compact, gold top rule */
 body:not(#_) .pc-manage-card {
-  padding: 32px;
-  border-radius: 24px;
-  background: #0b1b2a;
-  box-shadow: 0 26px 56px rgba(11, 27, 42, 0.35);
+  padding: 30px 30px 28px;
+  border: 1px solid rgba(156, 111, 31, 0.2);
+  border-top: 4px solid var(--eyebrow);
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 22px 50px rgba(11, 27, 42, 0.1);
 }
 body:not(#_) p.pc-manage-price {
   margin: 0;
-  color: var(--eyebrow);
+  color: #0b1b2a;
   font-family: var(--heading-sans);
-  font-size: 3rem;
+  font-size: clamp(2.25rem, 4vw, 3rem);
   font-weight: 700;
   line-height: 1;
 }
-body:not(#_) .pc-manage-price span { font-size: 1.125rem; color: rgba(255, 255, 255, 0.7); }
+body:not(#_) .pc-manage-price span { margin-left: 4px; color: var(--tone-light-text); font-size: 1rem; font-weight: 600; }
 body:not(#_) p.pc-manage-alt {
-  margin: 6px 0 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.9375rem;
+  display: inline-block;
+  margin: 12px 0 20px;
+  padding: 4px 12px;
+  border-radius: 99px;
+  background: #fbf3df;
+  color: var(--gold-deep);
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 body:not(#_) .pc-manage-card h3 {
-  margin: 0 0 10px;
-  color: #ffffff;
+  margin: 0 0 8px;
+  padding-top: 18px;
+  border-top: 1px solid var(--tone-light-line);
+  color: #0b1b2a;
   font-family: var(--heading-sans);
-  font-size: 1.25rem;
+  font-size: 1.1875rem;
   font-weight: 700;
 }
 body:not(#_) .pc-manage-card > p:last-child {
   margin: 0;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--tone-light-text);
   font-size: 0.9375rem;
   line-height: 1.7;
+}
+
+/* Tablet + mobile: one centred column, card below the copy */
+@media (max-width: 960px) {
+  body:not(#_) .pc-manage-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+  body:not(#_) .pc-manage-grid > div { max-width: 640px; margin-inline: auto; }
+  body:not(#_) .pc-manage-card { width: 100%; max-width: 520px; margin-inline: auto; text-align: left; }
+  body:not(#_) .pc-manage-band::before { display: none; }
+}
+@media (max-width: 620px) {
+  body:not(#_) .pc-manage-card { padding: 24px 20px 22px; }
+  body:not(#_) a.pc-pill.pc-pill { width: 100%; justify-content: center; padding: 0 20px; }
 }
 
 /* 9. Pricing FAQ (white) — library layout, light colours ------------------ */
@@ -569,7 +601,6 @@ body:not(#_) .pc-faq .faq-answer { color: var(--tone-light-text); }
 @media (max-width: 960px) {
   body:not(#_) .pc-why-grid,
   body:not(#_) .pc-money-grid,
-  body:not(#_) .pc-manage-grid { grid-template-columns: 1fr; }
   body:not(#_) :is(.pc-terms, .pc-cheaper) { position: static; }
 }
 /* Legacy site.css stacks tables into cards at ≤900px; give those light cards */
@@ -598,8 +629,7 @@ body:not(#_) .pc-faq .faq-answer { color: var(--tone-light-text); }
   body:not(#_) .pc-tier-grid,
   body:not(#_) .pc-addon-grid,
   body:not(#_) .pc-limit-grid { grid-template-columns: 1fr; }
-  body:not(#_) :is(.pc-terms, .pc-cheaper, .pc-manage-card) { padding: 24px 20px; }
-  body:not(#_) a.pc-pill.pc-pill { width: 100%; justify-content: center; }
+  body:not(#_) :is(.pc-terms, .pc-cheaper) { padding: 24px 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
   body:not(#_) :is(.pc-tier, .pc-addon),

@@ -80,12 +80,7 @@ body:not(#_) .tone-light .pd-notes-body p {
   font-size: 1.0625rem;
   line-height: 1.85;
 }
-body:not(#_) .tone-light .pd-notes-body p:first-child {
-  color: var(--tone-light-ink);
-  font-size: 1.1875rem;
-  font-weight: 600;
-  line-height: 1.7;
-}
+body:not(#_) .tone-light .pd-notes-body p:first-child { color: var(--tone-light-ink); }
 body:not(#_) .pd-notes-cta {
   display: flex;
   flex-wrap: wrap;

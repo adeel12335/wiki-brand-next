@@ -10,6 +10,8 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
   const [activeIndex, setActiveIndex] = useState(0);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const rootRef = useRef<HTMLDivElement>(null);
+  // Scroll range of the pinned "steps advance on scroll" trigger (desktop only).
+  const pinRangeRef = useRef<{ start: number; end: number } | null>(null);
   const active = processSteps[activeIndex];
   const total = processSteps.length;
   const progress = total > 1 ? activeIndex / (total - 1) : 0;
@@ -54,7 +56,8 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
             scrollTrigger: {
               trigger: stepsRow,
               start: "top 85%",
-              end: "bottom 40%",
+              // Finish the entrance before the desktop pin below takes over.
+              end: "top 22%",
               scrub: 0.8,
             },
           });
@@ -96,6 +99,42 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
             steps.length * 0.9,
           );
         });
+
+        // Desktop: pin the stepper + panel under the header and let scrolling
+        // walk through the stages (Step 1 → 5), updating the active step,
+        // progress line, and detail panel as it goes.
+        mm.add(
+          "(prefers-reduced-motion: no-preference) and (min-width: 901px)",
+          () => {
+            const heading = root.querySelector<HTMLElement>(".proc-heading");
+            const headerOffset = 96;
+            const stagesCount = processSteps.length;
+
+            const trigger = ScrollTrigger.create({
+              trigger: root,
+              start: () => `top+=${heading?.offsetHeight ?? 0} ${headerOffset}`,
+              end: () => `+=${Math.round(window.innerHeight * 0.55 * stagesCount)}`,
+              pin: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              onRefresh: (self) => {
+                pinRangeRef.current = { start: self.start, end: self.end };
+              },
+              onUpdate: (self) => {
+                const next = Math.min(
+                  stagesCount - 1,
+                  Math.floor(self.progress * stagesCount),
+                );
+                setActiveIndex((current) => (current === next ? current : next));
+              },
+            });
+            pinRangeRef.current = { start: trigger.start, end: trigger.end };
+
+            return () => {
+              pinRangeRef.current = null;
+            };
+          },
+        );
       },
     );
 
@@ -104,6 +143,17 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
       revert?.();
     };
   }, []);
+
+  // When the desktop pin is active, selecting a stage scrolls to its slice of
+  // the pinned range so scroll position and the active step stay in sync.
+  const goTo = (index: number) => {
+    const range = pinRangeRef.current;
+    if (range && window.scrollY >= range.start - 1 && window.scrollY <= range.end + 1) {
+      const slice = (range.end - range.start) / total;
+      window.scrollTo({ top: Math.ceil(range.start + slice * index + slice / 2) });
+    }
+    setActiveIndex(index);
+  };
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const keys: Record<string, number> = {
@@ -118,7 +168,7 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
     if (event.key === "End") next = total - 1;
     if (next === null) return;
     event.preventDefault();
-    setActiveIndex(next);
+    goTo(next);
     tabRefs.current[next]?.focus();
   };
 
@@ -154,7 +204,7 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
               aria-controls="proc-panel"
               tabIndex={selected ? 0 : -1}
               className={`proc-step${selected ? " is-active" : ""}${index < activeIndex ? " is-done" : ""}`}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => goTo(index)}
               ref={(node) => {
                 tabRefs.current[index] = node;
               }}
@@ -180,10 +230,10 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
       >
         <div className="proc-panel-index" aria-hidden="true">
           <span>Step</span>
-          <b>{String(activeIndex + 1).padStart(2, "0")}</b>
+          <b key={activeIndex}>{String(activeIndex + 1).padStart(2, "0")}</b>
           <small>of {String(total).padStart(2, "0")}</small>
         </div>
-        <div className="proc-panel-copy">
+        <div className="proc-panel-copy" key={activeIndex}>
           <h3>{active.title}</h3>
           <p>{active.copy}</p>
           <p>{active.detail}</p>

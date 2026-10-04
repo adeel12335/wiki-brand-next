@@ -467,6 +467,16 @@ export default function AboutPage() {
             firsthand understanding of what survives review, and what gets tagged or
             deleted.
           </p>
+          <ul className="ab-team-roles" aria-label="Editorial roles">
+            {team.map((member) => (
+              <li key={member.role}>
+                <span aria-hidden="true">
+                  <Icon name={member.icon} />
+                </span>
+                {member.role}
+              </li>
+            ))}
+          </ul>
           <Link className="ab-pill" href={url("contact")}>
             Talk To Our Team <Icon name="i-arrow" />
           </Link>

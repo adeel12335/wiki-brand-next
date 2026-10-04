@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BodyClass } from "@/components/layout/BodyClass";
+import { BlogCard } from "@/components/blog/BlogCard";
 import { BlogIndex } from "@/components/blog/BlogIndex";
+import { BlogTopicFilter } from "@/components/blog/BlogTopicFilter";
 import { BlogPaginationSeoLinks } from "@/components/blog/BlogPaginationSeoLinks";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
@@ -54,7 +56,11 @@ const starters = [
 export default async function BlogPage() {
   const posts = await getAllBlogPosts();
   const { totalPages } = await getBlogPostsPage(1);
-  const topics = [...new Set(posts.map((post) => post.category).filter(Boolean))];
+  const topicCounts = new Map<string, number>();
+  posts.forEach((post) => {
+    if (post.category) topicCounts.set(post.category, (topicCounts.get(post.category) ?? 0) + 1);
+  });
+  const topics = [...topicCounts].map(([name, count]) => ({ name, count }));
 
   const pageMeta = {
     slug: "blog",
@@ -113,14 +119,18 @@ export default async function BlogPage() {
               <strong>{posts.length}</strong> guides
             </p>
           </div>
-          {topics.length ? (
-            <ul className="bl-topics reveal" aria-label="Topics covered">
-              {topics.map((topic) => (
-                <li key={topic}>{topic}</li>
+          <BlogTopicFilter topics={topics}>
+            <div className="bl-default">
+              <BlogIndex page={1} featureFirst />
+            </div>
+            <div className="bl-filtered">
+              {posts.map((post) => (
+                <div key={post.slug} className="bl-filter-item" data-topic={post.category}>
+                  <BlogCard post={post} />
+                </div>
               ))}
-            </ul>
-          ) : null}
-          <BlogIndex page={1} featureFirst />
+            </div>
+          </BlogTopicFilter>
         </div>
       </section>
 
