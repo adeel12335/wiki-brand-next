@@ -1,118 +1,113 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { ButtonLink } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
-import {
-  NAV_ITEMS,
-  SITE_NAME,
-  navIsActive,
-  url,
-} from "@/lib/config";
+import { NAV_ITEMS, SITE_NAME, navIsActive, url } from "@/lib/config";
+import { cn } from "@/lib/cn";
 
-const ALERT_DISMISSED_KEY = "ws-site-alert-dismissed";
+const NOTICE_KEY = "ws-site-alert-dismissed";
+const noticeListeners = new Set<() => void>();
+
+function readNoticeDismissed(): boolean {
+  try {
+    return window.localStorage.getItem(NOTICE_KEY) === "1";
+  } catch {
+    return false; // storage blocked: keep the notice visible
+  }
+}
+
+function subscribeNotice(listener: () => void) {
+  noticeListeners.add(listener);
+  return () => {
+    noticeListeners.delete(listener);
+  };
+}
+
+function dismissNotice() {
+  try {
+    window.localStorage.setItem(NOTICE_KEY, "1");
+  } catch {
+    // ignore — the dismissal just will not persist
+  }
+  noticeListeners.forEach((listener) => listener());
+}
+
+export function Brand({ inverted = false }: { inverted?: boolean }) {
+  return (
+    <Link href={url()} className="flex shrink-0 items-center gap-3" aria-label={`${SITE_NAME} home`}>
+      <Image src="/assets/globe-small.png" alt="" width={44} height={37} sizes="44px" priority />
+      <span className="flex flex-col leading-none">
+        <span
+          className={cn(
+            "font-heading text-base font-extrabold tracking-tight lg:text-lg",
+            inverted ? "text-white" : "text-ink",
+          )}
+        >
+          The Wikipedia
+        </span>
+        <span
+          className={cn(
+            "mt-1 text-[0.6875rem] font-semibold tracking-[0.32em] uppercase",
+            inverted ? "text-accent-soft" : "text-accent",
+          )}
+        >
+          Studio
+        </span>
+      </span>
+    </Link>
+  );
+}
 
 export function Header() {
   const pathname = usePathname();
   const currentSlug = pathname === "/" ? "" : pathname.replace(/^\/|\/$/g, "");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileReady, setMobileReady] = useState(false);
-  const [alertOpen, setAlertOpen] = useState(true);
-  const alertRef = useRef<HTMLDivElement>(null);
+  const noticeDismissed = useSyncExternalStore(subscribeNotice, readNoticeDismissed, () => false);
 
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
-
+  // While the mobile menu is open: lock page scroll, close on Escape or desktop width.
   useEffect(() => {
-    setMobileReady(true);
-    try {
-      if (window.localStorage.getItem(ALERT_DISMISSED_KEY) === "1") {
-        setAlertOpen(false);
-      }
-    } catch {
-      // Storage blocked (private mode) — keep the bar visible.
-    }
-  }, []);
-
-  // Main content is offset by the bar's height; keep that in sync when the
-  // copy wraps (narrow screens, zoom).
-  useEffect(() => {
-    const node = alertRef.current;
-    if (!alertOpen || !node) return;
-    const root = document.documentElement;
-    const sync = () => {
-      // Hidden while the header is in its scrolled state — keep the last height.
-      if (node.offsetHeight > 0) {
-        root.style.setProperty("--site-alert-h", `${node.offsetHeight}px`);
-      }
+    if (!menuOpen) return;
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const close = () => setMenuOpen(false);
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") close();
     };
-    sync();
-    const observer = new ResizeObserver(sync);
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [alertOpen]);
-
-  const dismissAlert = () => {
-    setAlertOpen(false);
-    try {
-      window.localStorage.setItem(ALERT_DISMISSED_KEY, "1");
-    } catch {
-      // Ignore — dismissal just will not persist.
-    }
-  };
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 22);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    document.body.classList.toggle("menu-open", menuOpen);
-    return () => document.body.classList.remove("menu-open");
-  }, [menuOpen]);
-
-  useEffect(() => {
-    const onResize = () => {
-      if (window.innerWidth > 900) closeMenu();
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [closeMenu]);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeMenu();
+    const onDesktop = () => {
+      if (desktop.matches) close();
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [closeMenu]);
+    desktop.addEventListener("change", onDesktop);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      desktop.removeEventListener("change", onDesktop);
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
-    <header
-      className={`site-header${scrolled ? " scrolled" : ""}${menuOpen ? " menu-open" : ""}`}
-      id="top"
-    >
-      {alertOpen ? (
-        <div className="site-alert" ref={alertRef} role="note">
-          <div className="site-alert-inner">
-            <span className="site-alert-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="9" />
-                <path d="M12 11v5M12 8h.01" />
-              </svg>
-            </span>
-            <p>
-              {SITE_NAME} is an independent editorial service and is not
-              affiliated with{" "}
-              <a href="https://www.wikipedia.org/" target="_blank" rel="noopener noreferrer">
+    <header className="sticky top-0 z-50">
+      {noticeDismissed ? null : (
+        <div className="bg-primary-dark text-white/85" role="note">
+          <Container className="flex items-center gap-3 py-2">
+            <p className="type-small flex-1 text-center">
+              {SITE_NAME} is an independent editorial service and is not affiliated with{" "}
+              <a
+                className="font-semibold text-white underline underline-offset-2"
+                href="https://www.wikipedia.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Wikipedia
               </a>{" "}
               or the{" "}
               <a
+                className="font-semibold text-white underline underline-offset-2"
                 href="https://wikimediafoundation.org/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -123,105 +118,97 @@ export function Header() {
             </p>
             <button
               type="button"
-              className="site-alert-close"
+              onClick={dismissNotice}
               aria-label="Dismiss notice"
-              onClick={dismissAlert}
+              className="inline-flex size-8 shrink-0 items-center justify-center rounded-md hover:bg-white/10"
             >
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
+              <Icon name="i-close" className="size-4" />
+            </button>
+          </Container>
+        </div>
+      )}
+
+      <div className="border-b border-line bg-white/95 backdrop-blur">
+        <Container className="flex h-18 items-center justify-between gap-6">
+          <Brand />
+
+          <nav aria-label="Primary" className="hidden lg:block">
+            <ul className="flex items-center gap-0.5 xl:gap-1">
+              {NAV_ITEMS.map((item) => {
+                const active = navIsActive(item.slug, currentSlug);
+                return (
+                  <li key={item.slug || "home"}>
+                    <Link
+                      href={url(item.slug)}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "rounded-md px-2.5 py-2 text-[0.9375rem] font-medium transition-colors xl:px-3",
+                        active
+                          ? "bg-accent-soft text-primary"
+                          : "text-ink/80 hover:bg-surface hover:text-primary",
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <div className="hidden sm:block">
+              <ButtonLink href={url("contact")} className="min-h-11 px-5">
+                Get Started
+              </ButtonLink>
+            </div>
+            <button
+              type="button"
+              className="inline-flex size-11 items-center justify-center rounded-lg border border-line text-ink lg:hidden"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              <Icon name={menuOpen ? "i-close" : "i-menu"} className="size-5" />
             </button>
           </div>
-        </div>
-      ) : null}
-      <div className="shell nav-shell">
-        <Link className="brand" href={url()}>
-          <Image
-            src="/assets/globe-small.png"
-            alt=""
-            width={66}
-            height={55}
-            sizes="66px"
-            quality={75}
-            loading="eager"
-          />
-          <span className="brand-copy">
-            <b>The Wikipedia</b>
-            <span>
-              <i />
-              Studio
-              <i />
-            </span>
-          </span>
-        </Link>
+        </Container>
 
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          {NAV_ITEMS.map((item) => {
-            const active = navIsActive(item.slug, currentSlug);
-            return (
-              <Link
-                key={item.slug || "home"}
-                href={url(item.slug)}
-                className={active ? "active" : undefined}
-                aria-current={active ? "page" : undefined}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <Link className="button button-gold nav-cta" href={url("contact")}>
-          Get Started <Icon name="i-arrow" />
-        </Link>
-
-        <button
-          className="menu-toggle"
-          type="button"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((o) => !o)}
-        >
-          <svg className="menu-icon" aria-hidden="true">
-            <use href="#i-menu" />
-          </svg>
-          <svg className="close-icon" aria-hidden="true">
-            <use href="#i-close" />
-          </svg>
-        </button>
-      </div>
-
-      {mobileReady ? (
         <nav
-          className={`mobile-menu${menuOpen ? " open" : ""}`}
-          aria-label="Mobile navigation"
+          id="mobile-menu"
+          aria-label="Mobile"
           hidden={!menuOpen}
+          className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-line bg-white lg:hidden"
         >
-          {NAV_ITEMS.map((item) => {
-            const active = navIsActive(item.slug, currentSlug);
-            return (
-              <Link
-                key={item.slug || "home-mobile"}
-                href={url(item.slug)}
-                className={active ? "active" : undefined}
-                aria-current={active ? "page" : undefined}
-                onClick={closeMenu}
-                tabIndex={menuOpen ? 0 : -1}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-          <Link
-            className="button button-gold"
-            href={url("contact")}
-            onClick={closeMenu}
-            tabIndex={menuOpen ? 0 : -1}
-          >
-            Get Started <Icon name="i-arrow" />
-          </Link>
+          <Container className="py-4">
+            <ul className="flex flex-col">
+              {NAV_ITEMS.map((item) => {
+                const active = navIsActive(item.slug, currentSlug);
+                return (
+                  <li key={item.slug || "home-mobile"}>
+                    <Link
+                      href={url(item.slug)}
+                      onClick={() => setMenuOpen(false)}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "flex items-center justify-between border-b border-line/70 py-3.5 text-base font-medium",
+                        active ? "text-primary" : "text-ink",
+                      )}
+                    >
+                      {item.label}
+                      <Icon name="i-arrow" className="size-4 text-accent" />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <ButtonLink href={url("contact")} className="mt-5 w-full">
+              Get Started
+            </ButtonLink>
+          </Container>
         </nav>
-      ) : null}
+      </div>
     </header>
   );
 }

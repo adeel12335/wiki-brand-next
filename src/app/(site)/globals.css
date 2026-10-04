@@ -1,33 +1,244 @@
-@import "./site.css";
-@import "./brand.css";
-@import "./layout.css";
-@import "./home.css";
-@import "./about.css"; /* About Us page sections */
-@import "./services.css"; /* Services index page */
-@import "./service-detail.css"; /* /services/[slug]/ pages */
-@import "./process.css"; /* Our Process page */
-@import "./pricing.css"; /* Pricing (Wikipedia page cost) page */
-@import "./portfolio.css"; /* Portfolio index page */
-@import "./portfolio-detail.css"; /* Single portfolio page */
-@import "./blog.css"; /* Blog index + paginated views */
-@import "./article.css"; /* Single blog post */
-@import "./faq.css"; /* FAQ page */
-@import "./contact.css"; /* Contact page */
-@import "./resources.css"; /* Resources page */
-@import "./persona.css"; /* "Wikipedia page for …" audience guides */
-@import "./checker.css"; /* Notability checker page */
-@import "./case-studies.css"; /* Case Studies page */
-@import "./agency-guide.css"; /* How to choose a Wikipedia agency */
-@import "./legal.css"; /* Privacy, Terms, HTML sitemap */
-@import "./hire.css"; /* Hire a Wikipedia writer landing page */
+@import "tailwindcss";
 
-:root {
-  /* One professional family site-wide: Segoe UI (self-hosted, see app/layout.tsx).
-     --serif is kept as a token name for legacy rules but now resolves to the same sans. */
-  --sans: var(--font-segoe), "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
-  --serif: var(--sans);
-  --fs-h1: clamp(2rem, 3.6vw, 3rem);
-  --fs-h2: clamp(1.625rem, 2.4vw, 2.25rem);
-  --fs-h3: 1.375rem;
-  --fs-body: 1rem;
+/* ==========================================================================
+   The Wikipedia Studio — design system
+   Colours, fonts and the type scale live here as Tailwind theme tokens, so
+   every component uses the same values through utilities (bg-primary,
+   text-ink, border-line, type-h2 …). There are no page-specific stylesheets.
+   ========================================================================== */
+
+@theme {
+  /* Brand palette */
+  --color-ink: #202122;
+  --color-primary: #1f5f61;
+  --color-primary-dark: #174849;
+  --color-accent: #2a8c8a;
+  --color-accent-soft: #e6f4f3;
+  --color-surface: #f8f9fa;
+  --color-line: #dde3e3;
+  --color-muted: #54595d;
+
+  /* Fonts (the CSS variables are set by next/font in app/layout.tsx) */
+  --font-heading: var(--font-merriweather-sans), "Merriweather Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(32 33 34 / 0.04), 0 8px 24px rgb(32 33 34 / 0.06);
+  --shadow-card-hover: 0 2px 4px rgb(32 33 34 / 0.05), 0 18px 40px rgb(31 95 97 / 0.12);
+}
+
+/* Type scale — mobile first, desktop values from the lg breakpoint (1024px). */
+@utility type-h1 {
+  font-family: var(--font-heading);
+  font-size: 2.125rem; /* 34px */
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  @variant lg {
+    font-size: 3rem; /* 48px */
+  }
+}
+@utility type-h2 {
+  font-family: var(--font-heading);
+  font-size: 1.875rem; /* 30px */
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  @variant lg {
+    font-size: 2.375rem; /* 38px */
+  }
+}
+@utility type-h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem; /* 24px */
+  font-weight: 700;
+  line-height: 1.3;
+  @variant lg {
+    font-size: 1.875rem; /* 30px */
+  }
+}
+@utility type-h4 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem; /* 20px */
+  font-weight: 700;
+  line-height: 1.35;
+  @variant lg {
+    font-size: 1.5rem; /* 24px */
+  }
+}
+@utility type-body {
+  font-size: 1rem; /* 16px */
+  line-height: 1.7;
+  @variant lg {
+    font-size: 1.25rem; /* 20px */
+  }
+}
+@utility type-eyebrow {
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  @variant lg {
+    font-size: 1.125rem; /* 18px */
+  }
+}
+@utility type-button {
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 600;
+  line-height: 1.2;
+  @variant lg {
+    font-size: 1rem; /* 16px */
+  }
+}
+@utility type-small {
+  font-size: 0.8125rem; /* 13px */
+  line-height: 1.55;
+  @variant lg {
+    font-size: 0.875rem; /* 14px */
+  }
+}
+
+/* Highlighted words inside headings that come from HTML strings (<span>). */
+@utility heading-highlight {
+  & span {
+    color: var(--color-accent);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink);
+    font-family: var(--font-heading);
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background-color: var(--color-accent-soft);
+    color: var(--color-primary-dark);
+  }
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Long-form content: blog articles, legal pages, portfolio write-ups. */
+@layer components {
+  .prose-content {
+    color: var(--color-ink);
+    font-size: 1rem;
+    line-height: 1.75;
+    @variant lg {
+      font-size: 1.125rem;
+    }
+    & > * + * {
+      margin-top: 1.25em;
+    }
+    & h2 {
+      margin-top: 2em;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+      @variant lg {
+        font-size: 1.875rem;
+      }
+    }
+    & h3 {
+      margin-top: 1.75em;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.35;
+      @variant lg {
+        font-size: 1.5rem;
+      }
+    }
+    & :is(h2, h3) + * {
+      margin-top: 0.75em;
+    }
+    & a {
+      color: var(--color-primary);
+      font-weight: 500;
+      text-decoration: underline;
+      text-decoration-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+      text-underline-offset: 3px;
+    }
+    & a:hover {
+      color: var(--color-accent);
+    }
+    & ul,
+    & ol {
+      padding-left: 1.4em;
+    }
+    & ul {
+      list-style: disc;
+    }
+    & ol {
+      list-style: decimal;
+    }
+    & li + li {
+      margin-top: 0.5em;
+    }
+    & li::marker {
+      color: var(--color-accent);
+    }
+    & strong {
+      font-weight: 600;
+    }
+    & blockquote {
+      border-left: 3px solid var(--color-accent);
+      border-radius: 0 0.75rem 0.75rem 0;
+      background: var(--color-accent-soft);
+      padding: 1rem 1.25rem;
+      color: var(--color-primary-dark);
+    }
+    & table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+    & th,
+    & td {
+      border: 1px solid var(--color-line);
+      padding: 0.625rem 0.875rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    & th {
+      background: var(--color-surface);
+      font-weight: 600;
+    }
+    & img {
+      border-radius: 0.75rem;
+    }
+  }
 }

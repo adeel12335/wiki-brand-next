@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getSiteUrl } from "@/lib/config";
+import { PREVIEW_NOINDEX, getSiteUrl } from "@/lib/config";
 
 const privatePaths = ["/admin/", "/api/"];
 
@@ -25,6 +25,11 @@ const AI_USER_AGENTS = [
 
 export default function robots(): MetadataRoute.Robots {
   const base = getSiteUrl();
+
+  // Design preview: block every crawler from every path.
+  if (PREVIEW_NOINDEX) {
+    return { rules: [{ userAgent: "*", disallow: "/" }] };
+  }
 
   return {
     rules: [

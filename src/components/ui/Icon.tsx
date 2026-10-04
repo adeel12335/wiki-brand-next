@@ -49,9 +49,10 @@ const ICON_CIRCLES: Record<string, Array<{ cx: number; cy: number; r: number }>>
   "i-clock": [{ cx: 12, cy: 12, r: 9 }],
 };
 
+/** Hidden SVG sprite; rendered once in the site layout. */
 export function IconLibrary() {
   return (
-    <svg className="icon-library" aria-hidden="true">
+    <svg className="absolute size-0 overflow-hidden" aria-hidden="true">
       {Object.entries(ICONS).map(([id, d]) => (
         <symbol key={id} id={id} viewBox="0 0 24 24">
           {(ICON_CIRCLES[id] ?? []).map((c, i) => (
@@ -64,9 +65,19 @@ export function IconLibrary() {
   );
 }
 
-export function Icon({ name }: { name: string }) {
+/** Stroke icon from the sprite; size and colour come from className. */
+export function Icon({ name, className = "size-5" }: { name: string; className?: string }) {
   return (
-    <svg aria-hidden="true">
+    <svg
+      className={`shrink-0 ${className}`}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
       <use href={`#${name}`} />
     </svg>
   );

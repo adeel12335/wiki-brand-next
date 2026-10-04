@@ -11,8 +11,14 @@ export const SITE_TWITTER = "@wikipediastudio";
 export const PRODUCTION_SITE_URL = "https://thewikipediastudio.com";
 
 export const SEO_DEFAULT_OG_IMAGE = "/assets/og/hero-orbital-globe.jpg";
-export const SEO_DEFAULT_ROBOTS =
-  "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+/**
+ * Design-preview build: the whole site is kept out of search engines
+ * (meta robots here, X-Robots-Tag in next.config.ts, robots.txt disallow).
+ */
+export const PREVIEW_NOINDEX = true;
+export const SEO_DEFAULT_ROBOTS = PREVIEW_NOINDEX
+  ? "noindex, nofollow"
+  : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
 export const NAV_ITEMS = [
   { slug: "", label: "Home" },

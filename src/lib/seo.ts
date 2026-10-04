@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {
   SEO_DEFAULT_OG_IMAGE,
+  PREVIEW_NOINDEX,
   SEO_DEFAULT_ROBOTS,
   SITE_ALTERNATE_NAMES,
   SITE_EMAIL,
@@ -50,7 +51,7 @@ export function buildPageMetadata(page: PageMeta): Metadata {
     description,
     authors: [{ name: SITE_NAME }],
     publisher: SITE_NAME,
-    robots: page.robots ?? SEO_DEFAULT_ROBOTS,
+    robots: PREVIEW_NOINDEX ? SEO_DEFAULT_ROBOTS : (page.robots ?? SEO_DEFAULT_ROBOTS),
     alternates: {
       canonical,
       languages: {

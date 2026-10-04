@@ -1,22 +1,22 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
+import type { Metadata, Viewport } from "next";
+import { Inter, Merriweather_Sans } from "next/font/google";
 import {
   SITE_NAME,
   SITE_TAGLINE,
   PRODUCTION_SITE_URL,
   getSiteUrl,
 } from "@/lib/config";
-import "./(site)/globals.css";
 
-const segoeUi = localFont({
-  src: [
-    { path: "./fonts/segoe-ui/SegoeUI-Light.woff2", weight: "300", style: "normal" },
-    { path: "./fonts/segoe-ui/SegoeUI.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/segoe-ui/SegoeUI-Italic.woff2", weight: "400", style: "italic" },
-    { path: "./fonts/segoe-ui/SegoeUI-Bold.woff2", weight: "700", style: "normal" },
-    { path: "./fonts/segoe-ui/SegoeUI-BoldItalic.woff2", weight: "700", style: "italic" },
-  ],
-  variable: "--font-segoe",
+const headingFont = Merriweather_Sans({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  variable: "--font-merriweather-sans",
+  display: "swap",
+});
+
+const bodyFont = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -31,14 +31,10 @@ export const metadata: Metadata = {
   description: SITE_TAGLINE,
   metadataBase: new URL(getSiteUrl()),
   applicationName: SITE_NAME,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#0a2030" },
-    { media: "(prefers-color-scheme: dark)", color: "#04101c" },
-  ],
   appleWebApp: {
     title: SITE_NAME,
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
   },
   alternates: {
     types: {
@@ -53,6 +49,10 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#1f5f61",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -61,7 +61,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={segoeUi.variable}
+      className={`${headingFont.variable} ${bodyFont.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

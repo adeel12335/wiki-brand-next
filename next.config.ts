@@ -114,6 +114,11 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
+      // Design preview: never index any URL of this deployment.
+      {
+        source: "/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
       {
         source: "/api/:path*",
         headers: [{ key: "X-Content-Type-Options", value: "nosniff" }],
