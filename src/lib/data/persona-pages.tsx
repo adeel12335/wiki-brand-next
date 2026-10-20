@@ -22,6 +22,7 @@ interface PersonaPage {
   guidelineUrl: string;
   points: Array<{ title: string; copy: string }>;
   faqs?: Array<{ q: string; a: string }>;
+  faqGuide?: { label: string; slug: string };
   modified?: string;
 }
 
@@ -81,6 +82,10 @@ export const personaPages: PersonaPage[] = [
       },
     ],
     modified: "2026-10-20",
+    faqGuide: {
+      label: "Mid-Sized Company Guide",
+      slug: "blog/how-mid-sized-companies-get-a-wikipedia-page",
+    },
     faqs: [
       {
         q: "How does a mid-sized company get a Wikipedia entry?",
@@ -311,9 +316,11 @@ export function PersonaPageView({ page }: { page: PersonaPage }) {
                 How {page.shortTitle.replace(/^For /, "").toLowerCase()} earn a Wikipedia article,
                 and the problems that most often get one deleted.
               </p>
-              <Link className="button button-gold button-small" href={url("blog/why-wikipedia-pages-get-deleted")}>
-                Why Pages Get Deleted <Icon name="i-arrow" />
-              </Link>
+              {page.faqGuide && (
+                <Link className="button button-gold button-small" href={url(page.faqGuide.slug)}>
+                  {page.faqGuide.label} <Icon name="i-arrow" />
+                </Link>
+              )}
             </div>
             <div className="faq-wide reveal">
               <FaqList items={page.faqs} wide />
