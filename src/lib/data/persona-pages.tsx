@@ -3,10 +3,11 @@ import Link from "next/link";
 import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBand } from "@/components/ui/CtaBand";
+import { FaqList } from "@/components/ui/FaqList";
 import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
 import { url } from "@/lib/config";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildPageMetadata, faqNode } from "@/lib/seo";
 import { titleCase } from "@/lib/utils";
 
 interface PersonaPage {
@@ -20,6 +21,8 @@ interface PersonaPage {
   guidelineName: string;
   guidelineUrl: string;
   points: Array<{ title: string; copy: string }>;
+  faqs?: Array<{ q: string; a: string }>;
+  modified?: string;
 }
 
 export const personaPages: PersonaPage[] = [
@@ -75,6 +78,25 @@ export const personaPages: PersonaPage[] = [
       {
         title: "Criticism stays if sourced",
         copy: "We will not sell removal of well-sourced negative coverage. Encyclopedic articles summarise the record.",
+      },
+    ],
+    modified: "2026-10-20",
+    faqs: [
+      {
+        q: "How does a mid-sized company get a Wikipedia entry?",
+        a: "Size is not the test — independent coverage is. A mid-sized company qualifies under WP:NCORP when several reliable, independent publications have written about it in depth: business-press profiles, investigative or analytical features, or substantial trade-journal coverage. The usual path is a source audit first, then a neutral, fully cited draft submitted through Articles for Creation with a paid-editing disclosure. If the audit finds only funding news, press releases, and directory listings, the honest answer is to wait until real coverage exists.",
+      },
+      {
+        q: "What are the most common reasons company Wikipedia pages get deleted?",
+        a: "Most deletions come from the same five problems: notability was assumed rather than shown with independent sources; the tone reads like marketing copy; citations are press releases, sponsored posts, or routine announcements; the page was created or edited by undisclosed company insiders or paid editors; and the article drifted into a product or executive brochure over time. Mid-sized companies are especially exposed because their coverage is often local or routine.",
+      },
+      {
+        q: "Is revenue, headcount, or funding enough to qualify?",
+        a: "No. Wikipedia does not set a revenue, employee, or funding threshold. A large private company with no in-depth coverage can fail, while a smaller firm profiled by several independent outlets can pass. Funding rounds and acquisitions count only when journalists analyse them rather than repeat the announcement.",
+      },
+      {
+        q: "Can a deleted company page be recreated?",
+        a: "Yes, but only once the reason for deletion is fixed — usually by new independent coverage. Recreating a substantially identical page after a deletion discussion can be speedily deleted again, so the safer route is a fresh draft through Articles for Creation that addresses the points raised in the original discussion.",
       },
     ],
   },
@@ -141,7 +163,7 @@ export function buildPersonaMetadata(page: PersonaPage): Metadata {
     shortTitle: page.shortTitle,
     description: page.description,
     keywords: page.keywords,
-    modified: "2026-09-07",
+    modified: page.modified ?? "2026-09-07",
   });
 }
 
@@ -177,7 +199,7 @@ export function PersonaPageView({ page }: { page: PersonaPage }) {
     shortTitle: page.shortTitle,
     description: page.description,
     keywords: page.keywords,
-    modified: "2026-09-07",
+    modified: page.modified ?? "2026-09-07",
     schema: [
       {
         "@type": "Service",
@@ -186,6 +208,7 @@ export function PersonaPageView({ page }: { page: PersonaPage }) {
         areaServed: { "@type": "Place", name: "Worldwide" },
         description: page.description,
       },
+      ...(page.faqs ? [faqNode(page.faqs, page.slug)] : []),
     ],
   };
   const otherAudiences = personaPages.filter((item) => item.slug !== page.slug);
@@ -275,6 +298,29 @@ export function PersonaPageView({ page }: { page: PersonaPage }) {
           </div>
         </div>
       </section>
+
+      {page.faqs && (
+        <section className="section-pad tone-light pa-faq" aria-labelledby="pa-faq-title">
+          <div className="shell faq-library">
+            <div className="faq-library-intro reveal">
+              <p className="micro-label">Common Questions</p>
+              <h2 id="pa-faq-title">
+                Getting Listed — and <span>Staying Listed</span>
+              </h2>
+              <p>
+                How {page.shortTitle.replace(/^For /, "").toLowerCase()} earn a Wikipedia article,
+                and the problems that most often get one deleted.
+              </p>
+              <Link className="button button-gold button-small" href={url("blog/why-wikipedia-pages-get-deleted")}>
+                Why Pages Get Deleted <Icon name="i-arrow" />
+              </Link>
+            </div>
+            <div className="faq-wide reveal">
+              <FaqList items={page.faqs} wide />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 3. Explore more (white) */}
       <section className="section-pad tone-light pa-more" aria-labelledby="pa-more-title">
