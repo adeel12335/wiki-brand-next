@@ -9,6 +9,10 @@ import {
   url,
 } from "@/lib/config";
 import { services } from "@/lib/data";
+import {
+  AUDIENCE_LINKS,
+  CASE_STUDIES_LINK,
+} from "@/lib/data/audience-links";
 import { TrustpilotMicroBadge } from "@/components/trustpilot/TrustpilotReviewsSection";
 
 export function Footer() {
@@ -62,10 +66,19 @@ export function Footer() {
           <Link href={url("how-to-choose-wikipedia-agency")}>
             How to choose an agency
           </Link>
+          <Link href={url(CASE_STUDIES_LINK.slug)}>
+            {CASE_STUDIES_LINK.label}
+          </Link>
         </div>
 
         <div className="footer-column footer-services">
-          <h3>Services</h3>
+          <h3>Who we help</h3>
+          {AUDIENCE_LINKS.map((item) => (
+            <Link key={item.slug} href={url(item.slug)}>
+              {item.anchor}
+            </Link>
+          ))}
+          <h3 style={{ marginTop: 18 }}>Services</h3>
           {Object.entries(services).map(([slug, service]) => (
             <Link key={slug} href={url(`services/${slug}`)}>
               {service.name}

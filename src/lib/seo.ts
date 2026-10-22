@@ -324,31 +324,6 @@ export function articleNode(post: {
   };
 }
 
-export function productOfferNode(input: {
-  slug: string;
-  name: string;
-  description: string;
-  price: number | string;
-  currency?: string;
-  url: string;
-}) {
-  return {
-    "@type": "Product",
-    "@id": `${input.url}#product`,
-    name: input.name,
-    description: input.description,
-    brand: { "@id": seoId("organization") },
-    offers: {
-      "@type": "Offer",
-      url: input.url,
-      priceCurrency: input.currency ?? "USD",
-      price: String(input.price),
-      availability: "https://schema.org/InStock",
-      seller: { "@id": seoId("organization") },
-    },
-  };
-}
-
 export function serviceNode(
   slug: string,
   service: {

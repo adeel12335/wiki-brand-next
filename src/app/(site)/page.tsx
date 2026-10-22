@@ -21,6 +21,10 @@ import {
   metrics,
   services,
 } from "@/lib/data";
+import {
+  AUDIENCE_LINKS,
+  CASE_STUDIES_LINK,
+} from "@/lib/data/audience-links";
 import { getFeaturedPortfolio } from "@/lib/portfolio";
 import { buildPageMetadata, faqNode, itemListNode } from "@/lib/seo";
 
@@ -183,6 +187,42 @@ export default async function HomePage() {
             </Link>
           </div>
           <PortfolioClientsGrid items={featuredPortfolio} variant="carousel" />
+          <p className="section-actions reveal" style={{ marginTop: 22 }}>
+            <Link className="text-link" href={url(CASE_STUDIES_LINK.slug)}>
+              Read source-first {CASE_STUDIES_LINK.label} <Icon name="i-arrow" />
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <section className="section-pad tone-dark" id="who-we-help" aria-labelledby="who-we-help-title">
+        <div className="shell">
+          <div className="section-heading center reveal">
+            <p className="micro-label">Who We Work With</p>
+            <h2 id="who-we-help-title">
+              Audience guides for <span>companies, authors, academics, and musicians</span>
+            </h2>
+            <p className="section-heading-copy">
+              Notability rules differ by subject type. Start with the guide that matches
+              your situation, then request a free assessment.
+            </p>
+          </div>
+          <div className="card-grid reveal">
+            {AUDIENCE_LINKS.map((item) => (
+              <article key={item.slug} className="service-card">
+                <h3>
+                  <Link href={url(item.slug)}>{item.anchor}</Link>
+                </h3>
+                <p>
+                  Guideline-led notes for {item.label.toLowerCase()}, including what
+                  coverage usually counts and what does not.
+                </p>
+                <Link className="text-link" href={url(item.slug)}>
+                  Open guide <Icon name="i-arrow" />
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 

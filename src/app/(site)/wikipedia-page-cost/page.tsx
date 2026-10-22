@@ -17,34 +17,21 @@ import {
   pricingFaqs,
   pricingTiers,
 } from "@/lib/data/pricing";
-import { buildPageMetadata, faqNode, productOfferNode, seoId } from "@/lib/seo";
+import { buildPageMetadata, faqNode, seoId } from "@/lib/seo";
 
 const pageSlug = "wikipedia-page-cost";
 const pageUrl = absUrl(pageSlug);
 
-const offerNodes = pricingTiers.map((tier) => ({
+const packageOffers = pricingTiers.map((tier) => ({
   "@type": "Offer",
-  name: tier.name,
-  description: `${tier.bestFor}. ${tier.features.sources}. ${tier.features.editors}. ${tier.features.monitoring} monitoring.`,
-  priceSpecification: {
-    "@type": "PriceSpecification",
-    price: String(tier.price),
-    priceCurrency: "USD",
-    valueAddedTaxIncluded: false,
-  },
+  "@id": `${pageUrl}#${tier.id}`,
+  name: `${tier.name} Wikipedia page package`,
+  description: tier.bestFor,
+  price: String(tier.price),
+  priceCurrency: "USD",
   availability: "https://schema.org/InStock",
   url: `${pageUrl}#${tier.id}`,
 }));
-
-const productNodes = pricingTiers.map((tier) =>
-  productOfferNode({
-    slug: pageSlug,
-    name: `${tier.name} Wikipedia page package`,
-    description: `${tier.bestFor}. ${tier.blurb}`,
-    price: tier.price,
-    url: `${pageUrl}#${tier.id}`,
-  }),
-);
 
 const pageMeta = {
   slug: pageSlug,
@@ -57,7 +44,7 @@ const pageMeta = {
     "wikipedia page creation cost, wikipedia page cost, how much does a wikipedia page cost, wikipedia page price, wikipedia editing cost, wikipedia agency pricing",
   ogImage: "/assets/og/reference-dark.jpg",
   ogImageAlt: "Wikipedia page cost and pricing packages from The Wikipedia Studio",
-  modified: "2026-09-07",
+  modified: "2026-10-22",
   schema: [
     {
       "@type": "Service",
@@ -68,7 +55,11 @@ const pageMeta = {
       areaServed: { "@type": "Place", name: "Worldwide" },
       description:
         "Guideline-compliant Wikipedia page creation with notability assessment, independent source research, neutral drafting, disclosed submission and post-publication monitoring.",
-      offers: offerNodes,
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Wikipedia page packages",
+        itemListElement: packageOffers,
+      },
     },
     {
       "@type": "Service",
@@ -88,7 +79,6 @@ const pageMeta = {
         },
       },
     },
-    ...productNodes,
     faqNode([...pricingFaqs], pageSlug),
   ],
 };

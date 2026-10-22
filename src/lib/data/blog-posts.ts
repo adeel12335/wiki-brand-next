@@ -162,7 +162,7 @@ const coreBlogPosts: BlogPost[] = [
 
 <h2>Prevention beats recovery</h2>
 <p>The cheapest fix is the earliest one: a sober source audit before drafting. If publication already happened and the page is unstable, the work shifts to sourcing, neutrality, and talk-page process rather than quiet rewrites.</p>
-<p>For subjects dealing with tags, disputes, or reputation-sensitive coverage, see our notes on <a href="/services/wikipedia-reputation-management/">reputation and entity work</a> — still within policy, still disclosed.</p>
+<p>For subjects dealing with tags, disputes, or reputation-sensitive coverage, see our notes on <a href="/services/wikipedia-reputation-management/">reputation and entity work</a> — still within policy, still disclosed. If the page stays live, <a href="/blog/wikipedia-page-monitoring-why-it-matters/">Wikipedia page monitoring</a> is how you catch vandalism and unsourced additions early.</p>
 `,
   },
   {
@@ -238,7 +238,7 @@ const coreBlogPosts: BlogPost[] = [
 
 <h2>What ongoing management is for</h2>
 <p>Public subjects attract drive-by edits, vandalism, and well-meant but unsourced additions. A watchlist routine catches problems while they are small. Waiting six months turns a one-line fix into a sourcing project.</p>
-<p>If you need a structured audit of an existing article, our <a href="/services/wikipedia-page-editing/">editing service</a> and <a href="/services/wikipedia-page-management/">page management</a> work both start from the live page as it stands — tags, history, and all — not from a marketing brief.</p>
+<p>If you need a structured audit of an existing article, our <a href="/services/wikipedia-page-editing/">editing service</a> and <a href="/services/wikipedia-page-management/">page management</a> work both start from the live page as it stands — tags, history, and all — not from a marketing brief. After fixes ship, <a href="/blog/wikipedia-page-monitoring-why-it-matters/">Wikipedia page monitoring</a> is how you catch the next round of silent bad edits.</p>
 `,
   },
 ];

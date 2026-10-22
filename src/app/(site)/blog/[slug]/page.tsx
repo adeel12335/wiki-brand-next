@@ -16,8 +16,9 @@ import {
 } from "@/lib/blog";
 import { getService } from "@/lib/data";
 import { getAuthor } from "@/lib/data/authors";
+import { midSizedCompaniesFaqs } from "@/lib/data/blog-refresh/mid-sized-companies";
 import { absUrl, url } from "@/lib/config";
-import { articleNode, buildPageMetadata } from "@/lib/seo";
+import { articleNode, buildPageMetadata, faqNode } from "@/lib/seo";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -111,6 +112,9 @@ export default async function BlogPostPage({ params }: PageProps) {
         authorName: author.name,
         authorUrl: absUrl(`author/${author.slug}`),
       }),
+      ...(post.slug === "how-mid-sized-companies-get-a-wikipedia-page"
+        ? [faqNode([...midSizedCompaniesFaqs], `blog/${post.slug}`)]
+        : []),
     ],
   };
 

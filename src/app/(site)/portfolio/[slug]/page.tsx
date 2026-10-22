@@ -9,6 +9,10 @@ import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
 import { PortfolioClientsGrid } from "@/components/sections/PortfolioClientsGrid";
 import { url, absUrl } from "@/lib/config";
+import {
+  AUDIENCE_LINKS,
+  CASE_STUDIES_LINK,
+} from "@/lib/data/audience-links";
 import { buildPageMetadata, seoId } from "@/lib/seo";
 import {
   getPortfolioBySlug,
@@ -21,6 +25,23 @@ import {
   portfolioMetaTitle,
   titleCase,
 } from "@/lib/utils";
+
+function audienceForCategory(category?: string | null) {
+  const hay = (category || "").toLowerCase();
+  if (/compan|org|business|brand|startup/.test(hay)) {
+    return AUDIENCE_LINKS.find((item) => item.slug.includes("companies"));
+  }
+  if (/author|writer|book/.test(hay)) {
+    return AUDIENCE_LINKS.find((item) => item.slug.includes("authors"));
+  }
+  if (/academ|professor|scientist|research/.test(hay)) {
+    return AUDIENCE_LINKS.find((item) => item.slug.includes("academics"));
+  }
+  if (/music|singer|band|artist/.test(hay)) {
+    return AUDIENCE_LINKS.find((item) => item.slug.includes("musicians"));
+  }
+  return AUDIENCE_LINKS[0];
+}
 
 export const revalidate = 3600;
 
@@ -240,6 +261,36 @@ export default async function PortfolioDetailPage({
                 <p>{item.copy}</p>
               </li>
             ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="section-pad tone-light" aria-labelledby="pd-related-title">
+        <div className="shell reveal">
+          <p className="micro-label">Related reading</p>
+          <h2 id="pd-related-title">Case studies and audience guides</h2>
+          <ul className="check-list">
+            <li>
+              <Icon name="i-check" />
+              <Link href={url(CASE_STUDIES_LINK.slug)}>
+                {CASE_STUDIES_LINK.anchor}
+              </Link>
+            </li>
+            {(() => {
+              const audience = audienceForCategory(work.category);
+              return audience ? (
+                <li>
+                  <Icon name="i-check" />
+                  <Link href={url(audience.slug)}>{audience.anchor}</Link>
+                </li>
+              ) : null;
+            })()}
+            <li>
+              <Icon name="i-check" />
+              <Link href={url("hire-wikipedia-writer")}>
+                Hire a Wikipedia writer for similar work
+              </Link>
+            </li>
           </ul>
         </div>
       </section>

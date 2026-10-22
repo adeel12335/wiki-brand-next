@@ -141,7 +141,7 @@ export const moreBlogPosts: BlogPost[] = [
 <p>Keep improving citations, trimming hype, and watching for new independent coverage. Do not open parallel copies under new accounts to “speed things up.” That pattern is noticed.</p>
 
 <h2>After acceptance</h2>
-<p>Mainspace is not a finish line. Early edits, tags, and talk-page questions are common. Plan for <a href="/services/wikipedia-page-monitoring/">monitoring</a> through stabilisation. For timeline context, see <a href="/blog/how-long-does-it-take-to-create-a-wikipedia-page/">how long creation takes</a>.</p>
+<p>Mainspace is not a finish line. Early edits, tags, and talk-page questions are common. Plan for <a href="/services/wikipedia-page-monitoring/">monitoring</a> through stabilisation — and read <a href="/blog/wikipedia-page-monitoring-why-it-matters/">why Wikipedia page monitoring matters after publication</a>. For timeline context, see <a href="/blog/how-long-does-it-take-to-create-a-wikipedia-page/">how long creation takes</a>.</p>
 `,
   },
   {

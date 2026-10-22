@@ -10,6 +10,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { url, absUrl } from "@/lib/config";
 import { faqs, services } from "@/lib/data";
+import { AUDIENCE_LINKS } from "@/lib/data/audience-links";
 import { buildPageMetadata, itemListNode } from "@/lib/seo";
 
 const pageMeta = {
@@ -107,6 +108,32 @@ export default function ServicesPage() {
             copy="Every service is research-led, neutrally written, and disclosed on-wiki — pick the one that matches where your article is today."
           />
           <ServiceIndex />
+
+          <div className="sv-starter reveal" style={{ marginTop: 36 }}>
+            <div className="sv-starter-head">
+              <p className="micro-label">Who We Help</p>
+              <h3>Match the service to your subject type</h3>
+            </div>
+            <p>
+              Looking for{" "}
+              <Link href={url("wikipedia-page-for-companies")}>
+                Wikipedia pages for companies
+              </Link>
+              ,{" "}
+              <Link href={url("wikipedia-page-for-authors")}>authors</Link>,{" "}
+              <Link href={url("wikipedia-page-for-academics")}>academics</Link>, or{" "}
+              <Link href={url("wikipedia-page-for-musicians")}>musicians</Link>? Start
+              with the audience guide, then pick creation, editing, or monitoring below.
+            </p>
+            <ul className="check-list" style={{ marginTop: 14 }}>
+              {AUDIENCE_LINKS.map((item) => (
+                <li key={item.slug}>
+                  <Icon name="i-check" />
+                  <Link href={url(item.slug)}>{item.anchor}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <div className="sv-starter reveal">
             <div className="sv-starter-head">

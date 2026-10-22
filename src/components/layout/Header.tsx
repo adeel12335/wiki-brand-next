@@ -11,6 +11,7 @@ import {
   navIsActive,
   url,
 } from "@/lib/config";
+import { AUDIENCE_LINKS, CASE_STUDIES_LINK } from "@/lib/data/audience-links";
 
 const ALERT_DISMISSED_KEY = "ws-site-alert-dismissed";
 
@@ -169,6 +170,29 @@ export function Header() {
               </Link>
             );
           })}
+          <div className="nav-dropdown">
+            <button
+              type="button"
+              className={
+                AUDIENCE_LINKS.some((item) => navIsActive(item.slug, currentSlug))
+                  ? "active"
+                  : undefined
+              }
+              aria-haspopup="true"
+            >
+              Who we help
+            </button>
+            <div className="nav-dropdown-panel" role="menu">
+              {AUDIENCE_LINKS.map((item) => (
+                <Link key={item.slug} href={url(item.slug)} role="menuitem">
+                  {item.label}
+                </Link>
+              ))}
+              <Link href={url(CASE_STUDIES_LINK.slug)} role="menuitem">
+                {CASE_STUDIES_LINK.label}
+              </Link>
+            </div>
+          </div>
         </nav>
 
         <Link className="button button-gold nav-cta" href={url("contact")}>
@@ -212,6 +236,25 @@ export function Header() {
               </Link>
             );
           })}
+          <p className="mobile-menu-group-label">Who we help</p>
+          {AUDIENCE_LINKS.map((item) => (
+            <Link
+              key={`mobile-${item.slug}`}
+              href={url(item.slug)}
+              className={navIsActive(item.slug, currentSlug) ? "active" : undefined}
+              onClick={closeMenu}
+              tabIndex={menuOpen ? 0 : -1}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <Link
+            href={url(CASE_STUDIES_LINK.slug)}
+            onClick={closeMenu}
+            tabIndex={menuOpen ? 0 : -1}
+          >
+            {CASE_STUDIES_LINK.label}
+          </Link>
           <Link
             className="button button-gold"
             href={url("contact")}

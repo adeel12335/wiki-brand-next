@@ -8,6 +8,7 @@ import { Icon } from "@/components/ui/Icon";
 import { PageHero } from "@/components/ui/PageHero";
 import { absUrl, url } from "@/lib/config";
 import { team } from "@/lib/data";
+import { AUDIENCE_LINKS } from "@/lib/data/audience-links";
 import { paymentSteps, pricingTiers } from "@/lib/data/pricing";
 import { buildPageMetadata, faqNode, seoId } from "@/lib/seo";
 
@@ -94,7 +95,7 @@ const comparison = [
 
 const pageMeta = {
   slug: pageSlug,
-  title: "Hire a Wikipedia Writer & Editor",
+  title: "Hire a Wikipedia Writer (From $700)",
   shortTitle: "Hire a Wikipedia Writer",
   description:
     "Hire professional Wikipedia writers and editors from Wiki Studio. Free notability check, neutral cited drafting, disclosed submission. Packages from $700.",
@@ -145,6 +146,29 @@ export default function HireWikipediaWriterPage() {
           { label: "See Packages From $700", href: url("wikipedia-page-cost"), style: "button-outline" },
         ]}
       />
+
+      <section className="section-pad tone-dark" aria-labelledby="hw-audience-title">
+        <div className="shell">
+          <div className="section-heading center reveal">
+            <p className="micro-label">Who We Write For</p>
+            <h2 id="hw-audience-title">
+              Hire a writer for <span>companies, authors, academics, or musicians</span>
+            </h2>
+            <p className="section-heading-copy">
+              Subject-specific notability rules change what a good draft looks like.
+              Read the matching guide, then request a free assessment.
+            </p>
+          </div>
+          <ul className="check-list reveal" style={{ maxWidth: 720, margin: "0 auto" }}>
+            {AUDIENCE_LINKS.map((item) => (
+              <li key={item.slug}>
+                <Icon name="i-check" />
+                <Link href={url(item.slug)}>{item.anchor}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       {/* 1. Why hire us (white) */}
       <section className="section-pad tone-light hw-why" aria-labelledby="hw-why-title">
