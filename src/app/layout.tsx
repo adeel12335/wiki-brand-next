@@ -6,6 +6,7 @@ import {
   PRODUCTION_SITE_URL,
   getSiteUrl,
 } from "@/lib/config";
+import { Analytics } from "@vercel/analytics/next";
 import "./(site)/globals.css";
 
 const segoeUi = localFont({
@@ -65,7 +66,10 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
