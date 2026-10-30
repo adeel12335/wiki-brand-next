@@ -6,7 +6,7 @@ interface Stat {
   label: string;
 }
 
-/** Quiet proof strip under the home hero: icon, figure, label — no boxes. */
+/** Quiet proof strip under the home hero: icon, figure, label, no boxes. */
 export function StatsBand({ items }: { items: Stat[] }) {
   return (
     <section className="stats-band" aria-label="The Wikipedia Studio at a glance">

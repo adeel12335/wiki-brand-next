@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "redesign-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "../wiki-brand-next-v2", "run", "dev", "--", "--port", "3001"],
+      "port": 3001
     }
   ]
 }

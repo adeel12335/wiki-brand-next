@@ -198,7 +198,7 @@ export function ContactForm({
             <Icon name="i-check" />
           </div>
           <p className="micro-label">Enquiry received</p>
-          <h3>Thank you — we have your note.</h3>
+          <h3>Thank you, we have your note.</h3>
           <p>
             An editor will review the coverage you shared and reply, usually within
             one business day. Prefer not to wait? Email{" "}

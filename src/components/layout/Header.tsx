@@ -33,7 +33,7 @@ export function Header() {
         setAlertOpen(false);
       }
     } catch {
-      // Storage blocked (private mode) — keep the bar visible.
+      // Storage blocked (private mode), keep the bar visible.
     }
   }, []);
 
@@ -44,7 +44,7 @@ export function Header() {
     if (!alertOpen || !node) return;
     const root = document.documentElement;
     const sync = () => {
-      // Hidden while the header is in its scrolled state — keep the last height.
+      // Hidden while the header is in its scrolled state, keep the last height.
       if (node.offsetHeight > 0) {
         root.style.setProperty("--site-alert-h", `${node.offsetHeight}px`);
       }
@@ -60,7 +60,7 @@ export function Header() {
     try {
       window.localStorage.setItem(ALERT_DISMISSED_KEY, "1");
     } catch {
-      // Ignore — dismissal just will not persist.
+      // Ignore, dismissal just will not persist.
     }
   };
 

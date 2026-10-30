@@ -3,7 +3,7 @@ import { Icon } from "@/components/ui/Icon";
 import { url } from "@/lib/config";
 
 /**
- * Long-form homepage SEO block — answers commercial + educational queries
+ * Long-form homepage SEO block, answers commercial + educational queries
  * competitors cover with 2k–5k word homepages.
  */
 export function HomeDeepGuide() {
@@ -84,8 +84,8 @@ export function HomeDeepGuide() {
                   <Link href={url("services/wikipedia-content-writing")}>
                     content writing
                   </Link>
-                  . The article reflects what independent outlets published — including
-                  criticism — not what a marketing brief prefers.
+                  . The article reflects what independent outlets published, including
+                  criticism, not what a marketing brief prefers.
                 </p>
             </div>
           </li>
@@ -125,7 +125,7 @@ export function HomeDeepGuide() {
                   <Link href={url("services/google-knowledge-panel-creation")}>
                     knowledge-panel signals
                   </Link>{" "}
-                  — without fake “guaranteed panel” claims.
+                 , without fake “guaranteed panel” claims.
                 </p>
             </div>
           </li>
@@ -133,7 +133,7 @@ export function HomeDeepGuide() {
 
         <div className="home-deep-cards">
         <div className="home-deep-panel reveal">
-          <h3>Who this service is for — and who should wait</h3>
+          <h3>Who this service is for, and who should wait</h3>
           <p>
             Page creation suits executives, authors, academics, companies, and public
             figures who already have sustained independent coverage. It is the wrong product
@@ -145,7 +145,7 @@ export function HomeDeepGuide() {
           <p>
             Pricing is published because opacity helps nobody. Engagements typically start
             around $700 for straightforward subjects and run higher when sourcing is complex
-            or a prior rejection must be unwound — details on our{" "}
+            or a prior rejection must be unwound, details on our{" "}
             <Link href={url("wikipedia-page-cost")}>Wikipedia page cost</Link> page. The
             free assessment establishes which tier applies before you commit.
           </p>
@@ -176,7 +176,7 @@ export function HomeDeepGuide() {
             </li>
             <li>
               <Icon name="i-check" />
-              Full paid-contribution disclosure — no sockpuppets, no stealth edits
+              Full paid-contribution disclosure, no sockpuppets, no stealth edits
             </li>
             <li>
               <Icon name="i-check" />

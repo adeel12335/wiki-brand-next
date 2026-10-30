@@ -68,14 +68,14 @@ const verdictCopy: Record<
 > = {
   unlikely: {
     title: "Preliminary view: notability looks unlikely right now",
-    body: "Based on what you entered, independent significant coverage appears thin or missing. A free human assessment can confirm whether anything was overlooked — we will say so honestly.",
+    body: "Based on what you entered, independent significant coverage appears thin or missing. A free human assessment can confirm whether anything was overlooked, we will say so honestly.",
   },
   borderline: {
-    title: "Preliminary view: borderline — needs a source dossier",
+    title: "Preliminary view: borderline, needs a source dossier",
     body: "There may be a path, but outcomes usually hinge on outlet quality, independence, and how much secondary analysis exists. A free assessment maps what is usable before you pay for drafting.",
   },
   promising: {
-    title: "Preliminary view: promising — still not a guarantee",
+    title: "Preliminary view: promising, still not a guarantee",
     body: "Your answers suggest a workable source base may exist. Publication is still decided by volunteer reviewers. Next step: a free notability assessment and source map before any drafting fee.",
   },
 };

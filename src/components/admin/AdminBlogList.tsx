@@ -211,7 +211,7 @@ export function AdminBlogList() {
       ) : items.length === 0 ? (
         <div className="admin-card admin-empty">
           <h2>No blog posts yet</h2>
-          <p>Write your first SEO guide — it will appear on /blog/ when published.</p>
+          <p>Write your first SEO guide, it will appear on /blog/ when published.</p>
           <div className="admin-submit">
             <Link className="admin-btn" href="/admin/blog/new/">
               Write first post

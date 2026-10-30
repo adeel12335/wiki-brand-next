@@ -1,7 +1,7 @@
 import { absUrl } from "@/lib/config";
 
 /**
- * Hoisted into <head> by Next/React — crawlable pagination hints.
+ * Hoisted into <head> by Next/React, crawlable pagination hints.
  * Canonical stays in buildPageMetadata (self-referencing per page).
  */
 export function BlogPaginationSeoLinks({

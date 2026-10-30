@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 
 /**
- * Accordion FAQ — one answer open at a time, animated open/close.
+ * Accordion FAQ , one answer open at a time, animated open/close.
  * Answers always stay in the HTML (AEO/SEO); collapsed panels are just 0px tall.
  */
 export function FaqList({

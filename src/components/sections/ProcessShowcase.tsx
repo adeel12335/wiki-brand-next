@@ -201,8 +201,8 @@ export function ProcessShowcase({ showHeading = true }: { showHeading?: boolean 
           <p className="micro-label">Our Process</p>
           <h2>A Proven 5-Step Process</h2>
           <p>
-            Every engagement follows the same order — evidence first, writing
-            second — so you know exactly where your article stands.
+            Every engagement follows the same order, evidence first, writing
+            second, so you know exactly where your article stands.
           </p>
         </div>
       ) : null}

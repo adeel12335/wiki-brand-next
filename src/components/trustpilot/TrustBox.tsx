@@ -27,7 +27,7 @@ export interface TrustBoxProps {
 }
 
 /**
- * Trustpilot TrustBox — SPA-safe for Next.js App Router.
+ * Trustpilot TrustBox, SPA-safe for Next.js App Router.
  * @see https://help.trustpilot.com/s/article/Add-a-TrustBox-widget-to-a-single-page-application
  */
 export function TrustBox({

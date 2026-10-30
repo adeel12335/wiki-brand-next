@@ -24,7 +24,7 @@ interface RecaptchaFieldProps {
   resetSignal?: number;
 }
 
-/** reCAPTCHA v3 — invisible score-based; token is minted on submit via executeRecaptchaV3. */
+/** reCAPTCHA v3, invisible score-based; token is minted on submit via executeRecaptchaV3. */
 export function RecaptchaField({ siteKey, onError }: RecaptchaFieldProps) {
   const [ready, setReady] = useState(false);
   const [loadError, setLoadError] = useState(false);
