@@ -1,5 +1,5 @@
 /* ==========================================================================
-   home.css — home page section overrides, grouped top → bottom
+   home.css,home page section overrides, grouped top → bottom
    Rhythm: hero dark → stats gold → then white / dark alternating.
 
    1. Hero ................ dark
@@ -80,7 +80,7 @@ body:not(#_) .hero.tone-dark {
   }
 }
 
-/* 2. Stats band (dark) — quiet proof strip directly under the hero -------- */
+/* 2. Stats band (dark),quiet proof strip directly under the hero -------- */
 
 body:not(#_) .stats-band {
   position: relative;
@@ -392,7 +392,7 @@ body:not(#_) .services .section-actions {
   gap: 14px;
 }
 
-/* Cards are whole-card links — never underline their text on hover */
+/* Cards are whole-card links,never underline their text on hover */
 body:not(#_) a.svc-card.svc-card,
 body:not(#_) a.svc-card.svc-card:is(:hover, :focus-visible) { text-decoration: none; }
 
@@ -403,7 +403,7 @@ body:not(#_) .svc-grid {
   gap: 20px;
 }
 
-/* Card — dark by default (services page), white inside .tone-light */
+/* Card,dark by default (services page), white inside .tone-light */
 body:not(#_) .svc-card {
   position: relative;
   display: flex;
@@ -555,7 +555,7 @@ body:not(#_) .tone-light .svc-card--featured :is(svg, .svc-card-num) { color: in
   body:not(#_) .svc-card--featured:hover .svc-card-art { transform: none; }
 }
 
-/* 6. Process (dark) — horizontal stepper + detail panel ------------------- */
+/* 6. Process (dark),horizontal stepper + detail panel ------------------- */
 
 body:not(#_) .proc-heading {
   max-width: 720px;
@@ -884,7 +884,7 @@ body:not(#_) .testimonial-pager button {
 }
 body:not(#_) .testimonial-pager button[aria-pressed="true"] { width: 26px; background: var(--eyebrow); }
 
-/* 9. Trustpilot (white) — intro + trust points | dark "how it works" card -- */
+/* 9. Trustpilot (white),intro + trust points | dark "how it works" card -- */
 
 body:not(#_) .tp-layout {
   display: grid;
@@ -1088,7 +1088,7 @@ body:not(#_) .blog-home-section .blog-card-category {
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-/* Card title — not a section heading */
+/* Card title,not a section heading */
 body:not(#_) .blog-card h2 {
   margin: 0 0 12px;
   font-family: var(--heading-sans);
@@ -1117,7 +1117,7 @@ body:not(#_) .blog-home-section .blog-card-footer {
 }
 body:not(#_) .blog-home-section .blog-card-footer .text-link { color: var(--eyebrow); font-size: 0.9375rem; }
 
-/* 11. FAQ (white) — same two-column library layout as the pricing FAQ ----- */
+/* 11. FAQ (white),same two-column library layout as the pricing FAQ ----- */
 
 body:not(#_) .home-faq-section {
   background:
@@ -1154,7 +1154,7 @@ body:not(#_) .home-faq-library .faq-answer { color: var(--tone-light-text); }
   body:not(#_) .blog-home-section .blog-card:hover { transform: none; }
 }
 
-/* Testimonial slider — the track slides horizontally between quotes */
+/* Testimonial slider,the track slides horizontally between quotes */
 body:not(#_) .testimonial-viewport { overflow: hidden; }
 body:not(#_) .testimonial-track {
   display: flex;

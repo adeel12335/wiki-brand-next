@@ -57,7 +57,7 @@ const pageMeta = {
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 const bring = [
-  "Links to independent press coverage — news, books, journals, trade press",
+  "Links to independent press coverage,news, books, journals, trade press",
   "Key milestones with dates: founding, awards, publications, appointments",
   "Exact spellings of names, titles, and organisations",
   "Any existing Wikipedia article or Wikidata entry",
@@ -132,7 +132,7 @@ export default function OurProcessPage() {
             </p>
             <p>
               Roughly two thirds of the work happens before a single sentence is
-              drafted — in finding, reading, and grading the sources that decide what
+              drafted,in finding, reading, and grading the sources that decide what
               the article is allowed to say.
             </p>
           </div>
@@ -157,7 +157,7 @@ export default function OurProcessPage() {
         </div>
       </section>
 
-      {/* 3. Stage by stage — vertical timeline (white) */}
+      {/* 3. Stage by stage,vertical timeline (white) */}
       <section className="section-pad tone-light pr-stages pr-stages--stepper" aria-labelledby="pr-stages-title">
         <div className="shell">
           <div className="section-heading center reveal">
@@ -282,7 +282,7 @@ export default function OurProcessPage() {
 
       <CtaBand
         heading="Start With the <span>Research Stage.</span>"
-        copy="The assessment tells you whether an article is viable before you commit to anything else. Published packages start from $700 — see the full pricing page for what each tier includes."
+        copy="The assessment tells you whether an article is viable before you commit to anything else. Published packages start from $700,see the full pricing page for what each tier includes."
         label="Request An Assessment"
       />
     </>

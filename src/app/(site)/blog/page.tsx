@@ -40,7 +40,7 @@ const starters = [
   {
     icon: "i-plan",
     title: "See How the Process Runs",
-    copy: "Five stages, research first — what happens at each step and how long it takes.",
+    copy: "Five stages, research first, what happens at each step and how long it takes.",
     href: "our-process",
     label: "Read the process",
   },
@@ -94,7 +94,7 @@ export default async function BlogPage() {
       <PageHero
         eyebrow="Insights"
         h1="Clear Writing on How Wikipedia <span>Actually Works.</span>"
-        lede="Guides on notability, sourcing, disclosure, and timelines — written for people deciding whether a page is realistic, not for keyword stuffing."
+        lede="Guides on notability, sourcing, disclosure, and timelines, written for people deciding whether a page is realistic, not for keyword stuffing."
         current="Blog"
         actions={[
           { label: "Ask About Your Subject", href: url("contact") },
@@ -143,7 +143,7 @@ export default async function BlogPage() {
             </h2>
             <p>
               Prefer short answers? See the{" "}
-              <Link href={url("faq")}>Wikipedia FAQ</Link> — or start with one of these.
+              <Link href={url("faq")}>Wikipedia FAQ</Link>, or start with one of these.
             </p>
           </div>
           <ul className="bl-start-grid">

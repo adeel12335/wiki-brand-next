@@ -17,7 +17,7 @@ const pageSlug = "hire-wikipedia-writer";
 const faqs = [
   {
     q: "Can I hire someone to write my Wikipedia page?",
-    a: "Yes — Wikipedia allows paid editing as long as the paid relationship is disclosed under the Wikimedia Terms of Use. What you cannot buy is approval: the subject still has to be notable, meaning independent, reliable sources have covered it in depth. A professional Wikipedia writer checks that first, then drafts a neutral, fully cited article and submits it with disclosure.",
+    a: "Yes, Wikipedia allows paid editing as long as the paid relationship is disclosed under the Wikimedia Terms of Use. What you cannot buy is approval: the subject still has to be notable, meaning independent, reliable sources have covered it in depth. A professional Wikipedia writer checks that first, then drafts a neutral, fully cited article and submits it with disclosure.",
   },
   {
     q: "How much does it cost to hire a Wikipedia writer?",
@@ -25,11 +25,11 @@ const faqs = [
   },
   {
     q: "Is it allowed to pay a Wikipedia editor?",
-    a: "Paid editing is permitted on Wikipedia when it is declared. Editors must disclose who is paying them, and conflict-of-interest guidance applies. Agencies that hide paid editing put your article at risk of deletion — we disclose every paid contribution on-wiki.",
+    a: "Paid editing is permitted on Wikipedia when it is declared. Editors must disclose who is paying them, and conflict-of-interest guidance applies. Agencies that hide paid editing put your article at risk of deletion,we disclose every paid contribution on-wiki.",
   },
   {
     q: "Can a Wikipedia writer guarantee my page will be approved?",
-    a: "No honest writer can. Volunteer reviewers decide what is published. What a good writer can do is make sure the sourcing is there before drafting, write to Wikipedia's neutrality standard, and handle reviewer feedback — which is what gives an article its best chance.",
+    a: "No honest writer can. Volunteer reviewers decide what is published. What a good writer can do is make sure the sourcing is there before drafting, write to Wikipedia's neutrality standard, and handle reviewer feedback,which is what gives an article its best chance.",
   },
   {
     q: "How long does it take to get a Wikipedia page written?",
@@ -41,7 +41,7 @@ const reasons = [
   {
     icon: "i-search",
     title: "Research Before Writing",
-    copy: "Your writer starts with a source search and a written notability verdict — so you never pay for a draft the coverage cannot support.",
+    copy: "Your writer starts with a source search and a written notability verdict,so you never pay for a draft the coverage cannot support.",
   },
   {
     icon: "i-write",
@@ -102,7 +102,7 @@ const pageMeta = {
   keywords:
     "hire wikipedia writer, hire wikipedia editor, wikipedia writers for hire, wikipedia page writer, professional wikipedia editor, wikipedia page creation service, wikipedia editing services, wikipedia service provider, wiki studio",
   ogImage: "/assets/og/portfolio-author.jpg",
-  ogImageAlt: "Hire professional Wikipedia writers and editors — The Wikipedia Studio",
+  ogImageAlt: "Hire professional Wikipedia writers and editors,The Wikipedia Studio",
   modified: "2026-10-02",
   schema: [
     {
@@ -139,7 +139,7 @@ export default function HireWikipediaWriterPage() {
       <PageHero
         eyebrow="Wikipedia Writers for Hire"
         h1="Hire a Wikipedia Writer & Editor Who <span>Checks the Sources First</span>"
-        lede="Professional Wikipedia writers and editors from The Wikipedia Studio (Wiki Studio). We confirm notability, draft a neutral, fully cited article, and submit it with paid-contribution disclosure — with a free assessment before you pay anything."
+        lede="Professional Wikipedia writers and editors from The Wikipedia Studio (Wiki Studio). We confirm notability, draft a neutral, fully cited article, and submit it with paid-contribution disclosure,with a free assessment before you pay anything."
         current="Hire a Wikipedia Writer"
         actions={[
           { label: "Get a Free Assessment", href: url("contact") },
@@ -323,7 +323,7 @@ export default function HireWikipediaWriterPage() {
               Before You Hire a <span>Wikipedia Writer</span>
             </h2>
             <p>
-              Straight answers on cost, disclosure, approval, and timelines — the things
+              Straight answers on cost, disclosure, approval, and timelines,the things
               to ask any Wikipedia writer before you pay.
             </p>
             <Link className="button button-gold button-small" href={url("how-to-choose-wikipedia-agency")}>

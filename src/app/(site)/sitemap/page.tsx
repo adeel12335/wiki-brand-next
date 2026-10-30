@@ -15,7 +15,7 @@ const pageMeta = {
   title: "HTML Sitemap",
   shortTitle: "Sitemap",
   description:
-    "Browse every public page on The Wikipedia Studio — services, pricing, process, portfolio, blog, and resources.",
+    "Browse every public page on The Wikipedia Studio,services, pricing, process, portfolio, blog, and resources.",
   ogImage: "/assets/og/hero-orbital-globe.jpg",
   schema: [
     itemListNode("sitemap", "Site pages", [

@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return buildPageMetadata({
     slug: `author/${author.slug}`,
-    title: `${author.name} — Wikipedia Editorial Guides`,
+    title: `${author.name}, Wikipedia Editorial Guides`,
     shortTitle: author.name,
     description: author.bio.slice(0, 155),
     breadcrumbs: [{ label: "Blog", slug: "blog" }],
@@ -45,7 +45,7 @@ export default async function AuthorPage({ params }: PageProps) {
 
   const pageMeta = {
     slug: `author/${author.slug}`,
-    title: `${author.name} — Wikipedia Editorial Guides`,
+    title: `${author.name}, Wikipedia Editorial Guides`,
     description: author.bio.slice(0, 155),
     breadcrumbs: [{ label: "Blog", slug: "blog" }],
     breadcrumbName: author.name,
@@ -98,7 +98,7 @@ export default async function AuthorPage({ params }: PageProps) {
 
       <CtaBand
         heading="Need a named editor on your file?"
-        copy="Ask at enquiry — paid contributions are disclosed on-wiki either way."
+        copy="Ask at enquiry, paid contributions are disclosed on-wiki either way."
         label="Request an assessment"
       />
     </>

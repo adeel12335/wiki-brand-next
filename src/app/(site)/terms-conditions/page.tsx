@@ -15,7 +15,7 @@ const pageMeta = {
     "Read the terms for using this website and commissioning Wikipedia editorial research, writing, editing, and management services.",
   keywords: "terms and conditions, service terms, wikipedia studio terms",
   ogImage: "/assets/og/globe.jpg",
-  ogImageAlt: "Terms & Conditions — The Wikipedia Studio",
+  ogImageAlt: "Terms & Conditions,The Wikipedia Studio",
   modified: "2026-10-02",
 };
 
@@ -128,7 +128,7 @@ export default function TermsPage() {
           <h2>8. Confidentiality</h2>
           <p>
             We keep client engagements confidential. We identify a client or their
-            article publicly — for example in our portfolio or case studies — only
+            article publicly,for example in our portfolio or case studies,only
             with that client&apos;s permission, and we will remove it if that
             permission is withdrawn. Without permission, we never name a client or
             their article; we may only describe the general category of work in

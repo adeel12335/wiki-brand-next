@@ -295,7 +295,7 @@ export default async function PortfolioDetailPage({
         </div>
       </section>
 
-      {/* 3. Other engagements (white) — same cards as the portfolio index */}
+      {/* 3. Other engagements (white),same cards as the portfolio index */}
       {others.length > 0 ? (
         <section className="section-pad tone-light pf-work pd-more" aria-labelledby="pd-more-title">
           <div className="shell">

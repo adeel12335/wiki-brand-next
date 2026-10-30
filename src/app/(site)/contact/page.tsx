@@ -108,7 +108,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Correspondence"
         h1="Tell Us the Subject. <span>We Will Tell You the Truth.</span>"
-        lede="Send the coverage that already exists. An editor — not a sales queue — replies with a clear read on whether a Wikipedia article is realistic."
+        lede="Send the coverage that already exists. An editor, not a sales queue, replies with a clear read on whether a Wikipedia article is realistic."
         current="Contact"
         image="/assets/about-knowledge-sphere.png"
         imageWidth={1536}
@@ -229,7 +229,7 @@ export default function ContactPage() {
               <Link href={url("services/wikipedia-page-creation")}>
                 notability assessment
               </Link>{" "}
-              as the first paid step — not a promise of publication.
+              as the first paid step, not a promise of publication.
             </p>
           </div>
 

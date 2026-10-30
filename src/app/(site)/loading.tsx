@@ -1,4 +1,4 @@
-/** Client-only route transition indicator — no crawlable "Loading…" copy in HTML. */
+/** Client-only route transition indicator,no crawlable "Loading…" copy in HTML. */
 export default function SiteLoading() {
   return (
     <div className="route-loading" aria-hidden="true">

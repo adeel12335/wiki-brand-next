@@ -12,7 +12,7 @@ import { buildPageMetadata, faqNode } from "@/lib/seo";
 const faqs = [
   {
     q: "Should I choose the cheapest Wikipedia agency?",
-    a: "Price alone is a weak signal. Ask what happens if sources are thin, whether paid editing is disclosed, and whether approval is “guaranteed” — guarantees usually mean policy risk.",
+    a: "Price alone is a weak signal. Ask what happens if sources are thin, whether paid editing is disclosed, and whether approval is “guaranteed”,guarantees usually mean policy risk.",
   },
   {
     q: "How do I spot a scam Wikipedia service?",
@@ -35,7 +35,7 @@ const checks = [
   },
   {
     title: "No Approval Guarantees",
-    copy: "Volunteer reviewers decide. Guarantees and “100% approval” claims are marketing — not how English Wikipedia works.",
+    copy: "Volunteer reviewers decide. Guarantees and “100% approval” claims are marketing,not how English Wikipedia works.",
   },
   {
     title: "Published Pricing and Exclusions",
@@ -43,7 +43,7 @@ const checks = [
   },
   {
     title: "Named Process, Not Anonymous Writers",
-    copy: "You should know how research, drafting, and review are separated — and how conflicts of interest are handled on-wiki.",
+    copy: "You should know how research, drafting, and review are separated,and how conflicts of interest are handled on-wiki.",
   },
   {
     title: "Aftercare Realism",
@@ -104,7 +104,7 @@ export default function ChooseAgencyPage() {
       <PageHero
         eyebrow="Buyer Guide"
         h1="How to Choose a Wikipedia Agency <span>Without Getting Scammed</span>"
-        lede="This niche attracts operators who sell guarantees and hide paid editing. Use this checklist to evaluate any desk — including ours — before you pay for a draft."
+        lede="This niche attracts operators who sell guarantees and hide paid editing. Use this checklist to evaluate any desk,including ours,before you pay for a draft."
         current="How to Choose"
         actions={[
           { label: "Free Notability Checker", href: url("wikipedia-notability-checker") },
@@ -125,7 +125,7 @@ export default function ChooseAgencyPage() {
               Six Questions That Filter <span>Most Bad Actors</span>
             </h2>
             <p className="section-heading-copy">
-              If a vendor cannot answer these plainly, walk away — and hold us to the
+              If a vendor cannot answer these plainly, walk away,and hold us to the
               same standard.
             </p>
           </div>
@@ -157,7 +157,7 @@ export default function ChooseAgencyPage() {
               Typical Price Bands <span>(Illustrative)</span>
             </h2>
             <p className="section-heading-copy">
-              Ranges vary widely. The useful question is not the number — it is what
+              Ranges vary widely. The useful question is not the number,it is what
               the number pays for, and whether sources are checked first.
             </p>
           </div>

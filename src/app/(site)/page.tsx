@@ -39,7 +39,7 @@ const pageMeta = {
   keywords:
     "wiki studio, wikipedia studio, wikipedia service provider, wiki services provider, wikipedia page creation service, wikipedia page, wiki page creation, create a wikipedia page, wikipedia editing services",
   ogImage: "/assets/og/hero-orbital-globe.jpg",
-  ogImageAlt: `${SITE_NAME} — professional Wikipedia editorial services`,
+  ogImageAlt: `${SITE_NAME},professional Wikipedia editorial services`,
   modified: "2026-09-07",
   schema: [
     itemListNode(
@@ -91,7 +91,7 @@ export default async function HomePage() {
               Wikipedia page creation is the process of confirming notability from
               independent sources, drafting a neutral cited article, and submitting
               it with paid-contribution disclosure. Roughly two thirds of the work
-              happens before drafting begins — in the search for significant coverage.
+              happens before drafting begins,in the search for significant coverage.
             </p>
             <p className="hero-lede">
               We help individuals, businesses, and organisations build a credible
@@ -119,7 +119,7 @@ export default async function HomePage() {
               Where Editorial <span>Excellence</span> Meets Global Standards.
             </h2>
             <p>
-              The Wikipedia Studio — Wiki Studio for short — is a professional
+              The Wikipedia Studio,Wiki Studio for short,is a professional
               Wikipedia service provider: a team of Wikipedia specialists,
               researchers, and content strategists dedicated to creating, improving,
               and managing Wikipedia pages that meet the platform&apos;s strict
@@ -261,7 +261,7 @@ export default async function HomePage() {
               Straight Answers, <span>Before You Commit.</span>
             </h2>
             <p>
-              The questions we hear most before an engagement starts — on
+              The questions we hear most before an engagement starts,on
               notability, cost, and what a paid editor can and cannot do.
             </p>
             <Link className="button button-gold button-small" href={url("faq")}>

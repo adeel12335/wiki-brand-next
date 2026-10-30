@@ -33,7 +33,7 @@ export async function generateMetadata({
     description: service.meta_desc,
     keywords: service.keywords,
     ogImage: `/${service.og_image.replace(/^\//, "")}`,
-    ogImageAlt: `${service.name} — The Wikipedia Studio`,
+    ogImageAlt: `${service.name},The Wikipedia Studio`,
     breadcrumbs: [{ label: "Services", slug: "services" }],
     schema: [serviceNode(slug, service), faqNode(service.faqs, `services/${slug}`)],
   });
@@ -102,7 +102,7 @@ export default async function ServiceDetailPage({
         ]}
       />
 
-      {/* 1. Overview — definition + who it is for (white) */}
+      {/* 1. Overview,definition + who it is for (white) */}
       <section className="section-pad tone-light sd-overview" aria-labelledby="sd-overview-title">
         <div className="shell sd-overview-grid">
           <div className="sd-overview-copy reveal">
@@ -169,7 +169,7 @@ export default async function ServiceDetailPage({
         </div>
       </section>
 
-      {/* 2. Scope — included as standard + deliverables (dark) */}
+      {/* 2. Scope,included as standard + deliverables (dark) */}
       <section className="section-pad tone-dark sd-scope" aria-labelledby="sd-scope-title">
         <div className="shell">
           <div className="section-heading center reveal">
@@ -179,7 +179,7 @@ export default async function ServiceDetailPage({
             </h2>
             <p className="section-heading-copy">
               Scope is agreed in writing before work starts. Nothing on this list is an
-              upsell — it is what a compliant, durable article needs.
+              upsell,it is what a compliant, durable article needs.
             </p>
           </div>
 
@@ -277,7 +277,7 @@ export default async function ServiceDetailPage({
         </div>
       </section>
 
-      {/* 5. FAQ — same two-column library layout as Home / Pricing (white) */}
+      {/* 5. FAQ,same two-column library layout as Home / Pricing (white) */}
       <section className="section-pad tone-light sd-faq" aria-labelledby="sd-faq-title">
         <div className="shell faq-library">
           <div className="faq-library-intro reveal">
@@ -286,7 +286,7 @@ export default async function ServiceDetailPage({
               Straight Answers, <span>Before You Commit.</span>
             </h2>
             <p>
-              The questions clients ask most about {service.name.toLowerCase()} — on
+              The questions clients ask most about {service.name.toLowerCase()},on
               timing, scope, and what a disclosed editor can and cannot do.
             </p>
             <Link className="button button-gold button-small" href={url("faq")}>
@@ -299,7 +299,7 @@ export default async function ServiceDetailPage({
         </div>
       </section>
 
-      {/* 6. Why work with us — full-width gold band */}
+      {/* 6. Why work with us,full-width gold band */}
       <section className="sd-why-band" aria-labelledby="sd-why-title">
         <div className="shell reveal">
           <div className="sd-why-head">

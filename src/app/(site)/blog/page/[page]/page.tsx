@@ -40,10 +40,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return buildPageMetadata({
     slug: `blog/page/${page}`,
     // Self-canonical so each paginated view can be crawled and ranked as a hub.
-    title: `Wikipedia Insights — Page ${page} of ${totalPages}`,
+    title: `Wikipedia Insights, Page ${page} of ${totalPages}`,
     shortTitle: `Blog · Page ${page}`,
     description: metaTrimPagination(
-      `Page ${page} of ${totalPages} — Wikipedia editorial guides including ${titles || "notability, sourcing, and page creation"}.`,
+      `Page ${page} of ${totalPages}, Wikipedia editorial guides including ${titles || "notability, sourcing, and page creation"}.`,
     ),
     keywords:
       "wikipedia blog, wikipedia notability guide, paid wikipedia editing, wikipedia page creation tips",
@@ -70,14 +70,14 @@ export default async function BlogPagedPage({ params }: PageProps) {
 
   const pageMeta = {
     slug: `blog/page/${page}`,
-    title: `Wikipedia Insights — Page ${page} of ${totalPages}`,
+    title: `Wikipedia Insights, Page ${page} of ${totalPages}`,
     description: `Page ${page} of ${totalPages} of editorial guides on Wikipedia notability, sourcing, disclosure, and page creation.`,
     breadcrumbs: [{ label: "Blog", slug: "blog" }],
     breadcrumbName: `Page ${page}`,
     schema: [
       itemListNode(
         `blog/page/${page}`,
-        `Wikipedia Studio guides — page ${page}`,
+        `Wikipedia Studio guides, page ${page}`,
         posts.map((post) => ({
           name: post.title,
           description: post.excerpt,

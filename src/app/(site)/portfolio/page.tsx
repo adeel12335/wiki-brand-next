@@ -37,7 +37,7 @@ const confidentialityPoints = [
   {
     icon: "i-globe",
     title: "The Article Belongs to Wikipedia",
-    copy: "Not to the subject, and not to the editor who drafted it — so we show the live result, not a private brief.",
+    copy: "Not to the subject, and not to the editor who drafted it,so we show the live result, not a private brief.",
   },
   {
     icon: "i-research",
@@ -103,7 +103,7 @@ export default async function PortfolioPage() {
               </h2>
               <p>
                 Each card links to a live Wikipedia article or a short engagement
-                profile — leadership, academia, sport, and public life.
+                profile,leadership, academia, sport, and public life.
               </p>
             </div>
             <p className="pf-count">

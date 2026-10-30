@@ -73,7 +73,7 @@ export default function FaqPage() {
       <PageHero
         eyebrow="Resources & FAQ"
         h1="Wikipedia Questions, Answered Without the <span>Sales Pitch.</span>"
-        lede="The Wikipedia questions clients ask most, answered the way we would answer them on a call — including the parts that make a commission less likely."
+        lede="The Wikipedia questions clients ask most, answered the way we would answer them on a call, including the parts that make a commission less likely."
         current="Resources & FAQ"
         actions={[{ label: "Ask Us Something Else", href: url("contact") }]}
         image="/assets/services-hero-knowledge-archive.webp"
@@ -162,7 +162,7 @@ export default function FaqPage() {
             </h2>
             <p>
               We follow strict editorial standards and maintain complete transparency in
-              everything we do — including{" "}
+              everything we do, including{" "}
               <a
                 href="https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use#4._Refraining_from_Certain_Activities"
                 target="_blank"

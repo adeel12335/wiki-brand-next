@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: "What counts as independent coverage?",
-    a: "Secondary sources with editorial independence from the subject — not press releases, paid posts, your own site, social bios, or directories that republish marketing copy.",
+    a: "Secondary sources with editorial independence from the subject,not press releases, paid posts, your own site, social bios, or directories that republish marketing copy.",
   },
   {
     q: "What happens after a promising score?",
@@ -63,7 +63,7 @@ const outcomes = [
   {
     key: "promising",
     title: "Promising",
-    copy: "A workable source base may exist. Still not a guarantee — volunteer reviewers decide — so the next step is a free human assessment.",
+    copy: "A workable source base may exist. Still not a guarantee,volunteer reviewers decide,so the next step is a free human assessment.",
   },
 ];
 
@@ -71,7 +71,7 @@ const counts = [
   "In-depth features in independent newspapers and magazines",
   "Books, journals, and scholarly reviews about the subject",
   "Major trade or national press with editorial oversight",
-  "Paywalled archives — as long as they are independent",
+  "Paywalled archives,as long as they are independent",
 ];
 
 const doesNotCount = [
@@ -89,7 +89,7 @@ export default function NotabilityCheckerPage() {
       <PageHero
         eyebrow="Free Tool"
         h1="Free Wikipedia <span>Notability Checker</span>"
-        lede="Answer a few source questions for a preliminary screen. It is not a guarantee — volunteer reviewers decide — but it stops you paying for a draft when the coverage is not there."
+        lede="Answer a few source questions for a preliminary screen. It is not a guarantee,volunteer reviewers decide,but it stops you paying for a draft when the coverage is not there."
         current="Notability Checker"
         actions={[
           { label: "Skip to Human Assessment", href: url("contact") },
@@ -111,7 +111,7 @@ export default function NotabilityCheckerPage() {
             </h2>
             <p>
               Wikipedia notability is about significant coverage in reliable,
-              independent sources — not follower counts, job titles, or how long a
+              independent sources,not follower counts, job titles, or how long a
               company has traded. This checker mirrors the questions our editors ask
               on intake.
             </p>
@@ -123,7 +123,7 @@ export default function NotabilityCheckerPage() {
                 <Icon name="i-check" /> The same questions our editors ask first
               </li>
               <li>
-                <Icon name="i-check" /> A preliminary screen — not a Wikipedia decision
+                <Icon name="i-check" /> A preliminary screen,not a Wikipedia decision
               </li>
             </ul>
             <p>

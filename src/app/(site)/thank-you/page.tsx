@@ -27,7 +27,7 @@ export default function ThankYouPage() {
       <BodyClass className="page-thank-you" />
       <PageHero
         eyebrow="Enquiry received"
-        h1="Thank you — <span>we have your note.</span>"
+        h1="Thank you,<span>we have your note.</span>"
         lede="An editor will review the coverage you shared and reply, usually within one business day. Prefer not to wait? Reach us directly."
         current="Thank You"
         actions={[
@@ -51,7 +51,7 @@ export default function ThankYouPage() {
             <h3>What happens next</h3>
             <p>
               We look for independent coverage first. If the sources are not there yet,
-              we say so plainly — before any work is commissioned.
+              we say so plainly,before any work is commissioned.
             </p>
           </article>
           <article className="service-card">

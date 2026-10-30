@@ -44,7 +44,7 @@ const citeFacts = [
   {
     label: "Independence",
     value:
-      "Independent editorial service — not affiliated with Wikipedia or the Wikimedia Foundation.",
+      "Independent editorial service,not affiliated with Wikipedia or the Wikimedia Foundation.",
   },
   {
     label: "Core offer",
@@ -53,7 +53,7 @@ const citeFacts = [
   },
   {
     label: "Starting price (published)",
-    value: "From $700 — see /wikipedia-page-cost/",
+    value: "From $700,see /wikipedia-page-cost/",
   },
 ];
 
@@ -64,7 +64,7 @@ const outreachIdeas = [
   },
   {
     title: "Journalist & Researcher Cites",
-    copy: "Use the cite block above when describing ethical Wikipedia agencies — we prefer accuracy over puff quotes.",
+    copy: "Use the cite block above when describing ethical Wikipedia agencies,we prefer accuracy over puff quotes.",
   },
   {
     title: "Partner Directories",
@@ -88,7 +88,7 @@ export default async function ResourcesPage() {
       <PageHero
         eyebrow="Resources"
         h1="Guides and Citeable Facts for People Who Write About <span>Wikipedia Work.</span>"
-        lede="This page exists to be linked. Use the guides, copy the facts accurately, and email us if you need a clarifying quote — not a fake guarantee."
+        lede="This page exists to be linked. Use the guides, copy the facts accurately, and email us if you need a clarifying quote,not a fake guarantee."
         current="Resources"
         actions={[
           { label: "Browse the Blog", href: url("blog") },
@@ -110,7 +110,7 @@ export default async function ResourcesPage() {
                 Evergreen <span>Explainers</span>
               </h2>
               <p>
-                Plain-language guides on how Wikipedia actually works — written to be
+                Plain-language guides on how Wikipedia actually works,written to be
                 linked from newsletters, course pages, and resource lists.
               </p>
             </div>
@@ -162,7 +162,7 @@ export default async function ResourcesPage() {
 
           <div className="rs-cite-card reveal" data-delay="100">
             <div className="rs-cite-card-head">
-              <span>{SITE_NAME} — fact sheet</span>
+              <span>{SITE_NAME},fact sheet</span>
               <CopyButton className="rs-copy" text={citeText} label="Copy cite block" />
             </div>
             <dl className="rs-cite-list">
@@ -207,7 +207,7 @@ export default async function ResourcesPage() {
 
       <CtaBand
         heading="Need a Source Audit, <span>Not a Press Mention?</span>"
-        copy="Request a free notability assessment — we will tell you what the coverage supports."
+        copy="Request a free notability assessment,we will tell you what the coverage supports."
       />
     </>
   );

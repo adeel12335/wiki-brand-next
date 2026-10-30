@@ -15,7 +15,7 @@ const pageMeta = {
     "Learn how The Wikipedia Studio collects, uses, stores, and protects contact-form data and other information submitted through this website.",
   keywords: "privacy policy, data protection, wikipedia studio privacy",
   ogImage: "/assets/og/globe.jpg",
-  ogImageAlt: "Privacy Policy — The Wikipedia Studio",
+  ogImageAlt: "Privacy Policy,The Wikipedia Studio",
   modified: "2026-10-02",
 };
 
@@ -80,8 +80,8 @@ export default function PrivacyPolicyPage() {
           <h2>Confidentiality</h2>
           <p>
             Client engagements are confidential by default. We only name a
-            client, or identify a Wikipedia article as our work — for example in
-            our portfolio or case studies — when that client has given us
+            client, or identify a Wikipedia article as our work,for example in
+            our portfolio or case studies,when that client has given us
             permission. You can withdraw that permission at any time and we will
             remove the reference.
           </p>

@@ -41,7 +41,7 @@ const pillars = [
   {
     icon: "i-globe",
     title: "Our Mission",
-    copy: "To give every notable subject an accurate, neutral, well-sourced Wikipedia article — and to say so honestly when the sources are not there yet.",
+    copy: "To give every notable subject an accurate, neutral, well-sourced Wikipedia article, and to say so honestly when the sources are not there yet.",
   },
   {
     icon: "i-network",
@@ -66,7 +66,7 @@ const inclusions = [
   {
     icon: "i-search",
     title: "Free Notability Assessment",
-    copy: "A written verdict on whether independent coverage supports an article — before any fee is agreed.",
+    copy: "A written verdict on whether independent coverage supports an article, before any fee is agreed.",
   },
   {
     icon: "i-research",
@@ -86,7 +86,7 @@ const inclusions = [
   {
     icon: "i-shield",
     title: "Disclosed Submission",
-    copy: "Paid-contribution disclosure on-wiki, as Wikipedia's terms of use require — never an undeclared account.",
+    copy: "Paid-contribution disclosure on-wiki, as Wikipedia's terms of use require, never an undeclared account.",
   },
   {
     icon: "i-manage",
@@ -109,7 +109,7 @@ const principles = [
   {
     icon: "i-search",
     title: "Research Before Writing",
-    copy: "Source discovery comes first. The available coverage decides what the article can say — not a brief, and not a wish list.",
+    copy: "Source discovery comes first. The available coverage decides what the article can say, not a brief, and not a wish list.",
   },
   {
     icon: "i-check",
@@ -187,16 +187,16 @@ export default function AboutPage() {
                 Who We Are and <span>Why We Exist</span>
               </h2>
               <p className="ab-intro-lead">
-                The Wikipedia Studio — Wiki Studio for short — is an independent
+                The Wikipedia Studio, Wiki Studio for short, is an independent
                 Wikipedia service provider that helps people, companies, and
-                institutions earn an accurate presence on Wikipedia — the reference that search engines, journalists, and AI
+                institutions earn an accurate presence on Wikipedia, the reference that search engines, journalists, and AI
                 assistants turn to first.
               </p>
               <p>
                 We were built around one observation: most Wikipedia drafts fail not
                 because of bad writing, but because nobody checked whether the sources
                 were there. So we research first, tell clients plainly what the
-                coverage supports, and only then write — neutrally, with every claim
+                coverage supports, and only then write, neutrally, with every claim
                 cited and every paid contribution disclosed.
               </p>
               <p>
@@ -245,7 +245,7 @@ export default function AboutPage() {
             <p>
               Wikipedia is not a marketing channel, and treating it like one is the
               most common reason articles get rejected, tagged, or deleted. Our work
-              starts from the platform&apos;s own rules —{" "}
+              starts from the platform&apos;s own rules,{" "}
               <a
                 href="https://en.wikipedia.org/wiki/Wikipedia:Notability"
                 target="_blank"
@@ -269,7 +269,7 @@ export default function AboutPage() {
               >
                 neutral point of view
               </a>{" "}
-              — and everything else follows from them.
+             , and everything else follows from them.
             </p>
             <p>
               That means we sometimes deliver news a client does not want to hear. We
@@ -311,7 +311,7 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="Our Principles"
             heading="Four Commitments We Do Not <span>Trade Away</span>"
-            copy="The rules every engagement runs on — whoever the client is and whatever the brief says."
+            copy="The rules every engagement runs on, whoever the client is and whatever the brief says."
           />
           <div className="ab-principle-grid reveal">
             {principles.map((item, index) => (
@@ -340,7 +340,7 @@ export default function AboutPage() {
               What Every Engagement <span>Includes</span>
             </h2>
             <p className="section-heading-copy">
-              At The Wikipedia Studio, every client gets the same safeguards —
+              At The Wikipedia Studio, every client gets the same safeguards,
               whatever the subject, and whichever package applies.
             </p>
           </div>
@@ -364,7 +364,7 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="Editorial Standards"
             heading="How Our Work Is <span>Checked</span>"
-            copy="Three checks that keep every draft accurate, sourced, and disclosed — before it ever reaches Wikipedia."
+            copy="Three checks that keep every draft accurate, sourced, and disclosed, before it ever reaches Wikipedia."
           />
           <ol className="ab-standards-grid reveal">
             {standards.map((item) => (
@@ -394,7 +394,7 @@ export default function AboutPage() {
                 The Wikipedia Studio is an independent editorial service and is not
                 affiliated with Wikipedia or the Wikimedia Foundation. Figures shown on
                 this site (as of September 2026) describe our editorial capacity and
-                working standards — not guaranteed publication outcomes.
+                working standards, not guaranteed publication outcomes.
               </p>
             </div>
           </aside>
@@ -405,7 +405,7 @@ export default function AboutPage() {
         <div className="shell">
           <SectionHeading
             eyebrow="Editorial Team"
-            heading="Roles That Own the Work — <span>Not Anonymous ‘Writers’</span>"
+            heading="Roles That Own the Work, <span>Not Anonymous ‘Writers’</span>"
             copy="We publish the desk structure behind assessments and drafts. Named personal bios are added when individuals choose to be listed; until then you still know who does what, and that paid work is disclosed."
           />
           <div className="ab-team-grid reveal">
@@ -448,7 +448,7 @@ export default function AboutPage() {
           <p className="ab-team-note reveal">
             <Icon name="i-users" />
             <span>
-              Want a named editor on record for your engagement? Ask at enquiry —
+              Want a named editor on record for your engagement? Ask at enquiry,
               disclosure still happens on-wiki either way.
             </span>
           </p>
@@ -462,8 +462,8 @@ export default function AboutPage() {
             A Team Shaped by <span>Editorial Standards</span>
           </h2>
           <p>
-            Our researchers and editors work inside Wikipedia&apos;s own policies —
-            notability, verifiability, and neutral point of view — giving us a
+            Our researchers and editors work inside Wikipedia&apos;s own policies,
+            notability, verifiability, and neutral point of view, giving us a
             firsthand understanding of what survives review, and what gets tagged or
             deleted.
           </p>
@@ -488,7 +488,7 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="Who We Work With"
             heading="Individuals, Businesses, and <span>Institutions</span>"
-            copy="What they share is independent coverage — the one thing Wikipedia asks for before anything else."
+            copy="What they share is independent coverage, the one thing Wikipedia asks for before anything else."
           />
           <div className="ab-audience-grid reveal">
             {audiences.map((item) => (
@@ -536,7 +536,7 @@ export default function AboutPage() {
               </h2>
               <p>
                 Answer a few questions about the coverage you already have and see
-                whether a Wikipedia article is realistic — before you spend anything.
+                whether a Wikipedia article is realistic, before you spend anything.
               </p>
               <Link className="ab-pill" href={url("wikipedia-notability-checker")}>
                 Learn More <Icon name="i-arrow" />
@@ -549,7 +549,7 @@ export default function AboutPage() {
               </h2>
               <p>
                 Wikipedia looks for significant coverage in reliable sources that are
-                independent of the subject — not followers, fame, or advertising. Our
+                independent of the subject, not followers, fame, or advertising. Our
                 guides explain what counts and what does not.
               </p>
               <Link className="ab-pill" href={url("resources")}>

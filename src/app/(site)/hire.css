@@ -1,5 +1,5 @@
 /* ==========================================================================
-   hire.css — "Hire a Wikipedia Writer & Editor" landing page
+   hire.css,"Hire a Wikipedia Writer & Editor" landing page
    Order: hero D → why hire W → who you hire D → compare W → how + pricing D
    → FAQ W → CTA D.
    ========================================================================== */
@@ -196,7 +196,7 @@ body:not(#_) .tone-dark .hw-prices li small { color: rgba(255, 255, 255, 0.6); f
 body:not(#_) .hw-prices li b { flex: 0 0 auto; color: var(--eyebrow); font-family: var(--heading-sans); font-size: 1.0625rem; white-space: nowrap; }
 body:not(#_) .hw-prices .button { width: 100%; justify-content: center; }
 
-/* 5. FAQ (white) — library layout, light colours -------------------------- */
+/* 5. FAQ (white),library layout, light colours -------------------------- */
 
 body:not(#_) .hw-faq .faq-library-intro h2 { margin-bottom: 18px; }
 body:not(#_) .hw-faq .faq-library-intro > p:not(.micro-label) { margin-bottom: 24px; font-size: 1rem; line-height: 1.75; }

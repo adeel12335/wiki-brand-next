@@ -88,7 +88,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Our Services"
         h1="A Wikipedia Service Provider Working to <span>Guideline Standard.</span>"
-        lede="Wiki Studio provides Wikipedia services across the full lifecycle of an article — from notability assessment and knowledge-panel entity work through page creation, editing, monitoring, and long-term stewardship."
+        lede="Wiki Studio provides Wikipedia services across the full lifecycle of an article,from notability assessment and knowledge-panel entity work through page creation, editing, monitoring, and long-term stewardship."
         current="Services"
         actions={[
           { label: "Request an Assessment", href: url("contact") },
@@ -105,7 +105,7 @@ export default function ServicesPage() {
           <SectionHeading
             eyebrow="All Services"
             heading="Eight Services, <span>One Editorial Standard</span>"
-            copy="Every service is research-led, neutrally written, and disclosed on-wiki — pick the one that matches where your article is today."
+            copy="Every service is research-led, neutrally written, and disclosed on-wiki,pick the one that matches where your article is today."
           />
           <ServiceIndex />
 
@@ -170,7 +170,7 @@ export default function ServicesPage() {
               What Each Engagement <span>Involves</span>
             </h2>
             <p className="section-heading-copy">
-              The core work inside every service — the full scope, process, and
+              The core work inside every service,the full scope, process, and
               deliverables are on each service page.
             </p>
           </div>

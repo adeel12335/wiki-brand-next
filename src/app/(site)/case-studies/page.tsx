@@ -17,7 +17,7 @@ const cases = [
     focus: ["Source audit", "Source hierarchy", "Disclosed paid editing"],
     angle: "Independent coverage first, then a durable biography structure",
     story:
-      "The engagement started with a source audit: which outlets covered the subject independently, how deep that coverage ran, and whether the record could support a durable article. Drafting emphasised source hierarchy — claims entered only when a reliable citation could carry them. Paid editing was disclosed. Volunteer review still decides outcomes; a source-first draft is what gives an article its best chance to survive.",
+      "The engagement started with a source audit: which outlets covered the subject independently, how deep that coverage ran, and whether the record could support a durable article. Drafting emphasised source hierarchy, claims entered only when a reliable citation could carry them. Paid editing was disclosed. Volunteer review still decides outcomes; a source-first draft is what gives an article its best chance to survive.",
   },
   {
     slug: "peter-abell",
@@ -26,7 +26,7 @@ const cases = [
     focus: ["Independent verification", "Living-person policy", "Post-publication monitoring"],
     angle: "Proportion, neutrality, and post-publication realism",
     story:
-      "Work focused on verifying independent reporting, avoiding résumé padding, and keeping living-person material inside policy. After acceptance, accuracy still depends on new independent reporting — monitoring catches vandalism and contested edits, but nobody can lock a page against the community.",
+      "Work focused on verifying independent reporting, avoiding résumé padding, and keeping living-person material inside policy. After acceptance, accuracy still depends on new independent reporting, monitoring catches vandalism and contested edits, but nobody can lock a page against the community.",
   },
 ];
 
@@ -34,7 +34,7 @@ const lessons = [
   {
     icon: "i-search",
     title: "The Sources Decide",
-    copy: "Both engagements began with what independent outlets had actually published — and claims entered only when a reliable citation could carry them.",
+    copy: "Both engagements began with what independent outlets had actually published, and claims entered only when a reliable citation could carry them.",
   },
   {
     icon: "i-shield",
@@ -44,16 +44,16 @@ const lessons = [
   {
     icon: "i-manage",
     title: "Aftercare Is Realistic",
-    copy: "Review still decides outcomes, and after acceptance accuracy depends on new reporting — monitoring helps, but no one can lock a page.",
+    copy: "Review still decides outcomes, and after acceptance accuracy depends on new reporting, monitoring helps, but no one can lock a page.",
   },
 ];
 
 const pageMeta = {
   slug: "case-studies",
-  title: "Wikipedia Case Studies — Source-First Engagements",
+  title: "Wikipedia Case Studies, Source-First Engagements",
   shortTitle: "Case Studies",
   description:
-    "Detailed Wikipedia case studies: how source audits, neutral drafting, and paid-editing disclosure shaped real portfolio engagements — without publication guarantees.",
+    "Detailed Wikipedia case studies: how source audits, neutral drafting, and paid-editing disclosure shaped real portfolio engagements, without publication guarantees.",
   keywords:
     "wikipedia case study, wikipedia page creation example, wikipedia portfolio case studies",
   modified: "2026-09-07",
@@ -77,7 +77,7 @@ export default function CaseStudiesPage() {
         ]}
       />
 
-      {/* 1. Cases (white) — alternating feature rows */}
+      {/* 1. Cases (white), alternating feature rows */}
       <section className="section-pad tone-light cs-cases" aria-labelledby="cs-cases-title">
         <div className="shell">
           <div className="section-heading center reveal">
