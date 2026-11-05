@@ -7,13 +7,43 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import {
   NAV_ITEMS,
+  SITE_EMAIL,
   SITE_NAME,
+  SITE_PHONE,
+  SITE_PHONE_RAW,
   navIsActive,
   url,
 } from "@/lib/config";
 import { AUDIENCE_LINKS, CASE_STUDIES_LINK } from "@/lib/data/audience-links";
 
 const ALERT_DISMISSED_KEY = "ws-site-alert-dismissed";
+
+/** Below this width the desktop bar collapses into the drawer (matches layout.css). */
+const DRAWER_BREAKPOINT = 1100;
+
+/** Home is the logo and Contact is the CTA, so the desktop bar skips both. */
+const DESKTOP_NAV = NAV_ITEMS.filter(
+  (item) => item.slug !== "" && item.slug !== "contact",
+);
+
+const AUDIENCE_META: Record<string, { icon: string; blurb: string }> = {
+  "wikipedia-page-for-companies": {
+    icon: "i-building",
+    blurb: "Brands, startups and established firms",
+  },
+  "wikipedia-page-for-authors": {
+    icon: "i-write",
+    blurb: "Novelists and non-fiction writers",
+  },
+  "wikipedia-page-for-academics": {
+    icon: "i-research",
+    blurb: "Researchers, professors and scientists",
+  },
+  "wikipedia-page-for-musicians": {
+    icon: "i-users",
+    blurb: "Artists, bands and composers",
+  },
+};
 
 export function Header() {
   const pathname = usePathname();
@@ -22,9 +52,15 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileReady, setMobileReady] = useState(false);
   const [alertOpen, setAlertOpen] = useState(true);
+  const [megaOpen, setMegaOpen] = useState(false);
   const alertRef = useRef<HTMLDivElement>(null);
+  const megaRef = useRef<HTMLLIElement>(null);
+  const lastPointer = useRef("");
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const audienceActive = AUDIENCE_LINKS.some((item) =>
+    navIsActive(item.slug, currentSlug),
+  );
 
   useEffect(() => {
     setMobileReady(true);
@@ -78,7 +114,7 @@ export function Header() {
 
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth > 900) closeMenu();
+      if (window.innerWidth > DRAWER_BREAKPOINT) closeMenu();
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -86,17 +122,36 @@ export function Header() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeMenu();
+      if (e.key !== "Escape") return;
+      closeMenu();
+      setMegaOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [closeMenu]);
 
+  // Close the mega panel on an outside click (touch / keyboard users).
+  useEffect(() => {
+    if (!megaOpen) return;
+    const onDown = (e: PointerEvent) => {
+      if (!megaRef.current?.contains(e.target as Node)) setMegaOpen(false);
+    };
+    document.addEventListener("pointerdown", onDown);
+    return () => document.removeEventListener("pointerdown", onDown);
+  }, [megaOpen]);
+
+  const closeMega = () => setMegaOpen(false);
+
+  const headerClass = [
+    "site-header",
+    scrolled ? "is-scrolled" : "",
+    menuOpen ? "is-open" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <header
-      className={`site-header${scrolled ? " scrolled" : ""}${menuOpen ? " menu-open" : ""}`}
-      id="top"
-    >
+    <header className={headerClass} id="top">
       {alertOpen ? (
         <div className="site-alert" ref={alertRef} role="note">
           <div className="site-alert-inner">
@@ -135,135 +190,206 @@ export function Header() {
           </div>
         </div>
       ) : null}
-      <div className="shell nav-shell">
-        <Link className="brand" href={url()}>
-          <Image
-            src="/assets/globe-small.png"
-            alt=""
-            width={66}
-            height={55}
-            sizes="66px"
-            quality={75}
-            loading="eager"
-          />
-          <span className="brand-copy">
-            <b>The Wikipedia</b>
-            <span>
-              <i />
-              Studio
-              <i />
+
+      <div className="hdr-bar">
+        <div className="shell hdr-inner">
+          <Link className="brand" href={url()} aria-label={`${SITE_NAME} home`}>
+            <Image
+              src="/assets/globe-small.png"
+              alt=""
+              width={66}
+              height={55}
+              sizes="66px"
+              quality={75}
+              loading="eager"
+            />
+            <span className="brand-copy">
+              <b>The Wikipedia</b>
+              <span>
+                <i />
+                Studio
+                <i />
+              </span>
             </span>
-          </span>
-        </Link>
+          </Link>
 
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          {NAV_ITEMS.map((item) => {
-            const active = navIsActive(item.slug, currentSlug);
-            return (
-              <Link
-                key={item.slug || "home"}
-                href={url(item.slug)}
-                className={active ? "active" : undefined}
-                aria-current={active ? "page" : undefined}
+          <nav className="hdr-nav" aria-label="Primary navigation">
+            <ul className="hdr-links">
+              {DESKTOP_NAV.map((item) => {
+                const active = navIsActive(item.slug, currentSlug);
+                return (
+                  <li key={item.slug}>
+                    <Link
+                      href={url(item.slug)}
+                      className={active ? "is-active" : undefined}
+                      aria-current={active ? "page" : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+              <li
+                className={`hdr-mega${megaOpen ? " is-open" : ""}`}
+                ref={megaRef}
+                onMouseEnter={() => setMegaOpen(true)}
+                onMouseLeave={() => setMegaOpen(false)}
               >
-                {item.label}
-              </Link>
-            );
-          })}
-          <div className="nav-dropdown">
+                <button
+                  type="button"
+                  className={audienceActive ? "is-active" : undefined}
+                  aria-expanded={megaOpen}
+                  aria-controls="hdr-mega-panel"
+                  onPointerDown={(e) => {
+                    lastPointer.current = e.pointerType;
+                  }}
+                  onClick={() => {
+                    // Mouse users already opened it on hover; a click there
+                    // must not immediately close it again.
+                    if (lastPointer.current === "mouse") {
+                      lastPointer.current = "";
+                      setMegaOpen(true);
+                      return;
+                    }
+                    setMegaOpen((o) => !o);
+                  }}
+                >
+                  Who we help
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </button>
+                <div className="hdr-mega-panel" id="hdr-mega-panel">
+                  <div className="hdr-mega-grid">
+                    {AUDIENCE_LINKS.map((item) => {
+                      const meta = AUDIENCE_META[item.slug];
+                      return (
+                        <Link
+                          key={item.slug}
+                          href={url(item.slug)}
+                          className="hdr-mega-item"
+                          onClick={closeMega}
+                          aria-current={
+                            navIsActive(item.slug, currentSlug) ? "page" : undefined
+                          }
+                        >
+                          <span className="hdr-mega-icon">
+                            <Icon name={meta?.icon ?? "i-users"} />
+                          </span>
+                          <span className="hdr-mega-text">
+                            <b>{item.label}</b>
+                            {meta ? <small>{meta.blurb}</small> : null}
+                          </span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                  <Link
+                    className="hdr-mega-feature"
+                    href={url(CASE_STUDIES_LINK.slug)}
+                    onClick={closeMega}
+                  >
+                    <small>Proof of work</small>
+                    <b>{CASE_STUDIES_LINK.label}</b>
+                    <span>
+                      See how pages go from draft to published
+                      <Icon name="i-arrow" />
+                    </span>
+                  </Link>
+                </div>
+              </li>
+            </ul>
+          </nav>
+
+          <div className="hdr-actions">
+            <a className="hdr-phone" href={`tel:${SITE_PHONE_RAW}`}>
+              <span className="hdr-phone-icon">
+                <Icon name="i-contact-phone" />
+              </span>
+              <span className="hdr-phone-text">
+                <small>Talk to an editor</small>
+                {SITE_PHONE}
+              </span>
+            </a>
+            <Link className="hdr-cta" href={url("contact")}>
+              Get Started <Icon name="i-arrow" />
+            </Link>
             <button
+              className="hdr-toggle"
               type="button"
-              className={
-                AUDIENCE_LINKS.some((item) => navIsActive(item.slug, currentSlug))
-                  ? "active"
-                  : undefined
-              }
-              aria-haspopup="true"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls="hdr-drawer"
+              onClick={() => setMenuOpen((o) => !o)}
             >
-              Who we help
+              <span />
+              <span />
+              <span />
             </button>
-            <div className="nav-dropdown-panel" role="menu">
-              {AUDIENCE_LINKS.map((item) => (
-                <Link key={item.slug} href={url(item.slug)} role="menuitem">
-                  {item.label}
-                </Link>
-              ))}
-              <Link href={url(CASE_STUDIES_LINK.slug)} role="menuitem">
-                {CASE_STUDIES_LINK.label}
-              </Link>
-            </div>
           </div>
-        </nav>
-
-        <Link className="button button-gold nav-cta" href={url("contact")}>
-          Get Started <Icon name="i-arrow" />
-        </Link>
-
-        <button
-          className="menu-toggle"
-          type="button"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((o) => !o)}
-        >
-          <svg className="menu-icon" aria-hidden="true">
-            <use href="#i-menu" />
-          </svg>
-          <svg className="close-icon" aria-hidden="true">
-            <use href="#i-close" />
-          </svg>
-        </button>
+        </div>
       </div>
 
       {mobileReady ? (
-        <nav
-          className={`mobile-menu${menuOpen ? " open" : ""}`}
-          aria-label="Mobile navigation"
+        <div
+          className={`hdr-drawer${menuOpen ? " is-open" : ""}`}
+          id="hdr-drawer"
           hidden={!menuOpen}
         >
-          {NAV_ITEMS.map((item) => {
-            const active = navIsActive(item.slug, currentSlug);
-            return (
-              <Link
-                key={item.slug || "home-mobile"}
-                href={url(item.slug)}
-                className={active ? "active" : undefined}
-                aria-current={active ? "page" : undefined}
-                onClick={closeMenu}
-                tabIndex={menuOpen ? 0 : -1}
-              >
-                {item.label}
+          <nav className="hdr-drawer-body" aria-label="Mobile navigation">
+            <p className="hdr-drawer-label">Menu</p>
+            <ul className="hdr-drawer-links">
+              {NAV_ITEMS.map((item) => {
+                const active = navIsActive(item.slug, currentSlug);
+                return (
+                  <li key={item.slug || "home-mobile"}>
+                    <Link
+                      href={url(item.slug)}
+                      className={active ? "is-active" : undefined}
+                      aria-current={active ? "page" : undefined}
+                      onClick={closeMenu}
+                    >
+                      {item.label}
+                      <Icon name="i-arrow" />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <p className="hdr-drawer-label">Who we help</p>
+            <div className="hdr-drawer-chips">
+              {AUDIENCE_LINKS.map((item) => (
+                <Link
+                  key={`mobile-${item.slug}`}
+                  href={url(item.slug)}
+                  className={navIsActive(item.slug, currentSlug) ? "is-active" : undefined}
+                  onClick={closeMenu}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Link href={url(CASE_STUDIES_LINK.slug)} onClick={closeMenu}>
+                {CASE_STUDIES_LINK.label}
               </Link>
-            );
-          })}
-          <p className="mobile-menu-group-label">Who we help</p>
-          {AUDIENCE_LINKS.map((item) => (
-            <Link
-              key={`mobile-${item.slug}`}
-              href={url(item.slug)}
-              className={navIsActive(item.slug, currentSlug) ? "active" : undefined}
-              onClick={closeMenu}
-              tabIndex={menuOpen ? 0 : -1}
-            >
-              {item.label}
+            </div>
+
+            <div className="hdr-drawer-contact">
+              <a href={`mailto:${SITE_EMAIL}`}>
+                <Icon name="i-contact-mail" />
+                {SITE_EMAIL}
+              </a>
+              <a href={`tel:${SITE_PHONE_RAW}`}>
+                <Icon name="i-contact-phone" />
+                {SITE_PHONE}
+              </a>
+            </div>
+
+            <Link className="hdr-cta hdr-cta--block" href={url("contact")} onClick={closeMenu}>
+              Request a free assessment <Icon name="i-arrow" />
             </Link>
-          ))}
-          <Link
-            href={url(CASE_STUDIES_LINK.slug)}
-            onClick={closeMenu}
-            tabIndex={menuOpen ? 0 : -1}
-          >
-            {CASE_STUDIES_LINK.label}
-          </Link>
-          <Link
-            className="button button-gold"
-            href={url("contact")}
-            onClick={closeMenu}
-            tabIndex={menuOpen ? 0 : -1}
-          >
-            Get Started <Icon name="i-arrow" />
-          </Link>
-        </nav>
+          </nav>
+        </div>
       ) : null}
     </header>
   );

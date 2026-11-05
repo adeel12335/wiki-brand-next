@@ -2,6 +2,7 @@
 @import "./brand.css";
 @import "./layout.css";
 @import "./home.css";
+@import "./home-v2.css"; /* Home page redesign sections */
 @import "./about.css"; /* About Us page sections */
 @import "./services.css"; /* Services index page */
 @import "./service-detail.css"; /* /services/[slug]/ pages */

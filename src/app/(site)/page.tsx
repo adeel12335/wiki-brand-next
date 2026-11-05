@@ -3,13 +3,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { BlogCard } from "@/components/blog/BlogCard";
-import { ExperiencePanel, ExperienceStats } from "@/components/sections/ExperiencePanel";
 import { PortfolioClientsGrid } from "@/components/sections/PortfolioClientsGrid";
 import { StatsBand } from "@/components/sections/StatsBand";
 import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
 import { ServiceIndex } from "@/components/sections/ServiceIndex";
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
-import { HomeDeepGuide } from "@/components/sections/HomeDeepGuide";
+import {
+  HomeAudience,
+  HomeCtaStrip,
+  HomeHonesty,
+  HomeNotability,
+  HomePricing,
+  HomeTrustRow,
+} from "@/components/sections/HomeSections";
 import { TrustpilotReviewsSection } from "@/components/trustpilot/TrustpilotReviewsSection";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
@@ -21,12 +27,10 @@ import {
   metrics,
   services,
 } from "@/lib/data";
-import {
-  AUDIENCE_LINKS,
-  CASE_STUDIES_LINK,
-} from "@/lib/data/audience-links";
+import { CASE_STUDIES_LINK } from "@/lib/data/audience-links";
 import { getFeaturedPortfolio } from "@/lib/portfolio";
 import { buildPageMetadata, faqNode, itemListNode } from "@/lib/seo";
+import { getTrustpilotReviewUrl, getTrustpilotSummary } from "@/lib/trustpilot";
 
 const homeFaqs = faqs.slice(0, 10);
 
@@ -60,6 +64,7 @@ export const metadata: Metadata = buildPageMetadata(pageMeta);
 export default async function HomePage() {
   const featuredPortfolio = await getFeaturedPortfolio();
   const latestPosts = (await getAllBlogPosts()).slice(0, 3);
+  const trustpilotSummary = await getTrustpilotSummary();
   return (
     <>
       <JsonLd page={pageMeta} />
@@ -88,14 +93,9 @@ export default async function HomePage() {
               <span>Editing Services</span>
             </h1>
             <p className="hero-lede hero-answer">
-              Wikipedia page creation is the process of confirming notability from
-              independent sources, drafting a neutral cited article, and submitting
-              it with paid-contribution disclosure. Roughly two thirds of the work
-              happens before drafting begins,in the search for significant coverage.
-            </p>
-            <p className="hero-lede">
-              We help individuals, businesses, and organisations build a credible
-              Wikipedia presence without fake guarantees or undisclosed editing.
+              We confirm notability from independent sources, draft a neutral cited
+              article, and submit it with full paid-contribution disclosure, for
+              individuals, businesses and organisations, without fake guarantees.
             </p>
             <div className="hero-actions">
               <Link className="button button-gold magnetic" href={url("contact")}>
@@ -105,57 +105,16 @@ export default async function HomePage() {
                 Explore Our Services <Icon name="i-arrow" />
               </Link>
             </div>
+            <HomeTrustRow summary={trustpilotSummary} reviewUrl={getTrustpilotReviewUrl()} />
           </div>
         </div>
       </section>
 
       <StatsBand items={metrics} />
 
-      <section className="about section-pad tone-light" id="about">
-        <div className="shell about-grid about-grid--split">
-          <div className="section-copy reveal">
-            <p className="micro-label">About The Wikipedia Studio</p>
-            <h2>
-              Where Editorial <span>Excellence</span> Meets Global Standards.
-            </h2>
-            <p>
-              The Wikipedia Studio,Wiki Studio for short,is a professional
-              Wikipedia service provider: a team of Wikipedia specialists,
-              researchers, and content strategists dedicated to creating, improving,
-              and managing Wikipedia pages that meet the platform&apos;s strict
-              guidelines and deliver real-world results.
-            </p>
-            <ul className="check-list">
-              <li>
-                <Icon name="i-check" />
-                100% guideline-compliant content
-              </li>
-              <li>
-                <Icon name="i-check" />
-                In-depth research and verified sourcing
-              </li>
-              <li>
-                <Icon name="i-check" />
-                Transparent process and clear communication
-              </li>
-              <li>
-                <Icon name="i-check" />
-                Long-term page monitoring and maintenance
-              </li>
-            </ul>
-            <ExperienceStats />
-            <Link className="button button-gold button-small" href={url("about-us")}>
-              Learn More About Us <Icon name="i-arrow" />
-            </Link>
-          </div>
+      <HomeHonesty />
 
-          <ExperiencePanel statsBeside={false} />
-        </div>
-      </section>
-
-      <HomeDeepGuide />
-
-      <section className="services section-pad tone-light" id="services">
+      <section className="services section-pad tone-light tone-sand" id="services">
         <div className="shell">
           <ServiceIndex showHeading />
           <div className="section-actions reveal">
@@ -169,13 +128,17 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <HomeCtaStrip />
+
       <section className="process section-pad tone-dark" id="process">
         <div className="shell">
           <ProcessShowcase />
         </div>
       </section>
 
-      <section className="work section-pad tone-light" id="work">
+      <HomeNotability />
+
+      <section className="work section-pad tone-light tone-sand" id="work">
         <div className="shell">
           <div className="work-head reveal">
             <div>
@@ -195,36 +158,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="section-pad tone-dark" id="who-we-help" aria-labelledby="who-we-help-title">
-        <div className="shell">
-          <div className="section-heading center reveal">
-            <p className="micro-label">Who We Work With</p>
-            <h2 id="who-we-help-title">
-              Audience guides for <span>companies, authors, academics, and musicians</span>
-            </h2>
-            <p className="section-heading-copy">
-              Notability rules differ by subject type. Start with the guide that matches
-              your situation, then request a free assessment.
-            </p>
-          </div>
-          <div className="card-grid reveal">
-            {AUDIENCE_LINKS.map((item) => (
-              <article key={item.slug} className="service-card">
-                <h3>
-                  <Link href={url(item.slug)}>{item.anchor}</Link>
-                </h3>
-                <p>
-                  Guideline-led notes for {item.label.toLowerCase()}, including what
-                  coverage usually counts and what does not.
-                </p>
-                <Link className="text-link" href={url(item.slug)}>
-                  Open guide <Icon name="i-arrow" />
-                </Link>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeAudience />
+
+      <HomePricing />
 
       <TestimonialSection />
 
