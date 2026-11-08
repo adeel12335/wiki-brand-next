@@ -11,6 +11,7 @@ import { ArchiveIntroBand } from "@/components/sections/blog/ArchiveIntroBand";
 import { ArticleRail } from "@/components/sections/blog/ArticleRail";
 import { AuthorBox } from "@/components/sections/blog/AuthorBox";
 import { withHeadingIds } from "@/components/sections/blog/articleBody";
+import { sanitizeRichText } from "@/lib/sanitize";
 import { slugifyTopic, splitTitle } from "@/components/sections/blog/utils";
 import prose from "@/components/sections/blog/prose.module.css";
 import { blogContent, blogSingleContent, midSizedCompaniesFaqs, midSizedCompaniesSlug } from "@/content/blog";
@@ -97,7 +98,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   };
 
   const s = blogSingleContent;
-  const { html, toc } = withHeadingIds(post.body);
+  const { html, toc } = withHeadingIds(sanitizeRichText(post.body));
   const [line1, line2] = splitTitle(post.title);
   const tags = post.keywords
     .split(",")
