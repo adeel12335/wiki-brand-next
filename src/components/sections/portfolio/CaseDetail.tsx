@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { sanitizeRichText } from "@/lib/sanitize";
 import Link from "next/link";
 import { Button } from "@/components/module/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -155,7 +156,7 @@ export function CaseStudyBody({ body }: { body: string }) {
     <div className="flex min-w-0 flex-col gap-7" data-aos="fade-up">
       <SubHeading {...c.notes} />
       {isHtml ? (
-        <div className={`${para} flex flex-col gap-5 [&_a]:font-semibold [&_a]:text-gold-dark [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-heading [&_li]:ml-5 [&_li]:list-disc`} dangerouslySetInnerHTML={{ __html: body }} />
+        <div className={`${para} flex flex-col gap-5 [&_a]:font-semibold [&_a]:text-gold-dark [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-heading [&_li]:ml-5 [&_li]:list-disc`} dangerouslySetInnerHTML={{ __html: sanitizeRichText(body) }} />
       ) : (
         lead.map((p) => (
           <p key={p.slice(0, 48)} className={para}>

@@ -665,11 +665,11 @@ export function getServiceDetail(slug: string) {
 /** Services listing page copy - source: "Wiki_Studio_Services_Page_SEO_Content.docx". */
 export const servicesContent = {
   seo: {
-    title: "Wikipedia Services | Creation, Editing and Research",
+    title: "Wikipedia Service Provider | Page Creation and Editing",
     description:
-      "Explore professional Wikipedia services including page creation, editing, writing, notability assessments, and monitoring. Get a free assessment.",
+      "Trusted Wikipedia service provider for page creation, editing, writing, notability assessments, and monitoring. Get a free assessment today.",
     keywords:
-      "wikipedia services, wikipedia page creation, wikipedia page editing, wikipedia content writing, wikipedia notability assessment, wikipedia page management, wikipedia page monitoring, professional wikipedia services, wikipedia article writing, wikipedia research, google knowledge panel services, wikipedia paid editing",
+      "wikipedia service provider, wikipedia services provider, wiki services provider, wikipedia services, wikipedia page creation, wikipedia page editing, wikipedia content writing, wikipedia notability assessment, wikipedia page management, wikipedia page monitoring, professional wikipedia services, wikipedia article writing, wikipedia research, google knowledge panel services, wikipedia paid editing",
   },
   hero: {
     eyebrow: "Professional Wikipedia Services",

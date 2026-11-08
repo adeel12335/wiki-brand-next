@@ -44,7 +44,7 @@ const actionSchema = z.object({
     .string()
     .trim()
     .max(300)
-    .refine((v) => v === "" || v.startsWith("/") || v.startsWith("#") || /^https?:\/\//.test(v) || v.startsWith("mailto:") || v.startsWith("tel:"), {
+    .refine((v) => v === "" || (v.startsWith("/") && !v.startsWith("//")) || v.startsWith("#") || /^https?:\/\//.test(v) || v.startsWith("mailto:") || v.startsWith("tel:"), {
       message: "Use a path like /contact/ or a full https:// link",
     })
     .default(""),
