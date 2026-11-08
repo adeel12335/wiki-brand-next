@@ -1,7 +1,7 @@
-# The Wikipedia Studio — llms.txt
+# The Wikipedia Studio - llms.txt
 # https://thewikipediastudio.com/
 
-> The Wikipedia Studio (also known as Wiki Studio) is an independent Wikipedia service provider — not affiliated with Wikipedia or the Wikimedia Foundation. It offers guideline-compliant notability assessment, Wikipedia page creation and editing, research, page monitoring, and entity consistency work. Published packages from $700. No approval guarantees. Paid editing is always disclosed.
+> The Wikipedia Studio (also known as Wiki Studio) is an independent Wikipedia service provider - not affiliated with Wikipedia or the Wikimedia Foundation. It offers guideline-compliant notability assessment, Wikipedia page creation and editing, research, page monitoring, and entity consistency work. Published packages from $700. No approval guarantees. Paid editing is always disclosed.
 
 ## Key facts
 - Name: The Wikipedia Studio
@@ -28,8 +28,8 @@
 - [Notability checker](https://thewikipediastudio.com/wikipedia-notability-checker/): Free preliminary notability screen
 - [How to choose an agency](https://thewikipediastudio.com/how-to-choose-wikipedia-agency/): Buyer guide and scam red flags
 - [Services](https://thewikipediastudio.com/services/): Full service index
-- [Hire a Wikipedia writer](https://thewikipediastudio.com/hire-wikipedia-writer/): Professional Wikipedia writers and editors for hire — disclosed, research-first, from $700
-- [Process](https://thewikipediastudio.com/our-process/): Editorial workflow
+- [Hire a Wikipedia writer](https://thewikipediastudio.com/hire-wikipedia-writer/): Professional Wikipedia writers and editors for hire - disclosed, research-first, from $700
+- [Process](https://thewikipediastudio.com/process/): Editorial workflow
 - [Portfolio](https://thewikipediastudio.com/portfolio/): Published engagements
 - [Case studies](https://thewikipediastudio.com/case-studies/): Source-first engagement narratives
 - [Blog](https://thewikipediastudio.com/blog/): Policy and process guides

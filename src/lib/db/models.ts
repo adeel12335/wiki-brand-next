@@ -139,3 +139,53 @@ export type BlogPostDocument = InferSchemaType<typeof blogPostSchema> & {
 export const BlogPostModel: Model<BlogPostDocument> =
   mongoose.models.BlogPost ??
   mongoose.model<BlogPostDocument>("BlogPost", blogPostSchema);
+
+/* ------------------------------------------------------------------
+   Page hero overrides (admin → Pages). One document per page key.
+------------------------------------------------------------------- */
+const heroImageSchema = new Schema(
+  {
+    cloudinaryId: { type: String, default: "" },
+    url: { type: String, required: true },
+    alt: { type: String, default: "" },
+    width: { type: Number, default: 1600 },
+    height: { type: Number, default: 900 },
+  },
+  { _id: false },
+);
+
+const heroActionSchema = new Schema(
+  {
+    label: { type: String, default: "" },
+    href: { type: String, default: "" },
+  },
+  { _id: false },
+);
+
+const pageHeroSchema = new Schema(
+  {
+    key: { type: String, required: true, unique: true, index: true },
+    /** default = keep the designed hero; split / background / simple = replace it. */
+    style: { type: String, enum: ["default", "split", "background", "simple"], default: "default" },
+    eyebrow: { type: String, default: "" },
+    title: { type: String, default: "" },
+    highlight: { type: String, default: "" },
+    lede: { type: String, default: "" },
+    primary: { type: heroActionSchema, default: () => ({}) },
+    secondary: { type: heroActionSchema, default: () => ({}) },
+    image: { type: heroImageSchema, default: null },
+    backgroundImage: { type: heroImageSchema, default: null },
+    /** Optional portrait crop used below the md breakpoint (falls back to backgroundImage). */
+    backgroundImageMobile: { type: heroImageSchema, default: null },
+    /** Dark overlay over the background image, 0-95 (%). */
+    overlay: { type: Number, default: 75, min: 0, max: 95 },
+  },
+  { timestamps: true },
+);
+
+export type PageHeroDocument = InferSchemaType<typeof pageHeroSchema> & {
+  _id: mongoose.Types.ObjectId;
+};
+
+export const PageHero: Model<PageHeroDocument> =
+  mongoose.models.PageHero ?? mongoose.model<PageHeroDocument>("PageHero", pageHeroSchema);

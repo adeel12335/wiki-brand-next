@@ -1,0 +1,149 @@
+/**
+ * FAQ page copy (Figma "FAQ - Final" 188:19509).
+ * Answers come from the previous site's FAQ library; components read only from this file.
+ */
+
+export interface FaqQa {
+  q: string;
+  a: string;
+}
+
+export interface FaqGroup {
+  id: string;
+  title: string;
+  items: FaqQa[];
+}
+
+export const faqContent = {
+  hero: {
+    title: "Straight Answers to",
+    highlight: "the Questions We Hear Most",
+    lede: "Costs, timelines, disclosure and what we will never promise. If your question is not here, an editor will answer it in writing.",
+    searchPlaceholder: "Search questions, e.g. “cost” or “guarantee”",
+    searchButton: "Search",
+    jumpLabel: "Jump to",
+    noResults: "No questions match that search. Try another word, or ask an editor below.",
+    /** Full-bleed hero photo: landscape crop for desktop, portrait crop for phones. */
+    photo: {
+      desktop: "/assets/redesign/hero/faq-bg-desktop.webp",
+      mobile: { src: "/assets/redesign/hero/faq-bg-mobile.webp", width: 882, height: 2000, artFrom: 0.43, top: "#000d1b" },
+      alt: "Gold question mark, books and Wikipedia globe on a desk",
+    },
+  },
+
+  groups: [
+    {
+      id: "getting-started",
+      title: "Getting Started",
+      items: [
+        {
+          q: "How do I get a Wikipedia page for myself?",
+          a: "You cannot buy approval, and writing the page yourself usually fails when you have a conflict of interest. The workable path is: confirm significant coverage in independent reliable sources, then have a disclosed editor draft a neutral, fully cited article. We start with a free notability assessment so you know whether that coverage exists before anyone writes a draft.",
+        },
+        {
+          q: "What does a Wikipedia service provider do?",
+          a: "A Wikipedia service provider helps people and organisations get an accurate, policy-compliant Wikipedia page. The work is research first: checking whether independent, reliable sources cover the subject in depth, then drafting a neutral, fully cited article, submitting it with paid-contribution disclosure, and monitoring it after publication. A reputable provider will tell you when the coverage is not there yet - The Wikipedia Studio starts every engagement with a free notability assessment.",
+        },
+        {
+          q: "What is The Wikipedia Studio (Wiki Studio)?",
+          a: "The Wikipedia Studio - often shortened to Wiki Studio - is an independent Wikipedia service provider offering notability assessments, Wikipedia page creation, editing, research, and ongoing page management for individuals, companies, and institutions worldwide. It is not affiliated with Wikipedia or the Wikimedia Foundation, discloses all paid editing, and publishes its packages from $700.",
+        },
+        {
+          q: "What do you need from me to get started?",
+          a: "Links to any independent press coverage, key milestones with dates, exact spellings of names, and any existing Wikipedia or Wikidata entry. Your own website, company blog, press releases, and sponsored articles cannot be used as citations, but they help us understand the subject while we search for independent sources.",
+        },
+      ],
+    },
+    {
+      id: "eligibility-notability",
+      title: "Eligibility & Notability",
+      items: [
+        {
+          q: "How famous do you need to be to get a Wikipedia page?",
+          a: "Fame is the wrong measure. Wikipedia looks for significant coverage in multiple reliable sources independent of the subject - newspapers, books, journals, major trade press - not follower counts, revenue, or awards alone. Some quiet academics qualify; some viral celebrities do not. The assessment is about sources, not celebrity.",
+        },
+        {
+          q: "What makes someone notable enough for Wikipedia?",
+          a: "Notability comes from significant coverage in multiple reliable sources independent of the subject. Revenue, follower counts, and industry awards do not substitute for that coverage. Where it is missing we say so before any work begins, rather than after an invoice has been raised.",
+        },
+        {
+          q: "Do you create Wikipedia pages for companies and businesses?",
+          a: "Yes, when the company meets Wikipedia's notability guideline for organisations (WP:NCORP). That means significant coverage in independent, reliable sources - not press releases, funding announcements, or routine business listings. We check that coverage in a free assessment before recommending a company article.",
+        },
+        {
+          q: "Can I create a Wikipedia page for free?",
+          a: "Anyone can edit Wikipedia for free, including drafting a new article. Free does not mean successful: most self-created pages by the subject or their staff are declined for conflict of interest, promotional tone, or thin sourcing. A free notability check first saves time; paid professional work is for when the sources already exist and the drafting needs to meet review standard.",
+        },
+      ],
+    },
+    {
+      id: "process-timeline",
+      title: "Process & Timeline",
+      items: [
+        {
+          q: "How long does it take to get a Wikipedia page published?",
+          a: "Research and drafting typically take three to six weeks. The review queue that follows belongs to volunteer reviewers and can clear in days or run to several months. A notability assessment at the start gives the most reliable estimate, because it establishes how much source material actually exists.",
+        },
+        {
+          q: "Do you guarantee Wikipedia page approval?",
+          a: "No ethical editor can guarantee approval. The encyclopedia is maintained by independent volunteers, and no agency controls their decisions. We concentrate on the factors that genuinely determine outcomes: notability, reliable sourcing, neutral writing, and full compliance with editorial standards.",
+        },
+        {
+          q: "Why was my Wikipedia page rejected or deleted?",
+          a: "The usual causes are insufficient independent coverage, sourcing that leans on press releases and company material, promotional tone, or an undisclosed conflict of interest. Rejection is rarely permanent. We read the reviewer's reasoning and tell you whether the underlying problem is fixable now.",
+        },
+      ],
+    },
+    {
+      id: "pricing-refunds",
+      title: "Pricing & Refunds",
+      items: [
+        {
+          q: "How much does a Wikipedia page cost?",
+          a: "Engagements start at $700 for straightforward subjects and run to $1,800 for complex or previously rejected ones, with custom scoping above that. The figure depends on how much independent coverage exists and how much verification it requires, which the free notability assessment establishes before you commit. Full package details are on our pricing page.",
+        },
+        {
+          q: "Can I pay someone to write my Wikipedia page?",
+          a: "Yes, paid editing is allowed if it is disclosed. Wikipedia's terms require paid contributors to declare their employer, client, and affiliation. What is not allowed is undisclosed promotional editing or guarantees of approval. Volunteer reviewers still decide whether the article meets notability and sourcing standards.",
+        },
+        {
+          q: "Is there a refund if my Wikipedia page is not published?",
+          a: "We do not refund research that was properly done - the notability report and source pack are real deliverables you keep. Instead, we prevent that situation at the start: the notability assessment is free and honest, and if the coverage is not there yet we tell you before you pay for a draft.",
+        },
+      ],
+    },
+    {
+      id: "after-launch-editing",
+      title: "After Launch & Editing",
+      items: [
+        {
+          q: "Can you help improve an existing Wikipedia page?",
+          a: "Yes. We review structure, sourcing, tone, coverage gaps, and maintenance needs, then propose an edit plan in which every change is tied to a guideline and a source. Edits are made transparently, with talk-page disclosure where the guidelines require it.",
+        },
+        {
+          q: "Can you remove negative information from a Wikipedia article?",
+          a: "Only where it is inaccurate, unsourced, or given weight out of proportion to its coverage. Properly sourced criticism belongs in the article under the neutral point of view policy, and attempting to delete it usually attracts more editor attention than leaving it alone.",
+        },
+        {
+          q: "What happens after my Wikipedia page is published?",
+          a: "Every package includes a monitoring period, from 30 days up to 12 months depending on the tier, so we can catch problem edits early. After that, ongoing page management is available at $250 per month or $2,500 per year, covering watchlist monitoring, milestone updates from independent sources, dead-link repair, and a quarterly report.",
+        },
+        {
+          q: "Will my Wikipedia page appear in Google and AI answers?",
+          a: "Wikipedia articles are usually indexed, but Google and AI systems decide how they rank, whether a knowledge panel appears, and what they quote. Nobody can promise a specific placement. What a well-sourced article does provide is a consistent factual record those systems can draw on.",
+        },
+        {
+          q: "Can you create a Wikipedia page in another language?",
+          a: "Yes. Additional language versions are available at $400 each, and our Comprehensive package includes one. Each language edition of Wikipedia has its own notability and sourcing standards, so we check the coverage for that language before drafting.",
+        },
+      ],
+    },
+  ] satisfies FaqGroup[],
+
+  contact: {
+    eyebrow: "Get in Touch",
+    title: "Did Not Find",
+    highlight: "Your Answer?",
+    lede: "Tell us about the subject and the coverage you have. An editor will reply in writing with an honest view.",
+  },
+};

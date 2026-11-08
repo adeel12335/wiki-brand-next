@@ -98,7 +98,7 @@ async function resetConnectionCache(): Promise<void> {
   try {
     await mongoose.disconnect();
   } catch {
-    // ignore — connection may never have opened
+    // ignore - connection may never have opened
   }
 }
 

@@ -26,8 +26,8 @@ export function buildContactEnquiryText(data: ContactEnquiryPayload): string {
 
 Name:    ${data.name}
 Email:   ${data.email}
-Phone:   ${data.phone || "—"}
-Subject: ${data.subject || "—"}
+Phone:   ${data.phone || " - "}
+Subject: ${data.subject || " - "}
 
 Message:
 ${data.message}
@@ -50,7 +50,7 @@ export function buildContactEnquiryHtml(data: ContactEnquiryPayload): string {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Website enquiry — ${escapeHtml(SITE_NAME)}</title>
+  <title>Website enquiry - ${escapeHtml(SITE_NAME)}</title>
 </head>
 <body style="margin:0;padding:0;background:#061018;color:#e8eef3;font-family:Georgia,'Times New Roman',serif;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#061018;padding:32px 16px;">

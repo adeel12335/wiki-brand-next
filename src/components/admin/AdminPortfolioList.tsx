@@ -36,7 +36,7 @@ function formatDate(value: string) {
       year: "numeric",
     }).format(new Date(value));
   } catch {
-    return "—";
+    return " - ";
   }
 }
 
@@ -276,7 +276,7 @@ export function AdminPortfolioList() {
                             height={52}
                           />
                         ) : (
-                          <span className="admin-nothumb">—</span>
+                          <span className="admin-nothumb"> - </span>
                         )}
                         <div>
                           <Link href={`/admin/portfolio/${item._id}/`}>

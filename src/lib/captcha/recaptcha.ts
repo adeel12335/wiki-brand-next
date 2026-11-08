@@ -5,7 +5,7 @@
  * for real domains. Treat those as unconfigured so the contact form stays usable.
  */
 const DEAD_RECAPTCHA_SITE_KEYS = new Set([
-  // Historically circulated sample key — Google anchor returns no checkbox.
+  // Historically circulated sample key - Google anchor returns no checkbox.
   "6LekwaYtAAAAAJ5yOxkpP8umeHLR9QaAePlUGe17",
 ]);
 

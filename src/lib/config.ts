@@ -10,7 +10,7 @@ export const SITE_LANG = "en-GB";
 export const SITE_TWITTER = "@wikipediastudio";
 export const PRODUCTION_SITE_URL = "https://thewikipediastudio.com";
 
-export const SEO_DEFAULT_OG_IMAGE = "/assets/og/hero-orbital-globe.jpg";
+export const SEO_DEFAULT_OG_IMAGE = "/assets/og/og-default.png";
 export const SEO_DEFAULT_ROBOTS =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
@@ -19,7 +19,7 @@ export const NAV_ITEMS = [
   { slug: "about-us", label: "About Us" },
   { slug: "services", label: "Services" },
   { slug: "wikipedia-page-cost", label: "Pricing" },
-  { slug: "our-process", label: "Our Process" },
+  { slug: "process", label: "Our Process" },
   { slug: "portfolio", label: "Portfolio" },
   { slug: "blog", label: "Blog" },
   { slug: "faq", label: "FAQ" },

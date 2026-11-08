@@ -1,346 +1,138 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { CtaBand } from "@/components/ui/CtaBand";
-import { FaqList } from "@/components/ui/FaqList";
+import { HeroSideContent, HeroSidePanel } from "@/components/hero/HeroSideContent";
+import { Button } from "@/components/module/Button";
+import { SectionHeading } from "@/components/module/SectionHeading";
+import { FaqPanel } from "@/components/module/Faq";
+import { ContactSection } from "@/components/module/ContactForm";
 import { Icon } from "@/components/ui/Icon";
-import { PageHero } from "@/components/ui/PageHero";
-import { absUrl, url } from "@/lib/config";
-import { team } from "@/lib/data";
-import { AUDIENCE_LINKS } from "@/lib/data/audience-links";
-import { paymentSteps, pricingTiers } from "@/lib/data/pricing";
+import { NumberedCard } from "@/components/sections/hire/NumberedCard";
+import { hireContent } from "@/content/hire";
+import { absUrl } from "@/lib/config";
 import { buildPageMetadata, faqNode, seoId } from "@/lib/seo";
+import { cn } from "@/lib/cn";
+import { EditableHero } from "@/components/hero/EditableHero";
 
+const c = hireContent;
 const pageSlug = "hire-wikipedia-writer";
-
-const faqs = [
-  {
-    q: "Can I hire someone to write my Wikipedia page?",
-    a: "Yes, Wikipedia allows paid editing as long as the paid relationship is disclosed under the Wikimedia Terms of Use. What you cannot buy is approval: the subject still has to be notable, meaning independent, reliable sources have covered it in depth. A professional Wikipedia writer checks that first, then drafts a neutral, fully cited article and submits it with disclosure.",
-  },
-  {
-    q: "How much does it cost to hire a Wikipedia writer?",
-    a: "Our published packages run from $700 for straightforward subjects to $1,100 for most engagements, $1,800 for complex or previously rejected subjects, and $2,500+ for custom work. The notability assessment is free, and the price is fixed in writing before any work starts.",
-  },
-  {
-    q: "Is it allowed to pay a Wikipedia editor?",
-    a: "Paid editing is permitted on Wikipedia when it is declared. Editors must disclose who is paying them, and conflict-of-interest guidance applies. Agencies that hide paid editing put your article at risk of deletion,we disclose every paid contribution on-wiki.",
-  },
-  {
-    q: "Can a Wikipedia writer guarantee my page will be approved?",
-    a: "No honest writer can. Volunteer reviewers decide what is published. What a good writer can do is make sure the sourcing is there before drafting, write to Wikipedia's neutrality standard, and handle reviewer feedback,which is what gives an article its best chance.",
-  },
-  {
-    q: "How long does it take to get a Wikipedia page written?",
-    a: "Research and drafting usually take three to six weeks. The review queue that follows is controlled by volunteer reviewers and can clear in days or run to several months. We give you a realistic range, not a promise.",
-  },
-];
-
-const reasons = [
-  {
-    icon: "i-search",
-    title: "Research Before Writing",
-    copy: "Your writer starts with a source search and a written notability verdict,so you never pay for a draft the coverage cannot support.",
-  },
-  {
-    icon: "i-write",
-    title: "Neutral, Encyclopedic Drafting",
-    copy: "Wikipedia's tone, not marketing copy. Every substantive claim is tied to an independent, reliable source.",
-  },
-  {
-    icon: "i-review",
-    title: "Independent Review",
-    copy: "Every draft gets an independent review pass before submission; Standard tiers and above use a second editor to check each claim against its source.",
-  },
-  {
-    icon: "i-shield",
-    title: "Disclosed, Never Covert",
-    copy: "Paid contributions are declared on Wikipedia as its terms of use require. No undeclared accounts, ever.",
-  },
-];
-
-const comparison = [
-  {
-    label: "Notability checked before you pay",
-    diy: "Up to you",
-    freelancer: "Often skipped",
-    studio: "Free written assessment",
-  },
-  {
-    label: "Paid-editing disclosure",
-    diy: "Required if you have a COI",
-    freelancer: "Uneven",
-    studio: "Always, on-wiki",
-  },
-  {
-    label: "Independent review before submission",
-    diy: "None",
-    freelancer: "Rarely",
-    studio: "On every draft",
-  },
-  {
-    label: "Published, fixed pricing",
-    diy: "Free, but slow",
-    freelancer: "Varies",
-    studio: "From $700, fixed in writing",
-  },
-  {
-    label: "Aftercare once the page is live",
-    diy: "Up to you",
-    freelancer: "Rarely",
-    studio: "Monitoring included",
-  },
-];
 
 const pageMeta = {
   slug: pageSlug,
-  title: "Hire a Wikipedia Writer (From $700)",
+  title: "Hire a Wikipedia Writer | Professional Wikipedia Writers",
   shortTitle: "Hire a Wikipedia Writer",
   description:
-    "Hire professional Wikipedia writers and editors from Wiki Studio. Free notability check, neutral cited drafting, disclosed submission. Packages from $700.",
+    "Hire a professional Wikipedia writer for source research, neutral article drafting, editing, and submission support. Get a free notability assessment.",
   keywords:
-    "hire wikipedia writer, hire wikipedia editor, wikipedia writers for hire, wikipedia page writer, professional wikipedia editor, wikipedia page creation service, wikipedia editing services, wikipedia service provider, wiki studio",
+    "hire a wikipedia writer, professional wikipedia writers, wikipedia writing services, wikipedia article writer, wikipedia editing experts, wikipedia writer cost",
   ogImage: "/assets/og/portfolio-author.jpg",
-  ogImageAlt: "Hire professional Wikipedia writers and editors,The Wikipedia Studio",
-  modified: "2026-10-02",
+  ogImageAlt: "Hire a professional Wikipedia writer, The Wikipedia Studio",
+  modified: "2026-11-07",
   schema: [
     {
       "@type": "Service",
       "@id": `${absUrl(pageSlug)}#service`,
-      name: "Hire a Wikipedia Writer & Editor",
-      serviceType: "Wikipedia writing and editing",
+      name: "Hire a Wikipedia Writer",
+      serviceType: "Wikipedia writing services",
       provider: { "@id": seoId("organization") },
       areaServed: { "@type": "Place", name: "Worldwide" },
       description:
-        "Professional Wikipedia writers and editors: notability assessment, independent source research, neutral cited drafting, disclosed submission, and post-publication monitoring.",
-      offers: pricingTiers.map((tier) => ({
+        "Professional Wikipedia writers for notability assessment, independent source research, neutral article drafting, editorial review, and disclosed submission support.",
+      offers: c.pricing.tiers.map((tier) => ({
         "@type": "Offer",
         name: `${tier.name} package`,
+        description: tier.note,
         priceSpecification: {
           "@type": "PriceSpecification",
-          price: String(tier.price),
+          price: String(tier.amount),
           priceCurrency: "USD",
+          ...(tier.from ? { minPrice: String(tier.amount) } : {}),
         },
         url: `${absUrl("wikipedia-page-cost")}#${tier.id}`,
       })),
     },
-    faqNode(faqs, pageSlug),
+    faqNode(c.faq.items, pageSlug),
   ],
 };
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
-export default function HireWikipediaWriterPage() {
+export default function HireWriterPage() {
+  const w = c.writers;
+  const p = c.pricing;
+
   return (
     <>
-      <BodyClass className="page-hire-writer" />
       <JsonLd page={pageMeta} />
-      <PageHero
-        eyebrow="Wikipedia Writers for Hire"
-        h1="Hire a Wikipedia Writer & Editor Who <span>Checks the Sources First</span>"
-        lede="Professional Wikipedia writers and editors from The Wikipedia Studio (Wiki Studio). We confirm notability, draft a neutral, fully cited article, and submit it with paid-contribution disclosure,with a free assessment before you pay anything."
-        current="Hire a Wikipedia Writer"
-        actions={[
-          { label: "Get a Free Assessment", href: url("contact") },
-          { label: "See Packages From $700", href: url("wikipedia-page-cost"), style: "button-outline" },
-        ]}
-      />
-
-      <section className="section-pad tone-dark" aria-labelledby="hw-audience-title">
-        <div className="shell">
-          <div className="section-heading center reveal">
-            <p className="micro-label">Who We Write For</p>
-            <h2 id="hw-audience-title">
-              Hire a writer for <span>companies, authors, academics, or musicians</span>
-            </h2>
-            <p className="section-heading-copy">
-              Subject-specific notability rules change what a good draft looks like.
-              Read the matching guide, then request a free assessment.
-            </p>
-          </div>
-          <ul className="check-list reveal" style={{ maxWidth: 720, margin: "0 auto" }}>
-            {AUDIENCE_LINKS.map((item) => (
-              <li key={item.slug}>
-                <Icon name="i-check" />
-                <Link href={url(item.slug)}>{item.anchor}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* 1. Why hire us (white) */}
-      <section className="section-pad tone-light hw-why" aria-labelledby="hw-why-title">
-        <div className="shell">
-          <div className="section-heading center reveal">
-            <p className="micro-label">Why Hire Our Writers</p>
-            <h2 id="hw-why-title">
-              Wikipedia Writers Who Work Like <span>Wikipedia Editors</span>
-            </h2>
-            <p className="section-heading-copy">
-              Most rejected drafts fail on sourcing and tone, not grammar. Our writers
-              are trained on Wikipedia&apos;s own notability, verifiability, and
-              neutrality policies.
-            </p>
-          </div>
-          <ul className="hw-reason-grid reveal">
-            {reasons.map((item) => (
-              <li key={item.title} className="hw-reason">
-                <span className="hw-icon" aria-hidden="true">
-                  <Icon name={item.icon} />
-                </span>
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* 2. Who you are hiring (dark) */}
-      <section className="section-pad tone-dark hw-team" aria-labelledby="hw-team-title">
-        <div className="shell">
-          <div className="section-heading center reveal">
-            <p className="micro-label">Who You Are Hiring</p>
-            <h2 id="hw-team-title">
-              A Desk of Specialists, <span>Not One Freelancer</span>
-            </h2>
-            <p className="section-heading-copy">
-              When you hire a Wikipedia writer from us, research, drafting, review, and
-              monitoring are handled by people in defined roles.
-            </p>
-          </div>
-          <ul className="hw-team-grid reveal">
-            {team.map((member) => (
-              <li key={member.role} className="hw-role">
-                <span className="hw-icon" aria-hidden="true">
-                  <Icon name={member.icon} />
-                </span>
-                <h3>{member.role}</h3>
-                <p className="hw-role-focus">{member.focus}</p>
-              </li>
-            ))}
-          </ul>
-          <div className="section-actions reveal">
-            <Link className="button button-outline button-small" href={url("about-us")}>
-              Meet the Team <Icon name="i-arrow" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. DIY vs freelancer vs us (white) */}
-      <section className="section-pad tone-light hw-compare" aria-labelledby="hw-compare-title">
-        <div className="shell">
-          <div className="section-heading center reveal">
-            <p className="micro-label">Compare Your Options</p>
-            <h2 id="hw-compare-title">
-              DIY, a Freelancer, or <span>The Wikipedia Studio</span>
-            </h2>
-          </div>
-          <div className="hw-table-wrap reveal">
-            <table className="hw-table">
-              <caption className="sr-only">
-                Comparison of writing a Wikipedia page yourself, hiring a freelancer, and
-                hiring The Wikipedia Studio
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">What matters</th>
-                  <th scope="col">DIY</th>
-                  <th scope="col">Typical freelancer</th>
-                  <th scope="col" className="is-us">The Wikipedia Studio</th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparison.map((row) => (
-                  <tr key={row.label}>
-                    <th scope="row">{row.label}</th>
-                    <td data-label="DIY">{row.diy}</td>
-                    <td data-label="Typical freelancer">{row.freelancer}</td>
-                    <td data-label="The Wikipedia Studio" className="is-us">
-                      <Icon name="i-check" />
-                      {row.studio}
-                    </td>
-                  </tr>
+      <EditableHero pageKey="hire-wikipedia-writer">
+        <HeroSideContent
+          title={c.hero.title}
+          highlight={c.hero.highlight}
+          lede={c.hero.lede}
+          actions={c.hero.actions}
+          titleClassName="text-[30px] lg:text-[46px]"
+          side={
+            <HeroSidePanel title={c.hero.panel.title} className="bg-ink-raised">
+              <ul className="flex flex-col">
+                {c.hero.panel.rows.map((row, i) => (
+                  <li key={row.label} className={cn("flex items-center gap-3 py-3.5", i > 0 && "border-t border-white/8")}>
+                    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-gold text-on-gold">
+                      <Icon name="tick" size={12} strokeWidth={2.4} />
+                    </span>
+                    <span className="flex-1 text-[15px] font-bold text-white">{row.label}</span>
+                    <span className="text-right text-[13px] text-on-dark-muted">{row.note}</span>
+                  </li>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+              </ul>
+            </HeroSidePanel>
+          }
+        />
+      </EditableHero>
 
-      {/* 4. How hiring works + pricing (dark) */}
-      <section className="section-pad tone-dark hw-how" aria-labelledby="hw-how-title">
-        <div className="shell hw-how-grid">
-          <div className="reveal">
-            <p className="micro-label">How Hiring Works</p>
-            <h2 id="hw-how-title">
-              From First Message to <span>Live Article</span>
-            </h2>
-            <ol className="hw-steps">
-              {paymentSteps.map((step, index) => (
-                <li key={step.title}>
-                  <span className="hw-step-num" aria-hidden="true">
-                    {index + 1}
-                  </span>
-                  <div>
-                    <strong>{step.title}</strong>
-                    <p>{step.copy}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <aside className="hw-prices reveal" data-delay="100">
-            <p className="micro-label">Published Packages</p>
-            <h3>What It Costs to Hire a Wikipedia Writer</h3>
-            <ul>
-              {pricingTiers.map((tier) => (
-                <li key={tier.id} className={tier.badge ? "is-featured" : undefined}>
-                  <span>
-                    <strong>{tier.name}</strong>
-                    <small>{tier.bestFor}</small>
-                  </span>
-                  <b>{tier.priceLabel}</b>
-                </li>
-              ))}
-            </ul>
-            <Link className="button button-gold button-small" href={url("wikipedia-page-cost")}>
-              Compare Every Package <Icon name="i-arrow" />
-            </Link>
-          </aside>
-        </div>
-      </section>
-
-      {/* 5. FAQ (white) */}
-      <section className="section-pad tone-light hw-faq" aria-labelledby="hw-faq-title">
-        <div className="shell faq-library">
-          <div className="faq-library-intro reveal">
-            <p className="micro-label">Hiring FAQ</p>
-            <h2 id="hw-faq-title">
-              Before You Hire a <span>Wikipedia Writer</span>
-            </h2>
-            <p>
-              Straight answers on cost, disclosure, approval, and timelines,the things
-              to ask any Wikipedia writer before you pay.
+      {/* What writers do */}
+      <section className="section bg-white">
+        <div className="shell flex flex-col gap-10 md:gap-14">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+            <SectionHeading title={w.title} highlight={w.highlight} className="lg:max-w-[620px]" />
+            <p className="max-w-[420px] text-base leading-relaxed text-body" data-aos="fade-up">
+              {w.lede}
             </p>
-            <Link className="button button-gold button-small" href={url("how-to-choose-wikipedia-agency")}>
-              How to Choose an Agency <Icon name="i-arrow" />
-            </Link>
           </div>
-          <div className="faq-wide reveal">
-            <FaqList items={faqs} wide />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {w.items.map((item, i) => (
+              <div key={item.title} data-aos="fade-up" data-aos-delay={i * 80}>
+                <NumberedCard {...item} index={i + 1} />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <CtaBand
-        heading="Ready to Hire a Wikipedia Writer <span>the Right Way?</span>"
-        copy="Start with a free notability assessment. If the coverage is not there yet, we will tell you before you pay for a draft."
-        label="Get a Free Assessment"
-      />
+      {/* Pricing strip */}
+      <section id={p.id} className="section scroll-mt-24 bg-ink">
+        <div className="shell flex flex-col items-center gap-10 md:gap-12">
+          <SectionHeading title={p.title} highlight={p.highlight} lede={p.lede} align="center" tone="dark" />
+          <div className="grid w-full gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4" data-aos="fade-up">
+            {p.tiers.map((tier) => (
+              <div
+                key={tier.id}
+                id={tier.id}
+                /* featured tier: ink with a 10% gold wash (Figma #D8A53A @ 10%) */
+                className={cn("flex flex-col gap-2.5 px-8 py-6 md:py-9", tier.featured ? "bg-[#171b1a]" : "bg-ink")}
+              >
+                <p className="text-[11px] font-bold tracking-[0.14em] whitespace-pre-wrap text-gold-light uppercase">{tier.kicker}</p>
+                <p className="text-[34px] leading-tight font-bold text-white md:text-[40px]">{tier.price}</p>
+                <p className="text-[15px] text-on-dark-muted">{tier.note}</p>
+              </div>
+            ))}
+          </div>
+          <Button href={p.cta.href} variant="gold" arrow>
+            {p.cta.label}
+          </Button>
+        </div>
+      </section>
+
+      <FaqPanel heading={c.faq.heading} items={c.faq.items.map((f) => ({ question: f.q, answer: f.a }))} moreLabel="Explore All Questions" />
+      <ContactSection heading={c.contact} submitLabel="Request Writer Consultation" />
     </>
   );
 }

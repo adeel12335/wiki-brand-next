@@ -1,249 +1,120 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ServiceIndex } from "@/components/sections/ServiceIndex";
-import { CtaBand } from "@/components/ui/CtaBand";
-import { FaqList } from "@/components/ui/FaqList";
 import { Icon } from "@/components/ui/Icon";
-import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { url, absUrl } from "@/lib/config";
-import { faqs, services } from "@/lib/data";
-import { AUDIENCE_LINKS } from "@/lib/data/audience-links";
-import { buildPageMetadata, itemListNode } from "@/lib/seo";
+import { HeroImage } from "@/components/hero/HeroImage";
+import { SectionHeading } from "@/components/module/SectionHeading";
+import { FaqPanel } from "@/components/module/Faq";
+import { Cta } from "@/components/module/Cta";
+import { ServiceBox } from "@/components/sections/services/ServiceBox";
+import { serviceDetails, servicesContent } from "@/content/services";
+import { absUrl } from "@/lib/config";
+import { buildPageMetadata, faqNode, itemListNode } from "@/lib/seo";
+import { EditableHero } from "@/components/hero/EditableHero";
+
+const c = servicesContent;
 
 const pageMeta = {
   slug: "services",
-  title: "Wikipedia & Wiki Services Provider",
+  title: c.seo.title,
   shortTitle: "Services",
-  description:
-    "Wiki Studio is a full-service Wikipedia services provider: page creation, editing, research, ongoing management, and entity building for people and brands.",
-  keywords:
-    "wikipedia services provider, wikipedia service provider, wiki services provider, wiki services, wikipedia services, wikipedia page creation, wikipedia editing services, wikipedia content writing, wikipedia page management, wiki studio",
+  description: c.seo.description,
+  keywords: c.seo.keywords,
   ogImage: "/assets/og/hero-orbital-globe.jpg",
   ogImageAlt: "Wikipedia editorial services from The Wikipedia Studio",
   schema: [
     itemListNode(
       "services",
       "Wikipedia editorial services",
-      Object.entries(services).map(([slug, service]) => ({
-        name: service.name,
-        url: absUrl(`services/${slug}`),
-        description: service.card,
-      })),
+      serviceDetails.map((s) => ({ name: c.all.cards[s.slug]?.title ?? s.name, url: absUrl(`services/${s.slug}`), description: c.all.cards[s.slug]?.copy ?? s.card.copy })),
     ),
+    faqNode(c.faq.items, "services"),
   ],
 };
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
-const starters = [
-  {
-    icon: "i-page",
-    situation: "There is no Wikipedia page yet",
-    advice: "Start with a notability assessment, then move to page creation if the sources support it.",
-    slug: "wikipedia-page-creation",
-    label: "Page Creation",
-  },
-  {
-    icon: "i-edit",
-    situation: "A page exists but is wrong, thin, or tagged",
-    advice: "Editing fixes what is verifiably wrong and expands what independent sources support.",
-    slug: "wikipedia-page-editing",
-    label: "Page Editing",
-  },
-  {
-    icon: "i-manage",
-    situation: "The page is live and needs protecting",
-    advice: "Management and monitoring keep it accurate, stable, and inside policy over time.",
-    slug: "wikipedia-page-management",
-    label: "Page Management",
-  },
-];
-
-const limits = [
-  {
-    icon: "i-shield",
-    title: "No Guaranteed Approval",
-    copy: "Volunteer reviewers decide, and no agency controls them.",
-  },
-  {
-    icon: "i-users",
-    title: "No Undisclosed Paid Editing",
-    copy: "Wikipedia's terms of use require disclosure, and we comply.",
-  },
-  {
-    icon: "i-check",
-    title: "No Unsourced Claims",
-    copy: "If independent coverage does not support it, it does not go in.",
-  },
-];
-
 export default function ServicesPage() {
   return (
     <>
-      <BodyClass className="page-services" />
       <JsonLd page={pageMeta} />
-      <PageHero
-        eyebrow="Our Services"
-        h1="A Wikipedia Service Provider Working to <span>Guideline Standard.</span>"
-        lede="Wiki Studio provides Wikipedia services across the full lifecycle of an article,from notability assessment and knowledge-panel entity work through page creation, editing, monitoring, and long-term stewardship."
-        current="Services"
-        actions={[
-          { label: "Request an Assessment", href: url("contact") },
-          { label: "How We Work", href: url("our-process"), style: "button-outline" },
-        ]}
-        image="/assets/services-hero-knowledge-archive.webp"
-        imageWidth={2048}
-        imageHeight={1024}
-        visualClass="page-hero-visual--archive"
-      />
 
-      <section className="section-pad tone-light service-index-section sv-index">
-        <div className="shell">
-          <SectionHeading
-            eyebrow="All Services"
-            heading="Eight Services, <span>One Editorial Standard</span>"
-            copy="Every service is research-led, neutrally written, and disclosed on-wiki,pick the one that matches where your article is today."
-          />
-          <ServiceIndex />
+      <EditableHero pageKey="services">
+        <HeroImage
+          eyebrow={c.hero.eyebrow}
+          title={c.hero.title}
+          highlight={c.hero.highlight}
+          lede={c.hero.lede}
+          actions={c.hero.actions}
+          photo={c.hero.photo}
+          titleClassName="font-semibold leading-[1.1]"
+        />
+      </EditableHero>
 
-          <div className="sv-starter reveal" style={{ marginTop: 36 }}>
-            <div className="sv-starter-head">
-              <p className="micro-label">Who We Help</p>
-              <h3>Match the service to your subject type</h3>
-            </div>
-            <p>
-              Looking for{" "}
-              <Link href={url("wikipedia-page-for-companies")}>
-                Wikipedia pages for companies
+      {/* All services */}
+      <section className="bg-white px-5 py-6 md:px-10">
+        <div className="flex flex-col items-center gap-8 rounded-lg bg-mist px-6 py-6 md:gap-14 md:px-10 md:py-24 lg:px-20">
+          <SectionHeading eyebrow={c.all.eyebrow} title={c.all.title} highlight={c.all.highlight} lede={c.all.lede} align="center" />
+          <div className="grid w-full max-w-[1200px] gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {serviceDetails.map((s, i) => {
+              const card = c.all.cards[s.slug] ?? { ...s.card, linkLabel: "Explore Service" };
+              return (
+                <div key={s.slug} data-aos="fade-up" data-aos-delay={(i % 4) * 70}>
+                  <ServiceBox
+                    number={String(i + 1).padStart(2, "0")}
+                    icon={s.icon}
+                    title={card.title}
+                    copy={card.copy}
+                    href={`/services/${s.slug}/`}
+                    linkLabel={card.linkLabel}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <nav aria-label={c.all.audiencesLabel} className="flex flex-wrap items-center justify-center gap-3" data-aos="fade-up">
+            <span className="w-full text-center text-[15px] text-body sm:w-auto">{c.all.audiencesLabel}</span>
+            {c.all.audiences.map((a) => (
+              <Link
+                key={a.href}
+                href={a.href}
+                className="inline-flex items-center gap-1.5 rounded-full border border-heading/10 bg-white py-2 pr-3.5 pl-4 text-sm font-semibold text-heading transition-colors hover:border-gold hover:text-gold-dark"
+              >
+                {a.label}
+                <Icon name="arrow" size={14} />
               </Link>
-              ,{" "}
-              <Link href={url("wikipedia-page-for-authors")}>authors</Link>,{" "}
-              <Link href={url("wikipedia-page-for-academics")}>academics</Link>, or{" "}
-              <Link href={url("wikipedia-page-for-musicians")}>musicians</Link>? Start
-              with the audience guide, then pick creation, editing, or monitoring below.
-            </p>
-            <ul className="check-list" style={{ marginTop: 14 }}>
-              {AUDIENCE_LINKS.map((item) => (
-                <li key={item.slug}>
-                  <Icon name="i-check" />
-                  <Link href={url(item.slug)}>{item.anchor}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="sv-starter reveal">
-            <div className="sv-starter-head">
-              <p className="micro-label">Not Sure Where to Start?</p>
-              <h3>Choose by Where Your Article Is Today</h3>
-            </div>
-            <div className="sv-starter-grid">
-              {starters.map((item) => (
-                <Link
-                  key={item.slug}
-                  className="sv-starter-card"
-                  href={url(`services/${item.slug}`)}
-                >
-                  <span className="sv-icon" aria-hidden="true">
-                    <Icon name={item.icon} />
-                  </span>
-                  <strong>{item.situation}</strong>
-                  <span className="sv-starter-advice">{item.advice}</span>
-                  <span className="sv-starter-link">
-                    {item.label} <Icon name="i-arrow" />
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
+            ))}
+          </nav>
         </div>
       </section>
 
-      <section className="section-pad tone-dark sv-detail" aria-labelledby="sv-detail-title">
-        <div className="shell">
-          <div className="section-heading center reveal">
-            <p className="micro-label">Service Detail</p>
-            <h2 id="sv-detail-title">
-              What Each Engagement <span>Involves</span>
-            </h2>
-            <p className="section-heading-copy">
-              The core work inside every service,the full scope, process, and
-              deliverables are on each service page.
-            </p>
-          </div>
-          <div className="sv-detail-grid">
-            {Object.entries(services).map(([slug, service], index) => (
-              <article key={slug} className="sv-detail-card reveal">
-                <header className="sv-detail-head">
-                  <span className="sv-icon" aria-hidden="true">
-                    <Icon name={service.icon} />
-                  </span>
-                  <span className="sv-detail-num" aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </header>
-                <h3>
-                  <Link href={url(`services/${slug}`)}>{service.name}</Link>
-                </h3>
-                <p className="sv-detail-lede">{service.lede}</p>
-                <ul className="sv-detail-list">
-                  {service.includes.slice(0, 4).map((item) => (
-                    <li key={item}>
-                      <Icon name="i-check" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Link className="sv-detail-link" href={url(`services/${slug}`)}>
-                  Full {service.name} details <Icon name="i-arrow" />
-                </Link>
-              </article>
+      {/* Where to start */}
+      <section className="bg-ink py-16 md:py-28">
+        <div className="shell flex flex-col gap-8 md:gap-14">
+          <SectionHeading eyebrow={c.start.eyebrow} title={c.start.title} highlight={c.start.highlight} lede={c.start.lede} align="center" tone="dark" />
+          <div className="grid gap-6 lg:grid-cols-3">
+            {c.start.paths.map((p, i) => (
+              <div key={p.title} data-aos="fade-up" data-aos-delay={i * 80}>
+                <ServiceBox
+                  number={String(i + 1).padStart(2, "0")}
+                  icon={p.icon}
+                  title={p.title}
+                  copy={p.copy}
+                  href={p.link.href}
+                  linkLabel={p.link.label}
+                  tone="dark"
+                />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-pad tone-light sv-limits" aria-labelledby="sv-limits-title">
-        <div className="shell sv-limits-grid">
-          <div className="sv-limits-copy reveal">
-            <p className="micro-label">What We Will Not Do</p>
-            <h2 id="sv-limits-title">
-              Honest Limits, Stated <span>Up Front.</span>
-            </h2>
-            <p>
-              Some things are simply not available from an ethical Wikipedia editor,
-              and any agency promising them is misleading you.
-            </p>
-            <ul className="sv-limit-list">
-              {limits.map((item) => (
-                <li key={item.title} className="sv-limit">
-                  <span className="sv-icon" aria-hidden="true">
-                    <Icon name={item.icon} />
-                  </span>
-                  <span>
-                    <strong>{item.title}</strong>
-                    <span>{item.copy}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="sv-faq reveal" data-delay="100">
-            <p className="micro-label">Service Questions</p>
-            <h3>Answers Before You Enquire</h3>
-            <FaqList items={faqs.slice(0, 4)} />
-            <Link className="button button-gold button-small" href={url("faq")}>
-              See All Questions <Icon name="i-arrow" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <CtaBand />
+      <FaqPanel
+        heading={{ eyebrow: c.faq.eyebrow, title: c.faq.title, highlight: c.faq.highlight, lede: c.faq.lede }}
+        items={c.faq.items.map((f) => ({ question: f.q, answer: f.a }))}
+      />
+      <Cta {...c.cta} />
     </>
   );
 }

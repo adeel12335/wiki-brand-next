@@ -4,7 +4,7 @@ import { PRODUCTION_SITE_URL } from "@/lib/config";
 export const TRUSTPILOT_TEMPLATE_MICRO_STAR = "5419b6a8b0d04a076446a9ad";
 export const TRUSTPILOT_TEMPLATE_CAROUSEL = "53aa8912dec7e10d38f59f48";
 export const TRUSTPILOT_TEMPLATE_MINI = "53aa8807dec7e10d38f59f32";
-/** "Review us on Trustpilot" button — the one TrustBox the free plan includes. */
+/** "Review us on Trustpilot" button - the one TrustBox the free plan includes. */
 export const TRUSTPILOT_TEMPLATE_REVIEW_COLLECTOR = "56278e9abfbbba0bdcd568bc";
 
 /** Public Trustpilot business unit for thewikipediastudio.com (not a secret). */

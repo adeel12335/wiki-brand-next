@@ -102,7 +102,7 @@ export function organizationNode() {
   const twitterHandle = SITE_TWITTER.replace(/^@/, "");
 
   return {
-    // Organization only — ProfessionalService is a LocalBusiness subtype and
+    // Organization only - ProfessionalService is a LocalBusiness subtype and
     // requires a street address. This agency is remote-first with no public office.
     "@type": "Organization",
     "@id": seoId("organization"),

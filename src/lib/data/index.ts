@@ -1,41 +1,25 @@
-import type {
-  Faq,
-  Metric,
-  PortfolioFallbackItem,
-  ProcessStep,
-  ServicesMap,
-  Testimonial,
-} from "@/types";
-import faqsJson from "./faqs.json";
-import metricsJson from "./metrics.json";
+import type { PortfolioFallbackItem } from "@/types";
 import portfolioFallbackJson from "./portfolio-fallback.json";
-import processStepsJson from "./process-steps.json";
-import servicesJson from "./services.json";
-import testimonialsJson from "./testimonials.json";
-import teamJson from "./team.json";
 
-export const services = servicesJson as ServicesMap;
-export const serviceSlugs = Object.keys(services) as (keyof ServicesMap)[];
+/**
+ * Minimal data the backend still needs after the frontend wipe:
+ * service slugs/names (contact form subjects, blog "related service"
+ * validation, sitemap) and the portfolio fallback used when MongoDB is off.
+ */
+export const services = {
+  "wikipedia-page-creation": { name: "Wikipedia Page Creation" },
+  "wikipedia-page-editing": { name: "Page Editing & Expansion" },
+  "wikipedia-content-writing": { name: "Content Writing & Research" },
+  "wikipedia-page-management": { name: "Ongoing Page Management" },
+  "wikipedia-reputation-management": { name: "Reputation & Entity Building" },
+  "wikipedia-notability-assessment": { name: "Notability Assessment" },
+  "google-knowledge-panel-creation": { name: "Google Knowledge Panel Creation" },
+  "wikipedia-page-monitoring": { name: "Wikipedia Page Monitoring" },
+} as const;
 
-export const faqs = faqsJson as Faq[];
-export const metrics = metricsJson as Metric[];
-export const testimonials = testimonialsJson as Testimonial[];
-export const processSteps = processStepsJson as ProcessStep[];
+export type ServiceSlug = keyof typeof services;
+export const serviceSlugs = Object.keys(services) as ServiceSlug[];
+
 export const portfolioFallback = portfolioFallbackJson as PortfolioFallbackItem[];
-export const team = teamJson as TeamMember[];
 
 export { blogPosts } from "./blog-posts";
-
-export interface TeamMember {
-  role: string;
-  icon: string;
-  focus: string;
-  bio: string;
-  name?: string;
-  linkedIn?: string;
-  wikipediaUserPage?: string;
-}
-
-export function getService(slug: string) {
-  return services[slug as keyof ServicesMap] ?? null;
-}

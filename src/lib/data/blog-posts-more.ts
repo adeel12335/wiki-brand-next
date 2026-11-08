@@ -7,7 +7,7 @@ export const moreBlogPosts: BlogPost[] = [
     title: "Can I Pay Someone to Write My Wikipedia Page?",
     metaTitle: "Can I Pay Someone to Write My Wikipedia Page? (Honest Answer)",
     metaDescription:
-      "Yes — paid Wikipedia writing is allowed with disclosure. Here is what you can buy, what you cannot, and how to vet an agency.",
+      "Yes - paid Wikipedia writing is allowed with disclosure. Here is what you can buy, what you cannot, and how to vet an agency.",
     keywords:
       "can i pay someone to write my wikipedia page, hire wikipedia writer, paid wikipedia page creation",
     excerpt:
@@ -19,7 +19,7 @@ export const moreBlogPosts: BlogPost[] = [
     ogImage: "/assets/og/portfolio-business-leader.jpg",
     relatedService: "wikipedia-page-creation",
     body: `
-<p>Short answer: yes, you can pay a professional to research and draft a Wikipedia article — provided the relationship is disclosed and the subject already meets notability. You cannot pay anyone for a guaranteed acceptance, a locked article, or a rewrite that invents coverage that does not exist.</p>
+<p>Short answer: yes, you can pay a professional to research and draft a Wikipedia article - provided the relationship is disclosed and the subject already meets notability. You cannot pay anyone for a guaranteed acceptance, a locked article, or a rewrite that invents coverage that does not exist.</p>
 
 <h2>What payment actually buys</h2>
 <p>A competent firm sells labour: source auditing, neutral drafting, citation work, disclosure, and responses to reviewer comments. The encyclopedia’s volunteer reviewers still decide whether the draft meets the guidelines. That split is why ethical agencies talk about probability and preparation, not promises.</p>
@@ -28,7 +28,7 @@ export const moreBlogPosts: BlogPost[] = [
 <ul>
 <li>Will you disclose paid contributions on-wiki?</li>
 <li>Will you show a written notability verdict before drafting?</li>
-<li>What happens if the sources are too thin — do you stop, or do you invent a pitch?</li>
+<li>What happens if the sources are too thin - do you stop, or do you invent a pitch?</li>
 <li>Are pricing and revision scope written down?</li>
 </ul>
 
@@ -36,20 +36,20 @@ export const moreBlogPosts: BlogPost[] = [
 <p>“Guaranteed approval,” “rejection-free,” undeclared accounts, and agencies that refuse to discuss Wikimedia’s Terms of Use are not shortcuts. They are liabilities. When undeclared paid editing is uncovered, the cleanup is public and often worse than never filing.</p>
 
 <h2>A sane sequence</h2>
-<p>Start with a <a href="/services/wikipedia-notability-assessment/">notability assessment</a>. If the sources support an article, move to <a href="/services/wikipedia-page-creation/">creation</a> with disclosure. If they do not, invest in earning independent coverage in the real world first — not in a draft that will be declined.</p>
+<p>Start with a <a href="/services/wikipedia-notability-assessment/">notability assessment</a>. If the sources support an article, move to <a href="/services/wikipedia-page-creation/">creation</a> with disclosure. If they do not, invest in earning independent coverage in the real world first - not in a draft that will be declined.</p>
 <p>For costs, see our published <a href="/wikipedia-page-cost/">Wikipedia page cost</a> tiers. For the disclosure rules in depth, read <a href="/blog/paid-wikipedia-editing-disclosure-and-coi/">paid editing and COI</a>.</p>
 `,
   },
   {
     slug: "how-to-get-a-wikipedia-page-for-yourself",
     title: "How to Get a Wikipedia Page for Yourself (Without Getting Declined)",
-    metaTitle: "How to Get a Wikipedia Page for Yourself — Step by Step",
+    metaTitle: "How to Get a Wikipedia Page for Yourself - Step by Step",
     metaDescription:
       "A practical path to a Wikipedia article about yourself: source audit first, conflict-of-interest rules, and when to hire a disclosed editor.",
     keywords:
       "how to get a wikipedia page for yourself, create wikipedia page about myself, wikipedia autobiography",
     excerpt:
-      "Autobiography is the hardest path on Wikipedia. Here is the sequence that actually works — and the shortcuts that fail.",
+      "Autobiography is the hardest path on Wikipedia. Here is the sequence that actually works - and the shortcuts that fail.",
     category: "Eligibility",
     publishedAt: "2026-09-03",
     modifiedAt: "2026-09-04",
@@ -63,7 +63,7 @@ export const moreBlogPosts: BlogPost[] = [
 <p>List independent articles, books, or journal pieces that discuss you in depth. Press releases, your site, and sponsored features do not count toward notability. If the list is empty, stop. Earn coverage first.</p>
 
 <h2>Step 2: Do not write the article as autobiography</h2>
-<p>Subjects and their staff have a conflict of interest. Drafting your own page in promotional voice is the classic decline pattern. Propose sourced text on the talk page, or hire a disclosed editor who will write from the sources — including unflattering ones.</p>
+<p>Subjects and their staff have a conflict of interest. Drafting your own page in promotional voice is the classic decline pattern. Propose sourced text on the talk page, or hire a disclosed editor who will write from the sources - including unflattering ones.</p>
 
 <h2>Step 3: Expect neutrality, not brand control</h2>
 <p>A Wikipedia article summarises what reliable sources published. You do not get veto power over well-sourced criticism. Attempts to scrub inconvenient facts usually attract more scrutiny.</p>
@@ -80,11 +80,11 @@ export const moreBlogPosts: BlogPost[] = [
     title: "What Drives Wikipedia Page Creation Cost (Beyond the Sticker Price)",
     metaTitle: "Wikipedia Page Creation Cost Factors Explained",
     metaDescription:
-      "Why Wikipedia page creation pricing varies: source volume, prior rejections, dual review, and monitoring — not fake approval guarantees.",
+      "Why Wikipedia page creation pricing varies: source volume, prior rejections, dual review, and monitoring - not fake approval guarantees.",
     keywords:
       "wikipedia page creation cost, wikipedia page price factors, cost of wikipedia page",
     excerpt:
-      "Price follows research load and risk — not how badly someone wants a page. Here is what actually moves the quote.",
+      "Price follows research load and risk - not how badly someone wants a page. Here is what actually moves the quote.",
     category: "Pricing",
     publishedAt: "2026-09-03",
     modifiedAt: "2026-09-04",
@@ -110,7 +110,7 @@ export const moreBlogPosts: BlogPost[] = [
   {
     slug: "wikipedia-articles-for-creation-what-to-expect",
     title: "Wikipedia Articles for Creation: What to Expect in the Queue",
-    metaTitle: "Wikipedia Articles for Creation (AfC) — What to Expect",
+    metaTitle: "Wikipedia Articles for Creation (AfC) - What to Expect",
     metaDescription:
       "How Wikipedia’s Articles for Creation process works, why waits run long, and how to prepare a draft that reviewers can assess quickly.",
     keywords:
@@ -127,7 +127,7 @@ export const moreBlogPosts: BlogPost[] = [
 <p><a href="https://en.wikipedia.org/wiki/Wikipedia:Articles_for_creation" target="_blank" rel="noopener noreferrer">Articles for Creation</a> (AfC) lets drafts be reviewed before they enter main article space. For many new or paid contributors it is the responsible path. It is also where patience gets tested.</p>
 
 <h2>Reviewers are volunteers</h2>
-<p>There is no paid SLA. Backlogs stretch. Order is not strictly first-in, first-out. A clear, well-sourced draft still waits — but a muddy promotional draft waits, then declines, then waits again after revision.</p>
+<p>There is no paid SLA. Backlogs stretch. Order is not strictly first-in, first-out. A clear, well-sourced draft still waits - but a muddy promotional draft waits, then declines, then waits again after revision.</p>
 
 <h2>What reviewers look for first</h2>
 <ul>
@@ -141,13 +141,13 @@ export const moreBlogPosts: BlogPost[] = [
 <p>Keep improving citations, trimming hype, and watching for new independent coverage. Do not open parallel copies under new accounts to “speed things up.” That pattern is noticed.</p>
 
 <h2>After acceptance</h2>
-<p>Mainspace is not a finish line. Early edits, tags, and talk-page questions are common. Plan for <a href="/services/wikipedia-page-monitoring/">monitoring</a> through stabilisation — and read <a href="/blog/wikipedia-page-monitoring-why-it-matters/">why Wikipedia page monitoring matters after publication</a>. For timeline context, see <a href="/blog/how-long-does-it-take-to-create-a-wikipedia-page/">how long creation takes</a>.</p>
+<p>Mainspace is not a finish line. Early edits, tags, and talk-page questions are common. Plan for <a href="/services/wikipedia-page-monitoring/">monitoring</a> through stabilisation - and read <a href="/blog/wikipedia-page-monitoring-why-it-matters/">why Wikipedia page monitoring matters after publication</a>. For timeline context, see <a href="/blog/how-long-does-it-take-to-create-a-wikipedia-page/">how long creation takes</a>.</p>
 `,
   },
   {
     slug: "wikipedia-vs-google-knowledge-panel",
     title: "Wikipedia vs Google Knowledge Panel: What Each One Is For",
-    metaTitle: "Wikipedia vs Google Knowledge Panel — Differences Explained",
+    metaTitle: "Wikipedia vs Google Knowledge Panel - Differences Explained",
     metaDescription:
       "How Wikipedia articles and Google knowledge panels relate, why neither is guaranteed from the other, and what entity work can realistically improve.",
     keywords:
@@ -176,7 +176,7 @@ export const moreBlogPosts: BlogPost[] = [
   {
     slug: "wikipedia-page-monitoring-why-it-matters",
     title: "Why Wikipedia Page Monitoring Matters After Publication",
-    metaTitle: "Wikipedia Page Monitoring After Publication — Why It Matters",
+    metaTitle: "Wikipedia Page Monitoring After Publication - Why It Matters",
     metaDescription:
       "Why published Wikipedia articles need monitoring: vandalism, unsourced edits, tags, and how watchlist triage differs from full page management.",
     keywords:
@@ -190,7 +190,7 @@ export const moreBlogPosts: BlogPost[] = [
     ogImage: "/assets/og/portfolio-organisation.jpg",
     relatedService: "wikipedia-page-monitoring",
     body: `
-<p>Once an article is live, anyone can change it. Most edits are fine. Some introduce errors, promotional language, or vandalism. Unwatched pages can carry a wrong figure for months — long enough to be copied into press and AI answers.</p>
+<p>Once an article is live, anyone can change it. Most edits are fine. Some introduce errors, promotional language, or vandalism. Unwatched pages can carry a wrong figure for months - long enough to be copied into press and AI answers.</p>
 
 <h2>Monitoring vs full management</h2>
 <p>Monitoring is detection and triage: watchlist coverage, classifying edits, escalating contested changes. Full <a href="/services/wikipedia-page-management/">page management</a> adds scheduled updates, dead-link repair, and deeper accuracy reviews. Many subjects start with <a href="/services/wikipedia-page-monitoring/">monitoring</a> alone.</p>
@@ -223,7 +223,7 @@ export const moreBlogPosts: BlogPost[] = [
 
 <h2>Self-check</h2>
 <ol>
-<li>Can you name three independent pieces that discuss you (or your company) in depth — not just mention you?</li>
+<li>Can you name three independent pieces that discuss you (or your company) in depth - not just mention you?</li>
 <li>Were those pieces edited by outlets with a reputation for fact-checking?</li>
 <li>Did you pay for, dictate, or publish those pieces yourself?</li>
 <li>If you removed your website and press kit from the internet, would the remaining coverage still tell a coherent story?</li>
@@ -234,15 +234,15 @@ export const moreBlogPosts: BlogPost[] = [
 <p>Revenue, headcount, follower counts, awards alone, “first in the city” claims, and partner testimonials. They may be true. They are not the notability test.</p>
 
 <h2>Get a second opinion without buying a draft</h2>
-<p>Commission a <a href="/services/wikipedia-notability-assessment/">notability assessment</a> — or start with our free screen via <a href="/contact/">contact</a>. Read the fuller policy walkthrough in <a href="/blog/wikipedia-notability-requirements-explained/">notability requirements explained</a>.</p>
+<p>Commission a <a href="/services/wikipedia-notability-assessment/">notability assessment</a> - or start with our free screen via <a href="/contact/">contact</a>. Read the fuller policy walkthrough in <a href="/blog/wikipedia-notability-requirements-explained/">notability requirements explained</a>.</p>
 `,
   },
   {
     slug: "wikipedia-press-releases-and-sponsored-content",
     title: "Why Press Releases and Sponsored Content Fail Wikipedia Notability",
-    metaTitle: "Press Releases & Sponsored Content on Wikipedia — Why They Fail",
+    metaTitle: "Press Releases & Sponsored Content on Wikipedia - Why They Fail",
     metaDescription:
-      "Why Wikipedia rejects press releases, sponsored features, and company blogs as notability evidence — and what independent coverage looks like instead.",
+      "Why Wikipedia rejects press releases, sponsored features, and company blogs as notability evidence - and what independent coverage looks like instead.",
     keywords:
       "press release wikipedia, sponsored content wikipedia, company blog wikipedia notability",
     excerpt:
@@ -268,7 +268,7 @@ export const moreBlogPosts: BlogPost[] = [
 </ul>
 
 <h2>What to gather instead</h2>
-<p>Unpaid profiles, investigative or analytical pieces, book chapters, peer-reviewed work, and serious trade reporting where an editor — not a client — controlled the story. Our <a href="/blog/reliable-sources-for-wikipedia-articles/">reliable sources guide</a> and <a href="/services/wikipedia-content-writing/">research service</a> start from that sorting method.</p>
+<p>Unpaid profiles, investigative or analytical pieces, book chapters, peer-reviewed work, and serious trade reporting where an editor - not a client - controlled the story. Our <a href="/blog/reliable-sources-for-wikipedia-articles/">reliable sources guide</a> and <a href="/services/wikipedia-content-writing/">research service</a> start from that sorting method.</p>
 `,
   },
 ];

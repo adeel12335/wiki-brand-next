@@ -1,37 +1,27 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { NotabilityCheckerForm } from "@/components/tools/NotabilityCheckerForm";
-import { CtaBand } from "@/components/ui/CtaBand";
+import { SectionHeading } from "@/components/module/SectionHeading";
+import { FaqPanel } from "@/components/module/Faq";
+import { ContactSection } from "@/components/module/ContactForm";
 import { Icon } from "@/components/ui/Icon";
-import { PageHero } from "@/components/ui/PageHero";
-import { absUrl, url } from "@/lib/config";
+import { PillHero } from "@/components/sections/checker/PillHero";
+import { NotabilityChecker } from "@/components/sections/checker/NotabilityChecker";
+import { checkerContent } from "@/content/checker";
+import { absUrl } from "@/lib/config";
 import { buildPageMetadata, faqNode } from "@/lib/seo";
+import { cn } from "@/lib/cn";
+import { EditableHero } from "@/components/hero/EditableHero";
 
-const faqs = [
-  {
-    q: "Is this a Wikipedia approval guarantee?",
-    a: "No. Volunteer reviewers decide outcomes. This checker only screens whether independent coverage looks strong enough to justify a deeper assessment.",
-  },
-  {
-    q: "What counts as independent coverage?",
-    a: "Secondary sources with editorial independence from the subject,not press releases, paid posts, your own site, social bios, or directories that republish marketing copy.",
-  },
-  {
-    q: "What happens after a promising score?",
-    a: "Request a free human notability assessment. We map usable sources, flag gaps, and only recommend drafting when the dossier looks durable.",
-  },
-];
+const c = checkerContent;
 
 const pageMeta = {
   slug: "wikipedia-notability-checker",
-  title: "Free Wikipedia Notability Checker",
+  title: "Free Wikipedia Notability Checker | Check Eligibility",
   shortTitle: "Notability Checker",
   description:
-    "Free preliminary Wikipedia notability checker. Answer a few source questions, get an honest screen, then request a human assessment before you pay to draft.",
+    "Use our free Wikipedia notability checker to review your independent sources and understand whether your subject may qualify for a Wikipedia article.",
   keywords:
-    "wikipedia notability checker, am i notable enough for wikipedia, wikipedia notability test, free wikipedia assessment",
+    "Wikipedia Notability Checker, Wikipedia eligibility checker, Wikipedia notability guidelines, Wikipedia page eligibility, Wikipedia notability assessment",
   modified: "2026-09-07",
   schema: [
     {
@@ -41,167 +31,148 @@ const pageMeta = {
       applicationCategory: "BusinessApplication",
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       description:
-        "Preliminary notability screen based on independent coverage depth and prior review outcomes.",
+        "Free Wikipedia notability checker that reviews the number, quality, and independence of sources covering your subject.",
     },
-    faqNode(faqs, "wikipedia-notability-checker"),
+    faqNode(c.faq.items, "wikipedia-notability-checker"),
   ],
 };
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
-const outcomes = [
-  {
-    key: "unlikely",
-    title: "Unlikely Right Now",
-    copy: "Independent, significant coverage looks thin or missing. Usually the honest answer is to wait for coverage, not to commission a draft.",
-  },
-  {
-    key: "borderline",
-    title: "Borderline",
-    copy: "There may be a path, but it depends on outlet quality, independence, and depth. A source dossier decides it before you pay for writing.",
-  },
-  {
-    key: "promising",
-    title: "Promising",
-    copy: "A workable source base may exist. Still not a guarantee,volunteer reviewers decide,so the next step is a free human assessment.",
-  },
-];
-
-const counts = [
-  "In-depth features in independent newspapers and magazines",
-  "Books, journals, and scholarly reviews about the subject",
-  "Major trade or national press with editorial oversight",
-  "Paywalled archives,as long as they are independent",
-];
-
-const doesNotCount = [
-  "Press releases and newswire distributions",
-  "Sponsored, paid, or advertorial posts",
-  "Your own website, blog, or social profiles",
-  "Directory listings and passing mentions",
-];
-
 export default function NotabilityCheckerPage() {
+  const r = c.results;
+  const k = c.counts;
+  const stages = [c.stages.building, c.stages.possible, c.stages.strong];
+
   return (
     <>
-      <BodyClass className="page-notability-checker" />
       <JsonLd page={pageMeta} />
-      <PageHero
-        eyebrow="Free Tool"
-        h1="Free Wikipedia <span>Notability Checker</span>"
-        lede="Answer a few source questions for a preliminary screen. It is not a guarantee,volunteer reviewers decide,but it stops you paying for a draft when the coverage is not there."
-        current="Notability Checker"
-        actions={[
-          { label: "Skip to Human Assessment", href: url("contact") },
-          {
-            label: "Read Notability Guide",
-            href: url("blog/am-i-notable-enough-for-wikipedia"),
-            style: "button-outline",
-          },
-        ]}
-      />
+      <EditableHero pageKey="notability-checker">
+        <PillHero
+          title={c.hero.title}
+          highlight={c.hero.highlight}
+          lede={c.hero.lede}
+          actions={c.hero.actions}
+          align="center"
+          titleClassName="lg:text-[56px]"
+        />
+      </EditableHero>
 
-      {/* 1. The tool (white) */}
-      <section className="section-pad tone-light nc-tool" aria-labelledby="nc-tool-title">
-        <div className="shell nc-tool-grid">
-          <div className="nc-intro reveal">
-            <p className="micro-label">How It Works</p>
-            <h2 id="nc-tool-title">
-              Source-First, <span>Sales-Second</span>
-            </h2>
-            <p>
-              Wikipedia notability is about significant coverage in reliable,
-              independent sources,not follower counts, job titles, or how long a
-              company has traded. This checker mirrors the questions our editors ask
-              on intake.
-            </p>
-            <ul className="nc-intro-points">
-              <li>
-                <Icon name="i-check" /> Free, instant, and nothing is stored
-              </li>
-              <li>
-                <Icon name="i-check" /> The same questions our editors ask first
-              </li>
-              <li>
-                <Icon name="i-check" /> A preliminary screen,not a Wikipedia decision
-              </li>
-            </ul>
-            <p>
-              Prefer a human review?{" "}
-              <Link href={url("contact")}>Request a free notability assessment</Link>{" "}
-              or see{" "}
-              <Link href={url("wikipedia-page-cost")}>published packages from $700</Link>.
-            </p>
-          </div>
-          <NotabilityCheckerForm />
-        </div>
-      </section>
-
-      {/* 2. What the three results mean (dark) */}
-      <section className="section-pad tone-dark nc-outcomes" aria-labelledby="nc-outcomes-title">
+      {/* Checker tool */}
+      <section id="checker" className="section scroll-mt-24 bg-white">
         <div className="shell">
-          <div className="section-heading center reveal">
-            <p className="micro-label">Reading Your Result</p>
-            <h2 id="nc-outcomes-title">
-              What the Three <span>Verdicts Mean</span>
-            </h2>
-          </div>
-          <ol className="nc-outcome-grid reveal">
-            {outcomes.map((item) => (
-              <li key={item.key} className={`nc-outcome nc-outcome--${item.key}`}>
-                <span className="nc-outcome-dot" aria-hidden="true" />
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </li>
+          <NotabilityChecker />
+        </div>
+      </section>
+
+      {/* Reading your result */}
+      <section className="section bg-ink">
+        <div className="shell flex flex-col gap-10 md:gap-14">
+          <SectionHeading
+           
+            title={r.title}
+            highlight={r.highlight}
+            lede={r.lede}
+            align="center"
+            tone="dark"
+          />
+          <div className="grid gap-6 md:grid-cols-3">
+            {stages.map((item, i) => (
+              <article
+                key={item.title}
+                className="flex flex-col gap-4 rounded-[20px] bg-ink-raised px-8 py-9"
+                data-aos="fade-up"
+                data-aos-delay={i * 80}
+              >
+                <span className="flex gap-1.5" aria-hidden="true">
+                  {[1, 2, 3].map((n) => (
+                    <span
+                      key={n}
+                      className={cn(
+                        "h-2 w-9 rounded-full",
+                        n <= i + 1 ? "bg-gold" : "bg-gold/20",
+                      )}
+                    />
+                  ))}
+                </span>
+                <p className="text-[11px] font-bold tracking-[0.14em] text-gold-light uppercase">
+                  {item.kicker}
+                </p>
+                <h3 className="text-2xl font-bold text-white">{item.title}</h3>
+                <p className="text-[15px] leading-relaxed text-on-dark-muted">
+                  {item.copy}
+                </p>
+              </article>
             ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* 3. What counts as coverage (gold band) */}
-      <section className="nc-counts-band" aria-labelledby="nc-counts-title">
-        <div className="shell reveal">
-          <div className="nc-counts-head">
-            <p className="nc-band-label">Before You Answer</p>
-            <h2 id="nc-counts-title">
-              What Counts as <span>Independent Coverage</span>
-            </h2>
-          </div>
-          <div className="nc-counts-grid">
-            <div className="nc-counts-card nc-counts-card--yes">
-              <h3>
-                <span aria-hidden="true">
-                  <Icon name="i-check" />
-                </span>
-                Usually counts
-              </h3>
-              <ul>
-                {counts.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="nc-counts-card nc-counts-card--no">
-              <h3>
-                <span aria-hidden="true">
-                  <Icon name="i-close" />
-                </span>
-                Does not count
-              </h3>
-              <ul>
-                {doesNotCount.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
       </section>
 
-      <CtaBand
-        heading="Want Editors to Map <span>Your Sources?</span>"
-        copy="Free assessment first. We tell you if the coverage is not there."
-        label="Request Free Assessment"
+      {/* What counts */}
+      <section className="section bg-white">
+        <div className="shell flex flex-col gap-10 md:gap-14">
+          <SectionHeading
+           
+            title={k.title}
+            highlight={k.highlight}
+            lede={k.lede}
+            align="center"
+          />
+          <div className="grid items-start gap-6 lg:grid-cols-2">
+            {[
+              { ...k.strong, tone: "strong" as const },
+              { ...k.weak, tone: "weak" as const },
+            ].map((col, i) => (
+              <div
+                key={col.title}
+                className={cn(
+                  "flex flex-col gap-5 rounded-[28px] p-6 md:p-11",
+                  col.tone === "strong" ? "bg-cream" : "bg-mist",
+                )}
+                data-aos="fade-up"
+                data-aos-delay={i * 100}
+              >
+                <h3 className="text-2xl font-bold text-heading md:text-[28px]">
+                  {col.title}
+                </h3>
+                <ul className="flex flex-col">
+                  {col.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3.5 border-t border-heading/10 py-3.5 text-base text-heading"
+                    >
+                      <span
+                        className={cn(
+                          "grid size-7 shrink-0 place-items-center rounded-full",
+                          col.tone === "strong"
+                            ? "bg-gold text-on-gold"
+                            : "bg-white text-body",
+                        )}
+                      >
+                        <Icon
+                          name={col.tone === "strong" ? "tick" : "close"}
+                          size={14}
+                          strokeWidth={2.2}
+                        />
+                      </span>
+                      <span className="pt-0.5">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <FaqPanel
+        heading={c.faq.heading}
+        items={c.faq.items.map((f) => ({ question: f.q, answer: f.a }))}
+        moreLabel={c.faq.moreLabel}
+      />
+      <ContactSection
+        heading={c.contact.heading}
+        submitLabel={c.contact.submitLabel}
       />
     </>
   );

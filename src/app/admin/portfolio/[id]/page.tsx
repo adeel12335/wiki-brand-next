@@ -126,7 +126,7 @@ export default function AdminPortfolioEditPage() {
       setError(
         typeof data.error === "string"
           ? data.error
-          : "Save failed — check required fields",
+          : "Save failed - check required fields",
       );
       return;
     }

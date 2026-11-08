@@ -19,7 +19,7 @@ const TITLE_CASE_MINOR = new Set([
  * Title-cases heading copy ("what a page involves" → "What a Page Involves").
  * Minor words stay lowercase unless they open or close the heading; words that
  * already carry capitals (Wikipedia, GNG) are left alone. Safe on headings that
- * contain inline tags such as <span> — only the text between tags is changed.
+ * contain inline tags such as <span> - only the text between tags is changed.
  */
 export function titleCase(html: string): string {
   // Entities (&amp; &#39; …) are matched as whole tokens and left untouched.
@@ -75,7 +75,7 @@ export function portfolioMetaTitle(
   metaTitle?: string | null,
 ): string {
   return (metaTitle?.trim() || `${title} Portfolio`)
-    .replace(/\s*(?:\||—|-)\s*The Wikipedia Studio$/i, "")
+    .replace(/\s*(?:\|| - |-)\s*The Wikipedia Studio$/i, "")
     .trim();
 }
 
