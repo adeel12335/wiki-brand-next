@@ -26,7 +26,7 @@ async function fetchBlogRows(signal?: AbortSignal): Promise<BlogRow[]> {
 }
 
 function formatDate(value?: string) {
-  if (!value) return "—";
+  if (!value) return " - ";
   try {
     return new Intl.DateTimeFormat("en-GB", {
       day: "numeric",
@@ -34,7 +34,7 @@ function formatDate(value?: string) {
       year: "numeric",
     }).format(new Date(value));
   } catch {
-    return "—";
+    return " - ";
   }
 }
 

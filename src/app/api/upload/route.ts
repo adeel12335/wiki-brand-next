@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   const file = formData.get("file");
   const folderRaw = formData.get("folder");
   const folder =
-    typeof folderRaw === "string" && ["portfolio", "blog"].includes(folderRaw)
+    typeof folderRaw === "string" && ["portfolio", "blog", "pages"].includes(folderRaw)
       ? folderRaw
       : "portfolio";
 

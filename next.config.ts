@@ -82,6 +82,17 @@ const nextConfig: NextConfig = {
         destination: "/wikipedia-page-cost/",
         permanent: true,
       },
+      // Process page moved from /our-process/ to /process/ (Nov 2026).
+      {
+        source: "/our-process",
+        destination: "/process/",
+        permanent: true,
+      },
+      {
+        source: "/our-process/",
+        destination: "/process/",
+        permanent: true,
+      },
     ];
   },
   images: {

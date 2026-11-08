@@ -1,78 +1,31 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BodyClass } from "@/components/layout/BodyClass";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { CtaBand } from "@/components/ui/CtaBand";
-import { Icon } from "@/components/ui/Icon";
-import { PageHero } from "@/components/ui/PageHero";
-import { PortfolioClientsGrid } from "@/components/sections/PortfolioClientsGrid";
-import { url, absUrl } from "@/lib/config";
-import {
-  AUDIENCE_LINKS,
-  CASE_STUDIES_LINK,
-} from "@/lib/data/audience-links";
+import { TextLink } from "@/components/module/Button";
+import { ContactSection } from "@/components/module/ContactForm";
+import { SectionHeading } from "@/components/module/SectionHeading";
+import { ArchiveIntroBand } from "@/components/sections/blog/ArchiveIntroBand";
+import { CaseCard } from "@/components/sections/portfolio/CaseCard";
+import { CaseHeader, CaseRail, CaseStudyBody } from "@/components/sections/portfolio/CaseDetail";
+import { displayCategory, toCaseCard } from "@/components/sections/portfolio/toCaseCard";
+import { portfolioContent, portfolioSingleContent } from "@/content/portfolio";
+import { absUrl } from "@/lib/config";
 import { buildPageMetadata, seoId } from "@/lib/seo";
-import {
-  getPortfolioBySlug,
-  getPublishedPortfolio,
-  isIndexablePortfolioItem,
-} from "@/lib/portfolio";
-import {
-  portfolioHeading,
-  portfolioMetaDescription,
-  portfolioMetaTitle,
-  titleCase,
-} from "@/lib/utils";
+import { getPortfolioBySlug, getPublishedPortfolio, isIndexablePortfolioItem } from "@/lib/portfolio";
+import { portfolioMetaDescription, portfolioMetaTitle } from "@/lib/utils";
 
-function audienceForCategory(category?: string | null) {
-  const hay = (category || "").toLowerCase();
-  if (/compan|org|business|brand|startup/.test(hay)) {
-    return AUDIENCE_LINKS.find((item) => item.slug.includes("companies"));
-  }
-  if (/author|writer|book/.test(hay)) {
-    return AUDIENCE_LINKS.find((item) => item.slug.includes("authors"));
-  }
-  if (/academ|professor|scientist|research/.test(hay)) {
-    return AUDIENCE_LINKS.find((item) => item.slug.includes("academics"));
-  }
-  if (/music|singer|band|artist/.test(hay)) {
-    return AUDIENCE_LINKS.find((item) => item.slug.includes("musicians"));
-  }
-  return AUDIENCE_LINKS[0];
+interface PageProps {
+  params: Promise<{ slug: string }>;
 }
 
 export const revalidate = 3600;
-
-const standards = [
-  {
-    icon: "i-search",
-    title: "Sourcing Decides the Article",
-    copy: "What went in, and what was left out, followed the independent coverage rather than the brief.",
-  },
-  {
-    icon: "i-review",
-    title: "Two Editors on Every Draft",
-    copy: "One researches and writes, a second checks each claim against the source cited for it.",
-  },
-  {
-    icon: "i-users",
-    title: "Disclosed, Not Covert",
-    copy: "Paid contributions are declared on Wikipedia as its terms of use require.",
-  },
-];
 
 export async function generateStaticParams() {
   const items = await getPublishedPortfolio();
   return items.map((item) => ({ slug: item.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const work = await getPortfolioBySlug(slug);
   if (!work) return {};
@@ -93,21 +46,19 @@ export async function generateMetadata({
   });
 }
 
-export default async function PortfolioDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function PortfolioDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const work = await getPortfolioBySlug(slug);
   if (!work) notFound();
   const isIndexable = isIndexablePortfolioItem(work);
 
-  // PortfolioClientsGrid links non-indexable items straight to Wikipedia, so
-  // they are safe to show here without linking to noindex detail pages.
-  const others = (await getPublishedPortfolio()).filter(
-    (item) => item.slug !== work.slug,
-  );
+  // toCaseCard links non-indexable items straight to Wikipedia, so they are safe to show here
+  // without linking to noindex detail pages.
+  const all = await getPublishedPortfolio();
+  const category = displayCategory(work);
+  const others = all.filter((item) => item.slug !== work.slug);
+  const sameField = category ? others.filter((item) => displayCategory(item) === category) : [];
+  const related = [...sameField, ...others.filter((item) => !sameField.includes(item))].slice(0, 4);
 
   const pageMeta = {
     slug: `portfolio/${work.slug}`,
@@ -136,190 +87,46 @@ export default async function PortfolioDetailPage({
       : [],
   };
 
+  const s = portfolioSingleContent;
+  const g = portfolioContent.grid;
+  const labels = { live: g.liveBadge, view: g.viewCase, external: g.viewOnWikipedia, fallbackCategory: g.fallbackCategory };
+
   return (
     <>
-      <BodyClass className="page-portfolio-detail" />
       <JsonLd page={pageMeta} />
-      <PageHero
-        eyebrow={`Portfolio${work.category ? ` · ${work.category}` : ""}`}
-        h1={titleCase(portfolioHeading(work.title))}
-        lede={work.summary}
-        breadcrumbs={[{ label: "Portfolio", slug: "portfolio" }]}
-        current={work.title}
-        actions={[
-          { label: "Discuss A Similar Project", href: url("contact") },
-          { label: "All Portfolio Work", href: url("portfolio"), style: "button-outline" },
-        ]}
-      />
+      <ArchiveIntroBand {...portfolioContent.band} />
+      <CaseHeader work={work} category={category} />
 
-      {/* 1. Profile card + engagement notes (white) */}
-      <section className="section-pad tone-light pd-detail" aria-labelledby="pd-notes-title">
-        <div className="shell pd-grid">
-          <aside className="pd-profile reveal">
-            <div className="pd-photo">
-              {work.imageUrl ? (
-                <Image
-                  src={work.imageUrl}
-                  alt={work.imageAlt}
-                  fill
-                  sizes="(max-width: 960px) 100vw, 380px"
-                  className="pd-photo-img"
-                />
-              ) : (
-                <span className="pd-photo-initial" aria-hidden="true">
-                  {work.title.charAt(0)}
-                </span>
-              )}
-              {work.imageUrl ? (
-                <span className="portfolio-watermark" aria-hidden="true">
-                  The Wikipedia Studio
-                </span>
-              ) : null}
-            </div>
-            <div className="pd-profile-body">
-              {work.category && work.category !== work.title ? (
-                <span className="client-card-category">{work.category}</span>
-              ) : null}
-              <h2 className="pd-name">{work.title}</h2>
-              <dl className="pd-facts">
-                <div>
-                  <dt>Engagement</dt>
-                  <dd>Wikipedia article</dd>
-                </div>
-                <div>
-                  <dt>Status</dt>
-                  <dd>{work.externalUrl ? "Published on Wikipedia" : "Profile"}</dd>
-                </div>
-                {work.updatedAt ? (
-                  <div>
-                    <dt>Last updated</dt>
-                    <dd>
-                      {new Intl.DateTimeFormat("en-US", {
-                        month: "long",
-                        year: "numeric",
-                      }).format(work.updatedAt)}
-                    </dd>
-                  </div>
-                ) : null}
-              </dl>
-              {work.externalUrl ? (
-                <a
-                  className="button button-gold button-small pd-wiki-button"
-                  href={work.externalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View on Wikipedia <Icon name="i-arrow" />
-                </a>
-              ) : null}
-            </div>
-          </aside>
-
-          <div className="pd-notes reveal" data-delay="100">
-            <p className="micro-label">Engagement Notes</p>
-            <h2 id="pd-notes-title">
-              How This Article <span>Came Together</span>
-            </h2>
-            <div className="pd-notes-body">
-              {work.body
-                .split(/\n{2,}/)
-                .map((paragraph) => paragraph.trim())
-                .filter(Boolean)
-                .map((paragraph) => (
-                  <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-                ))}
-            </div>
-            <div className="pd-notes-cta">
-              <p>
-                <strong>Wondering whether your subject qualifies?</strong> Every
-                engagement here started with a free notability assessment.
-              </p>
-              <Link className="pd-arrow-link" href={url("contact")}>
-                Discuss a similar project <Icon name="i-arrow" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Standards (dark) */}
-      <section className="section-pad tone-dark pd-standards" aria-labelledby="pd-standards-title">
+      <div className="bg-white pb-16 md:pb-30">
         <div className="shell">
-          <div className="section-heading center reveal">
-            <p className="micro-label">How Work Like This Runs</p>
-            <h2 id="pd-standards-title">
-              The Same Standards on <span>Every Engagement</span>
-            </h2>
+          <div className="grid gap-12 border-t border-heading/10 pt-10 md:pt-14 lg:grid-cols-[280px_minmax(0,1fr)] xl:grid-cols-[320px_760px] xl:justify-between">
+            <CaseRail work={work} category={category} />
+            <CaseStudyBody body={work.body} />
           </div>
-          <ul className="pd-standard-grid reveal">
-            {standards.map((item) => (
-              <li key={item.title} className="pd-standard">
-                <span className="pd-icon" aria-hidden="true">
-                  <Icon name={item.icon} />
-                </span>
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </li>
-            ))}
-          </ul>
         </div>
-      </section>
+      </div>
 
-      <section className="section-pad tone-light" aria-labelledby="pd-related-title">
-        <div className="shell reveal">
-          <p className="micro-label">Related reading</p>
-          <h2 id="pd-related-title">Case studies and audience guides</h2>
-          <ul className="check-list">
-            <li>
-              <Icon name="i-check" />
-              <Link href={url(CASE_STUDIES_LINK.slug)}>
-                {CASE_STUDIES_LINK.anchor}
-              </Link>
-            </li>
-            {(() => {
-              const audience = audienceForCategory(work.category);
-              return audience ? (
-                <li>
-                  <Icon name="i-check" />
-                  <Link href={url(audience.slug)}>{audience.anchor}</Link>
-                </li>
-              ) : null;
-            })()}
-            <li>
-              <Icon name="i-check" />
-              <Link href={url("hire-wikipedia-writer")}>
-                Hire a Wikipedia writer for similar work
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </section>
+      <ContactSection heading={s.contact} />
 
-      {/* 3. Other engagements (white),same cards as the portfolio index */}
-      {others.length > 0 ? (
-        <section className="section-pad tone-light pf-work pd-more" aria-labelledby="pd-more-title">
-          <div className="shell">
-            <div className="pd-more-head reveal">
-              <div>
-                <p className="micro-label">More Work</p>
-                <h2 id="pd-more-title">
-                  Other <span>Engagements</span>
-                </h2>
-              </div>
-              <Link className="pd-arrow-link" href={url("portfolio")}>
-                View all portfolio work <Icon name="i-arrow" />
-              </Link>
+      {related.length ? (
+        <section className="bg-white pt-14 pb-16 md:pt-24 md:pb-30">
+          <div className="shell flex flex-col gap-10 md:gap-14">
+            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <SectionHeading eyebrow={s.related.eyebrow} title={s.related.title} highlight={s.related.highlight} />
+              <TextLink href={s.related.viewAll.href} tone="light">
+                {s.related.viewAll.label}
+              </TextLink>
             </div>
-            <PortfolioClientsGrid items={others.slice(0, 3)} />
+            <ul className="grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-4 lg:gap-6">
+              {related.map((item, i) => (
+                <li key={item.slug} data-aos="fade-up" data-aos-delay={i * 80}>
+                  <CaseCard item={toCaseCard(item)} labels={labels} />
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       ) : null}
-
-      <CtaBand
-        heading="Wondering Whether Your Own Coverage Is <span>Enough?</span>"
-        copy="Every engagement here started with a notability assessment."
-        label="Request An Assessment"
-      />
     </>
   );
 }

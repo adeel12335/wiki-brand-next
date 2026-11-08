@@ -78,7 +78,7 @@ function CharMeter({
     <span className={`admin-char-meter is-${tone}`}>
       {value}
       <small>
-        / {idealMin}–{idealMax}
+        / {idealMin}-{idealMax}
       </small>
     </span>
   );
@@ -156,7 +156,7 @@ export default function AdminBlogEditPage() {
       }
       setValues((prev) => ({ ...prev, ogImage: data.image.url }));
     } catch {
-      setError("Image upload failed — network or server error");
+      setError("Image upload failed - network or server error");
     } finally {
       setUploading(false);
     }
@@ -186,7 +186,7 @@ export default function AdminBlogEditPage() {
         details ||
           (typeof data.error === "string"
             ? data.error
-            : "Save failed — check required fields"),
+            : "Save failed - check required fields"),
       );
       return;
     }
@@ -286,7 +286,7 @@ export default function AdminBlogEditPage() {
               rows={3}
               value={values.excerpt}
               onChange={(e) => setValues({ ...values, excerpt: e.target.value })}
-              placeholder="1–2 sentences for cards and meta fallback"
+              placeholder="1-2 sentences for cards and meta fallback"
               required
             />
 

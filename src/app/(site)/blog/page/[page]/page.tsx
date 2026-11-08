@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { BodyClass } from "@/components/layout/BodyClass";
-import { BlogIndex } from "@/components/blog/BlogIndex";
-import { BlogPaginationSeoLinks } from "@/components/blog/BlogPaginationSeoLinks";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { CtaBand } from "@/components/ui/CtaBand";
-import { PageHero } from "@/components/ui/PageHero";
-import { getBlogPostsPage } from "@/lib/blog";
+import { ContactSection } from "@/components/module/ContactForm";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { ArchiveIntroBand } from "@/components/sections/blog/ArchiveIntroBand";
+import { GuidesView } from "@/components/sections/blog/BlogBrowser";
+import { PaginationSeoLinks } from "@/components/sections/blog/PaginationSeoLinks";
+import { TopicIndex } from "@/components/sections/blog/TopicIndex";
+import { topicChips, topicRows } from "@/components/sections/blog/topics";
+import { toCardPost } from "@/components/sections/blog/utils";
+import { blogContent } from "@/content/blog";
+import { getAllBlogPosts, getBlogPostsPage } from "@/lib/blog";
 import { absUrl, url } from "@/lib/config";
 import { buildPageMetadata, itemListNode } from "@/lib/seo";
 
@@ -18,17 +22,19 @@ export const revalidate = 60;
 
 export async function generateStaticParams() {
   const { totalPages } = await getBlogPostsPage(1);
-  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => ({
-    page: String(index + 2),
-  }));
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => ({ page: String(index + 2) }));
+}
+
+function metaTrimPagination(text: string): string {
+  const normalized = text.trim().replace(/\s+/g, " ");
+  if (normalized.length <= 160) return normalized;
+  return `${normalized.slice(0, 157).replace(/[ ,.;:]+$/, "")}…`;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { page: raw } = await params;
   const page = Number(raw);
-  if (!Number.isFinite(page) || page < 2) {
-    return {};
-  }
+  if (!Number.isFinite(page) || page < 2) return {};
   const { posts, totalPages } = await getBlogPostsPage(page);
   if (page > totalPages) return {};
 
@@ -45,17 +51,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: metaTrimPagination(
       `Page ${page} of ${totalPages}, Wikipedia editorial guides including ${titles || "notability, sourcing, and page creation"}.`,
     ),
-    keywords:
-      "wikipedia blog, wikipedia notability guide, paid wikipedia editing, wikipedia page creation tips",
+    keywords: "wikipedia blog, wikipedia notability guide, paid wikipedia editing, wikipedia page creation tips",
     ogImage: "/assets/og/hero-orbital-globe.jpg",
     breadcrumbs: [{ label: "Blog", slug: "blog" }],
   });
-}
-
-function metaTrimPagination(text: string): string {
-  const normalized = text.trim().replace(/\s+/g, " ");
-  if (normalized.length <= 160) return normalized;
-  return `${normalized.slice(0, 157).replace(/[ ,.;:]+$/, "")}…`;
 }
 
 export default async function BlogPagedPage({ params }: PageProps) {
@@ -65,7 +64,7 @@ export default async function BlogPagedPage({ params }: PageProps) {
     redirect(url("blog"));
   }
 
-  const { posts, totalPages, page: safePage } = await getBlogPostsPage(page);
+  const [{ posts, totalPages, page: safePage }, allPosts] = await Promise.all([getBlogPostsPage(page), getAllBlogPosts()]);
   if (page > totalPages) notFound();
 
   const pageMeta = {
@@ -78,41 +77,38 @@ export default async function BlogPagedPage({ params }: PageProps) {
       itemListNode(
         `blog/page/${page}`,
         `Wikipedia Studio guides, page ${page}`,
-        posts.map((post) => ({
-          name: post.title,
-          description: post.excerpt,
-          url: absUrl(`blog/${post.slug}`),
-        })),
+        posts.map((post) => ({ name: post.title, description: post.excerpt, url: absUrl(`blog/${post.slug}`) })),
       ),
     ],
   };
 
+  const c = blogContent.paged;
+
   return (
     <>
-      <BlogPaginationSeoLinks page={safePage} totalPages={totalPages} />
-      <BodyClass className="page-blog" />
+      <PaginationSeoLinks page={safePage} totalPages={totalPages} />
       <JsonLd page={pageMeta} />
-      <PageHero
-        eyebrow="Insights"
-        h1={`Editorial Guides <span>· Page ${page} of ${totalPages}</span>`}
-        lede="More notes on notability, sourcing, disclosure, and how Wikipedia review actually behaves. Each guide is also listed in the sitemap for crawlers."
-        breadcrumbs={[{ label: "Blog", slug: "blog" }]}
-        current={`Page ${page}`}
-        actions={[
-          { label: "Back to Blog", href: url("blog") },
-          ...(page < totalPages
-            ? [{ label: "Next page", href: url(`blog/page/${page + 1}`) }]
-            : []),
-        ]}
-      />
+      <ArchiveIntroBand {...blogContent.band} />
 
-      <section className="section-pad tone-light blog-section bl-index">
-        <div className="shell">
-          <BlogIndex page={page} />
+      <section id="guides" className="bg-white pt-12 pb-16 md:pt-20 md:pb-28">
+        <div className="shell flex flex-col gap-8 md:gap-10">
+          <div className="flex flex-col gap-4" data-aos="fade-up">
+            <Eyebrow>{c.eyebrow}</Eyebrow>
+            <h1 className="h2 text-heading">
+              {c.title}
+              <br />
+              <span className="text-gold">
+                Page {page} of {totalPages}
+              </span>
+            </h1>
+            <p className="lede max-w-[640px] text-body">{c.lede}</p>
+          </div>
+          <GuidesView posts={posts.map(toCardPost)} total={allPosts.length} chips={topicChips(allPosts)} page={safePage} totalPages={totalPages} />
         </div>
       </section>
 
-      <CtaBand />
+      <TopicIndex rows={topicRows(allPosts)} />
+      <ContactSection heading={blogContent.contact} />
     </>
   );
 }

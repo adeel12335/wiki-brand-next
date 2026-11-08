@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BodyClass } from "@/components/layout/BodyClass";
-import { BlogCard } from "@/components/blog/BlogCard";
-import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { CtaBand } from "@/components/ui/CtaBand";
+import { BlogCard } from "@/components/module/BlogCard";
+import { ContactSection } from "@/components/module/ContactForm";
+import { SectionHeading } from "@/components/module/SectionHeading";
 import { Icon } from "@/components/ui/Icon";
-import { PageHero } from "@/components/ui/PageHero";
-import {
-  formatBlogDate,
-  getAllBlogPosts,
-  getBlogPostBySlug,
-  getRelatedBlogPosts,
-} from "@/lib/blog";
-import { getService } from "@/lib/data";
+import { ArchiveIntroBand } from "@/components/sections/blog/ArchiveIntroBand";
+import { ArticleRail } from "@/components/sections/blog/ArticleRail";
+import { AuthorBox } from "@/components/sections/blog/AuthorBox";
+import { withHeadingIds } from "@/components/sections/blog/articleBody";
+import { slugifyTopic, splitTitle } from "@/components/sections/blog/utils";
+import prose from "@/components/sections/blog/prose.module.css";
+import { blogContent, blogSingleContent, midSizedCompaniesFaqs, midSizedCompaniesSlug } from "@/content/blog";
+import { getAllBlogPosts, getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/blog";
+import { services, type ServiceSlug } from "@/lib/data";
 import { getAuthor } from "@/lib/data/authors";
-import { midSizedCompaniesFaqs } from "@/lib/data/blog-refresh/mid-sized-companies";
-import { absUrl, url } from "@/lib/config";
+import { absUrl } from "@/lib/config";
+import { safeImageSrc } from "@/lib/image";
 import { articleNode, buildPageMetadata, faqNode } from "@/lib/seo";
 
 interface PageProps {
@@ -52,27 +53,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   });
 }
 
-/** Hosts allowed by next.config images.remotePatterns; anything else falls back. */
-const HERO_IMAGE_HOSTS = [
-  "res.cloudinary.com",
-  "thewikipediastudio.com",
-  "www.thewikipediastudio.com",
-  "thewikistudio.com",
-];
-const DEFAULT_POST_HERO = "/assets/og/hero-orbital-globe.jpg";
-
-function heroImageFor(image?: string | null): string {
-  if (!image) return DEFAULT_POST_HERO;
-  if (image.startsWith("/")) return image;
-  try {
-    const { protocol, hostname } = new URL(image);
-    return protocol === "https:" && HERO_IMAGE_HOSTS.includes(hostname)
-      ? image
-      : DEFAULT_POST_HERO;
-  } catch {
-    return DEFAULT_POST_HERO;
-  }
-}
+const DEFAULT_POST_IMAGE = "/assets/og/hero-orbital-globe.jpg";
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
@@ -80,10 +61,9 @@ export default async function BlogPostPage({ params }: PageProps) {
   if (!post) notFound();
 
   const related = await getRelatedBlogPosts(post.slug, 3);
-  const relatedService = post.relatedService
-    ? getService(post.relatedService)
-    : null;
   const author = getAuthor(post.authorSlug);
+  const serviceSlug = post.relatedService as ServiceSlug | undefined;
+  const relatedService = serviceSlug && services[serviceSlug] ? { name: services[serviceSlug].name, href: `/services/${serviceSlug}/` } : null;
 
   const pageMeta = {
     slug: `blog/${post.slug}`,
@@ -112,164 +92,145 @@ export default async function BlogPostPage({ params }: PageProps) {
         authorName: author.name,
         authorUrl: absUrl(`author/${author.slug}`),
       }),
-      ...(post.slug === "how-mid-sized-companies-get-a-wikipedia-page"
-        ? [faqNode([...midSizedCompaniesFaqs], `blog/${post.slug}`)]
-        : []),
+      ...(post.slug === midSizedCompaniesSlug ? [faqNode([...midSizedCompaniesFaqs], `blog/${post.slug}`)] : []),
     ],
   };
 
+  const s = blogSingleContent;
+  const { html, toc } = withHeadingIds(post.body);
+  const [line1, line2] = splitTitle(post.title);
+  const tags = post.keywords
+    .split(",")
+    .map((k) => k.trim())
+    .filter(Boolean)
+    .slice(0, 3);
+
   return (
     <>
-      <BodyClass className="page-blog-post" />
       <JsonLd page={pageMeta} />
-      <ReadingProgress target=".ba-article" />
-      <PageHero
-        eyebrow={post.category}
-        h1={post.title}
-        lede={post.excerpt}
-        breadcrumbs={[{ label: "Blog", slug: "blog" }]}
-        current={post.title}
-        image={heroImageFor(post.ogImage)}
-        imageWidth={1200}
-        imageHeight={630}
-        visualClass="page-hero-visual--archive page-hero-visual--post"
-      />
+      <ArchiveIntroBand {...blogContent.band} />
 
-      <article className="section-pad tone-light blog-article-section ba-article">
-        <div className="shell blog-article-layout">
-          <div className="blog-article-main reveal">
-            <div className="blog-article-meta">
-              <span className="ba-byline">
-                <span className="ba-avatar" aria-hidden="true">
-                  {author.name.charAt(0)}
-                </span>
-                <span>
-                  By{" "}
-                  <Link href={url(`author/${author.slug}`)}>{author.name}</Link>
-                </span>
-              </span>
-              <time dateTime={post.publishedAt}>
-                {formatBlogDate(post.publishedAt)}
-              </time>
-              <span>{post.readingMinutes} min read</span>
-              {post.modifiedAt !== post.publishedAt ? (
-                <span>Updated {formatBlogDate(post.modifiedAt)}</span>
-              ) : null}
+      {/* Article title */}
+      <header className="bg-white pt-12 md:pt-20">
+        <div className="shell flex flex-col gap-6 md:gap-7" data-aos="fade-up">
+          <p className="flex flex-wrap items-center gap-3.5">
+            {post.category ? (
+              <Link
+                href={`/blog/?topic=${slugifyTopic(post.category)}#guides`}
+                className="rounded-full border border-gold bg-gold/12 px-3.5 py-1.5 text-[11px] leading-none font-bold tracking-[0.16em] text-gold-dark uppercase transition-colors hover:bg-gold hover:text-on-gold"
+              >
+                {post.category}
+              </Link>
+            ) : null}
+            <span className="text-sm text-body">
+              {s.guideLabel}
+              <span className="px-2">·</span>
+              {post.readingMinutes} min read
+            </span>
+          </p>
+          <h1 className="max-w-[980px] text-[34px] leading-[1.15] font-bold text-heading md:text-[48px] lg:text-[58px]">
+            {line1}
+            {line2 ? (
+              <>
+                <br />
+                <span className="text-gold">{line2}</span>
+              </>
+            ) : null}
+          </h1>
+          {post.excerpt ? <p className="max-w-[820px] text-[17px] leading-relaxed text-body md:text-xl">{post.excerpt}</p> : null}
+          <hr className="mt-1 border-heading/10" />
+        </div>
+      </header>
+
+      {/* Article body */}
+      <div className="bg-white pt-10 pb-16 md:pt-14 md:pb-30">
+        <div className="shell grid gap-12 lg:grid-cols-[280px_minmax(0,1fr)] xl:grid-cols-[320px_760px] xl:justify-between">
+          <ArticleRail
+            author={author}
+            publishedAt={post.publishedAt}
+            modifiedAt={post.modifiedAt}
+            readingMinutes={post.readingMinutes}
+            shareUrl={absUrl(`blog/${post.slug}`)}
+            title={post.title}
+            toc={toc}
+            relatedService={relatedService}
+          />
+
+          <article className="flex min-w-0 flex-col gap-7">
+            <div className="relative aspect-[760/440] overflow-hidden rounded-[20px] bg-mist">
+              <Image src={safeImageSrc(post.ogImage, DEFAULT_POST_IMAGE)} alt={post.title} fill priority sizes="(min-width: 1280px) 760px, 100vw" className="object-cover" />
             </div>
+
             {post.excerpt ? (
-              <aside className="blog-key-takeaway" aria-label="Key takeaway">
-                <p className="micro-label">Key Takeaway</p>
-                <p>{post.excerpt}</p>
+              <aside aria-label={s.keyTakeaway} className="flex gap-5 rounded-2xl bg-cream py-7 pr-6 pl-6 md:pr-8 md:pl-7">
+                <span className="w-1 shrink-0 rounded-sm bg-gold" />
+                <div className="flex flex-col gap-2.5">
+                  <p className="text-[11px] font-bold tracking-[0.16em] text-gold-dark uppercase">{s.keyTakeaway}</p>
+                  <p className="text-[17px] leading-relaxed font-semibold text-heading md:text-lg">{post.excerpt}</p>
+                </div>
               </aside>
             ) : null}
-            <div
-              className="blog-prose legal-body"
-              dangerouslySetInnerHTML={{ __html: post.body }}
-            />
-          </div>
 
-          <aside className="blog-article-aside reveal" data-delay="80">
-            <div className="blog-aside-card ba-help">
-              <p className="micro-label">On This Topic</p>
-              <h2>Need Hands-On Help?</h2>
-              <p>
-                These guides explain the rules. Engagements apply them to a specific
-                subject and source pile.
-              </p>
-              {relatedService && post.relatedService ? (
-                <Link
-                  className="button button-gold button-small"
-                  href={url(`services/${post.relatedService}`)}
-                >
-                  {relatedService.name} <Icon name="i-arrow" />
-                </Link>
-              ) : (
-                <Link className="button button-gold button-small" href={url("contact")}>
-                  Contact us <Icon name="i-arrow" />
-                </Link>
-              )}
-              <Link className="text-link" href={url("wikipedia-page-cost")}>
-                Wikipedia page cost &amp; packages
-              </Link>
-              <Link className="text-link" href={url("blog")}>
-                All insights
-              </Link>
-            </div>
-            <div className="blog-aside-card ba-refs">
-              <p className="micro-label">Canonical References</p>
-              <ul className="blog-aside-links">
-                <li>
-                  <a
-                    href="https://en.wikipedia.org/wiki/Wikipedia:Notability"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Notability guideline
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Reliable sources
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://en.wikipedia.org/wiki/Wikipedia:Conflict_of_interest"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Conflict of interest
-                  </a>
-                </li>
+            <div className={prose.prose} dangerouslySetInnerHTML={{ __html: html }} />
+
+            <div className="flex flex-col gap-3.5 rounded-2xl border border-heading/10 p-7">
+              <p className="text-[11px] font-bold tracking-[0.16em] text-gold-dark uppercase">{s.sources.title}</p>
+              <ul className="flex flex-col gap-3.5">
+                {s.sources.links.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2.5 text-[15px] font-semibold text-heading transition-colors hover:text-gold-dark"
+                    >
+                      <Icon name="arrow" size={14} className="text-gold" />
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
-          </aside>
-        </div>
-      </article>
 
-      <section className="ba-author-band" aria-labelledby="ba-author-title">
-        <div className="shell ba-author-inner reveal">
-          <span className="ba-author-avatar" aria-hidden="true">
-            {author.name.charAt(0)}
-          </span>
-          <div>
-            <p className="ba-band-label">About the Author</p>
-            <h2 id="ba-author-title">{author.name}</h2>
-            <p className="ba-author-role">{author.role}</p>
-            <p>{author.bio}</p>
-          </div>
-          <Link className="ba-pill" href={url(`author/${author.slug}`)}>
-            More From This Author <Icon name="i-arrow" />
-          </Link>
+            <div className="flex flex-col gap-4 border-t border-heading/10 pt-7 sm:flex-row sm:items-center sm:justify-between">
+              {tags.length ? (
+                <ul className="flex flex-wrap gap-2">
+                  {tags.map((tag) => (
+                    <li key={tag} className="rounded-full border border-heading/10 px-3.5 py-1.5 text-[13px] text-heading first-letter:uppercase">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <span />
+              )}
+              <Link href={s.allInsights.href} className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-heading transition-colors hover:text-gold-dark">
+                <Icon name="chevron-left" size={14} />
+                {s.allInsights.label}
+              </Link>
+            </div>
+
+            <AuthorBox author={author} />
+          </article>
         </div>
-      </section>
+      </div>
+
+      <ContactSection heading={s.contact} />
 
       {related.length ? (
-        <section className="section-pad tone-light bl-index ba-related" aria-labelledby="ba-related-title">
-          <div className="shell">
-            <div className="section-heading center reveal">
-              <p className="micro-label">Keep Reading</p>
-              <h2 id="ba-related-title">
-                Related <span>Guides</span>
-              </h2>
-            </div>
-            <div className="blog-grid reveal">
-              {related.map((item) => (
-                <BlogCard key={item.slug} post={item} />
+        <section className="bg-white pt-14 pb-16 md:pt-24 md:pb-30">
+          <div className="shell flex flex-col gap-10 md:gap-14">
+            <SectionHeading eyebrow={s.related.eyebrow} title={s.related.title} highlight={s.related.highlight} />
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {related.map((item, i) => (
+                <div key={item.slug} data-aos="fade-up" data-aos-delay={i * 80}>
+                  <BlogCard post={item} />
+                </div>
               ))}
             </div>
           </div>
         </section>
       ) : null}
-
-      <CtaBand
-        heading="Ready for a Source-First <span>Assessment?</span>"
-        copy="Bring the strongest independent coverage you have. We will tell you what a reviewer is likely to accept."
-      />
     </>
   );
 }

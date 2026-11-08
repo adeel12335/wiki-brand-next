@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { BodyClass } from "@/components/layout/BodyClass";
-import { ContactForm } from "@/components/contact/ContactForm";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Icon } from "@/components/ui/Icon";
-import { PageHero } from "@/components/ui/PageHero";
-import { getRecaptchaSiteKey } from "@/lib/captcha/recaptcha";
-import {
-  SITE_EMAIL,
-  SITE_NAME,
-  SITE_PHONE,
-  SITE_PHONE_RAW,
-  absUrl,
-  url,
-} from "@/lib/config";
+import { HeroImage } from "@/components/hero/HeroImage";
+import { ContactChannels, ContactDesk, ContactNext, ReplyWindowPill } from "@/components/sections/contact/ContactSections";
+import { InfoCardsSection } from "@/components/sections/about/InfoCards";
+import { contactContent } from "@/content/contact";
+import { SITE_NAME, absUrl } from "@/lib/config";
 import { buildPageMetadata, seoId } from "@/lib/seo";
+import { EditableHero } from "@/components/hero/EditableHero";
 
 const pageMeta = {
   slug: "contact",
@@ -39,244 +31,21 @@ const pageMeta = {
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
-const readyLinks = [
-  {
-    icon: "i-search",
-    title: "Check Your Notability",
-    copy: "A quick self-check on the coverage you already have.",
-    href: "wikipedia-notability-checker",
-  },
-  {
-    icon: "i-page",
-    title: "See Pricing",
-    copy: "Published tiers from $700, fixed after assessment.",
-    href: "wikipedia-page-cost",
-  },
-  {
-    icon: "i-review",
-    title: "Read the FAQ",
-    copy: "Straight answers on timelines, disclosure, and approval.",
-    href: "faq",
-  },
-];
-
-const nextSteps = [
-  {
-    index: "01",
-    title: "New article",
-    copy: (
-      <>
-        Start with a source audit. Bring independent coverage and we will tell you
-        whether{" "}
-        <Link href={url("services/wikipedia-page-creation")}>page creation</Link>{" "}
-        is realistic.
-      </>
-    ),
-  },
-  {
-    index: "02",
-    title: "Existing article",
-    copy: (
-      <>
-        Send the live URL. An{" "}
-        <Link href={url("services/wikipedia-page-editing")}>editing audit</Link>{" "}
-        maps tags, sourcing gaps, and what is actually fixable.
-      </>
-    ),
-  },
-  {
-    index: "03",
-    title: "Something changed",
-    copy: (
-      <>
-        If an edit concerns you,{" "}
-        <Link href={url("services/wikipedia-page-management")}>
-          page monitoring
-        </Link>{" "}
-        covers assessment and a measured response.
-      </>
-    ),
-  },
-];
-
 export default function ContactPage() {
-  const recaptchaSiteKey = getRecaptchaSiteKey();
+  const h = contactContent.hero;
+  const n = contactContent.notReady;
   return (
     <>
-      <BodyClass className="page-contact" />
       <JsonLd page={pageMeta} />
-      <PageHero
-        eyebrow="Correspondence"
-        h1="Tell Us the Subject. <span>We Will Tell You the Truth.</span>"
-        lede="Send the coverage that already exists. An editor, not a sales queue, replies with a clear read on whether a Wikipedia article is realistic."
-        current="Contact"
-        image="/assets/about-knowledge-sphere.png"
-        imageWidth={1536}
-        imageHeight={1536}
-        visualClass="page-hero-visual--knowledge"
-      />
-
-      <section className="contact-desk section-pad tone-light ct-desk" aria-label="Enquiry desk">
-        <div className="shell contact-desk-shell">
-          <div className="contact-desk-rail" aria-hidden="true">
-            <span>Enquiry</span>
-            <i />
-            <span>Desk</span>
-          </div>
-
-          <div className="contact-desk-layout">
-            <ContactForm recaptchaSiteKey={recaptchaSiteKey} />
-
-            <aside className="contact-spine reveal" data-delay="80">
-              <div className="contact-spine-head">
-                <p className="micro-label">Direct lines</p>
-                <p className="contact-spine-lede">
-                  Prefer to skip the form? Reach the editorial desk straight away.
-                </p>
-              </div>
-
-              <ul className="contact-spine-list">
-                <li>
-                  <a className="contact-channel" href={`mailto:${SITE_EMAIL}`}>
-                    <span className="contact-spine-icon" aria-hidden="true">
-                      <Icon name="i-contact-mail" />
-                    </span>
-                    <span className="contact-channel-copy">
-                      <strong>Email</strong>
-                      <span>{SITE_EMAIL}</span>
-                    </span>
-                    <span className="contact-channel-arrow" aria-hidden="true">
-                      <Icon name="i-arrow" />
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a className="contact-channel" href={`tel:${SITE_PHONE_RAW}`}>
-                    <span className="contact-spine-icon" aria-hidden="true">
-                      <Icon name="i-contact-phone" />
-                    </span>
-                    <span className="contact-channel-copy">
-                      <strong>Phone</strong>
-                      <span>{SITE_PHONE}</span>
-                    </span>
-                    <span className="contact-channel-arrow" aria-hidden="true">
-                      <Icon name="i-arrow" />
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <div className="contact-channel contact-channel--static">
-                    <span className="contact-spine-icon" aria-hidden="true">
-                      <Icon name="i-globe" />
-                    </span>
-                    <span className="contact-channel-copy">
-                      <strong>Coverage</strong>
-                      <span>Worldwide editorial work</span>
-                    </span>
-                    <span className="contact-channel-status" aria-hidden="true">
-                      <i />
-                    </span>
-                  </div>
-                </li>
-              </ul>
-
-              <div className="contact-spine-note">
-                <p className="micro-label">Faster replies</p>
-                <h3>Bring these if you have them</h3>
-                <ul className="contact-spine-checks">
-                  <li>
-                    <Icon name="i-check" />
-                    <span>Independent press coverage links</span>
-                  </li>
-                  <li>
-                    <Icon name="i-check" />
-                    <span>Key dates and verified milestones</span>
-                  </li>
-                  <li>
-                    <Icon name="i-check" />
-                    <span>Any existing Wikipedia or Wikidata entry</span>
-                  </li>
-                  <li>
-                    <Icon name="i-check" />
-                    <span>Creation, editing, or maintenance need</span>
-                  </li>
-                </ul>
-              </div>
-
-              <p className="contact-spine-turnaround">
-                <span className="contact-turnaround-icon" aria-hidden="true">
-                  <Icon name="i-clock" />
-                </span>
-                <span>
-                  Typical reply window: <em>one business day</em>
-                </span>
-              </p>
-            </aside>
-          </div>
-        </div>
-      </section>
-
-      <section className="contact-aftermath section-pad tone-dark ct-next">
-        <div className="shell">
-          <div className="contact-aftermath-head reveal">
-            <p className="micro-label">After You Send It</p>
-            <h2>
-              What Happens <span>Next</span>
-            </h2>
-            <p>
-              Every enquiry is read by an editor. If the coverage looks promising, we
-              propose a{" "}
-              <Link href={url("services/wikipedia-page-creation")}>
-                notability assessment
-              </Link>{" "}
-              as the first paid step, not a promise of publication.
-            </p>
-          </div>
-
-          <ol className="contact-path reveal">
-            {nextSteps.map((step) => (
-              <li key={step.index}>
-                <span className="contact-path-index" aria-hidden="true">
-                  {step.index}
-                </span>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.copy}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="ct-ready-band" aria-labelledby="ct-ready-title">
-        <div className="shell reveal">
-          <div className="ct-ready-head">
-            <p className="ct-band-label">Not Ready to Write Yet?</p>
-            <h2 id="ct-ready-title">
-              Look Around <span>First</span>
-            </h2>
-          </div>
-          <ul className="ct-ready-grid">
-            {readyLinks.map((item) => (
-              <li key={item.href}>
-                <Link className="ct-ready-card" href={url(item.href)}>
-                  <span className="ct-ready-icon" aria-hidden="true">
-                    <Icon name={item.icon} />
-                  </span>
-                  <span>
-                    <strong>{item.title}</strong>
-                    <span className="ct-ready-copy">{item.copy}</span>
-                  </span>
-                  <span className="ct-ready-arrow" aria-hidden="true">
-                    <Icon name="i-arrow" />
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <EditableHero pageKey="contact">
+        <HeroImage layout="background" title={h.title} highlight={h.highlight} lede={h.lede} image={h.image}>
+          <ReplyWindowPill />
+        </HeroImage>
+      </EditableHero>
+      <ContactChannels />
+      <ContactDesk />
+      <ContactNext />
+      <InfoCardsSection heading={{ eyebrow: n.eyebrow, title: n.title, highlight: n.highlight, aside: n.aside }} cards={n.cards} />
     </>
   );
 }

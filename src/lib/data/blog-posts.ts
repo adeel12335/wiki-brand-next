@@ -11,7 +11,7 @@ const coreBlogPosts: BlogPost[] = [
     title: "Wikipedia Notability Requirements, Explained Without the Myths",
     metaTitle: "Wikipedia Notability Requirements Explained (2026 Guide)",
     metaDescription:
-      "What Wikipedia notability actually requires: significant coverage in reliable, independent sources — and which press clips do not count.",
+      "What Wikipedia notability actually requires: significant coverage in reliable, independent sources - and which press clips do not count.",
     keywords:
       "wikipedia notability requirements, general notability guideline, significant coverage wikipedia, independent sources wikipedia",
     excerpt:
@@ -27,7 +27,7 @@ const coreBlogPosts: BlogPost[] = [
 <p>Wikipedia’s <a href="https://en.wikipedia.org/wiki/Wikipedia:Notability" target="_blank" rel="noopener noreferrer">general notability guideline</a> asks a narrow question. Has the subject received <em>significant coverage</em> in <em>reliable</em> sources that are <em>independent</em> of the subject? Every word in that sentence does work. Skip any one of them and the draft usually fails, no matter how carefully it is written.</p>
 
 <h2>Significant coverage is not a mention</h2>
-<p>A name in a list, a quote in someone else’s profile, or a one-line award note is not enough. Significant coverage means the source spends real attention on the subject — typically multiple paragraphs that discuss who they are, what they did, or why it mattered.</p>
+<p>A name in a list, a quote in someone else’s profile, or a one-line award note is not enough. Significant coverage means the source spends real attention on the subject - typically multiple paragraphs that discuss who they are, what they did, or why it mattered.</p>
 <p>Trade directories, conference speaker pages, and “top 40 under 40” roundups often look impressive in a pitch deck. On Wikipedia they rarely clear the bar unless the write-up itself is substantial and independent.</p>
 
 <h2>Independence rules out your own material</h2>
@@ -40,7 +40,7 @@ const coreBlogPosts: BlogPost[] = [
 <p>Academics, athletes, companies, and creative professionals have additional notability essays. Those guides refine the test. They do not replace the need for solid secondary coverage. A company that fails the general test will not be saved by a clever reading of the corporate notability page.</p>
 
 <h2>What a useful notability assessment looks like</h2>
-<p>Before anyone opens the editor, list the strongest independent pieces you can find. For each source, note the outlet, date, depth, and whether the subject is the focus. If you cannot name several substantial pieces, the honest answer is to wait — or to strengthen real-world coverage first — rather than force a draft into the review queue.</p>
+<p>Before anyone opens the editor, list the strongest independent pieces you can find. For each source, note the outlet, date, depth, and whether the subject is the focus. If you cannot name several substantial pieces, the honest answer is to wait - or to strengthen real-world coverage first - rather than force a draft into the review queue.</p>
 <p>That early verdict is the difference between a durable article and months of declines. If you want a structured read on your own source pile, our <a href="/services/wikipedia-page-creation/">Wikipedia page creation</a> work begins with that assessment, not with a promise of publication.</p>
 `,
   },
@@ -53,7 +53,7 @@ const coreBlogPosts: BlogPost[] = [
     keywords:
       "how long wikipedia page creation, wikipedia articles for creation timeline, AfC backlog, wikipedia review time",
     excerpt:
-      "Drafting can take weeks. Volunteer review can take months. Here is what controls the clock — and what does not.",
+      "Drafting can take weeks. Volunteer review can take months. Here is what controls the clock - and what does not.",
     category: "Process",
     publishedAt: "2026-08-18",
     modifiedAt: "2026-09-03",
@@ -81,7 +81,7 @@ const coreBlogPosts: BlogPost[] = [
 
 <h2>After acceptance</h2>
 <p>Publication is not the finish line. Early weeks matter: watchlist monitoring, talk-page questions, and routine cleanup. That is why many engagements include a short stabilisation period after the move to article space.</p>
-<p>If you need a realistic estimate for a specific subject, start with source strength. Our process page walks through the five stages we use before anyone talks about submission timing: <a href="/our-process/">our editorial process</a>.</p>
+<p>If you need a realistic estimate for a specific subject, start with source strength. Our process page walks through the five stages we use before anyone talks about submission timing: <a href="/process/">our editorial process</a>.</p>
 `,
   },
   {
@@ -105,7 +105,7 @@ const coreBlogPosts: BlogPost[] = [
 
 <h2>What disclosure looks like in practice</h2>
 <p>Paid editors are expected to declare the relationship on their user page, on relevant article talk pages, and in edit summaries where paid work happens. Templates such as connected-contributor notices exist so other editors can see the relationship without guessing.</p>
-<p>If your agency refuses to disclose, that is not a clever workaround. It is a Terms of Use problem waiting to surface — often publicly.</p>
+<p>If your agency refuses to disclose, that is not a clever workaround. It is a Terms of Use problem waiting to surface - often publicly.</p>
 
 <h2>Conflict of interest is about incentives, not just paycheques</h2>
 <p>A company’s founder, a PR lead, or a subject’s family member has a conflict even when no invoice is involved. The recommended path is the same: propose changes on the talk page with sources, rather than rewriting the article in promotional voice. Living-person policy still allows obvious error fixes, but “obvious” is narrower than most subjects hope.</p>
@@ -129,13 +129,13 @@ const coreBlogPosts: BlogPost[] = [
   {
     slug: "why-wikipedia-pages-get-deleted",
     title: "Why Wikipedia Pages Get Deleted (And How to Avoid the Usual Traps)",
-    metaTitle: "Why Wikipedia Pages Get Deleted — Common Causes",
+    metaTitle: "Why Wikipedia Pages Get Deleted - Common Causes",
     metaDescription:
       "The most common reasons Wikipedia articles and drafts are deleted or declined: weak notability, promotional tone, COI issues, and thin sourcing.",
     keywords:
       "why wikipedia pages get deleted, wikipedia article deletion, promotional wikipedia page, AfC declined",
     excerpt:
-      "Deletion is rarely mysterious. Most failed pages share the same handful of problems — and they are visible before the first draft is filed.",
+      "Deletion is rarely mysterious. Most failed pages share the same handful of problems - and they are visible before the first draft is filed.",
     category: "Risk",
     publishedAt: "2026-08-26",
     modifiedAt: "2026-09-03",
@@ -162,7 +162,7 @@ const coreBlogPosts: BlogPost[] = [
 
 <h2>Prevention beats recovery</h2>
 <p>The cheapest fix is the earliest one: a sober source audit before drafting. If publication already happened and the page is unstable, the work shifts to sourcing, neutrality, and talk-page process rather than quiet rewrites.</p>
-<p>For subjects dealing with tags, disputes, or reputation-sensitive coverage, see our notes on <a href="/services/wikipedia-reputation-management/">reputation and entity work</a> — still within policy, still disclosed. If the page stays live, <a href="/blog/wikipedia-page-monitoring-why-it-matters/">Wikipedia page monitoring</a> is how you catch vandalism and unsourced additions early.</p>
+<p>For subjects dealing with tags, disputes, or reputation-sensitive coverage, see our notes on <a href="/services/wikipedia-reputation-management/">reputation and entity work</a> - still within policy, still disclosed. If the page stays live, <a href="/blog/wikipedia-page-monitoring-why-it-matters/">Wikipedia page monitoring</a> is how you catch vandalism and unsourced additions early.</p>
 `,
   },
   {
@@ -170,7 +170,7 @@ const coreBlogPosts: BlogPost[] = [
     title: "Reliable Sources for Wikipedia: What Counts and What Never Will",
     metaTitle: "Reliable Sources for Wikipedia Articles (Practical Guide)",
     metaDescription:
-      "A practical guide to Wikipedia reliable sources: newspapers, journals, and books that help — plus press releases, blogs, and directories that do not.",
+      "A practical guide to Wikipedia reliable sources: newspapers, journals, and books that help - plus press releases, blogs, and directories that do not.",
     keywords:
       "reliable sources wikipedia, wikipedia citations, press release wikipedia, secondary sources wikipedia",
     excerpt:
@@ -185,7 +185,7 @@ const coreBlogPosts: BlogPost[] = [
 <p>Wikipedia’s content policies rest on three pillars that keep colliding in client conversations: verifiability, no original research, and neutral point of view. All three depend on sources. Get the sources wrong and elegant prose will not save the page.</p>
 
 <h2>Secondary sources do the heavy lifting</h2>
-<p>Secondary sources analyse, summarise, or contextualise a topic. A newspaper profile, a scholarly overview, or a serious magazine feature usually sits in this category. Primary sources — filings, interviews, the subject’s own site — can support uncontroversial facts, but they rarely establish notability on their own.</p>
+<p>Secondary sources analyse, summarise, or contextualise a topic. A newspaper profile, a scholarly overview, or a serious magazine feature usually sits in this category. Primary sources - filings, interviews, the subject’s own site - can support uncontroversial facts, but they rarely establish notability on their own.</p>
 
 <h2>A working hierarchy for most biographies and companies</h2>
 <ul>
@@ -207,7 +207,7 @@ const coreBlogPosts: BlogPost[] = [
     title: "How to Improve an Existing Wikipedia Page Without Making It Worse",
     metaTitle: "How to Improve an Existing Wikipedia Page (Policy-Safe)",
     metaDescription:
-      "How to fix tags, sourcing gaps, and outdated sections on an existing Wikipedia article — using talk-page process and reliable sources.",
+      "How to fix tags, sourcing gaps, and outdated sections on an existing Wikipedia article - using talk-page process and reliable sources.",
     keywords:
       "improve wikipedia page, edit existing wikipedia article, wikipedia maintenance tags, wikipedia talk page edit request",
     excerpt:
@@ -219,7 +219,7 @@ const coreBlogPosts: BlogPost[] = [
     ogImage: "/assets/og/globe.jpg",
     relatedService: "wikipedia-page-editing",
     body: `
-<p>Improving a live article is different from creating one. The page already has watchers, history, and expectations. Large unexplained rewrites — especially by new or undeclared accounts — draw attention fast.</p>
+<p>Improving a live article is different from creating one. The page already has watchers, history, and expectations. Large unexplained rewrites - especially by new or undeclared accounts - draw attention fast.</p>
 
 <h2>Start with a diagnosis, not a redesign</h2>
 <p>Read the talk page, the page history, and every maintenance tag at the top. Tags are not decoration. Each one points to a specific problem: tone, sourcing, autobiography, notability, or outdated information. Fix the cause; do not delete the banner and hope nobody notices.</p>
@@ -229,7 +229,7 @@ const coreBlogPosts: BlogPost[] = [
 <li><strong>Correct clear factual errors</strong> with citations already accepted on similar articles.</li>
 <li><strong>Replace dead or weak references</strong> before expanding new sections.</li>
 <li><strong>Trim promotional language</strong> even when the subject dislikes a flatter tone.</li>
-<li><strong>Add milestones only when independent sources cover them</strong> — not because the subject announced them.</li>
+<li><strong>Add milestones only when independent sources cover them</strong> - not because the subject announced them.</li>
 <li><strong>Leave disputed or sensitive biography material</strong> to careful, well-sourced edits that follow living-person policy.</li>
 </ol>
 
@@ -238,7 +238,7 @@ const coreBlogPosts: BlogPost[] = [
 
 <h2>What ongoing management is for</h2>
 <p>Public subjects attract drive-by edits, vandalism, and well-meant but unsourced additions. A watchlist routine catches problems while they are small. Waiting six months turns a one-line fix into a sourcing project.</p>
-<p>If you need a structured audit of an existing article, our <a href="/services/wikipedia-page-editing/">editing service</a> and <a href="/services/wikipedia-page-management/">page management</a> work both start from the live page as it stands — tags, history, and all — not from a marketing brief. After fixes ship, <a href="/blog/wikipedia-page-monitoring-why-it-matters/">Wikipedia page monitoring</a> is how you catch the next round of silent bad edits.</p>
+<p>If you need a structured audit of an existing article, our <a href="/services/wikipedia-page-editing/">editing service</a> and <a href="/services/wikipedia-page-management/">page management</a> work both start from the live page as it stands - tags, history, and all - not from a marketing brief. After fixes ship, <a href="/blog/wikipedia-page-monitoring-why-it-matters/">Wikipedia page monitoring</a> is how you catch the next round of silent bad edits.</p>
 `,
   },
 ];

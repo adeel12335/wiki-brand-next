@@ -1,0 +1,123 @@
+@import "tailwindcss";
+/* Scan only the public-site source (admin has its own CSS). */
+@source "../";
+
+/* ------------------------------------------------------------------
+   Design tokens - mirror the Figma "Foundations" variables.
+   Use as Tailwind utilities: bg-ink, text-gold, rounded-card, …
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-open-sans), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  /* Surfaces */
+  --color-ink: #020c16;
+  --color-ink-raised: #041220;
+  --color-panel: #091a28;
+  --color-cream: #f8f5ee;
+  --color-mist: #f1f5fb;
+
+  /* Gold */
+  --color-gold: #d8a53a;
+  --color-gold-light: #e8bb5c;
+  --color-gold-dark: #b97d24;
+  --color-gold-eyebrow: #efc871;
+  --color-gold-deep: #9c6f1f;
+
+  /* Text */
+  --color-heading: #0b1b2a;
+  --color-body: #45525f;
+  --color-on-dark: #f4efe5;
+  --color-on-dark-muted: #aab4bd;
+  --color-on-gold: #1e1608;
+
+  /* Misc */
+  --color-star: #00b67a;
+
+  --radius-btn: 7px;
+  --radius-card: 12px;
+  --radius-panel: 16px;
+
+  --shadow-card: 0 10px 28px rgb(10 26 41 / 0.08);
+  --shadow-card-hover: 0 20px 40px rgb(10 26 41 / 0.16);
+  --shadow-gold: 0 8px 22px rgb(217 166 59 / 0.45);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-white font-sans text-body antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply text-heading;
+  }
+  ::selection {
+    @apply bg-gold/30;
+  }
+}
+
+@layer components {
+  /* 1200px shell with 20px mobile gutters */
+  .shell {
+    @apply mx-auto w-full max-w-[1320px] px-5;
+  }
+  /* Desktop text measure for hero/heading copy (900px), full width on mobile */
+  .measure {
+    @apply w-full md:max-w-[900px];
+  }
+  /* Section rhythm */
+  .section {
+    @apply py-14 md:py-24;
+  }
+  /* Type scale - measured from the Figma Final frames (desktop / 390px mobile).
+     2-line headings: second line wrapped in <span class="text-gold">. */
+  /* Home hero: Bold / 115% / -1.5% - 52 desktop, 34 mobile (reduced from Figma's 68 for the longer approved headline) */
+  .h1-home {
+    @apply text-[34px] leading-[1.15] font-bold tracking-[-0.015em] md:text-[44px] lg:text-[52px];
+  }
+  /* Inner-page hero H1: 52 Bold / 115% / -1.5% (mobile 34). Pages override the size where Figma differs. */
+  .h1 {
+    @apply text-[34px] leading-[1.15] font-bold tracking-[-0.015em] lg:text-[52px];
+  }
+  /* Section H2: 44 Bold / 120% / -1% (mobile 30) */
+  .h2 {
+    @apply text-[30px] leading-[1.2] font-bold tracking-[-0.01em] lg:text-[44px];
+  }
+  /* Lede / intro copy: 18 Regular / 165% (mobile 16) */
+  .lede {
+    @apply text-base leading-[1.65] lg:text-lg;
+  }
+}
+
+/* Admin → Pages: background image behind a page's designed hero (set by <EditableHero>). */
+.hero-bg-override > section:first-of-type {
+  background: var(--hero-bg-mobile, var(--hero-bg)) center bottom / cover no-repeat !important;
+}
+@media (min-width: 48rem) {
+  .hero-bg-override > section:first-of-type {
+    background: var(--hero-bg) center / cover no-repeat !important;
+  }
+}
+.hero-bg-override > section:first-of-type > img {
+  display: none; /* hide the hero's own photo so the uploaded one shows */
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Swiper pagination dots in brand colours */
+.swiper-pagination-bullet {
+  background: var(--color-on-dark-muted);
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background: var(--color-gold);
+}

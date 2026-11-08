@@ -3,7 +3,7 @@ import { getSiteUrl } from "@/lib/config";
 
 const privatePaths = ["/admin/", "/api/"];
 
-/** AI / answer-engine crawlers — allow grounding & citation; block training-only agents separately if needed later. */
+/** AI / answer-engine crawlers - allow grounding & citation; block training-only agents separately if needed later. */
 const AI_USER_AGENTS = [
   "OAI-SearchBot",
   "GPTBot",

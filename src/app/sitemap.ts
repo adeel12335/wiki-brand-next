@@ -13,7 +13,7 @@ const STATIC_ROUTES = [
   "services",
   "hire-wikipedia-writer",
   "wikipedia-page-cost",
-  "our-process",
+  "process",
   "portfolio",
   "case-studies",
   "blog",
@@ -72,7 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-  // Index article URLs in the sitemap — pagination is crawlable via hub links + rel prev/next.
+  // Index article URLs in the sitemap - pagination is crawlable via hub links + rel prev/next.
   const blogPostEntries = blogPosts.map((post) => ({
     url: absUrl(`blog/${post.slug}`),
     lastModified: post.modifiedAt,

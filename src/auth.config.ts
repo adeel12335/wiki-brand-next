@@ -1,7 +1,7 @@
 import type { NextAuthConfig } from "next-auth";
 
 /**
- * Edge-safe auth config — used by middleware only.
+ * Edge-safe auth config - used by middleware only.
  * Do not import mongoose, bcrypt, or other Node-only modules here.
  */
 export const authConfig = {

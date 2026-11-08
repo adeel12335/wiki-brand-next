@@ -34,7 +34,7 @@ function formatDate(value: string) {
       minute: "2-digit",
     }).format(new Date(value));
   } catch {
-    return "—";
+    return " - ";
   }
 }
 

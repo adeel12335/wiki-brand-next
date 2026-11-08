@@ -1,283 +1,196 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { BlogCard } from "@/components/blog/BlogCard";
-import { ExperiencePanel, ExperienceStats } from "@/components/sections/ExperiencePanel";
-import { PortfolioClientsGrid } from "@/components/sections/PortfolioClientsGrid";
-import { StatsBand } from "@/components/sections/StatsBand";
-import { ProcessShowcase } from "@/components/sections/ProcessShowcase";
-import { ServiceIndex } from "@/components/sections/ServiceIndex";
-import { TestimonialSection } from "@/components/sections/TestimonialSection";
-import { HomeDeepGuide } from "@/components/sections/HomeDeepGuide";
-import { TrustpilotReviewsSection } from "@/components/trustpilot/TrustpilotReviewsSection";
-import { CtaBand } from "@/components/ui/CtaBand";
-import { FaqList } from "@/components/ui/FaqList";
-import { Icon } from "@/components/ui/Icon";
+import { CheckRow } from "@/components/ui/CheckRow";
+import { Button, TextLink } from "@/components/module/Button";
+import { SectionHeading } from "@/components/module/SectionHeading";
+import { ServiceCard } from "@/components/module/ServiceCard";
+import { StepsTimeline } from "@/components/module/StepsTimeline";
+import { Testimonials } from "@/components/module/Testimonials";
+import { TrustMarquee } from "@/components/module/TrustMarquee";
+import { BlogCard, BlogRow } from "@/components/module/BlogCard";
+import { Cta } from "@/components/module/Cta";
+import { ContactSection } from "@/components/module/ContactForm";
+import { FaqPanel } from "@/components/module/Faq";
+import { HomeHero } from "@/components/sections/home/HomeHero";
+import { HomeAbout } from "@/components/sections/home/HomeAbout";
+import { HomeTrustpilot } from "@/components/sections/home/HomeTrustpilot";
+import { PortfolioShowcase } from "@/components/sections/home/PortfolioShowcase";
+import { homeContent } from "@/content/home";
 import { getAllBlogPosts } from "@/lib/blog";
-import { SITE_NAME, absUrl, url } from "@/lib/config";
-import {
-  faqs,
-  metrics,
-  services,
-} from "@/lib/data";
-import {
-  AUDIENCE_LINKS,
-  CASE_STUDIES_LINK,
-} from "@/lib/data/audience-links";
-import { getFeaturedPortfolio } from "@/lib/portfolio";
+import { getFeaturedPortfolio, getPublishedPortfolio } from "@/lib/portfolio";
+import { getTrustpilotEvaluateUrl, getTrustpilotReviewUrl, getTrustpilotSummary } from "@/lib/trustpilot";
+import { absUrl, SITE_NAME } from "@/lib/config";
 import { buildPageMetadata, faqNode, itemListNode } from "@/lib/seo";
+import { EditableHero } from "@/components/hero/EditableHero";
 
-const homeFaqs = faqs.slice(0, 10);
+export const revalidate = 60;
 
 const pageMeta = {
   slug: "",
-  title: "Wikipedia Page Creation Service Provider",
+  title: homeContent.seo.title,
   shortTitle: "Home",
-  description:
-    "Wiki Studio (The Wikipedia Studio) is a Wikipedia service provider for page creation and editing. Free notability assessment first, disclosed and compliant.",
+  description: homeContent.seo.description,
   keywords:
     "wiki studio, wikipedia studio, wikipedia service provider, wiki services provider, wikipedia page creation service, wikipedia page, wiki page creation, create a wikipedia page, wikipedia editing services",
-  ogImage: "/assets/og/hero-orbital-globe.jpg",
-  ogImageAlt: `${SITE_NAME},professional Wikipedia editorial services`,
-  modified: "2026-09-07",
+  ogImageAlt: `${SITE_NAME}, professional Wikipedia editorial services`,
   schema: [
     itemListNode(
       "",
       "Wikipedia editorial services",
-      Object.entries(services).map(([slug, service]) => ({
-        name: service.name,
-        url: absUrl(`services/${slug}`),
-        description: service.card,
-      })),
+      homeContent.services.items.map((s) => ({ name: s.title, url: absUrl(s.href.replace(/^\//, "")), description: s.description })),
     ),
-    faqNode(homeFaqs, ""),
+    faqNode(homeContent.faq.items, ""),
   ],
 };
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 export default async function HomePage() {
-  const featuredPortfolio = await getFeaturedPortfolio();
-  const latestPosts = (await getAllBlogPosts()).slice(0, 3);
+  const [featured, posts, trustpilot] = await Promise.all([getFeaturedPortfolio(), getAllBlogPosts(), getTrustpilotSummary()]);
+  const portfolio = featured.length >= 4 ? featured : (await getPublishedPortfolio()).slice(0, 8);
+  const [leadPost, ...morePosts] = posts.slice(0, 3);
+  const reviewUrl = getTrustpilotReviewUrl();
+
+  const s = homeContent.services;
+  const p = homeContent.process;
+  const pf = homeContent.portfolio;
+  const why = homeContent.why;
+  const t = homeContent.testimonials;
+  const ins = homeContent.insights;
+
   return (
     <>
       <JsonLd page={pageMeta} />
+      <EditableHero pageKey="home">
+        <HomeHero />
+      </EditableHero>
+      <TrustMarquee
+        rating={trustpilot ? `Rated ${trustpilot.trustScore.toFixed(1)} on Trustpilot` : homeContent.marquee.rating}
+        stars={trustpilot ? Math.round(trustpilot.stars) : 4}
+        reviewsHref={reviewUrl}
+        items={homeContent.marquee.items}
+      />
+      <HomeAbout />
 
-      <section className="hero tone-dark" aria-labelledby="hero-title">
-        <div className="hero-art" aria-hidden="true">
-          <Image
-            className="hero-art-image"
-            src="/assets/hero-orbital-globe.jpg"
-            alt=""
-            fill
-            preload
-            sizes="100vw"
-          />
-        </div>
-        <canvas className="hero-particles" id="heroParticles" aria-hidden="true" />
-        <div className="hero-beacon" aria-hidden="true">
-          <i />
-          <i />
-        </div>
-        <div className="shell hero-grid">
-          <div className="hero-copy reveal in-view">
-            <p className="micro-label">The Wikipedia Studio</p>
-            <h1 id="hero-title">
-              Professional Wikipedia Page Creation &amp;{" "}
-              <span>Editing Services</span>
-            </h1>
-            <p className="hero-lede hero-answer">
-              Wikipedia page creation is the process of confirming notability from
-              independent sources, drafting a neutral cited article, and submitting
-              it with paid-contribution disclosure. Roughly two thirds of the work
-              happens before drafting begins,in the search for significant coverage.
-            </p>
-            <p className="hero-lede">
-              We help individuals, businesses, and organisations build a credible
-              Wikipedia presence without fake guarantees or undisclosed editing.
-            </p>
-            <div className="hero-actions">
-              <Link className="button button-gold magnetic" href={url("contact")}>
-                Request a free assessment <Icon name="i-arrow" />
-              </Link>
-              <Link className="button button-outline magnetic" href={url("services")}>
-                Explore Our Services <Icon name="i-arrow" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <StatsBand items={metrics} />
-
-      <section className="about section-pad tone-light" id="about">
-        <div className="shell about-grid about-grid--split">
-          <div className="section-copy reveal">
-            <p className="micro-label">About The Wikipedia Studio</p>
-            <h2>
-              Where Editorial <span>Excellence</span> Meets Global Standards.
-            </h2>
-            <p>
-              The Wikipedia Studio,Wiki Studio for short,is a professional
-              Wikipedia service provider: a team of Wikipedia specialists,
-              researchers, and content strategists dedicated to creating, improving,
-              and managing Wikipedia pages that meet the platform&apos;s strict
-              guidelines and deliver real-world results.
-            </p>
-            <ul className="check-list">
-              <li>
-                <Icon name="i-check" />
-                100% guideline-compliant content
-              </li>
-              <li>
-                <Icon name="i-check" />
-                In-depth research and verified sourcing
-              </li>
-              <li>
-                <Icon name="i-check" />
-                Transparent process and clear communication
-              </li>
-              <li>
-                <Icon name="i-check" />
-                Long-term page monitoring and maintenance
-              </li>
-            </ul>
-            <ExperienceStats />
-            <Link className="button button-gold button-small" href={url("about-us")}>
-              Learn More About Us <Icon name="i-arrow" />
-            </Link>
-          </div>
-
-          <ExperiencePanel statsBeside={false} />
-        </div>
-      </section>
-
-      <HomeDeepGuide />
-
-      <section className="services section-pad tone-light" id="services">
-        <div className="shell">
-          <ServiceIndex showHeading />
-          <div className="section-actions reveal">
-            <Link className="button button-outline button-small" href={url("services")}>
-              View All Services <Icon name="i-arrow" />
-            </Link>
-            <Link className="button button-gold button-small" href={url("hire-wikipedia-writer")}>
-              Hire a Wikipedia Writer <Icon name="i-arrow" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="process section-pad tone-dark" id="process">
-        <div className="shell">
-          <ProcessShowcase />
-        </div>
-      </section>
-
-      <section className="work section-pad tone-light" id="work">
-        <div className="shell">
-          <div className="work-head reveal">
-            <div>
-              <p className="micro-label">Our Portfolio</p>
-              <h2>Recent Wikipedia Publications</h2>
-            </div>
-            <Link className="text-link" href={url("portfolio")}>
-              View All Work <Icon name="i-arrow" />
-            </Link>
-          </div>
-          <PortfolioClientsGrid items={featuredPortfolio} variant="carousel" />
-          <p className="section-actions reveal" style={{ marginTop: 22 }}>
-            <Link className="text-link" href={url(CASE_STUDIES_LINK.slug)}>
-              Read source-first {CASE_STUDIES_LINK.label} <Icon name="i-arrow" />
-            </Link>
-          </p>
-        </div>
-      </section>
-
-      <section className="section-pad tone-dark" id="who-we-help" aria-labelledby="who-we-help-title">
-        <div className="shell">
-          <div className="section-heading center reveal">
-            <p className="micro-label">Who We Work With</p>
-            <h2 id="who-we-help-title">
-              Audience guides for <span>companies, authors, academics, and musicians</span>
-            </h2>
-            <p className="section-heading-copy">
-              Notability rules differ by subject type. Start with the guide that matches
-              your situation, then request a free assessment.
-            </p>
-          </div>
-          <div className="card-grid reveal">
-            {AUDIENCE_LINKS.map((item) => (
-              <article key={item.slug} className="service-card">
-                <h3>
-                  <Link href={url(item.slug)}>{item.anchor}</Link>
-                </h3>
-                <p>
-                  Guideline-led notes for {item.label.toLowerCase()}, including what
-                  coverage usually counts and what does not.
-                </p>
-                <Link className="text-link" href={url(item.slug)}>
-                  Open guide <Icon name="i-arrow" />
-                </Link>
-              </article>
+      {/* Services */}
+      <section className="section bg-ink">
+        <div className="shell flex flex-col gap-12">
+          <SectionHeading eyebrow={s.eyebrow} title={s.title} highlight={s.highlight} lede={s.lede} align="center" tone="dark" />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+            {s.items.map((item, i) => (
+              <div key={item.title} data-aos="fade-up" data-aos-delay={i * 80}>
+                <ServiceCard {...item} tone="dark" />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <TestimonialSection />
+      {/* Process */}
+      <section className="section bg-white">
+        <div className="shell flex flex-col gap-12">
+          <SectionHeading eyebrow={p.eyebrow} title={p.title} highlight={p.highlight} lede={p.lede} align="center" />
+          <StepsTimeline steps={p.steps} />
+        </div>
+      </section>
 
-      <TrustpilotReviewsSection className="tone-light" />
-
-      <section className="section-pad blog-home-section tone-dark">
-        <div className="shell">
-          <div className="portfolio-heading reveal">
-            <div>
-              <p className="micro-label">Insights</p>
-              <h2>Guides Worth Reading Before You Draft</h2>
+      {/* Portfolio */}
+      {portfolio.length ? (
+        <section className="section bg-ink">
+          <div className="shell flex flex-col gap-12">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+              <SectionHeading eyebrow={pf.eyebrow} title={pf.title} highlight={pf.highlight} tone="dark" className="lg:max-w-[620px]" />
+              <div className="flex max-w-[516px] flex-col gap-3.5" data-aos="fade-up">
+                <p className="text-base leading-relaxed text-on-dark-muted md:text-[17px]">{pf.aside}</p>
+                <TextLink href={pf.viewAll.href}>{pf.viewAll.label}</TextLink>
+              </div>
             </div>
-            <Link className="text-link" href={url("blog")}>
-              View All Articles <Icon name="i-arrow" />
-            </Link>
+            <PortfolioShowcase items={portfolio} />
           </div>
-          <div className="blog-grid blog-grid--home reveal">
-            {latestPosts.map((post) => (
-                <BlogCard key={post.slug} post={post} />
+        </section>
+      ) : null}
+
+      {/* Why choose us */}
+      <section className="bg-white">
+        <div className="grid gap-10 pb-14 lg:grid-cols-[minmax(0,45%)_1fr] lg:items-stretch lg:gap-20 lg:pb-0">
+          {/* Side image fills the full height of the section */}
+          <div
+            className="min-h-[300px] rounded-r-[50%_50%] border-r-[5px] border-gold pr-2.5 sm:min-h-[420px] lg:min-h-full"
+            data-aos="fade-right"
+          >
+            <div className="relative h-full min-h-[inherit] overflow-hidden rounded-r-[50%_50%]">
+              <Image src={why.image.src} alt={why.image.alt} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-center" />
+            </div>
+          </div>
+          <div className="flex flex-col gap-5 px-5 lg:py-14 lg:pr-[max(20px,calc((100vw-1280px)/2))] lg:pl-0">
+            <SectionHeading eyebrow={why.eyebrow} title={why.title} highlight={why.highlight} lede={why.intro} />
+            <ul className="flex flex-col gap-3.5 py-1.5" data-aos="fade-up">
+              {why.reasons.map((r) => (
+                <CheckRow key={r.title}>
+                  <strong className="font-bold">{r.title}:</strong> <span className="text-body">{r.copy}</span>
+                </CheckRow>
               ))}
+            </ul>
+            <Button href={why.cta.href} variant="navy" arrow className="self-start">
+              {why.cta.label}
+            </Button>
           </div>
         </div>
       </section>
 
-      <section
-        className="resources section-pad tone-light home-faq-section"
-        id="resources"
-        aria-labelledby="home-faq-title"
-      >
-        <div className="shell faq-library home-faq-library">
-          <div className="faq-library-intro reveal">
-            <p className="micro-label">Frequently Asked Questions</p>
-            <h2 id="home-faq-title">
-              Straight Answers, <span>Before You Commit.</span>
-            </h2>
-            <p>
-              The questions we hear most before an engagement starts,on
-              notability, cost, and what a paid editor can and cannot do.
-            </p>
-            <Link className="button button-gold button-small" href={url("faq")}>
-              Read The Full FAQ <Icon name="i-arrow" />
-            </Link>
-          </div>
-          <div className="faq-wide reveal">
-            <FaqList items={homeFaqs} wide />
-          </div>
-        </div>
-      </section>
+      <Testimonials heading={{ eyebrow: t.eyebrow, title: t.title, highlight: t.highlight, lede: t.lede }} items={t.items} />
 
-      <CtaBand
-        heading="Let&apos;s Build Your Wikipedia Presence <span>the Right Way.</span>"
-        copy="Request an honest notability assessment. We will tell you what the sources support before any work is commissioned."
+      <HomeTrustpilot
+        score={trustpilot?.trustScore ?? 4}
+        reviews={trustpilot?.total ?? 4}
+        label={trustpilot?.label || "Great"}
+        reviewUrl={reviewUrl}
+        evaluateUrl={getTrustpilotEvaluateUrl()}
       />
+
+      {/* Insights */}
+      {leadPost ? (
+        <section className="section bg-ink">
+          <div className="shell flex flex-col gap-12">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+              <SectionHeading eyebrow={ins.eyebrow} title={ins.title} highlight={ins.highlight} tone="dark" className="lg:max-w-[620px]" />
+              <div className="flex max-w-[516px] flex-col gap-3.5" data-aos="fade-up">
+                <p className="text-base leading-relaxed text-on-dark-muted md:text-[17px]">{ins.aside}</p>
+                <TextLink href={ins.viewAll.href}>{ins.viewAll.label}</TextLink>
+              </div>
+            </div>
+            <div className="grid gap-10 lg:grid-cols-[540px_1fr]">
+              <div data-aos="fade-up">
+                <BlogCard post={leadPost} />
+              </div>
+              <div className="flex flex-col gap-4" data-aos="fade-up" data-aos-delay="100">
+                <p className="text-[11px] font-bold tracking-[0.14em] text-on-dark-muted uppercase">More guides</p>
+                {morePosts.map((post) => (
+                  <BlogRow key={post.slug} post={post} />
+                ))}
+                <div className="flex flex-col gap-3 rounded-[14px] border border-gold/35 bg-gold/12 p-6">
+                  <p className="text-lg font-bold text-white">{ins.questions.title}</p>
+                  <ul className="flex flex-col gap-2.5">
+                    {ins.questions.links.map((l) => (
+                      <li key={l.href}>
+                        <TextLink href={l.href}>{l.label}</TextLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      <FaqPanel
+        heading={{ eyebrow: homeContent.faq.eyebrow, title: homeContent.faq.title, highlight: homeContent.faq.highlight, lede: homeContent.faq.lede }}
+        items={homeContent.faq.items.map((f) => ({ question: f.q, answer: f.a }))}
+      />
+      <Cta {...homeContent.cta} />
+      <ContactSection />
     </>
   );
 }
