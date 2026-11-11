@@ -88,15 +88,6 @@ export const contactContent = {
         tone: "cream" as const,
       },
       {
-        icon: "layers" as IconName,
-        kicker: "Pricing",
-        title: "See Published",
-        highlight: "Pricing Tiers",
-        copy: "Published tiers from $700, fixed in writing after the assessment.",
-        cta: { label: "View Pricing", href: "/wikipedia-page-cost/" },
-        tone: "mist" as const,
-      },
-      {
         icon: "info" as IconName,
         kicker: "FAQ",
         title: "Clear Answers,",

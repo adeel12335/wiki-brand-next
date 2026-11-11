@@ -1,5 +1,4 @@
 import { getAllBlogPosts } from "@/lib/blog";
-import { getPublishedPortfolio } from "@/lib/portfolio";
 import { sitemapContent } from "@/content/sitemap";
 import { serviceDetails, servicesContent } from "@/content/services";
 import { faqContent } from "@/content/faq";
@@ -73,17 +72,14 @@ async function buildIndex(): Promise<Doc[]> {
     }
   }
 
-  const [posts, portfolio] = await Promise.all([getAllBlogPosts(), getPublishedPortfolio()]);
+  const posts = await getAllBlogPosts();
   for (const p of posts) {
     docs.push({ kind: "Guide", title: p.title, href: `/blog/${p.slug}/`, text: `${p.title} ${p.category} ${p.excerpt} ${p.keywords} ${stripHtml(p.body)}` });
-  }
-  for (const item of portfolio) {
-    docs.push({ kind: "Portfolio", title: item.title, href: `/portfolio/${item.slug}/`, text: `${item.title} ${item.category} ${item.summary}` });
   }
   return docs;
 }
 
-/** Simple ranked full-text search across pages, services, FAQs, blog posts and portfolio items. */
+/** Simple ranked full-text search across pages, services, FAQs and blog posts. */
 export async function searchSite(query: string, limit = 40): Promise<SearchResult[]> {
   const words = terms(query);
   if (!words.length) return [];

@@ -65,9 +65,7 @@ export const primaryNav: NavItem[] = [
       },
     ],
   },
-  { label: "Pricing", href: "/wikipedia-page-cost/" },
   { label: "Process", href: "/process/" },
-  { label: "Portfolio", href: "/portfolio/" },
   {
     label: "Insights",
     href: "/blog/",
@@ -104,7 +102,7 @@ export const primaryNav: NavItem[] = [
 export const aboutNav: NavItem = {
   label: "About Us",
   href: "/about-us/",
-  // Process / Portfolio / Contact have their own nav items or buttons, so only About itself is "current".
+  // Process / Contact have their own nav items or buttons, so only About itself is "current".
   activePaths: ["/about-us/"],
   groups: [
     {
@@ -112,7 +110,6 @@ export const aboutNav: NavItem = {
       links: [
         { label: "About Us", description: "Who we are and why we exist", href: "/about-us/", icon: "globe" },
         { label: "Our Process", description: "Five stages, evidence first", href: "/process/", icon: "plan" },
-        { label: "Portfolio", description: "Published, reviewed pages", href: "/portfolio/", icon: "trophy" },
       ],
     },
     {
@@ -149,9 +146,7 @@ export const footerColumns: MenuGroup[] = [
     label: "About Us",
     links: [
       { label: "Our Process", href: "/process/" },
-      { label: "Pricing", href: "/wikipedia-page-cost/" },
       { label: "Editorial Team", href: "/about-us/#team" },
-      { label: "Portfolio", href: "/portfolio/" },
       { label: "Case Studies", href: "/case-studies/" },
     ],
   },

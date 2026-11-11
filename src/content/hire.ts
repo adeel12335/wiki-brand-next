@@ -8,7 +8,6 @@ export const hireContent = {
     lede: "Work with professional Wikipedia writers who understand notability, reliable sources, and neutral writing. From research to editorial review and submission, we help you take the right steps toward an accurate Wikipedia article.",
     actions: [
       { label: "Get a Free Assessment", href: "/contact/", variant: "gold" as const },
-      { label: "View Writing Packages", href: "#pricing", variant: "ghost" as const },
     ],
     panel: {
       title: "Every Writing Engagement",
@@ -50,20 +49,6 @@ export const hireContent = {
     ],
   },
 
-  pricing: {
-    id: "pricing",
-    title: "How Much Does It Cost to",
-    highlight: "Hire a Wikipedia Writer?",
-    lede: "The cost depends on source availability, research needs, article complexity, and editorial work. We review your subject before recommending a package.",
-    tiers: [
-      { id: "essential", name: "Essential", kicker: "Essential", price: "From $700", amount: 700, from: true, note: "Straightforward subjects with sufficient independent coverage" },
-      { id: "standard", name: "Standard", kicker: "Standard", price: "$1,100", amount: 1100, from: false, note: "Additional research and editorial development", featured: true },
-      { id: "complex", name: "Complex", kicker: "Complex", price: "From $1,800", amount: 1800, from: true, note: "Detailed research or earlier submissions" },
-      { id: "custom", name: "Custom", kicker: "Custom", price: "$2,500+", amount: 2500, from: true, note: "Specialized research and editorial requirements" },
-    ],
-    cta: { label: "Compare Writing Packages", href: "/wikipedia-page-cost/" },
-  },
-
   faq: {
     heading: {
       title: "Questions to Ask Before",
@@ -76,7 +61,7 @@ export const hireContent = {
       },
       {
         q: "How much does it cost to hire a Wikipedia writer?",
-        a: "Pricing depends on the research required, source quality, and article complexity. Our page creation packages start at $700, subject to assessment and confirmed project scope.",
+        a: "Pricing depends on the research required, source quality, and article complexity. The scope and price are confirmed in writing after a free assessment.",
       },
       {
         q: "Is it allowed to pay a Wikipedia editor?",

@@ -63,7 +63,7 @@ export const chooseAgencyContent = {
         icon: "trophy" as IconName,
         kicker: "Recommended",
         title: "The Wikipedia Studio",
-        copy: "Published tiers, after a free notability assessment.",
+        copy: "Scope and price in writing, after a free notability assessment.",
         recommended: true,
       },
     ],
@@ -87,7 +87,7 @@ export const chooseAgencyContent = {
       },
       {
         q: "What should an honest agency publish?",
-        a: "Clear pricing bands, what is not included, disclosure practices, and a willingness to decline weak subjects. Our packages start at $700 after a free assessment.",
+        a: "Clear pricing bands, what is not included, disclosure practices, and a willingness to decline weak subjects. Every engagement starts with a free assessment.",
       },
     ],
   },

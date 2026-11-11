@@ -44,15 +44,6 @@ export const thankYouContent = {
         cta: { label: "Read the Guide", href: "/process/" },
         tone: "mist" as const,
       },
-      {
-        icon: "layers" as IconName,
-        kicker: "Pricing",
-        title: "See What Each",
-        highlight: "Tier Includes",
-        copy: "Published packages from $700, fixed in writing after the assessment.",
-        cta: { label: "View Pricing", href: "/wikipedia-page-cost/" },
-        tone: "cream" as const,
-      },
     ],
   },
 };

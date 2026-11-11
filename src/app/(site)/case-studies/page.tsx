@@ -35,7 +35,7 @@ export default async function CaseStudiesPage() {
         image: work?.imageUrl ?? item.image,
         imageAlt: work?.imageAlt || item.subject,
         wikipedia: work?.externalUrl ?? item.wikipedia,
-        caseHref: `/portfolio/${work?.slug ?? item.slug}/`,
+        caseHref: null,
         title: item.title,
         story: item.story,
         focus: item.focus,

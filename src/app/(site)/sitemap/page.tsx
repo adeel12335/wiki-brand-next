@@ -4,7 +4,6 @@ import { Button } from "@/components/module/Button";
 import { SitemapExplorer } from "@/components/sections/sitemap/SitemapExplorer";
 import { sitemapContent, type SitemapGroup } from "@/content/sitemap";
 import { getAllBlogPosts } from "@/lib/blog";
-import { getPublishedPortfolio } from "@/lib/portfolio";
 import { absUrl } from "@/lib/config";
 import { buildPageMetadata, itemListNode } from "@/lib/seo";
 import { EditableHero } from "@/components/hero/EditableHero";
@@ -17,22 +16,18 @@ const pageMeta = {
   slug: "sitemap",
   title: "HTML Sitemap",
   shortTitle: "Sitemap",
-  description: "Browse every public page on The Wikipedia Studio, services, pricing, process, portfolio, blog, and resources.",
+  description: "Browse every public page on The Wikipedia Studio, services, pricing, process, blog, and resources.",
   ogImage: "/assets/og/hero-orbital-globe.jpg",
 };
 
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 export default async function HtmlSitemapPage() {
-  const [posts, portfolio] = await Promise.all([getAllBlogPosts(), getPublishedPortfolio()]);
+  const posts = await getAllBlogPosts();
 
   const extraGroups: SitemapGroup[] = [];
   if (posts.length) {
     extraGroups.push({ ...c.blogGroup, links: posts.map((p) => ({ label: p.title, href: `/blog/${p.slug}/` })) });
-  }
-  const work = portfolio.filter((p) => p.slug);
-  if (work.length) {
-    extraGroups.push({ ...c.portfolioGroup, links: work.map((p) => ({ label: p.title, href: `/portfolio/${p.slug}/` })) });
   }
 
   const allLinks = [...c.groups, ...extraGroups].flatMap((g) => g.links).filter((l) => !l.href.includes("#"));

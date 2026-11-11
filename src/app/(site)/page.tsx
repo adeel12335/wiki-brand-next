@@ -14,12 +14,8 @@ import { ContactSection } from "@/components/module/ContactForm";
 import { FaqPanel } from "@/components/module/Faq";
 import { HomeHero } from "@/components/sections/home/HomeHero";
 import { HomeAbout } from "@/components/sections/home/HomeAbout";
-import { HomeTrustpilot } from "@/components/sections/home/HomeTrustpilot";
-import { PortfolioShowcase } from "@/components/sections/home/PortfolioShowcase";
 import { homeContent } from "@/content/home";
 import { getAllBlogPosts } from "@/lib/blog";
-import { getFeaturedPortfolio, getPublishedPortfolio } from "@/lib/portfolio";
-import { getTrustpilotEvaluateUrl, getTrustpilotReviewUrl, getTrustpilotSummary } from "@/lib/trustpilot";
 import { absUrl, SITE_NAME } from "@/lib/config";
 import { buildPageMetadata, faqNode, itemListNode } from "@/lib/seo";
 import { EditableHero } from "@/components/hero/EditableHero";
@@ -47,14 +43,11 @@ const pageMeta = {
 export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 export default async function HomePage() {
-  const [featured, posts, trustpilot] = await Promise.all([getFeaturedPortfolio(), getAllBlogPosts(), getTrustpilotSummary()]);
-  const portfolio = featured.length >= 4 ? featured : (await getPublishedPortfolio()).slice(0, 8);
+  const posts = await getAllBlogPosts();
   const [leadPost, ...morePosts] = posts.slice(0, 3);
-  const reviewUrl = getTrustpilotReviewUrl();
 
   const s = homeContent.services;
   const p = homeContent.process;
-  const pf = homeContent.portfolio;
   const why = homeContent.why;
   const t = homeContent.testimonials;
   const ins = homeContent.insights;
@@ -65,12 +58,7 @@ export default async function HomePage() {
       <EditableHero pageKey="home">
         <HomeHero />
       </EditableHero>
-      <TrustMarquee
-        rating={trustpilot ? `Rated ${trustpilot.trustScore.toFixed(1)} on Trustpilot` : homeContent.marquee.rating}
-        stars={trustpilot ? Math.round(trustpilot.stars) : 4}
-        reviewsHref={reviewUrl}
-        items={homeContent.marquee.items}
-      />
+      <TrustMarquee items={homeContent.marquee.items} />
       <HomeAbout />
 
       {/* Services */}
@@ -94,22 +82,6 @@ export default async function HomePage() {
           <StepsTimeline steps={p.steps} />
         </div>
       </section>
-
-      {/* Portfolio */}
-      {portfolio.length ? (
-        <section className="section bg-ink">
-          <div className="shell flex flex-col gap-12">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
-              <SectionHeading eyebrow={pf.eyebrow} title={pf.title} highlight={pf.highlight} tone="dark" className="lg:max-w-[620px]" />
-              <div className="flex max-w-[516px] flex-col gap-3.5" data-aos="fade-up">
-                <p className="text-base leading-relaxed text-on-dark-muted md:text-[17px]">{pf.aside}</p>
-                <TextLink href={pf.viewAll.href}>{pf.viewAll.label}</TextLink>
-              </div>
-            </div>
-            <PortfolioShowcase items={portfolio} />
-          </div>
-        </section>
-      ) : null}
 
       {/* Why choose us */}
       <section className="bg-white">
@@ -140,14 +112,6 @@ export default async function HomePage() {
       </section>
 
       <Testimonials heading={{ eyebrow: t.eyebrow, title: t.title, highlight: t.highlight, lede: t.lede }} items={t.items} />
-
-      <HomeTrustpilot
-        score={trustpilot?.trustScore ?? 4}
-        reviews={trustpilot?.total ?? 4}
-        label={trustpilot?.label || "Great"}
-        reviewUrl={reviewUrl}
-        evaluateUrl={getTrustpilotEvaluateUrl()}
-      />
 
       {/* Insights */}
       {leadPost ? (

@@ -2,19 +2,13 @@ import type { MetadataRoute } from "next";
 import { getAllBlogPosts } from "@/lib/blog";
 import { absUrl } from "@/lib/config";
 import { serviceSlugs } from "@/lib/data";
-import {
-  getPublishedPortfolio,
-  isIndexablePortfolioItem,
-} from "@/lib/portfolio";
 
 const STATIC_ROUTES = [
   "",
   "about-us",
   "services",
   "hire-wikipedia-writer",
-  "wikipedia-page-cost",
   "process",
-  "portfolio",
   "case-studies",
   "blog",
   "faq",
@@ -35,10 +29,7 @@ const CONTENT_LAST_MODIFIED = "2026-09-04";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Never fail the whole sitemap if Mongo/Redis is briefly unavailable.
-  const [portfolioItems, blogPosts] = await Promise.all([
-    getPublishedPortfolio().catch(() => []),
-    getAllBlogPosts().catch(() => []),
-  ]);
+  const blogPosts = await getAllBlogPosts().catch(() => []);
 
   const staticEntries = STATIC_ROUTES.map((slug) => ({
     url: absUrl(slug),
@@ -50,7 +41,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ? 1
         : slug === "contact" ||
             slug === "blog" ||
-            slug === "wikipedia-page-cost" ||
             slug === "hire-wikipedia-writer"
           ? 0.9
           : 0.8,
@@ -63,15 +53,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const portfolioEntries = portfolioItems
-    .filter(isIndexablePortfolioItem)
-    .map((item) => ({
-      url: absUrl(`portfolio/${item.slug}`),
-      lastModified: item.updatedAt ?? CONTENT_LAST_MODIFIED,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }));
-
   // Index article URLs in the sitemap - pagination is crawlable via hub links + rel prev/next.
   const blogPostEntries = blogPosts.map((post) => ({
     url: absUrl(`blog/${post.slug}`),
@@ -83,7 +64,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...staticEntries,
     ...serviceEntries,
-    ...portfolioEntries,
     ...blogPostEntries,
   ];
 }

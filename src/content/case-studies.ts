@@ -8,7 +8,6 @@ export const caseStudiesContent = {
     lede: "Short narratives from published portfolio work: what we looked for in the sources, how drafting stayed neutral, and why disclosure and aftercare matter. Outcomes are never guaranteed.",
     actions: [
       { label: "Request a Free Assessment", href: "/contact/" },
-      { label: "View Full Portfolio", href: "/portfolio/" },
     ],
     panel: {
       title: "Inside every case",

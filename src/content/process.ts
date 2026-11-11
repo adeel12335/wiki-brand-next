@@ -20,7 +20,6 @@ export const processContent = {
     lede: "Every strong Wikipedia article begins with reliable research. Our five step process combines source verification, neutral writing, expert review, and transparent submission to help build an accurate Wikipedia presence.",
     actions: [
       { label: "Get a Free Assessment", href: "/contact/", variant: "gold" as const },
-      { label: "Explore Our Pricing", href: "/wikipedia-page-cost/", variant: "ghost" as const },
     ],
     image: { src: "/assets/about-knowledge-sphere.png", alt: "" },
     facts: [
@@ -111,7 +110,6 @@ export const processContent = {
     highlight: "With Reliable Research",
     lede: "Have independent coverage about your work? Let our team review your sources and explain the next steps. Get a clear assessment before moving forward with Wikipedia page creation.",
     primary: { label: "Request a Free Assessment", href: "/contact/" },
-    secondary: { label: "View Pricing", href: "/wikipedia-page-cost/" },
     assurances: [
       { icon: "clock" as IconName, title: "2 to 5 Day Assessment", copy: "Receive a written review of your sources and Wikipedia eligibility." },
       { icon: "plan" as IconName, title: "Clear Scope and Pricing", copy: "Understand the proposed work and cost before your project begins." },

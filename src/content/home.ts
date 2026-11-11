@@ -30,8 +30,7 @@ export const homeContent = {
   },
 
   marquee: {
-    rating: "Rated 4.0 on Trustpilot",
-    items: ["Independent editorial service", "Free notability assessment", "Every paid contribution disclosed", "Published pricing from $700"],
+    items: ["Independent editorial service", "Free notability assessment", "Every paid contribution disclosed"],
   },
 
   about: {
@@ -85,14 +84,6 @@ export const homeContent = {
     ],
   },
 
-  portfolio: {
-    eyebrow: "Our Portfolio",
-    title: "Recent Wikipedia Articles",
-    highlight: "and Editorial Work",
-    aside: "Explore published Wikipedia articles featured in our portfolio and see how clear writing and reliable sources support encyclopedic content.",
-    viewAll: { label: "Explore Our Portfolio", href: "/portfolio/" },
-  },
-
   why: {
     eyebrow: "Why Choose Us",
     title: "Your Trusted Wikipedia",
@@ -125,19 +116,6 @@ export const homeContent = {
     ],
   },
 
-  trustpilot: {
-    eyebrow: "Trustpilot Reviews",
-    title: "Independent Reviews",
-    highlight: "on Trustpilot",
-    lede: "See what clients say about their experience with The Wikipedia Studio. Read independent feedback on our research, communication, and editorial services.",
-    points: [
-      { icon: "users" as IconName, title: "Real Client Feedback", copy: "Read reviews shared by clients about their experience with our team." },
-      { icon: "shield" as IconName, title: "Independent Review Platform", copy: "Explore public feedback and ratings directly on Trustpilot." },
-      { icon: "search" as IconName, title: "Make an Informed Choice", copy: "Learn from client experiences before choosing a Wikipedia service provider." },
-    ],
-    readLabel: "Read Reviews on Trustpilot",
-  },
-
   insights: {
     eyebrow: "Our Insights",
     title: "Wikipedia Guides Worth Reading",
@@ -149,7 +127,6 @@ export const homeContent = {
       title: "Common questions",
       links: [
         { label: "Who Qualifies for a Wikipedia Page?", href: "/wikipedia-notability-checker/" },
-        { label: "How Much Does a Wikipedia Page Cost?", href: "/wikipedia-page-cost/" },
         { label: "Why Do Wikipedia Pages Get Rejected?", href: "/faq/" },
       ],
     },
@@ -163,7 +140,7 @@ export const homeContent = {
     items: [
       {
         q: "What is The Wikipedia Studio (Wiki Studio)?",
-        a: "The Wikipedia Studio - often shortened to Wiki Studio - is an independent Wikipedia service provider offering notability assessments, Wikipedia page creation, editing, research, and ongoing page management for individuals, companies, and institutions worldwide. It is not affiliated with Wikipedia or the Wikimedia Foundation, discloses all paid editing, and publishes its packages from $700.",
+        a: "The Wikipedia Studio - often shortened to Wiki Studio - is an independent Wikipedia service provider offering notability assessments, Wikipedia page creation, editing, research, and ongoing page management for individuals, companies, and institutions worldwide. It is not affiliated with Wikipedia or the Wikimedia Foundation, and discloses all paid editing.",
       },
       {
         q: "How famous do you need to be to get a Wikipedia page?",
@@ -171,7 +148,7 @@ export const homeContent = {
       },
       {
         q: "How much does a Wikipedia page cost?",
-        a: "Engagements start at $700 for straightforward subjects and run to $1,800 for complex or previously rejected ones, with custom scoping above that. The figure depends on how much independent coverage exists and how much verification it requires, which the free notability assessment establishes before you commit. Full package details are on our pricing page.",
+        a: "The cost depends on how much independent coverage exists and how much verification it requires. The free notability assessment establishes this first, and the scope and price are confirmed in writing before you commit.",
       },
       {
         q: "Can I pay someone to write my Wikipedia page?",

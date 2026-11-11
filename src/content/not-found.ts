@@ -15,7 +15,6 @@ export const notFoundContent = {
     popular: [
       { label: "Home", href: "/" },
       { label: "Services", href: "/services/" },
-      { label: "Pricing", href: "/wikipedia-page-cost/" },
       { label: "Blog", href: "/blog/" },
       { label: "Contact", href: "/contact/" },
     ],

@@ -32,7 +32,6 @@ export const sitemapContent = {
         { label: "Home", href: "/" },
         { label: "About Us", href: "/about-us/" },
         { label: "Our Process", href: "/process/" },
-        { label: "Pricing", href: "/wikipedia-page-cost/" },
         { label: "Contact", href: "/contact/" },
         { label: "FAQ", href: "/faq/" },
       ],
@@ -65,10 +64,9 @@ export const sitemapContent = {
     },
     {
       id: "portfolio-proof",
-      title: "Portfolio & proof",
+      title: "Case studies & team",
       icon: "trophy",
       links: [
-        { label: "Portfolio", href: "/portfolio/" },
         { label: "Case Studies", href: "/case-studies/" },
         { label: "Editorial Team", href: "/about-us/#team" },
       ],
@@ -99,15 +97,13 @@ export const sitemapContent = {
 
   /** Data-driven groups (not in the Figma frame, rendered with the same card). */
   blogGroup: { id: "articles", title: "Blog articles", icon: "write" as IconName },
-  portfolioGroup: { id: "published-work", title: "Published work", icon: "trophy" as IconName },
 
   pricingBand: {
-    title: "Looking for",
-    highlight: "Pricing?",
-    copy: "Published packages start from $700. Every engagement begins with a free notability assessment.",
+    title: "Not Sure Where",
+    highlight: "to Start?",
+    copy: "Every engagement begins with a free notability assessment.",
     actions: [
-      { label: "See Pricing", href: "/wikipedia-page-cost/", variant: "gold" as const },
-      { label: "Free Assessment", href: "/contact/", variant: "ghost" as const },
+      { label: "Free Assessment", href: "/contact/", variant: "gold" as const },
     ],
   },
 };

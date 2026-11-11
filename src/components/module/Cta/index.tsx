@@ -12,13 +12,12 @@ interface CtaProps {
   assurances?: Array<{ icon: IconName; title: string; copy: string }>;
 }
 
-const DEFAULTS: Required<CtaProps> = {
+const DEFAULTS: Required<Omit<CtaProps, "secondary">> & Pick<CtaProps, "secondary"> = {
   eyebrow: "Start With Clarity",
   title: "Ready to Build Your",
   highlight: "Wikipedia Presence?",
   lede: "Bring the strongest independent coverage you have. Within 2-5 days we will tell you, in writing, what the sources support and which package applies, before you pay anything.",
   primary: { label: "Request a Free Assessment", href: "/contact/" },
-  secondary: { label: "See Pricing", href: "/wikipedia-page-cost/" },
   assurances: [
     { icon: "clock", title: "2-5 day assessment", copy: "A written verdict on your notability, free." },
     { icon: "plan", title: "Quote fixed in writing", copy: "Scope and price agreed before work starts." },
@@ -44,9 +43,11 @@ export function Cta(props: CtaProps) {
             <Button href={c.primary.href} variant="gold" arrow>
               {c.primary.label}
             </Button>
-            <Button href={c.secondary.href} variant="ghost" arrow>
-              {c.secondary.label}
-            </Button>
+            {c.secondary ? (
+              <Button href={c.secondary.href} variant="ghost" arrow>
+                {c.secondary.label}
+              </Button>
+            ) : null}
           </div>
         </div>
         <ul className="relative flex flex-col self-center rounded-panel border border-gold/35 bg-[#091926]/80 px-5 py-2 md:px-7">

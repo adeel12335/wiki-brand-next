@@ -28,7 +28,6 @@ const LEGACY_PAGE_MAP: Array<[string, string]> = [
   ["/portfolios", "/portfolio/"],
   ["/portfolio/:slug*", "/portfolio/"],
   ["/portfolio-category/:slug*", "/portfolio/"],
-  ["/pricing", "/wikipedia-page-cost/"],
   ["/service", "/services/"],
   ["/services11", "/services/"],
   ["/service121", "/services/"],
@@ -71,17 +70,6 @@ const nextConfig: NextConfig = {
       // effect if that domain is attached to this deployment; while it is still
       // hosted on Hostinger, config/thewikistudio-redirect.htaccess does the job.
       ...legacyDomainRedirects(),
-      // Old pricing URL (keep both slash variants; trailingSlash may hop once).
-      {
-        source: "/pricing",
-        destination: "/wikipedia-page-cost/",
-        permanent: true,
-      },
-      {
-        source: "/pricing/",
-        destination: "/wikipedia-page-cost/",
-        permanent: true,
-      },
       // Process page moved from /our-process/ to /process/ (Nov 2026).
       {
         source: "/our-process",

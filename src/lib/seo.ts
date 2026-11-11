@@ -128,7 +128,6 @@ export function organizationNode() {
     sameAs: [
       `https://x.com/${twitterHandle}`,
       `https://twitter.com/${twitterHandle}`,
-      "https://www.trustpilot.com/review/thewikipediastudio.com",
     ],
     areaServed: { "@type": "Place", name: "Worldwide" },
     knowsAbout: [

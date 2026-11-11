@@ -43,7 +43,6 @@ export interface ServiceDetail {
 /** Shared Service Single section copy (same on every service). */
 export const serviceSingleShared = {
   heroActions: [
-    { label: "See Pricing", href: "/wikipedia-page-cost/" },
     { label: "How We Work", href: "/process/" },
   ],
   form: {
@@ -56,7 +55,6 @@ export const serviceSingleShared = {
   whoForLabel: "WHO THIS IS FOR",
   includesHeading: { title: "Everything in One Engagement", aside: "Scope and price fixed in writing before work starts." },
   process: { eyebrow: "How It Works", title: "How the Engagement", highlight: "Runs, Step by Step" },
-  feesCta: { label: "See Full Pricing", href: "/wikipedia-page-cost/" },
   faq: { titleSuffix: "Questions, Answered", lede: "Short, straight answers to the questions we hear most often." },
   cta: {
     eyebrow: "Start With Clarity",
@@ -64,7 +62,6 @@ export const serviceSingleShared = {
     highlight: "Next Step?",
     lede: "Share your subject and current sources. We will explain what is possible, where the gaps are and which service fits your needs.",
     primary: { label: "Request a Free Assessment", href: "/contact/" },
-    secondary: { label: "See Pricing", href: "/wikipedia-page-cost/" },
     assurances: [
       { icon: "search" as IconName, title: "Source Review", copy: "Understand the evidence before committing to a project." },
       { icon: "plan" as IconName, title: "Clear Scope", copy: "Know the proposed work and cost before it starts." },
@@ -92,7 +89,7 @@ export const serviceDetails: ServiceDetail[] = [
       title: "Wikipedia Page Creation,",
       highlight: "Written From the Sources",
       lede: "We confirm notability first, then build a neutral, fully cited article to the standard volunteer reviewers expect. Every engagement is disclosed on-wiki.",
-      checks: ["Written notability verdict before any drafting", "Fixed quote in writing, from $700", "Second-editor fact check on every claim"],
+      checks: ["Written notability verdict before any drafting", "Fixed quote in writing", "Second-editor fact check on every claim"],
     },
     overview: {
       eyebrow: "The Short Version",
@@ -166,7 +163,7 @@ export const serviceDetails: ServiceDetail[] = [
       title: "Wikipedia Page Editing,",
       highlight: "Fixed Against the Sources",
       lede: "Existing articles carry outdated facts, thin sourcing, maintenance tags and gaps in coverage. We audit the page, then repair it against independent sources, transparently and on the record.",
-      checks: ["Section-by-section audit before any edit", "Fixed quote in writing, from $450", "Every change tied to a guideline and a source"],
+      checks: ["Section-by-section audit before any edit", "Fixed quote in writing", "Every change tied to a guideline and a source"],
     },
     overview: {
       eyebrow: "The Short Version",
@@ -306,7 +303,7 @@ export const serviceDetails: ServiceDetail[] = [
       title: "Wikipedia Page Management,",
       highlight: "Accurate After Launch",
       lede: "Anyone can edit an article, facts go stale and cited links disappear. Management keeps the page current and catches problem edits before they settle into the record.",
-      checks: ["Every incoming edit reviewed and classified", "From $250 per month, no long lock-in", "Quarterly plain-language health report"],
+      checks: ["Every incoming edit reviewed and classified", "Month to month, no long lock-in", "Quarterly plain-language health report"],
     },
     overview: {
       eyebrow: "The Short Version",
@@ -767,7 +764,6 @@ export const servicesContent = {
     highlight: "Service Fits?",
     lede: "Start with a free notability assessment. Our team will review your available sources, explain your options, and recommend the right next step.",
     primary: { label: "Request Free Assessment", href: "/contact/" },
-    secondary: { label: "View Pricing", href: "/wikipedia-page-cost/" },
     // TODO(content): verify the 2 to 5 day assessment timeline before publishing.
     assurances: [
       { icon: "clock" as IconName, title: "2 to 5 Day Assessment", copy: "Receive a written review of your sources and Wikipedia eligibility." },

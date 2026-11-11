@@ -52,7 +52,6 @@ export const resourcesContent = {
       { label: "Name", value: "The Wikipedia Studio (Wiki Studio)" },
       { label: "Type", value: "Independent editorial service, not affiliated with Wikipedia or the Wikimedia Foundation" },
       { label: "What it does", value: "Notability assessment, disclosed page creation and editing, monitoring and entity consistency" },
-      { label: "Starting price", value: "From $700, published at /wikipedia-page-cost/" },
       { label: "Disclosure", value: "Every paid contribution declared on-wiki" },
     ],
   },

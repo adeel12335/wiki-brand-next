@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/module/SectionHeading";
 import { FaqPanel } from "@/components/module/Faq";
 import { Cta } from "@/components/module/Cta";
 import { ServiceHero } from "@/components/sections/services/ServiceHero";
-import { EngagementSteps, FeesPanel } from "@/components/sections/services/EngagementSteps";
+import { EngagementSteps } from "@/components/sections/services/EngagementSteps";
 import { getServiceDetail, serviceDetails, serviceSingleShared as shared, type ServiceDetail } from "@/content/services";
 import { serviceSlugs } from "@/lib/data";
 import { cn } from "@/lib/cn";
@@ -128,12 +128,11 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </div>
       </section>
 
-      {/* Process + fees */}
+      {/* Process */}
       <section className="bg-ink py-16 md:py-30" id="process">
         <div className="shell flex flex-col gap-8 md:gap-16">
           <SectionHeading eyebrow={shared.process.eyebrow} title={shared.process.title} highlight={shared.process.highlight} align="center" tone="dark" />
           <EngagementSteps steps={s.steps} />
-          <FeesPanel fees={s.fees} cta={shared.feesCta} />
         </div>
       </section>
 

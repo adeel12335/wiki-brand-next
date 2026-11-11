@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { HeroSideContent, HeroSidePanel } from "@/components/hero/HeroSideContent";
-import { Button } from "@/components/module/Button";
 import { SectionHeading } from "@/components/module/SectionHeading";
 import { FaqPanel } from "@/components/module/Faq";
 import { ContactSection } from "@/components/module/ContactForm";
@@ -37,18 +36,6 @@ const pageMeta = {
       areaServed: { "@type": "Place", name: "Worldwide" },
       description:
         "Professional Wikipedia writers for notability assessment, independent source research, neutral article drafting, editorial review, and disclosed submission support.",
-      offers: c.pricing.tiers.map((tier) => ({
-        "@type": "Offer",
-        name: `${tier.name} package`,
-        description: tier.note,
-        priceSpecification: {
-          "@type": "PriceSpecification",
-          price: String(tier.amount),
-          priceCurrency: "USD",
-          ...(tier.from ? { minPrice: String(tier.amount) } : {}),
-        },
-        url: `${absUrl("wikipedia-page-cost")}#${tier.id}`,
-      })),
     },
     faqNode(c.faq.items, pageSlug),
   ],
@@ -58,7 +45,6 @@ export const metadata: Metadata = buildPageMetadata(pageMeta);
 
 export default function HireWriterPage() {
   const w = c.writers;
-  const p = c.pricing;
 
   return (
     <>
@@ -108,28 +94,6 @@ export default function HireWriterPage() {
       </section>
 
       {/* Pricing strip */}
-      <section id={p.id} className="section scroll-mt-24 bg-ink">
-        <div className="shell flex flex-col items-center gap-10 md:gap-12">
-          <SectionHeading title={p.title} highlight={p.highlight} lede={p.lede} align="center" tone="dark" />
-          <div className="grid w-full gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4" data-aos="fade-up">
-            {p.tiers.map((tier) => (
-              <div
-                key={tier.id}
-                id={tier.id}
-                /* featured tier: ink with a 10% gold wash (Figma #D8A53A @ 10%) */
-                className={cn("flex flex-col gap-2.5 px-8 py-6 md:py-9", tier.featured ? "bg-[#171b1a]" : "bg-ink")}
-              >
-                <p className="text-[11px] font-bold tracking-[0.14em] whitespace-pre-wrap text-gold-light uppercase">{tier.kicker}</p>
-                <p className="text-[34px] leading-tight font-bold text-white md:text-[40px]">{tier.price}</p>
-                <p className="text-[15px] text-on-dark-muted">{tier.note}</p>
-              </div>
-            ))}
-          </div>
-          <Button href={p.cta.href} variant="gold" arrow>
-            {p.cta.label}
-          </Button>
-        </div>
-      </section>
 
       <FaqPanel heading={c.faq.heading} items={c.faq.items.map((f) => ({ question: f.q, answer: f.a }))} moreLabel="Explore All Questions" />
       <ContactSection heading={c.contact} submitLabel="Request Writer Consultation" />

@@ -46,7 +46,7 @@ export const faqContent = {
         },
         {
           q: "What is The Wikipedia Studio (Wiki Studio)?",
-          a: "The Wikipedia Studio - often shortened to Wiki Studio - is an independent Wikipedia service provider offering notability assessments, Wikipedia page creation, editing, research, and ongoing page management for individuals, companies, and institutions worldwide. It is not affiliated with Wikipedia or the Wikimedia Foundation, discloses all paid editing, and publishes its packages from $700.",
+          a: "The Wikipedia Studio - often shortened to Wiki Studio - is an independent Wikipedia service provider offering notability assessments, Wikipedia page creation, editing, research, and ongoing page management for individuals, companies, and institutions worldwide. It is not affiliated with Wikipedia or the Wikimedia Foundation, and discloses all paid editing.",
         },
         {
           q: "What do you need from me to get started?",
@@ -100,7 +100,7 @@ export const faqContent = {
       items: [
         {
           q: "How much does a Wikipedia page cost?",
-          a: "Engagements start at $700 for straightforward subjects and run to $1,800 for complex or previously rejected ones, with custom scoping above that. The figure depends on how much independent coverage exists and how much verification it requires, which the free notability assessment establishes before you commit. Full package details are on our pricing page.",
+          a: "The cost depends on how much independent coverage exists and how much verification it requires. The free notability assessment establishes this first, and the scope and price are confirmed in writing before you commit.",
         },
         {
           q: "Can I pay someone to write my Wikipedia page?",
@@ -126,7 +126,7 @@ export const faqContent = {
         },
         {
           q: "What happens after my Wikipedia page is published?",
-          a: "Every package includes a monitoring period, from 30 days up to 12 months depending on the tier, so we can catch problem edits early. After that, ongoing page management is available at $250 per month or $2,500 per year, covering watchlist monitoring, milestone updates from independent sources, dead-link repair, and a quarterly report.",
+          a: "Every package includes a monitoring period, from 30 days up to 12 months depending on the tier, so we can catch problem edits early. After that, ongoing page management is available, covering watchlist monitoring, milestone updates from independent sources, dead-link repair, and a quarterly report.",
         },
         {
           q: "Will my Wikipedia page appear in Google and AI answers?",
@@ -134,7 +134,7 @@ export const faqContent = {
         },
         {
           q: "Can you create a Wikipedia page in another language?",
-          a: "Yes. Additional language versions are available at $400 each, and our Comprehensive package includes one. Each language edition of Wikipedia has its own notability and sourcing standards, so we check the coverage for that language before drafting.",
+          a: "Yes. Additional language versions are available, and our Comprehensive package includes one. Each language edition of Wikipedia has its own notability and sourcing standards, so we check the coverage for that language before drafting.",
         },
       ],
     },

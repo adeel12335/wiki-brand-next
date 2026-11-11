@@ -37,7 +37,7 @@ export const moreBlogPosts: BlogPost[] = [
 
 <h2>A sane sequence</h2>
 <p>Start with a <a href="/services/wikipedia-notability-assessment/">notability assessment</a>. If the sources support an article, move to <a href="/services/wikipedia-page-creation/">creation</a> with disclosure. If they do not, invest in earning independent coverage in the real world first - not in a draft that will be declined.</p>
-<p>For costs, see our published <a href="/wikipedia-page-cost/">Wikipedia page cost</a> tiers. For the disclosure rules in depth, read <a href="/blog/paid-wikipedia-editing-disclosure-and-coi/">paid editing and COI</a>.</p>
+<p>For the disclosure rules in depth, read <a href="/blog/paid-wikipedia-editing-disclosure-and-coi/">paid editing and COI</a>.</p>
 `,
   },
   {
@@ -103,8 +103,8 @@ export const moreBlogPosts: BlogPost[] = [
 <h2>What should never be a line item</h2>
 <p>Guaranteed acceptance, guaranteed ranking, and guaranteed knowledge panels are not deliverables anyone controls. If they appear on an invoice, treat the rest of the pitch with suspicion.</p>
 
-<h2>Published tiers beat opaque “custom only” quotes</h2>
-<p>We publish starting points from $700 upward and fix the figure in writing after assessment. Full package detail lives on the <a href="/wikipedia-page-cost/">pricing page</a>. Creation scope is described under <a href="/services/wikipedia-page-creation/">page creation</a>.</p>
+<h2>Fixed quotes beat open-ended estimates</h2>
+<p>We fix the figure in writing after assessment. Creation scope is described under <a href="/services/wikipedia-page-creation/">page creation</a>.</p>
 `,
   },
   {
